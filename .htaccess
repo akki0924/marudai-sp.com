@@ -1,0 +1,11 @@
+Options +SymLinksIfOwnerMatch
+RewriteEngine on
+
+RewriteCond $1 !^(index\.php|img|images|js|css|src|dist|plugins|robots\.txt|favicon\.ico|\.JPG|assets|\.js|style.css|\.PDF|\.pdf)
+RewriteRule ^(.+)$ /artnews.jp/index.php?/$1 [L]
+
+<FilesMatch "\.(GIF|gif|JPE?G|jpe?g|PNG|png|svg|PDF|pdf)$">
+Satisfy any
+order allow,deny
+allow from all
+</FilesMatch>

@@ -1,0 +1,160 @@
+
+/* メインメニュー */
+a{
+    color:#333333;
+}
+
+.status_mng {
+	text-align: center;
+}
+
+.status_mng tr.panel td {
+	padding: 0px;
+	vertical-align: middle;
+}
+
+.status_mng tr.panel td p {
+	margin: auto;
+}
+
+.status_mng tr.panel td a {
+	padding: 10px;
+	height: 70px;
+	display: block;
+}
+
+.status_mng td a:hover {
+	background: #ddd;
+}
+
+.status_mng tr.panel td.check {
+	cursor: pointer;
+}
+
+.status_mng tr.panel td.check:hover {
+	background: #ddd;
+}
+.status_mng tr.panel td input:hover {
+	cursor: pointer;
+}
+
+.title_bg {
+	background: #EFEFEF;
+}
+
+.title_bg td {
+	padding: 5px 12px;
+	font-size: 15px;
+}
+
+/* 月別受注管理 */
+
+.month {
+	text-align: center;
+	font-size: 30px;
+}
+
+
+/* 管理者管理 */
+
+.check_item{
+	height: 180px;
+}
+
+.box {
+	border: 1px #9C9C9C solid;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+
+/* 進捗ステータス */
+
+.scroll {
+	overflow-y: scroll;
+	height: 135px;
+}
+
+.box_status {
+	border: 1px #17a2b8 solid;
+	text-align: center;
+	color: #FF0004;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 10px 80px;
+	margin: 10px;
+}
+
+.payment_method {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 10px 20px;
+	margin-top: 10px;
+}
+
+.btn_creation {
+	margin-top: 45px;
+	margin-bottom: 10px;
+}
+
+.bg_c001{
+    background-color: #3592b6;
+    color: #FFF;
+    font-size:80%;
+}
+.bg_c002{
+    background-color: #0073aa;
+    color: #FFF;
+    font-size:80%;
+}
+.bg_c003{
+    background-color: #e5f6ff;
+    color: #333;
+}
+
+
+.bg_red{
+    background-color: #FF8E8E;
+    color: #FFF;
+}
+
+.bg_red a{
+    background-color: #FF8E8E;
+    color: #FFF;
+}
+.bg_red a:hover{
+    background-color: #FF8E8E;
+    color: #FFF;
+}
+
+/* 入金詳細　新規作成 */
+
+.cont_center {
+	margin: auto;
+}
+
+.payment_titile {
+	color: #0073aa;
+	font-weight: bold;
+	font-size: 23px;
+	border-bottom: 1px solid #0073aa;
+	margin: 30px 0;
+}
+
+.payment_textbox {
+	height: 200px;
+	margin-bottom: 20px;
+}
+
+.cont_conf01 {
+	font-size: 24px;
+}
+.cont_conf02 {
+	margin: 0 0 20px 50px;
+}
+
+.conp_massage {
+	margin: 80px auto;
+	text-align: center;
+}

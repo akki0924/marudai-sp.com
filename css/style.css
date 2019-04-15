@@ -1,0 +1,533 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+	background: #eee;
+}
+
+.txt_none{
+	display: none;
+}
+
+.txt_none2{
+	display: block;
+}
+
+		@media(max-width:768px){
+			.txt_none{
+				display: block;
+			}
+		}
+
+		@media(max-width:975px){
+			.txt_none2{
+				display: none;
+			}
+		}
+
+/*-----------------------------------------------------------------------------------------------Header*/
+header{
+	background: #b3cf5b;
+	color: #000;
+}
+
+header #navi{
+	max-width: 1200px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+header #navi .menu{
+	padding: 15px 0;
+	font-size: 12px;
+}
+
+header #navi .menu li{
+	display: inline;
+	margin: 20px 40px;
+}
+
+		@media(max-width:768px){
+			header #navi .menu li{
+				display: inline;
+				margin: 20px 10px;
+			}
+		}
+
+/*-----------------------------------------------------------------------------------------------Title*/
+
+#title{
+	background: #fff;
+}
+
+.titleLogo{
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+#title .titleLogo table{
+	width: 100%;
+	margin: 0 auto;
+}
+
+#title .titleLogo th{
+	max-width: 190px;
+	padding: 10px;
+}
+
+#title .titleLogo td{
+	width: 90%;
+}
+
+#title .titleLogo p{
+	text-align: center;
+	font-size: 1.4em;
+	font-weight: bold;
+	font-family: "ＭＳ Ｐ明朝", "MS PMincho","ヒラギノ明朝 Pro W3", "Hiragino Mincho Pro", "serif";
+	color: #666;
+	height: 100%;
+	vertical-align: middle;
+	letter-spacing: 0.3em;
+}
+
+		@media(max-width:768px){
+			#title .titleLogo img{
+				width: 100%;
+			}
+			
+			#title .titleLogo th{
+				width: 25%;
+				padding: 10px;
+			}
+			#title .titleLogo td{
+				width: 75%;
+				font-size: 12px;
+			}
+		}
+
+/*-----------------------------------------------------------------------------------------------Wrapper*/
+
+#wrapper{
+	background: #eee;
+	margin: 10px 0;
+}
+
+/*Container*/
+.container{
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.con_txt{
+	font-size: 20px;
+	margin: 30px 0;
+	color: #666;
+}
+
+.con_txt table{
+	width: 100%;
+	background: #fff;
+	font-family: "ＭＳ Ｐ明朝", "MS PMincho","ヒラギノ明朝 Pro W3", "Hiragino Mincho Pro", "serif";
+	font-weight: bold;
+}
+
+.con_txt table td{
+	padding: 10px;
+}
+
+.con_txt table .number{
+	width: 15%;
+	background: #999;
+	color: #fff;
+	text-align: center;
+	letter-spacing: 0.1em;
+}
+
+/*-----------------------------------------------------------------------------------------------Main*/
+
+.main{
+	width: 75%;
+	float: left;
+}
+
+.main #sp_cat{
+	display: none;
+	font-size: 14px;
+	text-align: center;
+	font-weight: bold;
+	letter-spacing: 0.2em;
+	color: #333;
+	margin-bottom: 10px;
+}
+
+.main #sp_cat ul li{
+	display: inline-block;
+	width: 43%;
+    padding: 10px;
+    margin: 5px;
+	color: #fff;
+}
+
+.main #sp_cat ul li.sp_cat01{
+	background: #e6b422;
+}
+
+.main #sp_cat ul li.sp_cat02{
+	background: #99ab4e;
+}
+
+.main #sp_cat ul li.sp_cat03{
+	background: #e95464;
+}
+
+.main #sp_cat ul li.sp_cat04{
+	background: #89c3eb;
+}
+
+
+.main .article img{
+	width: 100%;
+}
+
+.main .article{
+	width: calc((92% - 10px)/5);
+	display: inline-block;
+	margin: 0 10px 20px 0;
+	background: #fff;
+	max-width: fit-content;
+	max-width: -moz-fit-content;
+}
+
+.main .txt{
+	font-size: 11px;
+	padding: 0 10px 5px 10px;
+}
+
+.main a,
+.main a:active,
+.main a:visited{
+	color: #666;
+	text-decoration:none;
+	font-weight: bold;
+}
+
+.main a:hover{
+	color: #ccc;
+}
+
+		@media(max-width:1105px){		
+			.main .article{
+				width: calc((93% - 10px)/4);
+			}
+		}
+
+		@media(max-width:958px){		
+			.main .article{
+				width: calc((93% - 10px)/3);
+			}
+		}
+
+		@media(max-width:768px){
+			.main{
+				width: 100%;
+				float: none;
+			}
+			
+			.main #sp_cat{
+				display: block;
+			}
+			
+			.main .article{
+				width: calc((88% - 5px)/3);
+				margin: 10px;
+			}
+		}
+
+		@media(max-width:580px){
+			.main .article{
+				width: 46%;
+				margin: 5px;
+			}
+			.main #sp_cat ul li{
+				width: 38%;
+			}
+		}
+
+/*-----------------------------------------------------------------------------------------------Side*/
+
+.side{
+	width: 25%;
+	float: right;
+	max-width: fit-content;
+}
+
+.sideH4{
+	background: #000;
+	padding: 10px;
+	color: #fff;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.side .sideMenu{
+	font-size: 12px;
+	letter-spacing: 0.1em;
+}
+
+.side .sideMenu li{
+	border: solid 3px #b3cf5b;
+	padding: 10px;
+	margin: 5px 0;
+	color: #b3cf5b;
+	background: #fff;
+}
+
+.side .notes{
+	font-size: 11px;
+	padding: 0 5px 0 20px;
+	line-height: 1.3em;
+}
+
+.side .notes li{
+    text-indent: -1em;
+	padding: 0 5px;
+}
+
+.side .notes li:before{
+    content: '※';
+}
+
+.side .sideTxt{
+	text-align:center;
+	font-size: 11px;
+	margin: 10px 0;
+	padding: 10px;
+	border: #b3cf5b 3px solid;
+	border-radius: 10px;
+	background: #fff;
+}
+
+.side .sideTxt h5{
+	border-bottom: 2px solid #b3cf5b;
+	text-align: center;
+	margin-bottom: 5px;
+	font-size: 12px;
+	padding: 2px;
+}
+
+.side .sideTxt h5 img,
+.side .sideTxt p img{
+	width: 100%;
+}
+
+.sideIcon{
+	padding-left: 10px;
+}
+
+.sideIcon li{
+	display: inline-block;
+}
+
+		@media(max-width:768px){
+			.side{
+				width: 97%;
+				float: none;
+				margin: 10px;
+			}
+			.side .sideTxt h5 img,
+			.side .sideTxt p img{
+				width: 280px;
+			}
+
+		}
+
+
+/*-----------------------------------------------------------------------------------------------Footer*/
+
+
+footer{
+	clear: both;
+	background: #fff;
+}
+
+footer .f_contents{
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+/*-----------------------------------------------------------------------------------------------Topics*/
+
+.container .pan{
+	font-size: 11px;
+	padding: 10px;
+}
+
+.main .topics{
+	padding-right:10px;
+	margin-bottom:30px;
+}
+
+.main .topicH3{
+	background: #b3cf5b;
+	color: #000;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 10px;
+	text-align: center;
+}
+
+.main .date{
+	text-align: center;
+	background: #b3cf5b;
+	font-size: 14px;
+	padding: 0 0 5px 0;
+	margin-bottom: 10px;
+}
+
+.main .topicImg img{
+	width: 100%;
+}
+
+.main .topicsTxt{
+	color: #666;
+	margin-bottom: 20px;
+	padding:10px;
+	font-size:14px;
+	line-height:1.4em;
+}
+
+.main .topicAddress{
+	max-width: 900px;
+	background: #fff;
+	font-size: 12px;
+	padding: 20px;
+	color: #666;
+}
+
+.main .topicAddress h4{
+	font-size: 1.2em;
+	margin-bottom: 10px;
+	font-weight: bold;
+	background: #eee;
+	padding: 10px 5px;
+	color: #333;
+	letter-spacing: 0.2em;
+}
+
+.main .topicAddress table{
+	width: 100%;
+	line-height: 1.4em;
+}
+
+.main .topicAddress table tr{
+	border-bottom: 1px dotted #eee;
+}
+
+.main .topicAddress th{
+	width: 70px;
+	font-weight: bold;
+	text-align: center;
+	padding: 10px;
+}
+
+.main .topicAddress td{
+	padding: 10px 0;
+}
+
+		@media(max-width:768px){
+			.main .topics{
+				padding-right:0;
+				margin: 10px;
+			}			
+
+		}
+
+/*-----------------------------------------------------------------------------------------------Map*/
+
+.main .map{
+	padding-right:10px;
+	margin-bottom:30px;
+	font-size: 14px;
+}
+
+
+.main .map .mapTop,
+.main .map .mapMiddle{
+	text-align: center;
+	padding: 10px;
+	background: #e0ebaf;
+	line-height: 2em;
+}
+
+.main .map .mapTop a,
+.main .map .mapTop a:link,
+.main .map .mapTop a:visited{
+	border-bottom: dashed #69821b 1px;
+	color: #69821b;
+}
+
+.main .map .mapBottom{
+	background: #fff;
+	text-align: center;
+	padding: 10px;
+}
+
+.main .map .mapBottom ul li{
+	display: inline-block;
+}
+
+.side .mapSearch{
+	background: #fff;
+	padding: 20px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	line-height: 2em;
+}
+
+.side .mapSearch h5{
+	color: #82ae46;
+}
+
+.side .mapSearch hr{
+	border-top: #b3cf5b 3px solid;
+	border-left: 0px;
+	border-bottom: 0px;
+	border-right: 0px;
+}
+
+.side .mapSearch input{
+	color: #999;
+	font-size: 12px;
+}
+
+.side .mapSearch .choice{
+	padding: 0 20px;
+	line-height: 1.5em;
+}
+
+.side .mapSearch .mapFilter{
+	background: #eaf1c9;
+	color: #333;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.side .mapSearch .choice2{
+	font-weight: bold;
+	color: #486a00;
+}
+
+.side .mapSearch .org{
+	line-height: 1.5em;
+	font-size: 12px;
+	color: #8fc31f;
+	padding-left: 1em;
+}
+
+
+
+
+
+
+
+
+
