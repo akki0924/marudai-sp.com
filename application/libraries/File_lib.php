@@ -225,5 +225,69 @@ class File_lib
         
         return ( $over ) ? $num . $units[$max_digit] : $num . $units[$digits];
     }
+    /*====================================================================
+        関数名： GetExtToMine
+        概　要： 拡張子からMINEタイプを取得
+        引　数： $ext：拡張子
+    */
+    function GetExtToMine ( $ext )
+    {
+        // 返り値を初期化
+        $returnVal = '';
+        
+        // 大文字を小文字に変換
+        $ext = mb_strtolower ( $ext );
+        
+        // JPEG
+        if ( $ext == 'jpg' || $ext == 'jpeg' ) {
+            $returnVal = 'image/jpeg';
+        }
+        // PNG
+        else if ( $ext == 'png' ) {
+            $returnVal = 'image/png';
+        }
+        // GIF
+        else if ( $ext == 'gif' ) {
+            $returnVal = 'image/gif';
+        }
+        // TXT
+        else if ( $ext == 'txt' ) {
+            $returnVal = 'text/plain';
+        }
+        // PDF
+        else if ( $ext == 'pdf' ) {
+            $returnVal = 'application/pdf';
+        }
+        // DOC
+        else if ( $ext == 'doc' ) {
+            $returnVal = 'application/msword';
+        }
+        // DOCX
+        else if ( $ext == 'docx' ) {
+            $returnVal = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+        }
+        // XLS
+        else if ( $ext == 'xls' ) {
+            $returnVal = 'application/vnd.ms-excel';
+        }
+        // XLSX
+        else if ( $ext == 'xlsx' ) {
+            $returnVal = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        }
+        // PPT
+        else if ( $ext == 'ppt' ) {
+            $returnVal = 'application/vnd.ms-powerpoint';
+        }
+        // PPTX
+        else if ( $ext == 'pptx' ) {
+            $returnVal = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+        }
+        // CSV
+        else if ( $ext == 'csv' ) {
+            $returnVal = 'text/csv';
+        }
+        
+        return $returnVal;
+    }
 }
 ?>

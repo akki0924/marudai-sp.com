@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Index extends CI_Controller {
+class Sample extends CI_Controller {
 /*
-    ■機　能： ログイン画面処理
+    ■機　能： 動作確認用画面処理
     ■概　要：
-    ■更新日： 2017/10/12
+    ■更新日： 2019/12/23
     ■担　当： crew.miwa
     ■更新履歴：
-        2017/10/12: 作成開始
+        2019/12/23: 作成開始
 */
     // コンストラクタ
     public function __construct() {
@@ -24,6 +24,6 @@ class Index extends CI_Controller {
     {
         $templateVal = "";
         // テンプレート読み込み
-        $this->load->view('index', self::sharedTemplate($templateVal));
+        $this->load->view('sample01', self::sharedTemplate($templateVal));
     }
 }

@@ -235,10 +235,11 @@ switch (ENVIRONMENT)
 
 	// Name of the "system" directory
 	define('SYSDIR', basename(BASEPATH));
-    
-    // ドキュメントルート
-    define('D_ROOT', "/artnews.jp/");
-    
+
+    // ROOT
+    define('D_ROOT', dirname ( $_SERVER['PHP_SELF'] ) . '/' );
+    session_cache_limiter("none");
+
 	// The path to the "application" directory
 	if (is_dir($application_folder))
 	{

@@ -532,4 +532,4 @@ $config['proxy_ips'] = '';
 | 専用別ファイルをインクルードして管理
 | 
 */
-require_once (APPPATH."libraries/Init.php");
+// require_once (APPPATH."libraries/Init.php");

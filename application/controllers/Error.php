@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Error extends CI_Controller {
+class Error extends MY_Controller {
 /*
-    ■機　能： 
-    ■概　要： 
+    ■機　能：
+    ■概　要：
     ■更新日： 2017/01/14
     ■担　当： crew.miwa
     ■更新履歴：

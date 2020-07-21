@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Index extends CI_Controller {
+class Index extends MY_Controller {
 /*
     ■機　能： ログイン画面処理
-    ■概　要： 
+    ■概　要：
     ■更新日： 2018/02/05
     ■担　当： crew.miwa
     ■更新履歴：
@@ -16,68 +16,63 @@ class Index extends CI_Controller {
         // Controllerクラスのコンストラクタを呼び出す
         parent::__construct();
         // モデル呼出し
-        $this->load->model(Login_model::AUTH_ADMIN . '/index_model');
-        $this->load->model('login_model');
-    }
+        $this->load->model( Base_lib::ADMIN_DIR . '/index_model');
+   }
     // 共通テンプレート
     function sharedTemplate ($templateVal = "")
     {
-/*
-        $templateVal['header_tpl'] = $this->load->view ( Login_model::AUTH_ADMIN . '/header', $templateVal, true );
-        $templateVal['footer_tpl'] = $this->load->view ( Login_model::AUTH_ADMIN . '/footer', $templateVal, true );
-*/
         // ヘッダーテンプレートをセット
-//        $headerVal['id'] = $this->login_model->get_id (Login_model::AUTH_ADMIN);
-        
+//        $headerVal['id'] = $this->login_model->get_id (Base_lib::ADMIN_DIR);
+
         return $templateVal;
     }
     // TOP画面
     public function index()
     {
-        // モデル呼出し
-        $this->load->model(Login_model::AUTH_ADMIN . '/index_model');
-        // form情報の確認
+/*
+        // ログイン変数をセット
+        $loginTarget['key'] = "admin";
+        // ライブラリー読込み
+        $this->load->library( 'login_lib', $loginTarget );
+
+print $this->login_lib->GetAccount();
+*/
+        // FORM情報の確認
         $submit_btn = $this->input->post_get( 'submit_btn', true );
-        // FORM情報をセット
-        $form = $this->index_model->form_list ();
-        for ( $i = 0, $n = count ($form); $i < $n; $i ++ )
-        {
-            $templateVal['form'][$form[$i]] = $this->input->post_get ( $form[$i], true );
-        }
+        $templateVal = $this->index_model->LoginTemplate ();
+        
         // Submitボタンが押された場合
-        if ($submit_btn)
+        if ( $submit_btn )
         {
-            // 共通エラー用設定
-            $this->form_validation->set_error_delimiters('<div class="red">', '</div>');
             // エラーチェックルールをセット
-            $config = $this->config_values();
-            $this->form_validation->set_rules($config);
+            $config = $this->index_model->ConfigLoginValues();
+            $this->index_model->LoginTemplate ( $this->form_validation->set_rules( $config ) );
             // エラー時
             if ($this->form_validation->run() == FALSE) {
                 // テンプレート読み込み
-                $this->load->view ( Login_model::AUTH_ADMIN . '/login', self::sharedTemplate ( $templateVal ) );
+                $this->load->view ( Base_lib::ADMIN_DIR . '/login', self::sharedTemplate ( $templateVal ) );
             }
             else
             {
                 // 設定ページへ遷移
-                redirect( Login_model::AUTH_ADMIN . '/main' );
+//                redirect( Base_lib::ADMIN_DIR . '/main' );
+                // テンプレート読み込み
+                $this->load->view ( Base_lib::ADMIN_DIR . '/main', self::sharedTemplate ( $templateVal ) );
             }
         }
         else
         {
             // テンプレート読み込み
-            $this->load->view ( Login_model::AUTH_ADMIN . '/login', self::sharedTemplate ( $templateVal ) );
+            $this->load->view ( Base_lib::ADMIN_DIR . '/login', self::sharedTemplate ( $templateVal ) );
         }
     }
     // ログアウト処理
     public function logout()
     {
-        // モデル呼出し
-        $this->load->model ( 'login_model' );
-        // SESSION情報を削除
-        $this->login_model->clear_values ( login_model::AUTH_ADMIN );
+        // ログアウト処理
+        $this->index_model->LogoutAction ();
         // テンプレート読み込み
-        $this->load->view ( Login_model::AUTH_ADMIN . '/error', self::sharedTemplate () );
+        $this->load->view ( Base_lib::ADMIN_DIR . '/logout', self::sharedTemplate () );
     }
     // エラー処理
     public function error()
@@ -86,44 +81,8 @@ print_r ($_SESSION);
         // モデル呼出し
         $this->load->model ( 'login_model' );
         // SESSION情報を削除
-        $this->login_model->clear_values ( login_model::AUTH_ADMIN );
+        $this->login_model->clear_values ( Base_lib::ADMIN_DIR );
         // テンプレート読み込み
-        $this->load->view ( Login_model::AUTH_ADMIN . '/error', self::sharedTemplate () );
-    }
-    /*====================================================================
-        関数名： login_values
-        概　要： エラーチェック配列
-    */
-    public function config_values () {
-        $returnValues = array(
-            array(
-                'field'   => 'account',
-                'label'   => 'ユーザーID',
-                'rules'   => 'required'
-            ),
-            array(
-                'field'   => 'password',
-                'label'   => 'パスワード',
-                'rules'   => 'required|callback__check_admin_login[' . $this->input->post_get ( "account", true ) . ']'
-            ),
-        );
-        return ($returnValues);
-    }
-    public function _check_admin_login ( $password, $account )
-    {
-        // モデル呼出し
-        $this->load->model(Login_model::AUTH_ADMIN . '/index_model');
-        // 検証ライブラリ呼出し
-        $this->load->library( 'form_validation' );
-        
-        // ログイン可能かどうか確認
-        if ( $this->index_model->login_action ( $account, $password ) )
-        {
-            // バリデーションOK
-            return TRUE;
-        }
-        // DBに登録済の為バリデーションNG
-        $this->form_validation->set_message( '_check_admin_login', '登録情報が確認できません。入力内容をご確認ください' );
-        return FALSE;
+        $this->load->view ( Base_lib::ADMIN_DIR . '/error', self::sharedTemplate () );
     }
 }

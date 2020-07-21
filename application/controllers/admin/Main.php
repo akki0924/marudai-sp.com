@@ -20,92 +20,14 @@ class Main extends CI_Controller {
     function sharedTemplate ( $templateVal = "" )
     {
         // 各テンプレートをセット
-        $templateVal['header_tpl'] = $this->load->view ( Login_model::AUTH_ADMIN . '/header', $templateVal, true );
-//        $templateVal['footer_tpl'] = $this->load->view ( 'footer', $templateVal, true );
-        
         return $templateVal;
     }
     // TOP画面
     public function index()
     {
-        // 認証確認処理
-        $this->login_model->login_check_admin ();
-        // モデル呼出し
-        $this->load->model(Login_model::AUTH_ADMIN . '/main_model');
-        
-        // FORM情報をセット
-        $form = $this->main_model->form_list ();
-        for ( $i = 0, $n = count ($form); $i < $n; $i ++ )
-        {
-            $templateVal['form'][$form[$i]] = $this->input->post_get ( $form[$i], true );
-        }
-        
-        $templateVal = $this->main_model->TopTemplate( $templateVal['form'] );
 
-        $this->load->view( Login_model::AUTH_ADMIN . '/main', $this->sharedTemplate ( $templateVal ) );
-    }
-    // 刊行情報更新処理(AJAX)
-    public function publication_part()
-    {
-        // モデル呼出し
-        $this->load->model(Login_model::AUTH_ADMIN . '/main_model');
-        
-        // 検証
-        $this->load->library( 'form_validation' );
-        $config = $this->config_values();
-        $this->form_validation->set_error_delimiters( '<div class="red">', '</div>' );
-        $this->form_validation->set_rules( $config );
-        // 成功時
-        if ( $this->form_validation->run() == TRUE )
-        {
-            // 更新処理
-            $returnVal = $this->main_model->EditPublicationAction();
-            
-            // 結果情報をセット
-            $returnVal['result'] = true;
-        }
-        else 
-        {
-            // 結果情報をセット
-            $returnVal['result'] = false;
-        }
-        
-        // JSON形式で返す
-        echo json_encode($returnVal);
-    }
-    // トピックス情報更新処理(AJAX)
-    public function topics_sort_part()
-    {
-        // モデル呼出し
-        $this->load->model(Login_model::AUTH_ADMIN . '/main_model');
-        
-        // 更新処理
-        $returnVal['result'] = $this->main_model->EditTopicsSortAction ();
-        
-        // JSON形式で返す
-        echo json_encode($returnVal);
-    }
-    // トピックス情報削除処理(AJAX)
-    public function topics_del_part()
-    {
-        // モデル呼出し
-        $this->load->model(Login_model::AUTH_ADMIN . '/main_model');
-        
-        // 削除処理
-        $returnVal = $this->main_model->DelTopicsAction ();
-        
-        // JSON形式で返す
-        echo json_encode($returnVal);
-    }
-    // Form値をセット
-    function FormList () {
-        $returnVal[] = 'site';
-        $returnVal[] = 'manager';
-        $returnVal[] = 'password';
-        
-        // submitボタンを追加
-        $returnVal[] = 'submit_btn';
-        return $returnVal;
+//        $this->load->view( Base_lib::ADMIN_DIR . '/main', $this->sharedTemplate ( $templateVal ) );
+        $this->load->view( Base_lib::ADMIN_DIR . '/main' );
     }
     // バリデーション内容
     public function config_values ()

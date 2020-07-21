@@ -7,9 +7,9 @@
 </head>
 <body>
 
-メインページ<br>
+ログアウトページ<br>
 <br>
-<a href="<?= site_dir(); ?>admin/index/logout">ログアウト</a>
+<a href="<?= site_dir(); ?>admin">ログインページへ</a>
 
 </body>
 </html>

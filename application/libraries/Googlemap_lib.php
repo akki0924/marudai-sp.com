@@ -38,7 +38,6 @@ class Googlemap_lib {
         // 情報が取得出来ている場合
         if ( $rs )
         {
-print_r ($rs);
             // JSONから配列に変換
             $rs_array = json_decode ( $rs, true );
             $status = $rs_array['status'];

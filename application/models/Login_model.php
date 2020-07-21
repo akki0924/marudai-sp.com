@@ -12,8 +12,7 @@
 class Login_model extends CI_Model {
     
     // DBテーブル
-    const TABLE_OWNER = Place_lib::MASTER_TABLE;
-    const TABLE_ADMIN = Admin_lib::MASTER_TABLE;
+    const TABLE_ADMIN = "m_admin";
     // 各form名
     const ACCOUNT_NAME = "account";
     const PASSWORD_NAME = "password";
@@ -28,7 +27,6 @@ class Login_model extends CI_Model {
     public function __construct(){
         // ライブラリー読込み
         $this->load->library ( 'session' );
-        $this->load->library ( 'place_lib' );
     }
     /*====================================================================
         関数名： execute

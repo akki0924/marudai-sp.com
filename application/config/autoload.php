@@ -59,17 +59,15 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
 $autoload['libraries'] = array(
-                            'database',
-                            'session',
-                            'form_validation',
-                            'Base',
-                            'Db_lib',
-                            'Str_lib',
-                            'Session_lib',
-                            'Upload_lib',
-                            'MY_Form_validation',
-                            'Place_lib',
-                            'Admin_lib',
+                            'database',            // DB（CodeIgniter基幹ファイル）
+                            'session',             // セッション（CodeIgniter基幹ファイル）
+                            'form_validation',     // FORMバリデーション（CodeIgniter基幹ファイル）
+                            'Base_lib',            // ベースとなるライブラリー（以下、自作ファイル）
+                            'Db_lib',              // DB操作
+                            'Str_lib',             // 文字列操作
+                            'Session_lib',         // セッション操作
+                            'Upload_lib',          // ファイルアップロード操作
+                            'MY_Form_validation',  // FORMバリデーション
                          );
 /*
 | -------------------------------------------------------------------
@@ -144,6 +142,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array(
-                        'login_model',
-                     );
+$autoload['model'] = array();
