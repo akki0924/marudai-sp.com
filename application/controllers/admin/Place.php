@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Place extends CI_Controller {
+class Place extends MY_Controller {
 /*
     ■機　能： 施設ページ画面処理
-    ■概　要： 
+    ■概　要：
     ■更新日： 2019/01/24
     ■担　当： crew.miwa
     ■更新履歴：
@@ -22,7 +22,7 @@ class Place extends CI_Controller {
         // 各テンプレートをセット
         $templateVal['header_tpl'] = $this->load->view ( Login_model::AUTH_ADMIN . '/header', $templateVal, true );
 //        $templateVal['footer_tpl'] = $this->load->view ( 'footer', $templateVal, true );
-        
+
         return $templateVal;
     }
     // TOP画面
@@ -32,7 +32,7 @@ class Place extends CI_Controller {
         $this->login_model->login_check_admin ();
         // モデル呼出し
         $this->load->model(Login_model::AUTH_ADMIN . '/place_model');
-        
+
         $templateVal = $this->place_model->ListTemplate();
         $this->load->view( Login_model::AUTH_ADMIN . '/place_list', $templateVal);
     }
@@ -41,10 +41,10 @@ class Place extends CI_Controller {
     {
         // モデル呼出し
         $this->load->model(Login_model::AUTH_ADMIN . '/place_model');
-        
+
         // 更新処理
         $returnVal['result'] = $this->place_model->EditSortAction ();
-        
+
         // JSON形式で返す
         echo json_encode($returnVal);
     }
@@ -53,10 +53,10 @@ class Place extends CI_Controller {
     {
         // モデル呼出し
         $this->load->model(Login_model::AUTH_ADMIN . '/place_model');
-        
+
         // 削除処理
         $returnVal = $this->place_model->DelAction ();
-        
+
         // JSON形式で返す
         echo json_encode($returnVal);
     }
@@ -111,7 +111,7 @@ class Place extends CI_Controller {
         $this->login_model->login_check_admin ();
         // モデル呼出し
         $this->load->model(Login_model::AUTH_ADMIN . '/place_model');
-        
+
         // テンプレート値を取得
         $templateVal = $this->place_model->sharedTemplate();
         $this->load->view ( Login_model::AUTH_ADMIN . '/place_comp', $templateVal );

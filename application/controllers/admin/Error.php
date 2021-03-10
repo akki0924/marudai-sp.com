@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Error extends CI_Controller {
+class Error extends MY_Controller {
 /*
     ■機　能： エラーページ画面処理
-    ■概　要： 
+    ■概　要：
     ■更新日： 2019/01/18
     ■担　当： crew.miwa
     ■更新履歴：
@@ -27,7 +27,7 @@ class Error extends CI_Controller {
         $returnVal[] = 'site';
         $returnVal[] = 'manager';
         $returnVal[] = 'password';
-        
+
         // submitボタンを追加
         $returnVal[] = 'submit_btn';
         return $returnVal;

@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Genre extends CI_Controller {
+class Genre extends MY_Controller {
 /*
     ■機　能： ジャンルページ画面処理
-    ■概　要： 
+    ■概　要：
     ■更新日： 2019/01/25
     ■担　当： crew.miwa
     ■更新履歴：
@@ -22,7 +22,7 @@ class Genre extends CI_Controller {
         $this->login_model->login_check_admin ();
         // モデル呼出し
         $this->load->model(Login_model::AUTH_ADMIN . '/genre_model');
-        
+
         $templateVal = $this->genre_model->ListTemplate();
         $this->load->view( Login_model::AUTH_ADMIN . '/genre_list', $templateVal);
     }
@@ -31,10 +31,10 @@ class Genre extends CI_Controller {
     {
         // モデル呼出し
         $this->load->model(Login_model::AUTH_ADMIN . '/genre_model');
-        
+
         // 更新処理
         $returnVal['result'] = $this->genre_model->EditSortAction ();
-        
+
         // JSON形式で返す
         echo json_encode($returnVal);
     }
@@ -43,10 +43,10 @@ class Genre extends CI_Controller {
     {
         // モデル呼出し
         $this->load->model(Login_model::AUTH_ADMIN . '/genre_model');
-        
+
         // 削除処理
         $returnVal = $this->genre_model->DelAction ();
-        
+
         // JSON形式で返す
         echo json_encode($returnVal);
     }

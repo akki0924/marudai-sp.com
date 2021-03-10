@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Index extends CI_Controller {
+class Index extends MY_Controller {
 /*
     ■機　能： ログイン画面処理
     ■概　要：

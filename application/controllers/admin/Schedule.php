@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Schedule extends CI_Controller {
+class Schedule extends MY_Controller {
 /*
     ■機　能： スケジュールページ画面処理
-    ■概　要： 
+    ■概　要：
     ■更新日： 2019/01/24
     ■担　当： crew.miwa
     ■更新履歴：
@@ -22,9 +22,9 @@ class Schedule extends CI_Controller {
         $this->login_model->login_check_admin ();
         // モデル呼出し
         $this->load->model(Login_model::AUTH_ADMIN . '/schedule_model');
-        
+
         $templateVal = $this->schedule_model->ListTemplate();
-        
+
         $this->load->view( Login_model::AUTH_ADMIN . '/schedule_list', $templateVal );
     }
     // トピックス情報更新処理(AJAX)
@@ -32,10 +32,10 @@ class Schedule extends CI_Controller {
     {
         // モデル呼出し
         $this->load->model(Login_model::AUTH_ADMIN . '/schedule_model');
-        
+
         // 更新処理
         $returnVal['result'] = $this->schedule_model->EditSortAction ();
-        
+
         // JSON形式で返す
         echo json_encode($returnVal);
     }
@@ -44,10 +44,10 @@ class Schedule extends CI_Controller {
     {
         // モデル呼出し
         $this->load->model(Login_model::AUTH_ADMIN . '/schedule_model');
-        
+
         // 削除処理
         $returnVal = $this->schedule_model->DelAction ();
-        
+
         // JSON形式で返す
         echo json_encode($returnVal);
     }
@@ -56,10 +56,10 @@ class Schedule extends CI_Controller {
     {
         // モデル呼出し
         $this->load->model(Login_model::AUTH_ADMIN . '/schedule_model');
-        
+
         // 更新処理
         $returnVal['result'] = $this->schedule_model->EditStatusAction ();
-        
+
         // JSON形式で返す
         echo json_encode($returnVal);
     }
@@ -111,7 +111,7 @@ class Schedule extends CI_Controller {
         $this->login_model->login_check_admin ();
         // モデル呼出し
         $this->load->model(Login_model::AUTH_ADMIN . '/schedule_model');
-        
+
         // テンプレート値を取得
         $templateVal = $this->schedule_model->sharedTemplate();
         $this->load->view ( Login_model::AUTH_ADMIN . '/schedule_comp', $templateVal );

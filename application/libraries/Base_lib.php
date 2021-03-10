@@ -9,30 +9,21 @@ if (! defined('BASEPATH')) {
     ■担　当 : crew.miwa
 
     ■更新履歴：
-     2015/06/23 : 作成開始
-     2020/01/24 : マスタディレクトリを追加
+        2015/06/23 : 作成開始
+        2020/01/24 : マスタディレクトリを追加
     */
 
 class Base_lib
 {
-//=======================================
-// 定数定義
+    //=======================================
+    // 定数定義
 
+    // サイト情報
+    const SITE_TITLE_NAME = "サンプルサイト";
     // 読込みjqueryファイル名
     const JQUERY_FILE = "jquery-3.5.0.min.js";
     const JQUERY_UI_JS_FILE = "jquery-ui-1.12.1.min.js";
     const JQUERY_UI_CSS_FILE = "jquery-ui-1.12.1.min.css";
-    
-    // メールアドレス
-    const MAIL_FROM_ADDRESS = "吉見出版 <info@yoshimi-s.com>";
-//    const MAIL_FROM_ADDRESS = "吉見出版 <test-order@yoshimi-s.com>";
-//    const MAIL_FROM_ADDRESS = "吉見出版 <akki_21c@yahoo.co.jp>";
-    const MAIL_REPLY = "error@yoshimi-s.com";
-//    const MAIL_REPLY = "test-order@yoshimi-s.com";
-//    const MAIL_REPLY = "akki_21c@yahoo.co.jp";
-    const MAIL_BCC_EMAIL = "order_check@yoshimi-s.com";
-//    const MAIL_BCC_EMAIL = "test-order@yoshimi-s.com";
-//    const MAIL_BCC_EMAIL = "akki_21c@yahoo.co.jp";
     
     // 各ディレクトリ名
     const PUBLIC_DIR = "";                                  // 表
@@ -195,5 +186,109 @@ class Base_lib
         }
         return $arrayVal;
     }
-    
+    /*====================================================================
+        関数名： GetBaseConstList
+        概　要： ベースクラス定数一覧を取得
+        戻り値： クラス定数一覧
+    */
+    public static function GetBaseConstList(): array
+    {
+        // 返値を初期化
+        $returnVal = array();
+        // 定数取得用クラス宣言
+        $targetClass = new ReflectionClass(__CLASS__);
+        // 定数一覧を配列で取得
+        $tempVal = $targetClass->getConstants();
+        foreach ($tempVal as $key => $val) {
+            // 配列キーを小文字に変換
+            $returnVal[mb_strtolower($key)] = $val;
+        }
+
+        return $returnVal;
+    }
+    /*====================================================================
+        関数名： GetConstList
+        概　要： 対象クラス定数一覧を取得
+        引　数 : $className : 対象クラス名
+        戻り値： クラス定数一覧
+    */
+    public static function GetConstList(string $className = ''): array
+    {
+        // 返値を初期化
+        $returnVal = array();
+        // 対象クラス名が未セットの場合、ベースクラス定数をセット
+        if (! $className) {
+            return self::GetBaseConstList();
+        }
+        // 定数取得用クラス宣言
+        $targetClass = new ReflectionClass($className);
+        // 定数一覧を配列で取得
+        $tempVal = $targetClass->getConstants();
+        foreach ($tempVal as $key => $val) {
+            // 配列キーを小文字に変換
+            $returnVal[mb_strtolower($key)] = $val;
+        }
+
+        return $returnVal;
+    }
+    /*====================================================================
+        関数名： SiteHost
+        概　要： サイトホストを返す
+    */
+    public static function SiteHost()
+    {
+        return $_SERVER["HTTP_HOST"];
+    }
+    /*====================================================================
+        関数名： SiteMail
+        概　要： サイトメールアドレスを返す
+    */
+    public static function SiteMail()
+    {
+        return "info@" . self::SiteHost();
+    }
+    /*====================================================================
+        関数名： AdminMail
+        概　要： 管理者メールアドレスを返す
+    */
+    public static function AdminMail()
+    {
+//        return "admin@" . self::SiteHost();
+        return "miwa@ccrw.co.jp";
+    }
+    /*====================================================================
+        関数名： SiteMailFrom
+        概　要： 差出人用メールアドレスを返す
+    */
+    public static function SiteMailFrom()
+    {
+        return self::SITE_TITLE_NAME . " <" . self::SiteMail() . ">";
+    }
+    /*====================================================================
+        関数名： SiteMailReply
+        概　要： エラー時返信用メールアドレスを返す
+    */
+    public static function SiteMailReply()
+    {
+        return "error@" . self::SiteHost();
+    }
+    /*====================================================================
+        関数名： ConsoleLog
+        概　要： 対象データをコンソールログに表示
+        引　数 : $targetData : 対象データ
+    */
+    public static function ConsoleLog($targetData = "")
+    {
+        echo '<script>';
+        echo 'console.log('. json_encode($targetData) .')';
+        echo '</script>';
+    }
+    /*====================================================================
+        関数名： CreateTokenKey
+        概　要： トークンを生成
+    */
+    public function CreateTokenKey()
+    {
+        return bin2hex(random_bytes(32));
+    }
 }

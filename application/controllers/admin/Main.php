@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Main extends CI_Controller {
+class Main extends MY_Controller {
 /*
     ■機　能： Topページ画面処理
-    ■概　要： 
+    ■概　要：
     ■更新日： 2019/01/18
     ■担　当： crew.miwa
     ■更新履歴：

@@ -1,0 +1,11 @@
+{
+   "files.exclude": {
+      "application/cache": true,
+      "application/hooks": true,
+      "application/logs": true,
+      "application/third_party": true,
+      "application/language": true,
+      "system/": true
+      "src/": true
+   }
+}

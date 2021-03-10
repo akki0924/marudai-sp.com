@@ -59,15 +59,17 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
 $autoload['libraries'] = array(
-                            'database',            // DB（CodeIgniter基幹ファイル）
-                            'session',             // セッション（CodeIgniter基幹ファイル）
-                            'form_validation',     // FORMバリデーション（CodeIgniter基幹ファイル）
-                            'Base_lib',            // ベースとなるライブラリー（以下、自作ファイル）
-                            'Db_lib',              // DB操作
-                            'Str_lib',             // 文字列操作
-                            'Session_lib',         // セッション操作
-                            'Upload_lib',          // ファイルアップロード操作
-                            'MY_Form_validation',  // FORMバリデーション
+                            'database',             // DB（CodeIgniter基幹ファイル）
+                            'session',              // セッション（CodeIgniter基幹ファイル）
+                            'form_validation',      // FORMバリデーション（CodeIgniter基幹ファイル）
+                            'Base_lib',             // ベースとなるライブラリー（以下、自作ファイル）
+                            'Db_lib',               // DB操作
+                            'Str_lib',              // 文字列操作
+                            'Session_lib',          // セッション操作
+                            'Upload_lib',           // ファイルアップロード操作
+                            'File_lib',             // ファイル操作
+                            'MY_Form_validation',   // FORMバリデーション
+                            'Status_lib',           // ステータス（2択選択項目）用
                          );
 /*
 | -------------------------------------------------------------------
@@ -99,7 +101,13 @@ $autoload['drivers'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 // $autoload['helper'] = array();
-$autoload['helper'] = array('url', 'file', 'form', 'view');
+$autoload['helper'] = array(
+                        'url',
+                        'file',
+                        'form',
+                        'view',
+                        'string',
+                      );
 
 /*
 | -------------------------------------------------------------------
