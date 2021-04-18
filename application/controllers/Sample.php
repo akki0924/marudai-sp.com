@@ -43,16 +43,17 @@ class Sample extends MY_Controller
         // JSON形式で返す
         echo json_encode($returnVal);
     }
+
     // JSファイル書出し
     public function js()
     {
         // JSファイル書出し
-        $this->jscss_lib->CreateJs($this->load->view('js/sample_js', $this->sharedTemplate(), true));
+        $this->jscss_lib->CreateJs($this->load->view('js/create_js', $this->sharedTemplate(), true));
     }
     // CCSファイル書出し
     public function css()
     {
         // CCSファイル書出し
-        $this->jscss_lib->CreateCss($this->load->view('css/sample_css', $this->sharedTemplate(), true));
+        $this->jscss_lib->CreateCss($this->load->view('css/create_css', $this->sharedTemplate(), true));
     }
 }

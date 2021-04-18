@@ -68,6 +68,10 @@ class Status_lib
             'SURU' => array(
                 Base_lib::STATUS_ENABLE =>  "する",
             ),
+            'SELECT_SHINAI_SURU' => array(
+                Base_lib::STATUS_DISABLE => "選択しない",
+                Base_lib::STATUS_ENABLE =>  "選択する"
+            ),
             'SUMI' => array(
                 Base_lib::STATUS_ENABLE =>  "済",
             ),
@@ -92,10 +96,6 @@ class Status_lib
             ),
             'DOUI' => array(
                 Base_lib::STATUS_ENABLE =>  "同意する",
-            ),
-            'RECEIPT' => array(
-                Base_lib::STATUS_ENABLE =>  "吉見出版領収書",
-                Base_lib::STATUS_DISABLE => "通常領収書(出納業者領収書)もしくは受領書"
             ),
             'PERMISSION' => array(
                 Base_lib::STATUS_ENABLE =>  "許可",

@@ -33,12 +33,13 @@ class Jscss_lib extends Base_lib
     // ローディング
     const TIME_LOADING_SPEED = 300;
     const TIME_LOADING_TIMEOUT = 500;
+    // AJAX後画面遷移用キー
+    const KEY_AJAX_LOCATION = 'location';
     // AJAX後画面への反映フラグ
     const KEY_AJAX_REACTION = 'reaction';
     const KEY_AJAX_REACTION_FLG = self::KEY_AJAX_REACTION . '_flg';
     // スーパーオブジェクト割当用変数
     protected $CI;
-
     /**
      * コンストラクタ
      */

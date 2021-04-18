@@ -5,7 +5,8 @@
       "application/logs": true,
       "application/third_party": true,
       "application/language": true,
-      "system/": true
-      "src/": true
+      "system/": true,
+      "src/": true,
+      "font/": true
    }
 }

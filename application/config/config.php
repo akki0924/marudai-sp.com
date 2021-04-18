@@ -23,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://' . $_SERVER["HTTP_HOST"] . D_ROOT;
+$config['base_url'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http');
+$config['base_url'] .= '://' . $_SERVER["HTTP_HOST"] . D_ROOT;
 
 /*
 |--------------------------------------------------------------------------
@@ -526,10 +527,10 @@ $config['proxy_ips'] = '';
 
 /*
 |--------------------------------------------------------------------------
-| ���ʒ萔���Z�b�g
+| 共通定数をセット
 |--------------------------------------------------------------------------
 |
-| ��p�ʃt�@�C�����C���N���[�h���ĊǗ�
+| 専用別ファイルをインクルードして管理
 | 
 */
 // require_once (APPPATH."libraries/Init.php");

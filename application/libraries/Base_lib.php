@@ -54,7 +54,7 @@ class Base_lib
     
     // 画像
     const IMG_DIR = "images";                               // 画像ディレクトリ
-    
+
     // バリデーション用
     const VALID_SEPARATE_STR = '|';                         // バリデーションの分割用文字列
     const VALID_STR_BEFORE = '<div class="form_error">';    // バリデーション囲い文字（前）
@@ -70,7 +70,7 @@ class Base_lib
     */
     public function __construct()
     {
-        setlocale( LC_MONETARY, "ja_JP.UTF8" ); // ロケール
+        setlocale(LC_MONETARY, "ja_JP.UTF8"); // ロケール
 /*
         $is_win = strpos(PHP_OS, "WIN") === 0;
         // Windowsの場合は Shift_JIS、Unix系は UTF-8で処理
@@ -88,11 +88,11 @@ class Base_lib
         引　数 : $array : 対象プルダウン用配列
                  $defaultWord : 無選択時の文字列
     */
-    public static function SelectboxDefalutForm( $array = "", $defaultWord = "" )
+    public static function SelectboxDefalutForm($array = "", $defaultWord = "")
     {
-        $default_array[''] = ( $defaultWord ? $defaultWord : self::DEFAULT_SELECT_FIRST_WORD );
-        $returnVal = ( is_array ( $array ) ? $default_array + $array : $default_array );
-        
+        $default_array[''] = ($defaultWord ? $defaultWord : self::DEFAULT_SELECT_FIRST_WORD);
+        $returnVal = (is_array($array) ? $default_array + $array : $default_array);
+
         return $returnVal;
     }
     /*====================================================================
@@ -116,12 +116,12 @@ class Base_lib
         概　要 : 数値を金額文字列にフォーマット
         引　数 : $num : 対象数字
     */
-    public static function NumFormat( $num )
+    public static function NumFormat($num)
     {
         $returnVal = '';
         // 数値の場合
-        if ( is_numeric ( $num ) ) {
-            $returnVal = self::AddSlashes ( number_format ( $num ) );
+        if (is_numeric($num)) {
+            $returnVal = self::AddSlashes(number_format($num));
         }
         return $returnVal;
     }
@@ -130,7 +130,7 @@ class Base_lib
         概　要 : 文字列をスラッシュでクォートする
         引　数 : $str : 対象文字列
     */
-    public static function AddSlashes ( $str )
+    public static function AddSlashes($str)
     {
         $str = addslashes($str);
         $str = preg_replace("/\\'/", "'", $str);
@@ -148,7 +148,7 @@ class Base_lib
         概　要 : 文字列が空の場合ヌルを返す
         引　数 : $data : 対象文字列
     */
-    public static function EmptyToNull( $data )
+    public static function EmptyToNull($data)
     {
         if (($data == "" && $data !==  0) || !isset($data)) {
             $data = "NULL";
@@ -160,26 +160,26 @@ class Base_lib
         概　要 : validation - in_list用の配列キーから変換した文字列を返す
         引　数 : $array : 対象配列
     */
-    public static function GetConvValidInList ( $array )
+    public static function GetConvValidInList($array)
     {
-        return @implode ( array_keys ( $array ) , self::STR_DELIMITER_SYSTEM );
+        return @implode(array_keys($array), self::STR_DELIMITER_SYSTEM);
     }
     /*====================================================================
         関数名： EditTableForm
         概　要： 対象リストをテーブル用構造に変換して返す
         引　数 : $arrayVal : 対象配列
-                 $wrapCount : 改行行数
+                $wrapCount : 改行行数
     */
-    public static function EditTableForm ( $arrayVal, $wrapCount )
+    public static function EditTableForm($arrayVal, $wrapCount)
     {
-        $n = ceil ( count ( $arrayVal ) / $wrapCount ) * $wrapCount;
-        for ( $i = 0; $i < $n; $i ++ ) {
-            if ( $i == 0 ) {
+        $n = ceil(count($arrayVal) / $wrapCount) * $wrapCount;
+        for ($i = 0; $i < $n; $i ++) {
+            if ($i == 0) {
                 $arrayVal[$i]['top'] = true;
             }
-            if ( ( $i + 1 ) % $wrapCount == 0 ) {
+            if (($i + 1) % $wrapCount == 0) {
                 $arrayVal[$i]['wrap'] = true;
-                if ( $i < $n - 1 ) {
+                if ($i < $n - 1) {
                     $arrayVal[$i + 1]['top'] = true;
                 }
             }
@@ -191,7 +191,7 @@ class Base_lib
         概　要： ベースクラス定数一覧を取得
         戻り値： クラス定数一覧
     */
-    public static function GetBaseConstList(): array
+    public static function GetBaseConstList(): ?array
     {
         // 返値を初期化
         $returnVal = array();
@@ -279,9 +279,11 @@ class Base_lib
     */
     public static function ConsoleLog($targetData = "")
     {
-        echo '<script>';
-        echo 'console.log('. json_encode($targetData) .')';
-        echo '</script>';
+        if (ENVIRONMENT == 'development') {
+            echo '<script>';
+            echo 'console.log('. json_encode($targetData) .')';
+            echo '</script>';
+        }
     }
     /*====================================================================
         関数名： CreateTokenKey
