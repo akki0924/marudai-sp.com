@@ -34,10 +34,7 @@ $(function() {
    });
 });
 </script>
-function DelAction () {
-   $('#operation_form').attr( 'action', '<?= SiteDir(); ?>admin/XXX/del' );
-   $('#operation_form').submit();
-}
+
 </head>
 <body>
 サンプル01ページ

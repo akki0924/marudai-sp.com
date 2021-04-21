@@ -18,6 +18,7 @@ class Sample extends MY_Controller
         parent::__construct();
         // ライブラリー読込み
         $this->load->library('jscss_lib');
+        $this->load->library('create_lib');
     }
     // 共通テンプレート
     public function sharedTemplate($returnVal = array())
@@ -32,6 +33,14 @@ class Sample extends MY_Controller
         // テンプレート読み込み
         $this->load->view('sample', $this->sharedTemplate());
     }
+    // ファイル生成テスト
+    public function create()
+    {
+        // ファイル生成
+        $this->create_lib->CreateLiblary();
+        print "ok";
+    }
+
     // Ajax処理
     public function ajax()
     {
