@@ -24,12 +24,14 @@ class Base_lib
     const JQUERY_FILE = "jquery-3.5.0.min.js";
     const JQUERY_UI_JS_FILE = "jquery-ui-1.12.1.min.js";
     const JQUERY_UI_CSS_FILE = "jquery-ui-1.12.1.min.css";
-    
+
     // 各ディレクトリ名
     const PUBLIC_DIR = "";                                  // 表
     const OWNER_DIR = "";                                   // オーナー
     const ADMIN_DIR = "admin";                              // 管理
     const MASTER_DIR = "master";                            // マスタディレクトリ
+    const LIBRARY_DIR = "libraries";                        // ライブラリーディレクトリ
+    const JSON_DIR = "json";                                // JSONディレクトリ
     const WEB_DIR_SEPARATOR = '/';                          // ディレクトリー区切り文字列（WEB）
 
     // 各ページ名
@@ -41,17 +43,17 @@ class Base_lib
     const STATUS_ENABLE = 1;                                // 有効
     const STATUS_TEMP = 0;                                  // 保留
     const STATUS_DISABLE = -1;                              // 無効
-    
+
     // 各名称
     const NAME_SUBMIT_BTN = 'submit_btn';                   // サブミットボタン
-    
+
     // プルダウン無選択項目
     const DEFAULT_SELECT_FIRST_WORD = "▼選択して下さい";
-    
+
     // アップロード
     const SRC_DIR = 'src';                                  // アップロードディレクトリ
     const SRC_TEMP_DIR = 'tmp';                             // アップロード一時ディレクトリ
-    
+
     // 画像
     const IMG_DIR = "images";                               // 画像ディレクトリ
 

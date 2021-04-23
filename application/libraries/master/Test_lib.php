@@ -9,19 +9,22 @@ if (! defined('BASEPATH')) {
  *
  * @author akki.m
  * @version 1.0.0
- * @since 1.0.0     2021/04/21：新規作成
+ * @since 1.0.0     2021/04/23：新規作成
  */
-class Test{
+class Test_lib extends Base_lib
+{
     /**
      * const
      */
     // テーブル名
-    const MASTER_TABLE = "m_test";                  // 指定席マスタ
+    const MASTER_TABLE = 'm_test';
+    // ID生成文字数
+    const ID_STR_NUM = 10;
     // 表示ステータス
-    const ID_STATUS_OK = '1';
-    const ID_STATUS_NG = '-1';
-    const NAME_STATUS_OK = '大丈夫だよ';
-    const NAME_STATUS_NG = '大丈夫じゃないよ';
+    const ID_STATUS_OK = 1;
+    const ID_STATUS_NG = -1;
+    const NAME_STATUS_OK = 'OKです';
+    const NAME_STATUS_NG = 'NGです';
 
     // スーパーオブジェクト割当用変数
     protected $CI;
@@ -205,13 +208,13 @@ class Test{
     }
 
 
-
-    /*====================================================================
-        関数名 : CreateId
-        概　要 : IDを生成
-        引　数 : $public : ステータスフラグ
-    */
-    public function CreateId($public = false)
+    /**
+     * 新規IDを生成
+     *
+     * @param boolean $public
+     * @return string
+     */
+    public function CreateId(bool $public = false) : string
     {
         // 未登録のランダム文字列を生成
         return $this->CI->db_lib->CreateStr(self::MASTER_TABLE, 'id', self::ID_STR_NUM, $public);

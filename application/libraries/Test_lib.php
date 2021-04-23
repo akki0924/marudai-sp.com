@@ -1,46 +1,27 @@
-\<\?php
+<?php
 if (! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 /**
- * <?= $title ?>データ用ライブラリー
+ * テストデータ用ライブラリー
  *
- * <?= $title ?>データの取得および処理する為の関数群
+ * テストデータの取得および処理する為の関数群
  *
  * @author akki.m
  * @version 1.0.0
- * @since 1.0.0     <?= date('Y/m/d') ?>：新規作成
+ * @since 1.0.0     2021/04/21：新規作成
  */
-class <?= $className ?> extends Base_lib
-{
+class Test_lib{
     /**
      * const
      */
     // テーブル名
-    const MASTER_TABLE = '<?= $tableName ?>';
-<?php for ($i = 0, $n = count($constOnly); $i < $n; $i ++) { ?>
-    // <?= $constOnly[$i]['title']; ?>
-
-    const <?= $constOnly[$i]['key']; ?> = <?= !is_numeric($constOnly[$i]['val']) ? "'" . $constOnly[$i]['val'] . "'" : $constOnly[$i]['val'] ?>;
-<?php } ?>
-<?php
-    foreach ($constSet as $key => $val) {
-        ?>
-    // <?= $val['title']; ?>
-
-<?php
-        for ($i = 0, $n = count($val['data']); $i < $n; $i ++) {
-            ?>
-    const ID_<?= $key ?>_<?= $val['data'][$i]['key'] ?> = <?= !is_numeric($val['data'][$i]['val']) ? "'" . $val['data'][$i]['val'] . "'" : $val['data'][$i]['val'] ?>;
-<?php
-        }
-        for ($i = 0, $n = count($val['data']); $i < $n; $i ++) {
-            ?>
-    const NAME_<?= $key ?>_<?= $val['data'][$i]['key'] ?> = '<?= $val['data'][$i]['name'] ?>';
-<?php
-        }
-    }
-?>
+    const MASTER_TABLE = 'm_test';                  // マスタテーブル
+    // 表示ステータス
+    const ID_STATUS_OK = '1';
+    const ID_STATUS_NG = '-1';
+    const NAME_STATUS_OK = 'OKです';
+    const NAME_STATUS_NG = 'NGです';
 
     // スーパーオブジェクト割当用変数
     protected $CI;
@@ -74,10 +55,12 @@ class <?= $className ?> extends Base_lib
         // SQL
         $query = $this->CI->db->query("
             SELECT
-<?php for ($i = 0, $n = count($columnList); $i < $n; $i ++) { ?>
-                " . self::MASTER_TABLE . " . <?= $columnList[$i] ?><?= ($i < ($n - 1) ? ',' : '') ?>
-
-<?php } ?>
+                " . self::MASTER_TABLE . " . id,
+                " . self::MASTER_TABLE . " . name,
+                " . self::MASTER_TABLE . " . sort_id,
+                " . self::MASTER_TABLE . " . status,
+                " . self::MASTER_TABLE . " . regist_date,
+                " . self::MASTER_TABLE . " . edit_date
             FROM " . self::MASTER_TABLE . "
             WHERE (
                 " . self::MASTER_TABLE . " . id = '" . Base_lib::AddSlashes($id) . "'
@@ -97,50 +80,68 @@ class <?= $className ?> extends Base_lib
 
 
 
-<?php for ($i = 0, $n = count($selectList); $i < $n; $i ++) { ?>
     /**
-     * <?= $selectList[$i]['title'] ?>一覧を取得
+     * 名前一覧を取得
      *
      * @param bool $public
      * @return array|null
      */
-    public function Get<?= $selectList[$i]['key'] ?>List(bool $public = false) : ?array
+    public function GetNameList(bool $public = false) : ?array
     {
-        return $this->CI->db_lib->GetSelectValues(self::MASTER_TABLE, '<?= $selectList[$i]['name'] ?>', $public);
+        return $this->CI->db_lib->GetSelectValues(self::MASTER_TABLE, 'name', $public);
     }
 
 
-<?php } ?>
-<?php for ($i = 0, $n = count($choiceList); $i < $n; $i ++) { ?>
     /**
-     * <?= $choiceList[$i]['title'] ?>を取得
+     * 名前を取得
      *
      * @param string $id
      * @param boolean $public
      * @return string|null
      */
-    public function Get<?= $choiceList[$i]['key'] ?>(string $id, bool $public = false) : ?string
+    public function GetName(string $id, bool $public = false) : ?string
     {
-        return $this->CI->db_lib->GetValue(self::MASTER_TABLE, '<?= $choiceList[$i]['name'] ?>', $id, 'id', $public);
+        return $this->CI->db_lib->GetValue(self::MASTER_TABLE, 'name', $id, 'id', $public);
     }
 
 
-<?php } ?>
-<?php for ($i = 0, $n = count($choiceList); $i < $n; $i ++) { ?>
     /**
-     * <?= $choiceList[$i]['title'] ?>からIDを取得
+     * 順番を取得
      *
-     * @param string $<?= $choiceList[$i]['name'] ?>
+     * @param string $id
      * @param boolean $public
      * @return string|null
      */
-    public function GetIdFrom<?= $choiceList[$i]['key'] ?>(string $<?= $choiceList[$i]['name'] ?>, bool $public = false) : ?string
+    public function GetSortId(string $id, bool $public = false) : ?string
     {
-        return $this->CI->db_lib->GetValue(self::MASTER_TABLE, 'id', $<?= $choiceList[$i]['name'] ?>, '<?= $choiceList[$i]['name'] ?>', $public);
+        return $this->CI->db_lib->GetValue(self::MASTER_TABLE, 'sort_id', $id, 'id', $public);
     }
 
 
-<?php } ?>
+    /**
+     * 名前からIDを取得
+     *
+     * @param string $name     * @param boolean $public
+     * @return string|null
+     */
+    public function GetIdFromName(string $name, bool $public = false) : ?string
+    {
+        return $this->CI->db_lib->GetValue(self::MASTER_TABLE, 'id', $name, 'name', $public);
+    }
+
+
+    /**
+     * 順番からIDを取得
+     *
+     * @param string $sort_id     * @param boolean $public
+     * @return string|null
+     */
+    public function GetIdFromSortId(string $sort_id, bool $public = false) : ?string
+    {
+        return $this->CI->db_lib->GetValue(self::MASTER_TABLE, 'id', $sort_id, 'sort_id', $public);
+    }
+
+
     /**
      * IDの登録有無
      *
@@ -154,52 +155,69 @@ class <?= $className ?> extends Base_lib
     }
 
 
-<?php for ($i = 0, $n = count($choiceList); $i < $n; $i ++) { ?>
     /**
-     * <?= $choiceList[$i]['title'] ?>の登録有無
+     * 名前の登録有無
      *
-     * @param string $<?= $choiceList[$i]['name'] ?>
-     * @param boolean $public
+     * @param string $name     * @param boolean $public
      * @return boolean
      */
-    public function <?= $choiceList[$i]['key'] ?>Exists($<?= $choiceList[$i]['name'] ?>, $public = false)
+    public function NameExists($name, $public = false)
     {
-        return $this->CI->db_lib->ValueExists(self::MASTER_TABLE, $<?= $choiceList[$i]['name'] ?>, '<?= $choiceList[$i]['name'] ?>', $public);
+        return $this->CI->db_lib->ValueExists(self::MASTER_TABLE, $name, 'name', $public);
     }
 
 
-<?php } ?>
-<?php for ($i = 0, $n = count($choiceList); $i < $n; $i ++) { ?>
     /**
-     * <?= $choiceList[$i]['title'] ?>が対象ID以外に同じ値が存在するかどうか
+     * 順番の登録有無
      *
-     * @param string $<?= $choiceList[$i]['name'] ?>：対象<?= $choiceList[$i]['title'] ?>
-     * @param string $id：除外ID
-     * @param boolean $public
+     * @param string $sort_id     * @param boolean $public
      * @return boolean
      */
-    public function <?= $choiceList[$i]['key'] ?>SameExists($<?= $choiceList[$i]['name'] ?>, $id = '', $public = false) : ?bool
+    public function SortIdExists($sort_id, $public = false)
     {
-        return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $<?= $choiceList[$i]['name'] ?>, '<?= $choiceList[$i]['name'] ?>', $id, 'id', $public);
+        return $this->CI->db_lib->ValueExists(self::MASTER_TABLE, $sort_id, 'sort_id', $public);
     }
 
 
-<?php } ?>
-<?php if ($CreateId_flg) { ?>
     /**
-     * 新規IDを生成
+     * 名前が対象ID以外に同じ値が存在するかどうか
      *
+     * @param string $name：対象名前     * @param string $id：除外ID
      * @param boolean $public
-     * @return string
+     * @return boolean
      */
-    public function CreateId(bool $public = false) : string
+    public function NameSameExists($name, $id = '', $public = false) : ?bool
+    {
+        return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $name, 'name', $id, 'id', $public);
+    }
+
+
+    /**
+     * 順番が対象ID以外に同じ値が存在するかどうか
+     *
+     * @param string $sort_id：対象順番     * @param string $id：除外ID
+     * @param boolean $public
+     * @return boolean
+     */
+    public function SortIdSameExists($sort_id, $id = '', $public = false) : ?bool
+    {
+        return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sort_id, 'sort_id', $id, 'id', $public);
+    }
+
+
+
+    /*====================================================================
+        関数名 : CreateId
+        概　要 : IDを生成
+        引　数 : $public : ステータスフラグ
+    */
+    public function CreateId($public = false)
     {
         // 未登録のランダム文字列を生成
         return $this->CI->db_lib->CreateStr(self::MASTER_TABLE, 'id', self::ID_STR_NUM, $public);
     }
 
 
-<?php } ?>
     /**
      * DB登録処理
      *
@@ -252,52 +270,42 @@ class <?= $className ?> extends Base_lib
     }
 
 
-<?php
-    foreach ($constSet as $key => $val) {
-        ?>
     /**
-     * <?= $val['title'] ?>一覧を配列形式で取得
+     * 表示ステータス一覧を配列形式で取得
      *
      * @return array
      */
-    public function Get<?= $val['key'] ?>List() : array
+    public function GetStatusList() : array
     {
-<?php
-    for ($i = 0, $n = count($val['data']); $i < $n; $i ++) {
-        ?>
-        $returnVal[self::ID_<?= $key ?>_<?= $val['data'][$i]['key'] ?>] = self::NAME_<?= $key ?>_<?= $val['data'][$i]['key'] ?>;
-<?php
-    } ?>
+        $returnVal[self::ID_STATUS_OK] = self::NAME_STATUS_OK;
+        $returnVal[self::ID_STATUS_NG] = self::NAME_STATUS_NG;
 
         return $returnVal;
     }
     /**
-     * <?= $val['title'] ?>名を取得
+     * 表示ステータス名を取得
      *
      * @param string $id
      * @return string
      */
-    public function Get<?= $val['key'] ?>Name($id) : string
+    public function GetStatusName($id) : string
     {
         // 一覧リストを取得
-        $list = $this->Get<?= $val['key'] ?>List();
+        $list = $this->GetStatusList();
         return (isset($list[ $id ]) ? $list[ $id ] : '');
     }
     /**
-     * <?= $val['title'] ?>の存在確認結果を取得
+     * 表示ステータスの存在確認結果を取得
      *
      * @param string $id
      * @return bool
      */
-    public function Get<?= $val['key'] ?>Exists($id) : bool
+    public function GetStatusExists($id) : bool
     {
         // 一覧リストを取得
-        $list = $this->Get<?= $val['key'] ?>List();
+        $list = $this->GetStatusList();
         return (isset($list[ $id ]) ? true : false);
     }
 
 
-<?php
-    }
-?>
 }

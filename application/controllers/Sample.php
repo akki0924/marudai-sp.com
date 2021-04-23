@@ -37,7 +37,7 @@ class Sample extends MY_Controller
     public function create()
     {
         // ファイル生成
-        $this->create_lib->CreateLiblary();
+        $this->create_lib->CreateLibraries();
         print "ok";
     }
 

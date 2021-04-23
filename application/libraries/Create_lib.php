@@ -9,7 +9,7 @@ if (! defined('BASEPATH')) {
  *
  * @author akki.m
  * @version 1.0.0
- * @since 1.0.0     2021/02/27  新規作成
+ * @since 1.0.0     2021/04/21  新規作成
  */
 class Create_lib extends Base_lib
 {
@@ -20,8 +20,13 @@ class Create_lib extends Base_lib
     const TEMPLATE_MODEL = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . 'model';      // モデル用テンプレート
     const TEMPLATE_LIBLARY = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . 'library';  // ライブラリー用テンプレート
 
+    const JSON_DIR = Base_lib::JSON_DIR;
+    const JSON_LIBRARY_DIR = self::JSON_DIR . self::WEB_DIR_SEPARATOR . Base_lib::LIBRARY_DIR;
+
     const CHANGE_PHP_TAG_START = '\<\?';
     const CHANGE_PHP_TAG_END = '\?\>';
+
+    const KEY_ID_STR_NUM = 'ID_STR_NUM';
     // スーパーオブジェクト割当用変数
     protected $CI;
 
@@ -34,71 +39,96 @@ class Create_lib extends Base_lib
         $this->CI =& get_instance();
     }
 
+
     /**
-     * JS形式にして書出し処理
+     * Libraryファイルの書出し処理
+     *
+     * @param string $strData：対象ファイルパス
+     * @return void
+     */
+    public function CreateLibrary(string $filePath = '')
+    {
+        // ヘルパー関数読込み
+        $this->CI->load->helper('file');
+        // 読込みJSONファイルをセット
+        $targetFile = self::JSON_DIR . self::WEB_DIR_SEPARATOR;
+        $targetFile .= $filePath;
+        // JSONファイルを読込み
+        $jsonData = $this->CI->load->view($targetFile, '', true);
+        // JSONデコード
+        $templateVal = json_decode($jsonData, true);
+        // データ追加処理
+        $templateVal['className'] = pathinfo(basename($targetFile), PATHINFO_FILENAME);
+        $templateVal['CreateId_flg'] = false;
+        if (isset($templateVal['constOnly'])) {
+            for ($i = 0, $n = count($templateVal['constOnly']); $i < $n; $i ++) {
+                if ($templateVal['constOnly'][$i]['key'] == self::KEY_ID_STR_NUM) {
+                    $templateVal['CreateId_flg'] = true;
+                    break;
+                }
+            }
+        }
+        Base_lib::ConsoleLog($jsonData);
+        Base_lib::ConsoleLog($templateVal);
+
+        // 希望エリア選択テンプレート読み込み
+        $writeVal = $this->CI->load->view(self::TEMPLATE_LIBLARY, $templateVal, true);
+        $writeVal = $this->ReturnPhpTag($writeVal);
+        // 出力先パス
+        $uploadPath = 'application/' . $filePath;
+        // 出力先の親ディレクトリパス
+        $uploadDir = dirname(dirname(APPPATH) . self::WEB_DIR_SEPARATOR . $uploadPath);
+        Base_lib::ConsoleLog($uploadPath);
+        Base_lib::ConsoleLog($uploadDir);
+        // 出力ファイルの親ディレクトリが未存在の場合
+        if (!file_exists($uploadDir)) {
+            // ディレクトリを生成
+            mkdir($uploadDir, 0755);
+        }
+        // ファイル出力
+        write_file($uploadPath, $writeVal);
+    }
+
+
+    /**
+     * Libraryファイル一覧の書出し処理
      *
      * @param string|null $strData
      * @return void
      */
-    public function CreateLiblary(?string $strData = '')
+    public function CreateLibraries() : void
     {
         // ヘルパー関数読込み
         $this->CI->load->helper('file');
-        // 日本語名
-        $set['name'] = 'テスト';
-        // クラス名（ファイル名）
-        $set['fileName'] = 'Test';
-        // テーブル名
-        $set['tableName'] = 'm_test';
-        // カラム一覧
-        $set['columnList'] = array(
-            'id',
-            'name',
-            'sort_id',
-            'status',
-            'regist_date',
-            'edit_date',
-        );
-        // 個別取得カラム一覧
-        $set['selectList'] = array(
-            array(
-                'key' => 'Name',
-                'name' => 'name',
-                'title' => '名前',
-            ),
-            array(
-                'key' => 'SortId',
-                'name' => 'sort_id',
-                'title' => '順番'
-            ),
-        );
-        // 定数一覧
-        $set['constList'] = array(
-            'STATUS' => array(
-                'comment' => '表示ステータス',
-                'key' => 'Status',
-                'data' => array(
-                    array(
-                        'key' => 'OK',
-                        'id' => 1,
-                        'name' => '大丈夫だよ',
-                    ),
-                    array(
-                        'key' => 'NG',
-                        'id' => -1,
-                        'name' => '大丈夫じゃないよ',
-                    ),
-                ),
-            ),
-        );
-        Base_lib::ConsoleLog($set);
-        // 希望エリア選択テンプレート読み込み
-        $test = $this->CI->load->view(self::TEMPLATE_LIBLARY, $set, true);
-        $test = $this->ReturnPhpTag($test);
-
-        // 出力先
-        write_file('application/libraries/create_test.php', $test);
+        // 対象ディレクトリ
+        $targetDir = APPPATH . 'views' . self::WEB_DIR_SEPARATOR . self::JSON_LIBRARY_DIR;
+        // ディレクトリ一覧を取得
+        $dirList = $this->CI->file_lib->GetDirList($targetDir);
+        Base_lib::ConsoleLog($dirList);
+        foreach ($dirList as $dirVal) {
+            // ディレクトリ内ファイル一覧
+            $fileList = $this->CI->file_lib->GetNameList($targetDir . self::WEB_DIR_SEPARATOR . $dirVal);
+            foreach ($fileList as $fileVal) {
+                Base_lib::ConsoleLog($fileList);
+                // JSONファイルパス
+                $targetFile = Base_lib::LIBRARY_DIR . self::WEB_DIR_SEPARATOR . $dirVal;
+                $targetFile .= self::WEB_DIR_SEPARATOR . $fileVal;
+                // ファイル書出し処理
+                $this->CreateLibrary($targetFile);
+            }
+        }
+        // ファイル一覧
+        $fileList = $this->CI->file_lib->GetNameList($targetDir);
+        foreach ($fileList as $fileVal) {
+            Base_lib::ConsoleLog($fileList);
+            // JSONファイルパス
+            $targetFile = Base_lib::LIBRARY_DIR . self::WEB_DIR_SEPARATOR . $fileVal;
+            // ファイル書出し処理
+            $this->CreateLibrary($targetFile);
+        }
     }
+
+
     /**
      * 対象文字列から、変換された各PHPタグを元に戻す
      *
