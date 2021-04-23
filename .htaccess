@@ -9,3 +9,8 @@ Satisfy any
 order allow,deny
 allow from all
 </FilesMatch>
+
+# AuthName "admin"
+# AuthType Basic
+# AuthUserFile /work/.htpasswd
+# require valid-user

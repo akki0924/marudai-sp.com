@@ -9,7 +9,7 @@ if (! defined('BASEPATH')) {
  *
  * @author akki.m
  * @version 1.0.0
- * @since 1.0.0     2021-03-10
+ * @since 1.0.0     2021/03/10
  */
 class Str_lib
 {
