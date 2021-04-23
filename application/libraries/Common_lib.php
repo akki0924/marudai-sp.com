@@ -11,13 +11,13 @@ if (! defined('BASEPATH')) {
  * @version 1.0.0
  * @since 1.0.0     2021/04/23：新規作成
  */
-class Test_lib extends Base_lib
+class Common_lib extends Base_lib
 {
     /**
      * const
      */
     // テーブル名
-    const MASTER_TABLE = 'm_test';
+    const MASTER_TABLE = 'm_common';
     // ID生成文字数
     const ID_STR_NUM = 10;
     // 表示ステータス
@@ -44,17 +44,14 @@ class Test_lib extends Base_lib
     /**
      * IDに対応した詳細データを取得
      *
-     * @param string $id:ID
-     * @param boolean $public:ステータスフラグ
+     * @param string $id：ID
+     * @param bool $public：ステータスフラグ
      * @return array|null
      */
-    public function GetDetailValues($id = "", $public = false) : ?array
+    public function DetailValues (string $id = '', bool $public = false) : ?array
     {
         // 返値を初期化
         $returnVal = array();
-
-        // ライブラリー読込み
-        $this->CI->load->library(Base_lib::MASTER_DIR . '/reserve_lib');
         // SQL
         $query = $this->CI->db->query("
             SELECT
@@ -66,21 +63,20 @@ class Test_lib extends Base_lib
                 " . self::MASTER_TABLE . " . edit_date
             FROM " . self::MASTER_TABLE . "
             WHERE (
-                " . self::MASTER_TABLE . " . id = '" . Base_lib::AddSlashes($id) . "'
+                " . self::MASTER_TABLE . " . id = " . $this->CI->db_lib->SetWhereVar($id) . " AND
                 " . ($public ? " AND " . self::MASTER_TABLE . " . status >= " . Base_lib::STATUS_ENABLE : "") . "
             )
             ");
         // 結果が、空でない場合
         if ($query->num_rows() > 0) {
-            $result_list = $query->result_array();
-            foreach ($result_list[0] as $key => $val) {
+            $resultList = $query->result_array();
+            foreach ($resultList[0] as $key => $val) {
                 // CordIgniter用配列にセット
                 $returnVal[$key] = $val;
             }
         }
         return $returnVal;
     }
-
 
 
     /**
@@ -124,7 +120,8 @@ class Test_lib extends Base_lib
     /**
      * 名前からIDを取得
      *
-     * @param string $name     * @param boolean $public
+     * @param string $name
+     * @param boolean $public
      * @return string|null
      */
     public function GetIdFromName(string $name, bool $public = false) : ?string
@@ -136,7 +133,8 @@ class Test_lib extends Base_lib
     /**
      * 順番からIDを取得
      *
-     * @param string $sort_id     * @param boolean $public
+     * @param string $sort_id
+     * @param boolean $public
      * @return string|null
      */
     public function GetIdFromSortId(string $sort_id, bool $public = false) : ?string
@@ -161,10 +159,11 @@ class Test_lib extends Base_lib
     /**
      * 名前の登録有無
      *
-     * @param string $name     * @param boolean $public
+     * @param string $name
+     * @param boolean $public
      * @return boolean
      */
-    public function NameExists($name, $public = false)
+    public function NameExists($name, $public = false) : bool
     {
         return $this->CI->db_lib->ValueExists(self::MASTER_TABLE, $name, 'name', $public);
     }
@@ -173,10 +172,11 @@ class Test_lib extends Base_lib
     /**
      * 順番の登録有無
      *
-     * @param string $sort_id     * @param boolean $public
+     * @param string $sort_id
+     * @param boolean $public
      * @return boolean
      */
-    public function SortIdExists($sort_id, $public = false)
+    public function SortIdExists($sort_id, $public = false) : bool
     {
         return $this->CI->db_lib->ValueExists(self::MASTER_TABLE, $sort_id, 'sort_id', $public);
     }
@@ -185,11 +185,12 @@ class Test_lib extends Base_lib
     /**
      * 名前が対象ID以外に同じ値が存在するかどうか
      *
-     * @param string $name：対象名前     * @param string $id：除外ID
+     * @param string $name：対象名前
+     * @param string $id：除外ID
      * @param boolean $public
      * @return boolean
      */
-    public function NameSameExists($name, $id = '', $public = false) : ?bool
+    public function NameSameExists($name, $id = '', $public = false) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $name, 'name', $id, 'id', $public);
     }
@@ -198,11 +199,12 @@ class Test_lib extends Base_lib
     /**
      * 順番が対象ID以外に同じ値が存在するかどうか
      *
-     * @param string $sort_id：対象順番     * @param string $id：除外ID
+     * @param string $sort_id：対象順番
+     * @param string $id：除外ID
      * @param boolean $public
      * @return boolean
      */
-    public function SortIdSameExists($sort_id, $id = '', $public = false) : ?bool
+    public function SortIdSameExists($sort_id, $id = '', $public = false) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sort_id, 'sort_id', $id, 'id', $public);
     }

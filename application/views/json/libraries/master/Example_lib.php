@@ -1,0 +1,94 @@
+{
+    "__comment":"雛形テーブル取得用関数群",
+    "title__comment":"クラス用タイトル表記",
+    "title":"雛形データ用ライブラリー",
+    "description__comment":"クラス用説明文表記",
+    "description":"雛形データの取得および処理する為の関数群",
+    "tableName__comment":"DBテーブル名",
+    "tableName":"m_example",
+    "detailList__comment":"詳細取得関数",
+    "detailList":[
+        {
+            "description__comment":"関数説明文",
+            "description":"IDに対応した詳細データを取得",
+            "key__comment":"関数名",
+            "key":"DetailValues",
+            "arg__comment":"関数引数 title:日本語表記, key:変数名, type:変数型, column:対応カラム名, default:初期値",
+            "arg":[
+                {
+                    "title":"ID",
+                    "key":"$id",
+                    "type":"string",
+                    "column":"id",
+                    "default":"''"
+                },
+                {
+                    "title":"ステータスフラグ",
+                    "key":"$public",
+                    "type":"bool",
+                    "column":"",
+                    "default":"false"
+                }
+            ],
+            "column__comment":"取得カラム一覧",
+            "column":[
+                "id",
+                "name",
+                "sort_id",
+                "status",
+                "regist_date",
+                "edit_date"
+            ],
+            "single__comment":"取得リスト単独フラグ true:単独, false:複数",
+            "single":true
+        }
+    ],
+    "selectList__comment":"対象カラム単独一覧取得関数 title:日本語表記, key:関数追加文言, column:カラム名",
+    "selectList":[
+        {
+            "title":"名前",
+            "key":"Name",
+            "column":"name"
+        }
+    ],
+    "choiceList__comment":"IDから取得、逆引き取得、存在確認関数生成 title:日本語表記, key:関数追加文字, column:カラム名",
+    "choiceList":[
+        {
+            "title":"名前",
+            "key":"Name",
+            "column":"name"
+        },
+        {
+            "title":"順番",
+            "key":"SortId",
+            "column":"sort_id"
+        }
+    ],
+    "constOnly__comment":"定数宣言のみ  title:日本語表記, key:定数名, val:値",
+    "constOnly":[
+        {
+            "title":"ID生成文字数",
+            "key":"ID_STR_NUM",
+            "val":10
+        }
+    ],
+    "constSet__comment":"定数宣言および、処理用関数 親key:定数ベース名, title:日本語表記, key:関数追加文字, data:詳細内容[key:定数末尾文字, val:値, name:名前]",
+    "constSet":{
+        "STATUS":{
+            "title":"表示ステータス",
+            "key":"Status",
+            "data":[
+                {
+                    "key":"OK",
+                    "val":1,
+                    "name":"OKです"
+                },
+                {
+                    "key":"NG",
+                    "val":-1,
+                    "name":"NGです"
+                }
+            ]
+        }
+    }
+}
