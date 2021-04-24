@@ -20,24 +20,27 @@ class Base_lib
 
     // サイト情報
     const SITE_TITLE_NAME = "サンプルサイト";
-    // 読込みjqueryファイル名
-    const JQUERY_FILE = "jquery-3.5.0.min.js";
-    const JQUERY_UI_JS_FILE = "jquery-ui-1.12.1.min.js";
-    const JQUERY_UI_CSS_FILE = "jquery-ui-1.12.1.min.css";
-
-    // 各ディレクトリ名
-    const PUBLIC_DIR = "";                                  // 表
-    const OWNER_DIR = "";                                   // オーナー
-    const ADMIN_DIR = "admin";                              // 管理
-    const MASTER_DIR = "master";                            // マスタディレクトリ
-    const LIBRARY_DIR = "libraries";                        // ライブラリーディレクトリ
-    const JSON_DIR = "json";                                // JSONディレクトリ
-    const WEB_DIR_SEPARATOR = '/';                          // ディレクトリー区切り文字列（WEB）
-
     // 各ページ名
     const PUBLIC_MAIN_PAGE = "main";                        // 表メインページ
     const OWNER_MAIN_PAGE = "main";                         // オーナーメインページ
     const ADMIN_MAIN_PAGE = "main";                         // 管理メインページ
+
+    // 各ディレクトリ名
+    const ACCESS_ADMIN_DIR = "adminc";                      // 管理（アクセス用）別途config/routes.phpで別途設定が必要
+    const PUBLIC_DIR = "public";                            // 表
+    const OWNER_DIR = "owner";                              // オーナー
+    const ADMIN_DIR = "admin";                              // 管理
+    const MASTER_DIR = "master";                            // マスタディレクトリ
+    const VIEW_DIR = "views";                               // ビューディレクトリ
+    const MODEL_DIR = "models";                             // モデルディレクトリ
+    const LIBRARY_DIR = "libraries";                        // ライブラリーディレクトリ
+    const JSON_DIR = "json";                                // JSONディレクトリ
+    const WEB_DIR_SEPARATOR = '/';                          // ディレクトリー区切り文字列（WEB）
+
+    // 読込みjqueryファイル名
+    const JQUERY_FILE = "jquery-3.5.0.min.js";
+    const JQUERY_UI_JS_FILE = "jquery-ui-1.12.1.min.js";
+    const JQUERY_UI_CSS_FILE = "jquery-ui-1.12.1.min.css";
 
     // ステータス
     const STATUS_ENABLE = 1;                                // 有効
@@ -57,7 +60,7 @@ class Base_lib
     // 画像
     const IMG_DIR = "images";                               // 画像ディレクトリ
 
-    // バリデーション用
+    // バリデーション
     const VALID_SEPARATE_STR = '|';                         // バリデーションの分割用文字列
     const VALID_STR_BEFORE = '<div class="form_error">';    // バリデーション囲い文字（前）
     const VALID_STR_AFTER = '</div>';                       // バリデーション囲い文字（後）

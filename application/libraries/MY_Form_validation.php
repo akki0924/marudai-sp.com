@@ -1,14 +1,16 @@
-<?PHP
-if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+if (! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
     /*
     ■機　能： Form_validationライブラリ拡張バリデーションライブラリー
     ■概　要： バリデーションを独自設定関数群
-    ■更新日： 2018/02/06
+    ■更新日： 2021/04/09
     ■担　当： crew.miwa
 
     ■更新履歴：
-     2018/02/06: 作成開始
-     
+        2018/02/06 : 作成開始
+        2021/04/09 : サイト用に関数追加
     */
 
 class MY_Form_validation extends CI_Form_validation
@@ -23,7 +25,7 @@ class MY_Form_validation extends CI_Form_validation
     //====================================================================
     //  コントラクト
     //
-    public function __construct( $params = array () )
+    public function __construct($params = array())
     {
         $this->CI =& get_instance();
     }
@@ -32,23 +34,18 @@ class MY_Form_validation extends CI_Form_validation
     //  概　要 : メールアドレスとパスワードによりログイン情報の有無を返す
     //  引　数 : $password : パスワード
     //           $email : ID（メールアドレス）
-    function ValidLoginUser ( $password, $email )
+    public function ValidLoginUser($password, $email)
     {
         // ログイン変数をセット
         $loginTarget['key'] = self::LOGIN_USER_KEY;
         // ライブラリー読込み
-        $this->CI->load->library( 'login_lib', $loginTarget );
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/user_lib' );
-        // エラー
-        if ( $this->CI->user_lib->GetRegistTypeToEmail ( $email, true ) > User_lib::ID_REGIST_TYPE_REGULAR ) {
-            $this->set_message( 'ValidLoginUser',  'ゲストユーザーでのご購入は出来ません。ユーザー登録をお願いします。' );
-            return false;
-        }
-        else if( $this->CI->login_lib->LoginAction ( $email, $password ) ) {
+        $this->CI->load->library('login_lib', $loginTarget);
+        $this->CI->load->library(Base_lib::MASTER_DIR . '/user_lib');
+        // ログインOK
+        if ($this->CI->login_lib->LoginAction($email, $password)) {
             return true;
-        }
-        else {
-            $this->set_message( 'ValidLoginUser',  '入力された情報は登録されておりません。' );
+        } else {
+            $this->set_message('ValidLoginUser', '入力された情報は登録されておりません。');
             return false;
         }
     }
@@ -57,17 +54,16 @@ class MY_Form_validation extends CI_Form_validation
     //  概　要 : アカウントとパスワードによりログイン情報の有無を返す
     //  引　数 : $password : パスワード
     //           $account : アカウント
-    function ValidLoginAdmin ( $password, $account )
+    public function ValidLoginAdmin($password, $account)
     {
         // ログイン変数をセット
         $loginTarget['key'] = self::LOGIN_ADMIN_KEY;
         // ライブラリー読込み
-        $this->CI->load->library( 'login_lib', $loginTarget );
-        if( $this->CI->login_lib->LoginAction ( $account, $password ) ) {
+        $this->CI->load->library('login_lib', $loginTarget);
+        if ($this->CI->login_lib->LoginAction($account, $password)) {
             return true;
-        }
-        else {
-            $this->set_message( 'ValidLoginAdmin',  '入力された情報は登録されておりません。' );
+        } else {
+            $this->set_message('ValidLoginAdmin', '入力された情報は登録されておりません。');
             return false;
         }
     }
@@ -75,13 +71,12 @@ class MY_Form_validation extends CI_Form_validation
     //  関数名 : ValidKatakana
     //  概　要 : カタカナ入力かどうか
     //  引　数 : $str : 文字列
-    function ValidKatakana ( $str )
+    public function ValidKatakana($str)
     {
-        if ( preg_match( "/^[ァ-ヶー]+$/u", $str ) ) {
+        if (preg_match("/^[ァ-ヶー]+$/u", $str)) {
             return true;
-        }
-        else {
-            $this->set_message( 'ValidKatakana',  'カタカナで入力してください' );
+        } else {
+            $this->set_message('ValidKatakana', 'カタカナで入力してください');
             return false;
         }
     }
@@ -90,84 +85,132 @@ class MY_Form_validation extends CI_Form_validation
     //  概　要 : 日付情報が正しいかどうか
     //  引　数 : $tmpVal : 使用しない
     //           $targetDate : 対象日付
-    function ValidDate ( $tmpVal, $targetDate )
+    public function ValidDate($tmpVal, $targetDate)
     {
         // 数字のみ
-        if ( is_numeric ( $targetDate ) ) {
-            $year = substr ( $targetDate, 0, 4 );
-            $month = substr ( $targetDate, 4, 2 );
-            $day = substr ( $targetDate, 6, 2 );
+        if (is_numeric($targetDate)) {
+            $year = substr($targetDate, 0, 4);
+            $month = substr($targetDate, 4, 2);
+            $day = substr($targetDate, 6, 2);
         }
         // スラッシュ、ドット、ハイフンで分割
-        else if (
-            strpos( $targetDate, '/' ) !== false ||
-            strpos( $targetDate, '.' ) !== false ||
-            strpos( $targetDate, '-' ) !== false
+        elseif (
+            strpos($targetDate, '/') !== false ||
+            strpos($targetDate, '.') !== false ||
+            strpos($targetDate, '-') !== false
         ) {
-            list( $year, $month, $day ) = preg_split ( '/[\/\.\-]/', $targetDate );
+            list($year, $month, $day) = preg_split('/[\/\.\-]/', $targetDate);
         }
-        
+
         if (
-            isset ( $year ) &&
-            isset ( $month ) &&
-            isset ( $day ) &&
-            checkdate ( $month, $day, $year )
+            isset($year) &&
+            isset($month) &&
+            isset($day) &&
+            checkdate($month, $day, $year)
         ) {
             return true;
-        }
-        else {
-            $this->set_message( 'ValidDate',  '入力内容をご確認下さい。' );
+        } else {
+            $this->set_message('ValidDate', '入力内容をご確認下さい。');
             return false;
+        }
+    }
+    //====================================================================
+    //  関数名 : ValidDateAdult
+    //  概　要 : 日付情報で成人かどうか
+    //  引　数 : $tmpVal : 使用しない
+    //           $targetDate : 対象日付
+    public function ValidDateAdult($tmpVal, $targetDate)
+    {
+        // ライブラリー読込み
+        $this->CI->load->library('date_lib');
+        // 年齢を取得
+        $age = $this->CI->date_lib->GetAge($targetDate);
+        if ($age >= 20) {
+            return true;
+        } else {
+            $this->set_message('ValidDateAdult', '未成年の応募はできません。');
+            return false;
+        }
+    }
+    //====================================================================
+    //  関数名 : ValidRepeated
+    //  概　要 : 重複チェック
+    //  引　数 : $tmpVal : 使用しない
+    //           $targetDate : 対象情報
+    //              氏名（漢字）
+    //              誕生日
+    //              ユーザーID
+    //              対象エリア
+    //              対象日付（配列）
+    public function ValidRepeated($tmpVal, $targetVal)
+    {
+        // ライブラリー読込み
+        $this->CI->load->library(Base_lib::MASTER_DIR . '/user_lib');
+        $this->CI->load->library(Base_lib::MASTER_DIR . '/reserve_lib');
+        $this->CI->load->library('date_lib');
+        // 対象情報を各変数に分割
+        list($name, $birth, $id, $areaId, $date) = preg_split('/[' . Base_lib::VALID_SEPARATE_STR . ']/', $targetVal);
+        // 氏名（漢字）、誕生日から重複チェック
+        $repeatedFlg = $this->CI->user_lib->NameBirthTelSameExists(
+            $name,
+            $birth,
+            $id,
+            User_lib::ID_STATUS_TEMP
+        );
+        // 成功
+        if (! $repeatedFlg) {
+            return true;
+        }
+        // 失敗
+        else {
+            // エラー文字列を初期化
+            $errMsg = '';
+            // IDが未セット
+            if (!$id) {
+                // 名前と誕生日からIDを再セット
+                $id = $this->CI->user_lib->GetNameBirthToId($name, $birth, User_lib::ID_STATUS_TEMP);
+            }
+            // IDがセット
+            if ($id) {
+                // 対象エリアが指定席の場合
+                if ($areaId == Reserve_lib::ID_AREA_SELECT) {
+                    $dateArray = @explode(Reserve_lib::VALID_SEPARATE_STR_DATE, $date);
+                    // 登録済みの日付一覧を取得
+                    $dateList = $this->CI->reserve_lib->GetUserDateCheckList($dateArray, $name, $birth, Reserve_lib::ID_STATUS_TEMP);
+                    for ($i = 0, $n = count($dateList); $i < $n; $i ++) {
+                        // エラーメッセージが複数になる際、エラーメッセージ用のタグを挟む
+                        $errMsg .= ($i > 0 ? '</div><div class="form_error">' : '');
+                        $day = new DateTime($dateList[$i]['date']);
+                        $dateDisp = $day->format('Y年n月j日');
+                        $dateDisp .= '（' . $this->CI->date_lib->GetWeekListName($day->format('w')) . '）';
+                        $errMsg .= '来場希望日：' . $dateDisp . 'は既に応募が完了しております。';
+                    }
+                }
+            }
+            // エラーメッセージが未セット
+            if (!$errMsg) {
+                return true;
+            }
+            // エラーメッセージセット
+            else {
+                $this->set_message('ValidRepeated', $errMsg);
+                return false;
+            }
         }
     }
     //====================================================================
     //  関数名 : ValidItemId
     //  概　要 : 対象商品IDが存在するかを返す
     //  引　数 : $itemId : 商品ID
-    function ValidItemId ( $itemId, $public = false )
+    public function ValidItemId($itemId, $public = false)
     {
         // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/item_lib' );
-        
-        if( $this->CI->item_lib->IdExists ( $itemId, $public ) ) {
+        $this->CI->load->library(Base_lib::MASTER_DIR . '/item_lib');
+
+        if ($this->CI->item_lib->IdExists($itemId, $public)) {
             return true;
-        }
-        else {
-            $this->set_message( 'ValidItemId',  '入力された情報は登録されておりません。' );
-            return false;
-        }
-    }
-    //====================================================================
-    //  関数名 : ValidItemDisplayType
-    //  概　要 : 対象商品掲載カテゴリーの登録有無を返す
-    //  引　数 : $displayType : 商品掲載カテゴリー
-    function ValidItemDisplayType ( $displayType )
-    {
-        // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/item_lib' );
-        
-        if( $this->CI->item_lib->DisplayTypeExists ( $displayType ) ) {
-            return true;
-        }
-        else {
-            $this->set_message( 'ValidItemDisplayType',  '入力された情報は登録されておりません。' );
-            return false;
-        }
-    }
-    //====================================================================
-    //  関数名 : ValidItemOrderCode
-    //  概　要 : 対象商品ご注文番号の他の登録有無を返す
-    //  引　数 : $orderCode : ご注文番号
-    //           $id : 商品ID
-    function ValidItemOrderCode ( $orderCode, $id = '' )
-    {
-        // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/item_lib' );
-        if( ! $this->CI->item_lib->OrderCodeSameExists ( $orderCode, $id, true ) ) {
-            return true;
-        }
-        else {
-            $this->set_message( 'ValidItemOrderCode',  '既に登録されています。' );
+        } else {
+            $this->set_message('ValidItemId', '入力された情報は登録されておりません。');
             return false;
         }
     }
@@ -175,154 +218,12 @@ class MY_Form_validation extends CI_Form_validation
     //  関数名 : ValidItemStatus
     //  概　要 : 対象商品ステータスの登録有無を返す
     //  引　数 : $status : 商品ステータス
-    function ValidItemStatus ( $status )
+    public function ValidItemStatus($status)
     {
-        if( $this->CI->status_lib->SelectExists ( 'KOUKAI_HIKOUKAI', $status ) ) {
+        if ($this->CI->status_lib->SelectExists('KOUKAI_HIKOUKAI', $status)) {
             return true;
-        }
-        else {
-            $this->set_message( 'ValidItemStatus',  '入力された情報は登録されておりません。' );
-            return false;
-        }
-    }
-    //====================================================================
-    //  関数名 : ValidItemCategory
-    //  概　要 : 対象商品カテゴリー対象選択有無を返す
-    //  引　数 : $category : 選択カテゴリー情報（未使用）
-    //           $category_list : 選択カテゴリーリストと、サブカテゴリーリストの結合文字列
-/*
-    function ValidItemCategory ( $category, $category_list = '' )
-    {
-        // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/category_lib' );
-        
-        // 返り値用の値をセット
-        $returnVal = true;
-        
-        // 引数を再構成
-        // カテゴリー結合情報を分割
-        $category_list = ( isset ( $category_list ) ? explode ( Base_lib::VALID_SEPARATE_STR, $category_list ) : '' );
-        // カテゴリー情報を配列化
-        $category = ( isset ( $category_list[0] ) ? explode ( ',', $category_list[0] ) : '' );
-        // サブカテゴリー情報を配列化
-        $sub_category = ( isset ( $category_list[1] ) ? explode ( ',', $category_list[1] ) : '' );
-        
-        // カテゴリー情報が配列の場合
-        if ( is_array ( $category ) ) {
-            foreach ( $category AS $key => $val ) {
-                // カテゴリー、サブカテゴリーどちらかに値がセットされていない
-                if ( ! isset ( $category[$key] ) || ! isset ( $sub_category[$key] ) ) {
-                    $this->set_message( 'ValidItemCategory',  '選択されていない項目があります。' );
-                    $returnVal = false;
-                    break;
-                }
-                else {
-                    // 選択カテゴリーが登録されていない
-                    if ( ! $this->CI->category_lib->IdExists( $category[$key], true ) ) {
-                        $this->set_message( 'ValidItemCategory',  '選択内容をご確認ください。' );
-                        $returnVal = false;
-                        break;
-                    }
-                    else {
-                        // カテゴリーIDとサブカテゴリー親IDが一致していない
-                        if ( $category[$key] != $this->CI->category_lib->GetParentId ( $sub_category[$key], true ) ) {
-                            $this->set_message( 'ValidItemCategory',  '選択内容をご確認ください。' );
-                            $returnVal = false;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        else {
-            // カテゴリー、サブカテゴリーどちらかに値がセットされていない
-            if ( ! isset ( $category ) || ! isset ( $sub_category ) ) {
-                $this->set_message( 'ValidItemCategory',  '選択されていない項目があります。' );
-                $returnVal = false;
-            }
-            else {
-                // 選択カテゴリーが登録されていない
-                if ( ! $this->CI->category_lib->IdExists( $category, true ) ) {
-                    $this->set_message( 'ValidItemCategory',  '選択内容をご確認ください。' );
-                    $returnVal = false;
-                }
-                else {
-                    // カテゴリーIDとサブカテゴリー親IDが一致していない
-                    if ( $category != $this->CI->category_lib->GetParentId ( $sub_category, true ) ) {
-                        $this->set_message( 'ValidItemCategory',  '選択内容をご確認ください。' );
-                        $returnVal = false;
-                    }
-                    // 関連IDを取得
-                    $relation_id = $this->CI->category_lib->GetRelationId ( $category, true );
-                    // 関連IDとサブカテゴリの親IDが一致しているか
-                    if ( $relation_id == $this->CI->category_lib->GetParentId ( $sub_category, true ) ) {
-                        $this->set_message( 'ValidItemCategory',  '選択内容をご確認ください。' );
-                    }
-                }
-            }
-        }
-        
-        return $returnVal;
-    }
-*/
-    function ValidItemCategory ( $category, $sub_category = '' )
-    {
-        // 返り値用の値をセット
-        $returnVal = true;
-        // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/category_lib' );
-        
-        // カテゴリー、サブカテゴリーどちらかに値がセットされていない
-        if ( ! isset ( $category ) || ! isset ( $sub_category ) ) {
-            $this->set_message( 'ValidItemCategory',  '選択されていない項目があります。' );
-            $returnVal = false;
-        }
-        else {
-            // 選択カテゴリーが登録されていない
-            if ( ! $this->CI->category_lib->IdExists( $category, true ) ) {
-                $this->set_message( 'ValidItemCategory',  '選択内容をご確認ください。' );
-                $returnVal = false;
-            }
-            else {
-                // カテゴリーIDとサブカテゴリー親IDが一致していない
-                if ( $category != $this->CI->category_lib->GetParentId ( $sub_category, true ) ) {
-                    $this->set_message( 'ValidItemCategory',  '選択内容をご確認ください。' );
-                    $returnVal = false;
-                }
-            }
-        }
-        
-        return $returnVal;
-    }
-    //====================================================================
-    //  関数名 : ValidItemOptionPattern
-    //  概　要 : 対象商品オプションパターンの登録有無を返す
-    //  引　数 : $status : 商品オプションパターン
-    function ValidItemOptionPattern ( $patternId )
-    {
-        // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/item_option_lib' );
-        if( $this->CI->item_option_lib->PatterIdExists ( $patternId ) ) {
-            return true;
-        }
-        else {
-            $this->set_message( 'ValidItemOptionPattern',  '入力された情報は登録されておりません。' );
-            return false;
-        }
-    }
-    //====================================================================
-    //  関数名 : ValidItemNaire
-    //  概　要 : 対象商品ステータスの登録有無を返す
-    //  引　数 : $id : 名入れID
-    function ValidItemNaire ( $id )
-    {
-        // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/trophy_lib' );
-        if( $this->CI->trophy_lib->NaireExists ( $id ) ) {
-            return true;
-        }
-        else {
-            $this->set_message( 'ValidItemNaire',  '選択内容をご確認ください。' );
+        } else {
+            $this->set_message('ValidItemStatus', '入力された情報は登録されておりません。');
             return false;
         }
     }
@@ -330,13 +231,12 @@ class MY_Form_validation extends CI_Form_validation
     //  関数名 : ValidAdminAccount
     //  概　要 : 管理者アカウントの他の登録有無を返す
     //  引　数 : $account : アカウント
-    function ValidAdminAccount ( $account, $id = '' )
+    public function ValidAdminAccount($account, $id = '')
     {
-        if( ! $this->CI->admin_lib->AccountSameExists ( $account, $id, true ) ) {
+        if (! $this->CI->admin_lib->AccountSameExists($account, $id, true)) {
             return true;
-        }
-        else {
-            $this->set_message( 'ValidAdminAccount',  '既に登録されています。' );
+        } else {
+            $this->set_message('ValidAdminAccount', '既に登録されています。');
             return false;
         }
     }
@@ -345,32 +245,30 @@ class MY_Form_validation extends CI_Form_validation
     //  概　要 : 対象ユーザーE-mailの他の登録有無を返す
     //  引　数 : $email : E-mail
     //           $id : ユーザーID
-    function ValidUserEmail ( $email, $id = '' )
+    public function ValidUserEmail($email, $id = '')
     {
         // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/user_lib' );
-        if( ! $this->CI->user_lib->EmaileSameExists ( $email, $id, true ) ) {
+        $this->CI->load->library(Base_lib::MASTER_DIR . '/user_lib');
+        if (! $this->CI->user_lib->EmaileSameExists($email, $id, true)) {
             return true;
-        }
-        else {
-            $this->set_message( 'ValidUserEmail',  '既に登録されています。' );
+        } else {
+            $this->set_message('ValidUserEmail', '既に登録されています。');
             return false;
         }
     }
     //====================================================================
-    //  関数名 : ValidFeatureOrderCode
-    //  概　要 : 対象特集ページのご注文番号の登録有無を返す
-    //  引　数 : $orderCode : ご注文番号
-    //           $id : 商品ID
-    function ValidFeatureOrderCode ( $orderCode )
+    //  関数名 : ValidSeatName
+    //  概　要 : 対象座席番号が他の登録有無を返す
+    //  引　数 : $seatName : 座席番号
+    //           $seatId : 座席ID
+    public function ValidSeatName($seatName, $seatId = '')
     {
         // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/item_lib' );
-        if( $this->CI->item_lib->OrderCodeExists ( $orderCode, true ) ) {
+        $this->CI->load->library(Base_lib::MASTER_DIR . '/seat_lib');
+        if (! $this->CI->seat_lib->NameSameExists($seatName, $seatId, true)) {
             return true;
-        }
-        else {
-            $this->set_message( 'ValidFeatureOrderCode',  '登録されていないご注文番号です。' );
+        } else {
+            $this->set_message('ValidSeatName', '既に登録されています。');
             return false;
         }
     }
@@ -379,21 +277,20 @@ class MY_Form_validation extends CI_Form_validation
     //  概　要 : 郵便番号の形式確認を返す
     //  引　数 : $zip1 : 郵便番号前半（または単独）
     //           $zip2 : 郵便番号後半
-    function ValidZip ( $zip1, $zip2 = '' )
+    public function ValidZip($zip1, $zip2 = '')
     {
         // 郵便番号（入力内容をまとめる）
         $zip = $zip1 . $zip2;
         // ハイフン削除処理
-        $zip = str_replace ( array('-', 'ー', '―', '‐'), '', $zip );
+        $zip = str_replace(array('-', 'ー', '―', '‐'), '', $zip);
         // ７桁の数字
-        if(
+        if (
             $zip1 != '' &&
             preg_match("/^[0-9]{7}$/", $zip)
         ) {
             return true;
-        }
-        else {
-            $this->set_message( 'ValidZip',  '形式が間違っています。' );
+        } else {
+            $this->set_message('ValidZip', '形式が間違っています。');
             return false;
         }
     }
@@ -402,13 +299,13 @@ class MY_Form_validation extends CI_Form_validation
     //  概　要 : 電話番号の形式確認を返す
     //  引　数 : $tel1 : 電話番号（１つ目）
     //           $tel2tel3 : 電話番号（２つ目以降）
-    function ValidTel ( $tel1, $tel2tel3 = '' )
+    public function ValidTel($tel1, $tel2tel3 = '')
     {
         // エラーメッセージ用変数を初期化
         $errMsg = '';
         // 分割用文字列が存在する
-        if ( strpos( $tel2tel3, Base_lib::VALID_SEPARATE_STR ) !== false ) {
-            $tel2tel3List = explode ( Base_lib::VALID_SEPARATE_STR, $tel2tel3 );
+        if (strpos($tel2tel3, Base_lib::VALID_SEPARATE_STR) !== false) {
+            $tel2tel3List = explode(Base_lib::VALID_SEPARATE_STR, $tel2tel3);
             if (
                 $tel1 != '' &&
                 (
@@ -417,33 +314,30 @@ class MY_Form_validation extends CI_Form_validation
                 )
             ) {
                 $errMsg = '{field}は必須です';
-            }
-            else {
+            } else {
                 // 電話番号（入力内容をまとめる）
                 $tel = $tel1 . $tel2tel3List[0] . $tel2tel3List[1];
             }
-        }
-        else {
+        } else {
             $tel = $tel1 . $tel2tel3;
         }
-        if ( isset ( $tel ) ) {
+        if (isset($tel)) {
             // ハイフン削除処理
-            $tel = str_replace ( array ('-', 'ー', '―', '‐'), '', $tel );
+            $tel = str_replace(array('-', 'ー', '―', '‐'), '', $tel);
             // ７桁の数字
-            if(
+            if (
                 $tel1 != '' &&
-                ! preg_match( "/^[\d]{10,}$/", $tel )
-             ) {
+                ! preg_match("/^[\d]{10,}$/", $tel)
+            ) {
                 $errMsg = '形式が間違っています';
             }
         }
-        
+
         // エラー文言が未セット
-        if ( $errMsg == '' ) {
+        if ($errMsg == '') {
             return true;
-        }
-        else {
-            $this->set_message( 'ValidTel',  $errMsg );
+        } else {
+            $this->set_message('ValidTel', $errMsg);
             return false;
         }
     }
@@ -452,30 +346,30 @@ class MY_Form_validation extends CI_Form_validation
     //  概　要 : 画像の形式確認を返す
     //  引　数 : $formName : フォーム名
     //           $srcFilePath : 保存ファイルパス
-    function ValidImage ( $formName, $srcFilePath = '' )
+    public function ValidImage($formName, $srcFilePath = '')
     {
         $returnVal = true;
         // ファイルが未セット、かつ、登録済みのファイルが存在しない
         if (
-            ( ( ! isset ( $_FILES[$formName] ) ) || $_FILES[$formName]['size'] == 0 ) &&
-            ! $this->session_lib->GetSessionVal ( $formName ) &&
-            ( ! $srcFilePath || ( $srcFilePath && ! $this->CI->upload_lib->FileExists ( $srcFilePath ) ) )
+            ((! isset($_FILES[$formName])) || $_FILES[$formName]['size'] == 0) &&
+            ! $this->session_lib->GetSessionVal($formName) &&
+            (! $srcFilePath || ($srcFilePath && ! $this->CI->upload_lib->FileExists($srcFilePath)))
         ) {
-            $this->form_validation->set_message( 'ValidImage', 'ファイルを選択してください' );
+            $this->form_validation->set_message('ValidImage', 'ファイルを選択してください');
             $returnVal = false;
         }
         // ファイルの拡張子
-        else if ( isset ( $_FILES[$formName] ) && $_FILES[$formName]['size'] != 0 ) {
+        elseif (isset($_FILES[$formName]) && $_FILES[$formName]['size'] != 0) {
             // ライブラリー名の確認
-            if ( $libName ) {
+            if ($libName) {
                 // 対象ライブラリーを読込み
-                $this->CI->load->library ( ucfirst ( $libName ) );
+                $this->CI->load->library(ucfirst($libName));
                 // 変数に代入
                 $targetLib = $this->CI->{$libName};
             }
             // ファイルタイプ
-            if( ! in_array ( $_FILES[$formName]['type'], $this->CI->upload_lib->GetFileTypeImgList () ) ) {
-                $this->form_validation->set_message( 'ValidImage', '無効なファイルタイプです' );
+            if (! in_array($_FILES[$formName]['type'], $this->CI->upload_lib->GetFileTypeImgList())) {
+                $this->form_validation->set_message('ValidImage', '無効なファイルタイプです');
                 $returnVal = false;
             }
         }
@@ -486,246 +380,69 @@ class MY_Form_validation extends CI_Form_validation
     //  概　要 : 画像の形式確認を返す
     //  引　数 : $formName : フォーム名
     //           $srcFilePath : 保存ファイルパス
-    function ValidImageCheck ( $check, $formName )
+    public function ValidImageCheck($check, $formName)
     {
         $returnVal = true;
-        
+
         $srcFilePath = '';
-        
+
         // ファイルが未セット、かつ、登録済みのファイルが存在しない
         if (
-            ( ( ! isset ( $_FILES[$formName] ) ) || $_FILES[$formName]['size'] == 0 ) &&
-            ! $this->session_lib->GetSessionVal ( $formName ) &&
-            ( ! $srcFilePath || ( $srcFilePath && ! $this->CI->upload_lib->FileExists ( $srcFilePath ) ) )
+            ((! isset($_FILES[$formName])) || $_FILES[$formName]['size'] == 0) &&
+            ! $this->session_lib->GetSessionVal($formName) &&
+            (! $srcFilePath || ($srcFilePath && ! $this->CI->upload_lib->FileExists($srcFilePath)))
         ) {
-            $this->form_validation->set_message( 'ValidImage', 'ファイルを選択してください' );
+            $this->form_validation->set_message('ValidImage', 'ファイルを選択してください');
             $returnVal = false;
         }
         // ファイルの拡張子
-        else if ( isset ( $_FILES[$formName] ) && $_FILES[$formName]['size'] != 0 ) {
+        elseif (isset($_FILES[$formName]) && $_FILES[$formName]['size'] != 0) {
             // ライブラリー名の確認
-            if ( $libName ) {
+            if ($libName) {
                 // 対象ライブラリーを読込み
-                $this->CI->load->library ( ucfirst ( $libName ) );
+                $this->CI->load->library(ucfirst($libName));
                 // 変数に代入
                 $targetLib = $this->CI->{$libName};
             }
             // ファイルタイプ
-            if( ! in_array ( $_FILES[$formName]['type'], $this->CI->upload_lib->GetFileTypeImgList () ) ) {
-                $this->form_validation->set_message( 'ValidImage', '無効なファイルタイプです' );
+            if (! in_array($_FILES[$formName]['type'], $this->CI->upload_lib->GetFileTypeImgList())) {
+                $this->form_validation->set_message('ValidImage', '無効なファイルタイプです');
                 $returnVal = false;
             }
         }
         return $returnVal;
     }
     //====================================================================
-    //  関数名 : ValidWebcatalogPagearea
-    //  概　要 : 対象WEBカタログページのページ範囲の入力形式の是非を返す
-    //  引　数 : $pageArea : ページ範囲
-    function ValidWebcatalogPagearea ( $pageArea )
-    {
-        if ( preg_match ( '/^\d+-\d+$/', $pageArea ) ) {
-            return true;
-        }
-        else {
-            $this->set_message( 'ValidWebcatalogPagearea',  '形式が正しくありません' );
-            return false;
-        }
-    }
-    //====================================================================
-    //  関数名 : ValidPasswordEmail
-    //  概　要 : 対象ユーザーE-mailの他の登録有無を返す
-    //  引　数 : $email : E-mail
-    function ValidPasswordEmail ( $email )
+    //  関数名 : ValidSelectSheet
+    //  概　要 : 座席が選択可能か返す
+    //  引　数 : $sheetId : 座席ID
+    //           $dateUserid : 日付｜利用者ID
+    public function ValidSelectSheet($sheetId, $dateUserid = '')
     {
         // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/user_lib' );
-        if( $this->CI->user_lib->GetEmailToIDforRegular ( $email, true ) ) {
-            return true;
-        }
-        else {
-            $this->set_message( 'ValidPasswordEmail',  '登録されていないメールアドレスです' );
-            return false;
-        }
-    }
-    //====================================================================
-    //  関数名 : ValidPasswordPassQuestion
-    //  概　要 : パスワード再発行のご質問は登録されたものか返す
-    //  引　数 : $pass_question : パスワード再発行のご質問
-    //           $id : ユーザーID
-    function ValidPasswordPassQuestion ( $pass_question, $id = '' )
-    {
-        // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/user_lib' );
-        if( $pass_question == $this->CI->user_lib->GetPassQuestion ( $id, true ) ) {
-            return true;
-        }
-        else {
-            $this->set_message( 'ValidPasswordPassQuestion',  '登録内容をご確認ください' );
-            return false;
-        }
-    }
-    //====================================================================
-    //  関数名 : ValidPasswordPassAnswer
-    //  概　要 : パスワード再発行のご質問の答えは登録されたものか返す
-    //  引　数 : $pass_answer : ご質問の答え
-    //           $id : ユーザーID
-    function ValidPasswordPassAnswer ( $pass_answer, $id = '' )
-    {
-        // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/user_lib' );
-        if( $pass_answer == $this->CI->user_lib->GetPassAnswer ( $id, true ) ) {
-            return true;
-        }
-        else {
-            $this->set_message( 'ValidPasswordPassAnswer',  '登録内容をご確認ください' );
-            return false;
-        }
-    }
-    //====================================================================
-    //  関数名 : validWebcatalog
-    //  概　要 : カタログ見ながら注文ページにカートに入れるかを返す
-    //  引　数 : $num : 注文セット数
-    //           $id : 商品ID
-    function validWebcatalog ( $num, $id )
-    {
-        // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/item_lib' );
-        
-        if ( ! preg_match( '/^[0-9]+$/', $num ) || $num === '' ) {
-            $this->set_message( 'validWebcatalog',  '半角数字を入力してください' );
-            return false;
-        }
-        else if ( $num <= 0 ) {
-            $this->set_message( 'validWebcatalog',  '1以上の数値を入力してください' );
-            return false;
-        }
-        else if (
-            $id != '' &&
-            $num > 0 &&
-            ! $this->CI->item_lib->StockNumExists ( $id, $num, true )
-        ) {
-            $this->set_message( 'validWebcatalog',  '在庫数がありません' );
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    //====================================================================
-    //  関数名 : validHinban
-    //  概　要 : 品番注文ページにカートに入れるかを返す
-    //  引　数 : $orderCode : ご注文番号
-    //           $num : 注文セット数
-    function validHinban ( $orderCode, $num = 0 )
-    {
-        // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/item_lib' );
-        // 商品IDを取得
-        $itemId = $this->CI->item_lib->GetOrderCodeToId ( $orderCode, true );
-        
-        if ( $itemId == '' ) {
-            $this->set_message( 'validHinban',  'ご購入できない注文番号です' );
-            return false;
-        }
-        else if ( ! preg_match( '/^[0-9]+$/', $num ) || $num === '' ) {
-            $this->set_message( 'validHinban',  '半角数字を入力してください' );
-            return false;
-        }
-        else if ( $num <= 0 ) {
-            $this->set_message( 'validHinban',  '1以上の数値を入力してください' );
-            return false;
-        }
-        else if (
-            $itemId != '' &&
-            $num > 0 &&
-            ! $this->CI->item_lib->StockNumExists ( $itemId, $num, true )
-        ) {
-            $this->set_message( 'validHinban',  '在庫数がありません' );
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    //====================================================================
-    //  関数名 : validOrderEditAdd
-    //  概　要 : 品番注文ページにカートに入れるかを返す
-    //  引　数 : $orderCode : ご注文番号
-    //           $num : 注文セット数
-    function validOrderEditAdd ( $orderCode, $num = 0 )
-    {
-        // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/item_lib' );
-        // 商品IDを取得
-        $itemId = $this->CI->item_lib->GetOrderCodeToId ( $orderCode, true );
-        
-        if ( $itemId == '' ) {
-            $this->set_message( 'validOrderEditAdd',  'ご購入できない注文番号です' );
-            return false;
-        }
-        else if ( ! preg_match( '/^[0-9]+$/', $num ) || $num === '' ) {
-            $this->set_message( 'validHinban',  '半角数字を入力してください' );
-            return false;
-        }
-        else if ( $num <= 0 ) {
-            $this->set_message( 'validOrderEditAdd',  '1以上の数値を入力してください' );
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    //====================================================================
-    //  関数名 : ValidReceiptPermissionCheck
-    //  概　要 : 申請番号とメールアドレスから電子領収書発行確認できるかの有無を返す
-    //  引　数 : $main_id : 申請番号
-    //           $email : 申請メールアドレス
-    function ValidReceiptPermissionCheck ( $main_id, $email )
-    {
-        // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/receipt_lib' );
-        if( $this->CI->receipt_lib->MainIdEmailExists ( Receipt_lib::ID_TOP_STR . $main_id, $email, true ) ) {
-            return true;
-        }
-        else {
-            $this->set_message( 'ValidReceiptPermissionCheck',  '入力された情報は登録されておりません。' );
-            return false;
-        }
-    }
-    //====================================================================
-    //  関数名 : ValidCartNumCheck
-    //  概　要 : カート注文時の購入の可否を返す
-    //  引　数 : $num : 商品数
-    //           $item_id : 商品ID
-    function ValidCartNumCheck ( $num, $item_id )
-    {
-        // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/item_lib' );
+        $this->CI->load->library(Base_lib::MASTER_DIR . '/reserve_lib');
         // エラーメッセージ用変数を初期化
         $errMsg = '';
-        // 数量チェック
-        if ( $num <= 0 ) {
-            $errMsg = '入力内容をご確認下さい。';
+        // 分割用文字列が存在する
+        if (strpos($dateUserid, Base_lib::VALID_SEPARATE_STR) !== false) {
+            // 日付と利用者IDを配列に変換
+            $dateUseridList = explode(Base_lib::VALID_SEPARATE_STR, $dateUserid);
+            $date = $dateUseridList[0];
+            $userId = $dateUseridList[1];
+
+            if (! $this->CI->reserve_lib->SheetSameExists($sheetId, $date, $userId, Reserve_lib::ID_STATUS_TEMP)) {
+                $errMsg = '既に他のお客様がご予約されています';
+            }
         }
-        // 公開／非公開
-        else if ( ! $this->CI->item_lib->IdExists ( $item_id, true )  ) {
-            $errMsg = '現在、購入が出来ません。';
-        }
-        // 在庫数
-        else if ( ! $this->CI->item_lib->StockNumExists ( $item_id, $num, true ) ) {
-            $errMsg = '在庫数がありません。';
-        }
-        // 名入れ
-        else if (  ! $this->CI->item_lib->NamePrintCheck ( $item_id, $num, true ) ) {
-            $errMsg = '在庫数がありません。';
+        // 座席と日付のみで取得確認
+        elseif (! $this->CI->reserve_lib->SheetSameExists($sheetId, $dateUserid, '', Reserve_lib::ID_STATUS_TEMP)) {
+            $errMsg = '既に他のお客様がご予約されています';
         }
         // エラー文言が未セット
-        if ( $errMsg == '' ) {
+        if ($errMsg == '') {
             return true;
-        }
-        else {
-            $this->set_message( 'ValidCartNumCheck',  $errMsg );
+        } else {
+            $this->set_message('ValidSelectSheet', $errMsg);
             return false;
         }
     }
@@ -734,10 +451,9 @@ class MY_Form_validation extends CI_Form_validation
     //  概　要 : 強制的にエラーを返す
     //  引　数 : $targetVal : 対象の値
     //           $errMsg : エラーメッセージ
-    function ValidError ( $targetVal, $errMsg = '' )
+    public function ValidError($targetVal, $errMsg = '')
     {
-        $this->set_message( 'ValidError',  ( $errMsg != '' ? $errMsg : '内容をご確認ください' ) );
+        $this->set_message('ValidError', ($errMsg != '' ? $errMsg : '内容をご確認ください'));
         return false;
     }
 }
-?>

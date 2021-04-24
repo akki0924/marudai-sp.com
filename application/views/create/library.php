@@ -9,7 +9,7 @@ if (! defined('BASEPATH')) {
  * <?= $description ?>
 
  *
- * @author akki.m
+ * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
  * @since 1.0.0     <?= date('Y/m/d') ?>：新規作成
  */

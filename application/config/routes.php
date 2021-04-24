@@ -54,8 +54,8 @@ $route['404_override'] = 'error/error_404';
 $route['translate_uri_dashes'] = false;
 
 // サイト管理
-$route['admin'] = "admin/index";
-$route['admin/(:any)'] = "admin/$1";
+$route['adminc'] = "admin/index";
+$route['adminc/(:any)'] = "admin/$1";
 // オーナー
 $route['owner'] = "owner/index";
 $route['owner/(:any)'] = "owner/$1";

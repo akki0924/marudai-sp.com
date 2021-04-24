@@ -101,7 +101,7 @@ class Create_lib extends Base_lib
         // ヘルパー関数読込み
         $this->CI->load->helper('file');
         // 対象ディレクトリ
-        $targetDir = APPPATH . 'views' . self::WEB_DIR_SEPARATOR . self::JSON_LIBRARY_DIR;
+        $targetDir = APPPATH . Base_lib::VIEW_DIR . self::WEB_DIR_SEPARATOR . self::JSON_LIBRARY_DIR;
         // ディレクトリ一覧を取得
         $dirList = $this->CI->file_lib->GetDirList($targetDir);
         Base_lib::ConsoleLog($dirList);

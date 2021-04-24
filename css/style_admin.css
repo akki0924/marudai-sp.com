@@ -1,0 +1,1270 @@
+
+body {
+	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", "sans-serif";
+	-webkit-text-size-adjust: 100%; /* iphone横向き 文字拡大防止 */
+}
+img {
+	display: block;
+	width: 100%;
+}
+a {
+	text-decoration: none;
+	color: #000;
+}
+p {
+	line-height: 1.6; font-size: 14px;
+}
+/* デフォルトの装飾を削除 */
+input,
+textarea {
+	-webkit-appearance: none;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+:focus {
+    outline: -webkit-focus-ring-color none;
+}
+
+.total {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px #333 solid;
+    background: #FCF4DE;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+/*==================================================================================
+ヘッダー
+==================================================================================*/
+header {
+	padding: 20px 0!important;
+	border-bottom: 1px #ccc solid!important;
+}
+header .logo {
+	display: block;
+	font-size: 20px;
+	font-weight: bold;
+	color: #002858;
+	margin-right: 40px;
+}
+header ul.head_nav {
+	display: flex;
+	flex-wrap: wrap;
+}
+header ul.head_nav li {
+	margin-right: 30px;
+}
+header ul.head_nav li a {
+	font-size: 14px;
+}
+
+/* スマホ版 メニュー -----------------------*/
+nav.globalMenuSp {
+    z-index: 2;
+    width: 100%;
+    background: #333;
+    transform: translateY(-100%);
+    transition: all 0.6s;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+nav.globalMenuSp ul {
+    width: calc(100% - 40px);
+    max-width: calc(680px - 40px);
+	padding: 40px 20px;
+	margin: auto;
+}
+nav.globalMenuSp ul li {
+    width: 100%;
+    border-bottom: 1px dotted #fff;
+}
+/* 最後はラインを描かない */
+nav.globalMenuSp ul li:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+nav.globalMenuSp ul li a {
+    display: block;
+    color: #fff;
+    padding: 15px 0;
+	font-size: 14px;
+}
+/* このクラスを、jQueryで付与・削除する */
+nav.globalMenuSp.active {
+    transform: translateY(0%);
+}
+.navToggle {
+    z-index: 3;
+    display: block;
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    cursor: pointer;
+    position: fixed;    /* bodyに対しての絶対位置指定 */
+    top: 12px;
+    right: 20px;
+}
+.navToggle span {
+    display: block;
+    width: 26px;
+    border-bottom: solid 3px #000;
+    -webkit-transition: .35s ease-in-out;
+    -moz-transition: .35s ease-in-out;
+    transition: .35s ease-in-out;
+    position: absolute;    /* .navToggleに対して */
+    left: 0;
+}
+.navToggle span:nth-child(1) {
+    top: 2px;
+}
+.navToggle span:nth-child(2) {
+    top: 11px;
+}
+.navToggle span:nth-child(3) {
+    top: 20px;
+}
+
+.navToggle.active span {
+    border-bottom: solid 3px #fff;
+}
+/* 最初のspanをマイナス45度に */
+.navToggle.active span:nth-child(1) {
+    top: 11px;
+    left: 0;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+/* 2番目と3番目のspanを45度に */
+.navToggle.active span:nth-child(2),
+.navToggle.active span:nth-child(3) {
+    top: 11px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+
+
+/*==================================================================================
+メイン
+==================================================================================*/
+main {
+	padding-bottom: 80px;
+}
+main.pb_non {
+	padding-bottom: 0;
+}
+section {
+	padding: 40px 0!important;
+}
+.container {
+	width: calc(100% - 40px);
+	max-width: calc(1000px - 40px);
+	padding: 0 20px;
+	margin: auto;
+}
+.max480 {
+	max-width: 480px;
+	margin: auto;
+}
+.max680 {
+	max-width: 680px;
+	margin: auto;
+}
+.max980 {
+	max-width: 980px;
+	margin: auto;
+}
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.row.just_start {
+	justify-content: flex-start;
+}
+.row.just_center {
+	justify-content: center;
+}
+.row.just_end {
+	justify-content: flex-end;
+}
+.row.align_center {
+	align-items: center;
+}
+.col2 {
+	width: calc(50% - 10px);
+}
+.col3 {
+	width: calc(100% / 3 - 20px);
+}
+.col3_2 {
+	width: calc(100% / 3 * 2);
+}
+.col4 {
+	width: calc(100% / 4 - 20px);
+}
+
+.bg_gray {
+	background: #EFEFEF;
+}
+.bg_gray.pd20 {
+	padding: 20px 0;
+}
+.bg_gray.pd60 {
+	padding: 60px 0;
+}
+.white_boad {
+	border-radius: 10px;
+	background: #fff;
+	padding: 40px!important;
+}
+.white_boad.pd20 {
+	padding: 20px!important;
+}
+
+/* フォント -------------------------------------*/
+h1 {
+	font-size: 24px;
+	color: #002858;
+	text-align: center;
+}
+h2 {
+	font-size: 18px;
+	color: #002858;
+	padding-left: 10px!important;
+	border-left: 8px #002858 solid!important;
+}
+h3 {
+	font-size: 24px;
+	background: #DFE6EE;
+	padding: 10px!important;
+}
+.font_12 {
+	font-size: 12px;
+}
+.font_14 {
+	font-size: 14px;
+}
+.font_16 {
+	font-size: 16px;
+}
+.font_20 {
+	font-size: 20px;
+}
+.font_24 {
+	font-size: 24px;
+}
+.blue {
+	color: #002858;
+}
+.red {
+	color: #FF0B0B;
+}
+.txt_center {
+	text-align: center;
+}
+.txt_right {
+	text-align: right;
+}
+.bold {
+	font-weight: bold;
+}
+
+/* スペース -------------------------------------*/
+.mb_10 {
+	margin-bottom: 10px;
+}
+.mb_20 {
+	margin-bottom: 20px;
+}
+.mb_40 {
+	margin-bottom: 40px;
+}
+.mb_80 {
+	margin-bottom: 80px;
+}
+.mr_10 {
+	margin-right: 10px;
+}
+.mr_20 {
+	margin-right: 20px;
+}
+.mr_40 {
+	margin-right: 40px;
+}
+
+/* パーツ ----------------------------------------*/
+
+select {
+    -webkit-appearance: none;
+    width: 100%;
+    height: calc(36px - 2px);
+    padding: 0 10px;
+    border: 0px #dbdbdb solid;
+    border-radius: 0;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+}
+
+.select.size_ss {
+    width: 60px;
+}
+.select.size_s {
+    width: 100px;
+}
+
+.select {
+	width: 100%;
+	background: #fff;
+	position: relative;
+}
+
+
+.select::before {
+	content: "";
+	display: block;
+    width: 0;
+    height: 0;
+    border-right: 3px solid transparent;
+    border-left: 3px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-top: 5px solid #000;
+	position: absolute;
+	top: 50%;
+	right: 16px;
+	margin-top: -3px;
+}
+.select.time::before {
+    width: 16px;
+    height: 16px;
+	border: none;
+	background: url("../img/icon_watch.png") center center / contain no-repeat;
+	right: 10px;
+	margin-top: -8px;
+}
+.select.size_l {
+	width: 360px;
+}
+.select.size_m {
+	width: 240px;
+}
+.select.size_s {
+	width: 100px;;
+}
+select {
+	-webkit-appearance: none;
+	width: 100%;
+	height: 36px;
+	background: transparent;
+	padding: 0 10px;
+	border: 1px #999 solid;
+	border-radius: 0;
+	font-size: 16px;
+	cursor: pointer;
+	position: relative;
+}
+select::-ms-expand {
+    display: none;
+}
+
+input {
+	height: calc(36px - 2px);
+	background: #fff;
+	padding: 0 10px;
+	border: 1px #999 solid;
+	border-radius: 0;
+	font-size: 16px;
+}
+input[type="date"] {
+	min-width: calc(170px - 20px - 2px);
+	cursor: pointer;
+}
+
+/* ボタン */
+.btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: calc(46px - 2px);
+	padding: 0 40px;
+	border: 1px #002858 solid;
+	border-radius: 5px;
+	background: #002858;
+	color: #fff;
+	font-size: 14px;
+	line-height: 1;
+	letter-spacing: 1px;
+	cursor: pointer;
+}
+.btn:hover {
+	background: #003C84;
+}
+.btn.search {
+	height: calc(36px - 2px);
+}
+.btn.frame {
+	background: #fff;
+	color: #002858;
+}
+.btn.short {
+	display: inline-flex;
+	height: calc(36px - 2px);
+}
+.btn.shortest {
+	display: inline-flex;
+	height: calc(36px - 2px);
+	padding: 0 10px;
+}
+
+a.under_line {
+	display: inline-block;
+	text-decoration: underline;
+	color: #1A5CD0;
+}
+
+.border {
+	border-bottom: 1px #ccc solid!important;
+}
+
+
+/* 会員ログイン ----------------------------------------------------------------------*/
+section#login {
+	padding: 40px 0 0!important;
+}
+section#login table {
+	width: 100%;
+	font-size: 14px;
+}
+section#login table th {
+	width: 140px;
+	text-align: left;
+	padding: 0 0 20px;
+}
+section#login table td {
+	padding: 0 0 20px;
+}
+section#login input {
+	width: calc(100% - 22px);
+}
+
+
+/* 新規会員登録 ----------------------------------------------------------------------*/
+section#new_member {
+	padding: 40px 0 0!important;
+}
+section#new_member table {
+	width: 100%;
+	font-size: 14px;
+}
+section#new_member table th {
+	width: 140px;
+	text-align: left;
+	padding: 10px 0;
+}
+section#new_member table.conf th {
+	vertical-align: top;
+}
+section#new_member table th span.required {
+	position: relative;
+}
+section#new_member table th span.required::after {
+	content: "\02a";
+	font-size: 16px;
+	color: #D83838;
+	position: absolute;
+	top: 2px;
+	right: -8px;
+}
+section#new_member table td {
+	padding: 10px 0;
+}
+
+section#new_member input {
+	width: calc(100% - 22px);
+}
+section#new_member input.half {
+	width: calc(50% - 22px);
+}
+/* 名前 */
+section#new_member input.name {
+	width: calc(50% - 22px - 5px);
+}
+/* 郵便番号 */
+section#new_member input.post {
+	width: calc(100px - 22px);
+}
+/* 生年月日 */
+section#new_member input.birth:first-of-type {
+	width: calc(80px - 22px);
+}
+section#new_member input.birth {
+	width: calc(50px - 22px);
+}
+/* 性別ラジオボタン */
+label.btn_radio input {
+	display: none;
+}
+label.btn_radio span {
+	display: block;
+	padding-left: 20px;
+	cursor: pointer;
+	position: relative;
+}
+label.btn_radio span::before {
+	content: "";
+	display: block;
+	width: 14px;
+	height: 14px;
+	background: #fff;
+	border: 1px #000 solid;
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	margin-top: -8px;
+}
+label.btn_radio input:checked + span::after {
+	content: "";
+	display: block;
+	width: 6px;
+	height: 6px;
+	background: #000;
+	border-radius: 50%;
+	position: absolute;
+	top: 4px;
+	left: 5px;
+}
+
+/* ファイル参照ボタン */
+input[type="file"] {
+	display: none;
+}
+input.btn_fileup {
+	border-radius: 5px;
+	font-size: 14px;
+	text-align: center;
+	cursor: pointer;
+}
+
+/* 承諾チェックボックス */
+label.btn_check input {
+	display: none;
+}
+label.btn_check span {
+	display: block;
+	font-size: 14px;
+	padding-left: 20px;
+	cursor: pointer;
+	position: relative;
+}
+label.btn_check span::before {
+	content: "";
+	display: block;
+	width: 14px;
+	height: 14px;
+	background: #fff;
+	border: 1px #000 solid;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	margin-top: -8px;
+}
+label.btn_check input:checked + span {
+	color: #002858;
+}
+label.btn_check input:checked + span::before {
+	border: 1px #002858 solid;
+}
+label.btn_check input:checked + span::after {
+	content: "";
+	display: block;
+	width: 6px;
+	height: 12px;
+	border-right: 3px #002858 solid;
+	border-bottom: 3px #002858 solid;
+	transform: rotate(45deg);
+	position: absolute;
+	top: -3px;
+	left: 4px;
+}
+
+
+/* レンタル予約 ----------------------------------------------------------------------*/
+section#search {
+	padding: 40px 0 0!important;
+}
+section#search table {
+	width: 100%;
+	font-size: 14px;
+}
+section#search table th {
+	width: 140px;
+	text-align: left;
+	padding: 0 0 20px;
+}
+section#search table td {
+	padding: 0 0 20px;
+}
+section#search .flow {
+	color: #ccc;
+	margin: 0 20px;
+}
+
+section#search .car_frame {
+	border: 1px #ccc solid;
+	padding: 20px;
+}
+section#search .standard p {
+	background: #315D93;
+	padding: 8px 10px;
+	color: #fff;
+	line-height: 1;
+	margin-right: 10px;
+}
+
+section#search table.car tr {
+	border-bottom: 8px #fff solid;
+}
+section#search table.car th {
+	width: calc(80px - 20px);
+	padding: 5px 10px;
+	background: #EFEFEF;
+	font-weight: normal;
+	line-height: 1.2;
+	vertical-align: middle;
+}
+section#search table.car td {
+	padding: 5px 10px;
+	line-height: 1.2;
+}
+
+section#search table.car_option tr {
+	border-top: 1px #ccc solid;
+	border-bottom: 1px #ccc solid;
+}
+section#search table.car_option th {
+	width: auto;
+	padding: 10px;
+	background: #DFE6EE;
+	font-weight: normal;
+	vertical-align: middle;
+}
+section#search table.car_option td {
+	padding: 10px;
+}
+
+section#search .total_frame {
+	border: 2px #002858 solid;
+	padding: 20px;
+}
+section#search table.total tr {
+	border-bottom: 1px #ccc dashed;
+}
+section#search table.total tr:first-child {
+	border-bottom: 1px #999 solid;
+}
+section#search table.total th {
+	width: auto;
+	padding: 8px 10px;
+	font-weight: normal;
+	vertical-align: middle;
+}
+section#search table.total tr:first-child th {
+	padding: 0 0 10px;
+}
+section#search table.total tr:first-child th span {
+	display: block;
+	width: calc(80px - 20px);
+	background: #DFE6EE;
+	padding: 10px;
+}
+section#search table.total td {
+	padding: 8px 10px;
+	text-align: right;
+}
+section#search table.total tr:first-child td {
+	padding: 0 10px 10px;
+}
+
+
+/* 管理者ページ 応募管理 ------------------------------------------------------------*/
+table.management {
+	width: 100%;
+	border-top: 1px #ccc solid;
+}
+table.management tr {
+	border-bottom: 1px #ccc solid;
+}
+table.management tr:hover {
+	background: #F4F4F4;
+}
+table.management th {
+	background: #DFE6EE;
+	font-size: 12px;
+	text-align: center!important;
+	padding: 5px 10px;
+	border-right: 1px #ccc solid;
+}
+table.management th:last-child {
+	border-right: none;
+}
+table.management td {
+	font-size: 14px;
+	line-height: 1.2;
+	text-align: center;
+	vertical-align: middle;
+	padding: 10px;
+	border-right: 1px #ccc solid;
+}
+table.management td:last-child {
+	border-right: none;
+}
+table.management .btn.shortest {
+	font-size: 12px;
+	height: calc(30px - 2px);
+	padding: 0 8px;
+}
+.btn.mng {
+	padding: 0 20px;
+}
+
+
+/*==================================================================================
+フッター
+==================================================================================*/
+footer p.copy {
+	font-size: 10px;
+	text-align: center;
+	padding: 15px 0;
+}
+
+
+
+.pc {
+	display: inline;
+}
+.sp {
+	display: none;
+}
+.sp_wrap {
+	display: none;
+}
+
+
+@media screen and (max-width : 980px) {
+
+	.pc {
+		display: none;
+	}
+	.sp {
+		display: inline;
+	}
+	.sp_wrap {
+		display: block;
+		width: 100%;
+	}
+	p {
+		font-size: 12px;
+	}
+	/*==================================================================================
+	ヘッダー
+	==================================================================================*/
+	header {
+	    padding: 15px 0!important;
+	}
+	header ul.head_nav,
+	header .member {
+		display: none;
+	}
+
+	/*==================================================================================
+	メイン
+	==================================================================================*/
+	main {
+		padding-bottom: 60px;
+	}
+	section {
+		padding: 30px 0!important;
+	}
+	.container {
+		max-width: calc(680px - 40px);
+	}
+	.col3 {
+		width: 100%;
+	}
+	.col3_2 {
+		width: 100%;
+	}
+	.col4 {
+		width: calc(100% / 2 - 10px);
+	}
+
+	.white_boad {
+		border-radius: 10px;
+		padding: 20px!important;
+	}
+
+	/* フォント -------------------------------------*/
+	h1 {
+		font-size: 20px;
+	}
+	h2 {
+		font-size: 16px;
+	}
+	h3 {
+		font-size: 20px;
+	}
+	.font_14 {
+		font-size: 12px;
+	}
+	.font_16 {
+		font-size: 14px;
+	}
+	.font_20 {
+		font-size: 18px;
+	}
+	.font_24 {
+		font-size: 20px;
+	}
+
+	/* スペース -------------------------------------*/
+	.mb_10 {
+		margin-bottom: 8px;
+	}
+	.mb_20 {
+		margin-bottom: 15px;
+	}
+	.mb_40 {
+		margin-bottom: 30px;
+	}
+	.mb_80 {
+		margin-bottom: 60px;
+	}
+	.mr_10 {
+		margin-right: 8px;
+	}
+	.mr_20 {
+		margin-right: 15px;
+	}
+	.mr_40 {
+		margin-right: 20px;
+	}
+
+	/* パーツ -------------------------------------*/
+	/* ボタン */
+	.btn {
+		height: calc(40px - 2px);
+	}
+	.btn.shortest {
+		height: calc(30px - 2px);
+		padding: 0 10px;
+		font-size: 12px;
+	}
+
+	/* 会員ログイン ----------------------------------------------------------------------*/
+	section#login {
+		padding: 30px 0 0!important;
+	}
+
+	/* 新規会員登録 ----------------------------------------------------------------------*/
+	section#new_member {
+		padding: 30px 0 0!important;
+	}
+
+	/* レンタル予約 ----------------------------------------------------------------------*/
+	section#search {
+		padding: 30px 0 0!important;
+	}
+	section#search .flow {
+		margin: 5px 0 0 0;
+		line-height: 1;
+	}
+	section#search table {
+		font-size: 12px;
+	}
+
+	section#search .car_frame .col2:first-child {
+		width: calc(100% / 3 - 20px);
+	}
+	section#search .car_frame .col2:nth-child(2) {
+		width: calc(100% / 3 * 2);
+	}
+	section#search .standard p {
+		padding: 5px 8px;
+		margin: 0 8px 8px 0;
+	}
+
+	/* 管理者ページ 応募管理 ------------------------------------------------------------*/
+	section#management .col3 {
+		width: calc(100% / 3 - 10px);
+	}
+	table.management tr:nth-child(odd) {
+		background: #F4F4F4;
+	}
+	table.management th {
+		padding: 5px;
+	}
+	table.management td {
+		font-size: 12px;
+		padding: 8px 10px;
+	}
+	table.management .btn.shortest {
+		font-size: 12px;
+		height: calc(26px - 2px);
+		padding: 0 5px;
+	}
+	.btn.mng {
+		padding: 0 10px;
+	}
+
+	.scroll {
+		display: block;
+	  	overflow-x: scroll;
+	  	white-space: nowrap;
+	  	-webkit-overflow-scrolling: touch;
+		padding: 0 0 20px;
+	}
+	.scroll::-webkit-scrollbar {
+	  height: 8px;
+	}
+	.scroll::-webkit-scrollbar-track {
+	  margin: 0 2px;
+	  background: #ccc;
+	  border-radius: 5px;
+	}
+	.scroll::-webkit-scrollbar-thumb {
+	  border-radius: 5px;
+	  background: #999;
+	}
+	.scroll table {
+		min-width: 680px;
+	}
+
+	/*==================================================================================
+	フッター
+	==================================================================================*/
+	footer ul li a {
+		font-size: 12px;
+	}
+
+}
+
+@media screen and (max-width : 680px) {
+	.bg_gray.pd60 {
+		padding: 30px 0;
+	}
+
+	/* 会員ログイン ----------------------------------------------------------------------*/
+	section#login table {
+		font-size: 12px;
+	}
+	section#login table th {
+		display: block;
+		width: 100%;
+		padding: 0 0 12px;
+	}
+	section#login table td {
+		display: block;
+		width: 100%;
+		padding: 0 0 20px;
+	}
+
+	/* 新規会員登録 ----------------------------------------------------------------------*/
+	section#new_member table {
+		font-size: 12px;
+	}
+	section#new_member table th {
+		display: block;
+		width: 100%;
+		padding: 0 0 12px;
+		font-weight: bold;
+		color: #002858;
+	}
+	section#new_member table td {
+		display: block;
+		width: 100%;
+		padding: 0 0 20px;
+	}
+	/* 性別ラジオボタン */
+	label.btn_radio input:checked + span::after {
+		top: 3px;
+	}
+	/* ファイル参照ボタン */
+	input.btn_fileup {
+		font-size: 16px;
+	}
+
+
+	/* レンタル予約 ----------------------------------------------------------------------*/
+	section#search table th {
+		display: block;
+		width: 100%;
+		padding: 0 0 12px;
+	}
+	section#search table td {
+		display: block;
+		width: 100%;
+		padding: 0 0 20px;
+	}
+
+	section#search .car_frame {
+		border: 1px #ccc solid;
+		padding: 10px;
+	}
+	section#search .car_frame.sp_non {
+		border: none;
+		padding: 0;
+	}
+	section#search .car_frame .col2:first-child {
+		width: 100%;
+		max-width: 360px;
+		margin-bottom: 20px;
+	}
+	section#search .car_frame .col2:nth-child(2) {
+		width: 100%;
+	}
+
+	section#search table.car tr {
+		border-bottom: 3px #fff solid;
+	}
+	section#search table.car th {
+		display: table-cell;
+		width: calc(70px - 20px);
+		padding: 5px 10px;
+	}
+	section#search table.car td {
+		width: auto;
+		padding: 8px 10px;
+	}
+
+	section#search table.car_option td {
+		width: calc(100% - 20px);
+	}
+
+	section#search .total_frame {
+		padding: 10px;
+	}
+	section#search table.total th {
+		display: block;
+		width: calc(100% - 20px);
+		padding: 8px 10px 0;
+	}
+	section#search table.total tr:first-child th {
+ 		width: 100%;
+	}
+	section#search table.total tr:first-child th span {
+		width: calc(100% - 20px);
+	}
+	section#search table.total td {
+		width: calc(100% - 20px);
+	}
+	section#search table.total tr:first-child td {
+		padding: 0 10px 10px;
+	}
+}
+
+@media screen and (max-width : 540px) {
+	.col4 {
+		width: calc(100% / 2 - 5px);
+	}
+	.bg_gray.pd60 {
+		padding: 20px 0;
+	}
+	/* パーツ ----------------------------------------*/
+	.select.size_l {
+		width: calc(100% - 64px);
+	}
+	.select.size_m {
+		width: 200px;
+	}
+	.select.size_l.mr_20,
+	.select.size_m.mr_20 {
+		margin-right: 0;
+	}
+
+	/*==================================================================================
+	フッター
+	==================================================================================*/
+	footer ul li {
+		width: 100%;
+		padding: 0 0 10px;
+		margin-right: 0;
+	}
+	footer ul li a {
+		font-size: 12px;
+	}
+}
+
+@media screen and (max-width : 460px) {
+	input[type="date"] {
+		background: #fff url(../img/icon_calendar.png) right 14px center / 16px no-repeat;
+	}
+
+
+	/* 管理者ページ 応募管理 ------------------------------------------------------------*/
+	section#management .col3 {
+		width: calc(100% / 3 - 2px);
+	}
+	.btn.mng {
+		font-size: 12px;
+		height: calc(36px - 2px);
+		padding: 0 5px;
+	}
+}
+/*==================================================================================
+座席部分
+==================================================================================*/
+form#sheet_select{
+	width: calc(100% - 80px);
+	max-width: 1200px;
+	margin: auto;
+	padding: 20px 20px 60px;
+	border-radius: 10px;
+	background: #fff;
+}
+form#sheet_select h1 {
+	font-size: 20px;
+	text-align: center;
+	margin: 30px 0;
+}
+form#sheet_select h2 {
+	color: #004ea2;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 1;
+}
+form#sheet_select select {
+	padding: 5px 10px;
+	font-size: 20px;
+}
+form#sheet_select .sheet_select {
+	width: calc(1200px - 31px);
+	height: calc(300px - 57px);
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	padding: 57px 11px 0 20px;
+	background: url("../img/sheet_bg.png") left top / contain no-repeat;
+}
+form#sheet_select .wrap {
+	width: 100%;
+}
+form#sheet_select label.btn_sheet input[type="radio"] {
+	display: none;
+}
+/* グループ席 */
+form#sheet_select .group {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row-reverse;
+	justify-content: flex-end;
+	align-content: flex-start;
+	width: 153px;
+}
+form#sheet_select .group label.btn_sheet {
+	display: block;
+	width: 42px;
+	height: 28px;
+	margin: 0 11px 4px 0;
+}
+form#sheet_select .group label.btn_sheet.three {
+	width: calc(42px - 5px);
+	margin: 0 16px 4px 0;
+}
+form#sheet_select .group label.btn_sheet.five {
+	width: calc(42px - 5px);
+	height: calc(28px + 15px);
+	margin: 0 16px 4px 0;
+}
+form#sheet_select .group label.btn_sheet.mr_non {
+	margin-right: 0;
+}
+form#sheet_select .group label.btn_sheet span {
+	display: block;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+/* 個人席 */
+form#sheet_select .single {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row-reverse;
+	align-content: flex-start;
+	width: calc(100% - 153px);
+}
+form#sheet_select .single label.btn_sheet {
+	display: block;
+	width: 32px;
+	height: 15px;
+	margin: 0 0 3.5px 4.5px;
+}
+form#sheet_select .single label.btn_sheet.sheet25 {
+	width: 26px;
+}
+form#sheet_select .single label.btn_sheet.half {
+	width: 16px;
+	margin: 0 16px 3.5px 4.5px;
+}
+form#sheet_select .single label.btn_sheet span {
+	display: block;
+	width: 16px;
+	height: 100%;
+	cursor: pointer;
+}
+form#sheet_select .single label.btn_sheet.right span {
+	margin: 0 0 0 auto;
+}
+form#sheet_select .single label.btn_sheet.two span {
+	width: 100%;
+}
+/* 満席 */
+form#sheet_select label.btn_sheet.btnoff {
+	background: rgba(228,0,18,0.50);
+	position: relative;
+}
+form#sheet_select label.btn_sheet.btnoff::before {
+	content: "";
+	display: block;
+	width: calc(100% - 2px);
+	height: calc(100% - 2px);
+	border: 3px #E40012 solid;
+	position: absolute;
+	top: -2px;
+	left: -2px;
+}
+form#sheet_select label.btn_sheet.btnoff span {
+	display: none;
+}
+/* 座席選択説明 */
+form#sheet_select .select_info {
+	font-size: 12px;
+	line-height: 1.8;
+	position: relative;
+}
+form#sheet_select .select_info span {
+	display: inline-block;
+	margin: 0 3px;
+	position: relative;
+	top: 3px;
+}
+form#sheet_select .select_info span.sheet_box {
+	width: 16px;
+	height: 16px;
+	background: #1bb8ce;
+}
+form#sheet_select .select_info span.sheet_box.orange {
+	width: 32px;
+	background: #ed6c00;
+}

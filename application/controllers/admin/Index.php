@@ -1,88 +1,86 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Index extends MY_Controller {
-/*
-    ■機　能： ログイン画面処理
-    ■概　要：
-    ■更新日： 2018/02/05
-    ■担　当： crew.miwa
-    ■更新履歴：
-        2016/12/28: 作成開始
-        2017/01/06: ログイン機能追加
-*/
-    // コンストラクタ
-    public function __construct() {
+defined('BASEPATH') or exit('No direct script access allowed');
+/**
+ * ログイン画面処理
+ *
+ * @author a.miwa <miwa@ccrw.co.jp>
+ * @version 1.0.2
+ * @since 1.0.0     2016/12/28：新規作成
+ * @since 1.0.1     2017/01/06：ログイン機能追加
+ * @since 1.0.2     2021/04/02：actionの値で動作するよう仕様変更
+ */
+class Index extends MY_Controller
+{
+    /**
+     * コントラクト
+     */
+    public function __construct()
+    {
         // Controllerクラスのコンストラクタを呼び出す
         parent::__construct();
         // モデル呼出し
-        $this->load->model( Base_lib::ADMIN_DIR . '/index_model');
-   }
-    // 共通テンプレート
-    function sharedTemplate ($templateVal = "")
-    {
-        // ヘッダーテンプレートをセット
-//        $headerVal['id'] = $this->login_model->get_id (Base_lib::ADMIN_DIR);
-
-        return $templateVal;
+        $this->load->model(Base_lib::ADMIN_DIR . '/index_model');
     }
-    // TOP画面
+
+
+    /**
+     * ログイン画面および、ログイン処理
+     *
+     * @return void
+     */
     public function index()
     {
-/*
-        // ログイン変数をセット
-        $loginTarget['key'] = "admin";
-        // ライブラリー読込み
-        $this->load->library( 'login_lib', $loginTarget );
+        $action = $this->input->post_get('action', true);
 
-print $this->login_lib->GetAccount();
-*/
-        // FORM情報の確認
-        $submit_btn = $this->input->post_get( 'submit_btn', true );
-        $templateVal = $this->index_model->LoginTemplate ();
-        
         // Submitボタンが押された場合
-        if ( $submit_btn )
-        {
+        if ($action == 'login') {
             // エラーチェックルールをセット
             $config = $this->index_model->ConfigLoginValues();
-            $this->index_model->LoginTemplate ( $this->form_validation->set_rules( $config ) );
+            $this->form_validation->set_rules($config);
             // エラー時
-            if ($this->form_validation->run() == FALSE) {
+            if ($this->form_validation->run() == false) {
+                $templateVal = $this->index_model->LoginTemplate();
                 // テンプレート読み込み
-                $this->load->view ( Base_lib::ADMIN_DIR . '/login', self::sharedTemplate ( $templateVal ) );
-            }
-            else
-            {
+                $this->load->view(Base_lib::ADMIN_DIR . '/login', $templateVal);
+            } else {
+                $this->index_model->LoginAction();
                 // 設定ページへ遷移
-//                redirect( Base_lib::ADMIN_DIR . '/main' );
-                // テンプレート読み込み
-                $this->load->view ( Base_lib::ADMIN_DIR . '/main', self::sharedTemplate ( $templateVal ) );
+                redirect(Base_lib::ACCESS_ADMIN_DIR . '/' . Base_lib::ADMIN_MAIN_PAGE);
             }
-        }
-        else
-        {
+        } else {
+            $templateVal = $this->index_model->LoginTemplate();
             // テンプレート読み込み
-            $this->load->view ( Base_lib::ADMIN_DIR . '/login', self::sharedTemplate ( $templateVal ) );
+            $this->load->view(Base_lib::ADMIN_DIR . '/login', $templateVal);
         }
     }
-    // ログアウト処理
+
+
+    /**
+     * ログアウト処理
+     *
+     * @return void
+     */
     public function logout()
     {
         // ログアウト処理
-        $this->index_model->LogoutAction ();
-        // テンプレート読み込み
-        $this->load->view ( Base_lib::ADMIN_DIR . '/logout', self::sharedTemplate () );
+        $this->index_model->LogoutAction();
+        // ログインページへ遷移
+        redirect(Base_lib::ACCESS_ADMIN_DIR);
     }
-    // エラー処理
+
+
+    /**
+     * エラー処理
+     *
+     * @return void
+     */
     public function error()
     {
-print_r ($_SESSION);
         // モデル呼出し
-        $this->load->model ( 'login_model' );
+        $this->load->model('login_model');
         // SESSION情報を削除
-        $this->login_model->clear_values ( Base_lib::ADMIN_DIR );
-        // テンプレート読み込み
-        $this->load->view ( Base_lib::ADMIN_DIR . '/error', self::sharedTemplate () );
+        $this->login_model->clear_values(Base_lib::ADMIN_DIR);
+        // ログインページへ遷移
+        redirect(Base_lib::ACCESS_ADMIN_DIR);
     }
 }

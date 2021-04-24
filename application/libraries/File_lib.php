@@ -129,7 +129,7 @@ class File_lib
         関数名： GetPath
         概　要： ファイルパス取得処理
         引　数： $dir：ディレクトリ
-                 $file: ファイル
+                $file: ファイル
     */
     public function GetPath($dir, $file)
     {
@@ -183,8 +183,8 @@ class File_lib
         関数名： ByteFormat
         概　要： ファイルサイズ取得処理
         引　数： $size：バイトサイズ
-                 $dec：小数点以下の桁数
-                 $separate：カンマ区切り
+                $dec：小数点以下の桁数
+                $separate：カンマ区切り
     */
     public function ByteFormat($size, $dec = -1, $separate = false)
     {
@@ -275,6 +275,24 @@ class File_lib
             $returnVal = 'text/csv';
         }
 
+        return $returnVal;
+    }
+    /*====================================================================
+        関数名： FileLibraryExists
+        概　要： ライブラリー内に対象ファイルが存在するか確認
+        引　数： $filePath：ファイルパス
+    */
+    public function FileExists($filePath = '')
+    {
+        // 返値の初期値をセット
+        $returnVal = false;
+        // ファイルパスがセット
+        if ($filePath) {
+            // 対象ディレクトリをセット
+            $targetDir = APPPATH . Base_lib::LIBRARY_DIR . DIRECTORY_SEPARATOR;
+            // ファイルの存在確認
+            $returnVal = file_exists($targetDir . DIRECTORY_SEPARATOR . $filePath);
+        }
         return $returnVal;
     }
 }

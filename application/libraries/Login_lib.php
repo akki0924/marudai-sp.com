@@ -13,8 +13,8 @@
 class Login_lib
 {
     // 定数
-    const LIBLARY_DIR = APPPATH . 'libraries' . DIRECTORY_SEPARATOR;    // ライブラリ
-    
+    const LIBLARY_DIR = APPPATH . Base_lib::LIBRARY_DIR . DIRECTORY_SEPARATOR;    // ライブラリ
+    const USER_LIB_NAME = 'Base_lib::ACCESS_ADMIN_DIR';
     // メンバー変数
     protected $CI;              // スーパーオブジェクト割当用
     private $targetKey;         // 対象キー（ディレクトリー名、DBテーブル名で使用）
@@ -25,7 +25,7 @@ class Login_lib
     /*====================================================================
         コントラクト
     */
-    public function __construct( $params = array () )
+    public function __construct($params = array())
 //    public function __construct( $params )
 //    public function __construct()
     {
@@ -35,45 +35,47 @@ class Login_lib
         $this->CI->load->library('session');
         $this->CI->load->library('session_lib');
         // 対象キーが引数にセットされている場合
-        if ( isset ( $params['key'] ) && $params['key'] != '' ) {
+        if (isset($params['key']) && $params['key'] != '') {
             // 初期情報セットする
-            $this->SetSource ( $params['key'] );
+            $this->SetSource($params['key']);
         }
     }
     /*====================================================================
         関数名： SetSource
         概　要： 対象配列をメンバー変数にセット(小文字に変換)
     */
-    public function SetSource ( $targetKey = '' )
+    public function SetSource($targetKey = '')
     {
         // 返り値を初期化
-        $returnVal = array ();
+        $returnVal = array();
 
         // 対象キー
-        $this->SetTargetKey ( $targetKey );
+        $this->SetTargetKey($targetKey);
         // ライブラリー
-        $this->SetLibrary ();
+        $this->SetLibrary();
         // 対象ライブラリーがセットされている場合
-        if ( $this->TargetLibExists () ) {
+        if ($this->TargetLibExists()) {
             // テーブル
-            $this->SetTable ();
+            $this->SetTable();
             // アカウント
-            $this->SetAccount ();
+            $this->SetAccount();
             // パスワード
-            $this->SetPassword ();
+            $this->SetPassword();
         }
     }
     /*====================================================================
         関数名： LoginAction
         概　要： ログイン情報実行処理（SESSION内容登録）
     */
-    public function LoginAction( $account, $passowrd )
+    public function LoginAction($account, $passowrd)
     {
         // 対象キーが未セットの場合、関数終了
-        if ( ! $this->TargetKeyExists() ) return false;
+        if (! $this->TargetKeyExists()) {
+            return false;
+        }
 
         // 認証確認処理
-        return ( $this->Execute( $account, $passowrd, true ) ? true : false );
+        return ($this->Execute($account, $passowrd, true) ? true : false);
     }
     /*====================================================================
         関数名： LoginCheck
@@ -82,43 +84,52 @@ class Login_lib
     public function LoginCheck()
     {
         // 対象キーが未セットの場合、関数終了
-        if ( ! $this->TargetKeyExists () ) return false;
+        if (! $this->TargetKeyExists()) {
+            return false;
+        }
         // 既に認証済みの有無を返す
-        return ( $this->Execute( '', '', true ) ? true : false );
+        return ($this->Execute('', '', true) ? true : false);
     }
     /*====================================================================
         関数名： TargetKeyExists
         概　要： 対象キーがセットされているかどうか
     */
-    public function TargetKeyExists ()
+    public function TargetKeyExists()
     {
-        return ( $this->targetKey != '' ? true : false );
+        return ($this->targetKey != '' ? true : false);
     }
     /*====================================================================
         関数名： TargetLibExists
         概　要： 対象ライブラリーがセットされているかどうか
     */
-    public function TargetLibExists ()
+    public function TargetLibExists()
     {
-        return ( $this->targetLib != '' ? true : false );
+        return ($this->targetLib != '' ? true : false);
     }
     /*====================================================================
         関数名： Execute
         概　要： ログイン認証処理
     */
-    public function Execute( $account = "", $password = "", $public = false )
+    public function Execute($account = "", $password = "", $public = false)
     {
         // 対象キーが未セットの場合、関数終了
-        if (! $this->TargetKeyExists()) return false;
+        if (! $this->TargetKeyExists()) {
+            return false;
+        }
         // 返り値の初期値
         $returnVal = false;
-        // ライブラリー読込み
-        $this->CI->load->library( Base_lib::MASTER_DIR . '/user_lib' );
+        // ユーザーライブラリーの存在確認
+        $userLibExists = $this->CI->file_lib->FileExists(Base_lib::MASTER_DIR . '/' . ucfirst(self::USER_LIB_NAME) . '.php');
+        // ユーザーライブラリーが存在
+        if ($userLibExists) {
+            // ライブラリー読込み
+            $this->CI->load->library(Base_lib::MASTER_DIR . '/' . self::USER_LIB_NAME);
+        }
 
         // 認証済（SESSION情報の登録、入力情報の有無）
         if (
-            $this->CI->session->has_userdata( $this->targetKey . "_" . "id" ) &&
-            $this->CI->session->has_userdata( $this->targetKey . "_" . "success" ) &&
+            $this->CI->session->has_userdata($this->targetKey . "_" . "id") &&
+            $this->CI->session->has_userdata($this->targetKey . "_" . "success") &&
             $account == "" &&
             $password == ""
         ) {
@@ -126,24 +137,22 @@ class Login_lib
             $query = $this->CI->db->query("
                 SELECT COUNT(*) AS count FROM " . $this->targetTable . "
                 WHERE (
-                    id = '" . Base_lib::AddSlashes( $this->GetSessionId() ) . "'
-                    " . ( $public ? " AND status >= " . Base_lib::STATUS_ENABLE : "" ) . "
+                    id = '" . Base_lib::AddSlashes($this->GetSessionId()) . "'
+                    " . ($public ? " AND status >= " . Base_lib::STATUS_ENABLE : "") . "
                 )
             ");
             // 結果が、空でない場合
-            if ( $query->num_rows() > 0 ) {
-                foreach ( $query->result() as $row ) {
-                    if ( $row->count > 0 ) {
+            if ($query->num_rows() > 0) {
+                foreach ($query->result() as $row) {
+                    if ($row->count > 0) {
                         $returnVal = true;
-                    }
-                    else {
+                    } else {
                         // SESSION情報クリア
                         $this->ClearSessionValues();
                     }
                     break;
                 }
-            }
-            else {
+            } else {
                 // SESSION情報クリア
                 $this->ClearSessionValues();
             }
@@ -154,21 +163,20 @@ class Login_lib
             $query = $this->CI->db->query("
                 SELECT id FROM " . $this->targetTable . "
                 WHERE (
-                    " . $this->targetAccount . "  = '" . Base_lib::AddSlashes( $account ) . "' AND
-                    " . $this->targetPassword . "  = '" . Base_lib::AddSlashes( $password ) . "'
-                    " . ( $this->GetTable () == User_lib::MASTER_TABLE ? ' AND regist_type=' . User_lib::ID_REGIST_TYPE_REGULAR  : '' ) . "
-                    " . ( $public ? " AND status >= " . Base_lib::STATUS_ENABLE : "" ) . "
+                    " . $this->targetAccount . "  = '" . Base_lib::AddSlashes($account) . "' AND
+                    " . $this->targetPassword . "  = '" . Base_lib::AddSlashes($password) . "'
+                    " . ($userLibExists && $this->GetTable() == User_lib::MASTER_TABLE ? ' AND regist_type=' . User_lib::ID_REGIST_TYPE_REGULAR  : '') . "
+                    " . ($public ? " AND status >= " . Base_lib::STATUS_ENABLE : "") . "
                 )
             ");
             // 結果が、空でない場合
             if ($query->num_rows() > 0) {
                 foreach ($query->result() as $row) {
                     // SESSION登録処理
-                    $this->SetSessionValues( $row->id );
+                    $this->SetSessionValues($row->id);
                     $returnVal = true;
                 }
-            }
-            else {
+            } else {
                 $this->ClearSessionValues();
             }
         }
@@ -178,10 +186,12 @@ class Login_lib
         関数名： SetSessionValues
         概　要： SESSION情報を登録
     */
-    public function SetSessionValues( $id )
+    public function SetSessionValues($id)
     {
         // 対象キーが未セットの場合、関数終了
-        if ( ! $this->TargetKeyExists() ) return false;
+        if (! $this->TargetKeyExists()) {
+            return false;
+        }
 
         $values = array(
             $this->targetKey . "_" . "id"         => $id,
@@ -197,12 +207,14 @@ class Login_lib
     public function GetSessionValues()
     {
         // 対象キーが未セットの場合、関数終了
-        if ( ! $this->TargetKeyExists() ) return false;
+        if (! $this->TargetKeyExists()) {
+            return false;
+        }
 
         $values = array(
-            $this->targetKey . "_" . "id"          => $this->CI->session->userdata( $this->targetKey . "_" . "id" ),
-            $this->targetKey . "_" . "last_login"  => $this->CI->session->userdata( $this->targetKey . "_" . "last_login" ),
-            $this->targetKey . "_" . "success"     => $this->CI->session->userdata( $this->targetKey . "_" . "success" )
+            $this->targetKey . "_" . "id"          => $this->CI->session->userdata($this->targetKey . "_" . "id"),
+            $this->targetKey . "_" . "last_login"  => $this->CI->session->userdata($this->targetKey . "_" . "last_login"),
+            $this->targetKey . "_" . "success"     => $this->CI->session->userdata($this->targetKey . "_" . "success")
         );
         return $values;
     }
@@ -213,9 +225,11 @@ class Login_lib
     public function GetSessionId()
     {
         // 対象キーが未セットの場合、関数終了
-        if ( ! $this->TargetKeyExists() ) return false;
+        if (! $this->TargetKeyExists()) {
+            return false;
+        }
 
-        return $this->CI->session->userdata( $this->targetKey . "_" . "id" );
+        return $this->CI->session->userdata($this->targetKey . "_" . "id");
     }
     /*====================================================================
         関数名： ClearSessionValues
@@ -224,23 +238,25 @@ class Login_lib
     public function ClearSessionValues()
     {
         // 対象キーが未セットの場合、関数終了
-        if (! $this->TargetKeyExists()) return false;
+        if (! $this->TargetKeyExists()) {
+            return false;
+        }
 
         $values = array(
             $this->targetKey . "_" . "id",
             $this->targetKey . "_" . "last_login",
             $this->targetKey . "_" . "success",
         );
-        return $this->CI->session->unset_userdata( $values );
+        return $this->CI->session->unset_userdata($values);
     }
     /*====================================================================
         関数名： SetTargetKey
         概　要： 対象キーをセット
     */
-    public function SetTargetKey( $targetKey = '' )
+    public function SetTargetKey($targetKey = '')
     {
         // 対象キーがセットされていない場合、セット
-        if ( ! $this->TargetKeyExists () ) {
+        if (! $this->TargetKeyExists()) {
             $this->targetKey = $targetKey;
         }
     }
@@ -253,13 +269,12 @@ class Login_lib
         // 対象ライブラリー名をセット
         $lib_name = $this->targetKey . '_lib';
         // 対象ライブラリーが存在
-        if ( file_exists ( self::LIBLARY_DIR . ucfirst ( $lib_name ) . '.php' ) ) {
+        if (file_exists(self::LIBLARY_DIR . ucfirst($lib_name) . '.php')) {
             // 対象ライブラリーを読込み
-            $this->CI->load->library ( ucfirst ( $lib_name ) );
-        }
-        else {
+            $this->CI->load->library(ucfirst($lib_name));
+        } else {
             // 対象ライブラリーを読込み
-            $this->CI->load->library ( Base_lib::MASTER_DIR . '/' . ucfirst ( $lib_name ) );
+            $this->CI->load->library(Base_lib::MASTER_DIR . '/' . ucfirst($lib_name));
         }
         // クラス変数に代入
         $this->targetLib = $this->CI->{$lib_name};
@@ -271,7 +286,7 @@ class Login_lib
     public function SetTable()
     {
         // 対象テーブルをセット
-        $this->targetTable = $this->targetLib->GetMasterTable ();
+        $this->targetTable = $this->targetLib->GetMasterTable();
     }
     /*====================================================================
         関数名： GetTable
@@ -288,7 +303,7 @@ class Login_lib
     public function SetAccount()
     {
         // 対象アカウントをセット
-        $this->targetAccount = $this->targetLib->GetAccount ();
+        $this->targetAccount = $this->targetLib->GetAccount();
     }
     /*====================================================================
         関数名： GetAccount
@@ -305,7 +320,7 @@ class Login_lib
     public function SetPassword()
     {
         // 対象パスワードをセット
-        $this->targetPassword = $this->targetLib->GetPassword ();
+        $this->targetPassword = $this->targetLib->GetPassword();
     }
     /*====================================================================
         関数名： GetAccount
