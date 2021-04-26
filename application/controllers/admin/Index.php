@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 /**
- * ログイン画面処理
+ * 管理画面ログイン画面処理
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.2

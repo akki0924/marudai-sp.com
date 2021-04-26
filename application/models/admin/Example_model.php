@@ -1,47 +1,32 @@
-\<\?php
+<?php
 if (! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 /**
- * <?= $title ?>
-
+ * 雛形データ用ライブラリー
  *
- * <?= $description ?>
- *
+ * 雛形データの取得および処理する為の関数群 *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     <?= date('Y/m/d') ?>：新規作成
+ * @since 1.0.0     2021/04/26：新規作成
  */
-class <?= $className ?> extends CI_Model
+class Example_model extends CI_Model
 {
-<?php if (isset($constOnly)) { ?>
     /**
      * const
      */
-<?php for ($i = 0, $n = count($constOnly); $i < $n; $i ++) { ?>
-    // <?= $constOnly[$i]['title'] ?>
-
-    const <?= $constOnly[$i]['key'] ?> = <?= $constOnly[$i]['val'] ?>;
-<?php } ?>
-<?php } ?>
+    // ログイン対象
+    const LOGIN_KEY = Base_lib::ADMIN_DIR;
 
 
-<?php if (isset($construct)) { ?>
     /**
      * コントラクト
      */
     public function __construct()
     {
-<?php for ($i = 0, $n = count($construct); $i < $n; $i ++) { ?>
-        // <?= $construct[$i]['description'] ?>
-
-<?php for ($data_i = 0, $data_n = count($construct[$i]['data']); $data_i < $data_n; $data_i ++) { ?>
-        <?= $construct[$i]['data'][$data_i] ?>
-
-<?php } ?>
-<?php } ?>
+        // 一覧テンプレート情報を取得
+        $this->load->library('login_lib', array('key' => self::LOGIN_KEY));
     }
-<?php } ?>
 
 
     /**
@@ -52,16 +37,13 @@ class <?= $className ?> extends CI_Model
      */
     public function sharedTemplate(?array $returnVal = array()) : array
     {
-<?php if (isset($sharedTemplate)) { ?>
-<?php for ($i = 0, $n = count($sharedTemplate); $i < $n; $i ++) { ?>
-        // <?= $sharedTemplate[$i]['description'] ?>
-
-<?php for ($data_i = 0, $data_n = count($sharedTemplate[$i]['data']); $data_i < $data_n; $data_i ++) { ?>
-        <?= $sharedTemplate[$i]['data'][$data_i] ?>
-
-<?php } ?>
-<?php } ?>
-<?php } ?>
+        // クラス定数をセット
+        $returnVal['const'] = $this->GetBaseConstList();
+        // ログ出力
+        Base_lib::ConsoleLog($returnVal);
+        Base_lib::ConsoleLog($_SERVER);
+        Base_lib::ConsoleLog($_SESSION);
+        Base_lib::ConsoleLog(validation_errors());
 
         return $returnVal;
     }

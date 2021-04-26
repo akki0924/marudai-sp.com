@@ -16,19 +16,19 @@ class Create_lib extends Base_lib
     /**
      * const
      */
-    const TEMPLATE_DIR = 'create';                                                      // 自動生成用テンプレートディレクトリ
-    const TEMPLATE_MODEL = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . 'model';      // モデル用テンプレート
-    const TEMPLATE_LIBLARY = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . 'library';  // ライブラリー用テンプレート
-
-    const JSON_DIR = Base_lib::JSON_DIR;
-    const JSON_LIBRARY_DIR = self::JSON_DIR . self::WEB_DIR_SEPARATOR . Base_lib::LIBRARY_DIR;
-
-    const CHANGE_PHP_TAG_START = '\<\?';
-    const CHANGE_PHP_TAG_END = '\?\>';
-
+    // 自動生成用テンプレートディレクトリ
+    const TEMPLATE_DIR = 'create';
+    // 自動生成用テンプレートファイル
+    const CREATE_MODEL_FILE = 'model';      // モデル用
+    const CREATE_LIBRARY_FILE = 'library';  // ライブラリー用
+    // PHPタグ修正
+    const CHANGE_PHP_TAG_START = '\<\?';    // 開始タグ
+    const CHANGE_PHP_TAG_END = '\?\>';      // 終了タグ
+    // ID文字数
     const KEY_ID_STR_NUM = 'ID_STR_NUM';
     // スーパーオブジェクト割当用変数
     protected $CI;
+
 
     /**
      * コンストラクタ
@@ -37,6 +37,82 @@ class Create_lib extends Base_lib
     {
         // CodeIgniter のスーパーオブジェクトを割り当て
         $this->CI =& get_instance();
+    }
+
+
+    /**
+     * Modelファイルの書出し処理
+     *
+     * @param string $strData：対象ファイルパス
+     * @return void
+     */
+    public function CreateModel(string $filePath = '')
+    {
+        // ヘルパー関数読込み
+        $this->CI->load->helper('file');
+        // 読込みJSONファイルをセット
+        $targetFile = self::JSON_DIR . self::WEB_DIR_SEPARATOR;
+        $targetFile .= $filePath;
+        // JSONファイルを読込み
+        $jsonData = $this->CI->load->view($targetFile, '', true);
+        // JSONデコード
+        $templateVal = $this->CI->json_lib->Decode($jsonData);
+        Base_lib::ConsoleLog($templateVal);
+        // データ追加処理
+        $templateVal['className'] = pathinfo(basename($targetFile), PATHINFO_FILENAME);
+        // 自動生成用テンプレートファイル
+        $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . self::CREATE_MODEL_FILE;
+        // 自動生成用テンプレート読み込み
+        $writeVal = $this->CI->load->view($targetFile, $templateVal, true);
+        $writeVal = $this->ReturnPhpTag($writeVal);
+        // 出力先パス
+        $uploadPath = 'application/' . $filePath;
+        // 出力先の親ディレクトリパス
+        $uploadDir = dirname(dirname(APPPATH) . self::WEB_DIR_SEPARATOR . $uploadPath);
+        // 出力ファイルの親ディレクトリが未存在の場合
+        if (!file_exists($uploadDir)) {
+            // ディレクトリを生成
+            mkdir($uploadDir, 0755);
+        }
+        // ファイル出力
+        write_file($uploadPath, $writeVal);
+    }
+
+
+    /**
+     * Modelsファイル一覧の書出し処理
+     *
+     * @return void
+     */
+    public function CreateModels() : void
+    {
+        // ヘルパー関数読込み
+        $this->CI->load->helper('file');
+        // 自動生成ディレクトリ
+        $targetDir = APPPATH . self::VIEW_DIR . self::WEB_DIR_SEPARATOR;
+        $targetDir .= self::JSON_DIR . self::WEB_DIR_SEPARATOR . self::MODEL_DIR;
+        Base_lib::ConsoleLog($targetDir);
+        // ディレクトリ一覧を取得
+        $dirList = $this->CI->file_lib->GetDirList($targetDir);
+        foreach ($dirList as $dirVal) {
+            // ディレクトリ内ファイル一覧
+            $fileList = $this->CI->file_lib->GetNameList($targetDir . self::WEB_DIR_SEPARATOR . $dirVal);
+            foreach ($fileList as $fileVal) {
+                // JSONファイルパス
+                $targetFile = self::MODEL_DIR . self::WEB_DIR_SEPARATOR . $dirVal;
+                $targetFile .= self::WEB_DIR_SEPARATOR . $fileVal;
+                // ファイル書出し処理
+                $this->CreateModel($targetFile);
+            }
+        }
+        // ファイル一覧
+        $fileList = $this->CI->file_lib->GetNameList($targetDir);
+        foreach ($fileList as $fileVal) {
+            // JSONファイルパス
+            $targetFile = self::MODEL_DIR . self::WEB_DIR_SEPARATOR . $fileVal;
+            // ファイル書出し処理
+            $this->CreateModel($targetFile);
+        }
     }
 
 
@@ -56,7 +132,7 @@ class Create_lib extends Base_lib
         // JSONファイルを読込み
         $jsonData = $this->CI->load->view($targetFile, '', true);
         // JSONデコード
-        $templateVal = json_decode($jsonData, true);
+        $templateVal = $this->CI->json_lib->Decode($jsonData);
         // データ追加処理
         $templateVal['className'] = pathinfo(basename($targetFile), PATHINFO_FILENAME);
         $templateVal['CreateId_flg'] = false;
@@ -68,18 +144,15 @@ class Create_lib extends Base_lib
                 }
             }
         }
-        Base_lib::ConsoleLog($jsonData);
-        Base_lib::ConsoleLog($templateVal);
-
-        // 希望エリア選択テンプレート読み込み
-        $writeVal = $this->CI->load->view(self::TEMPLATE_LIBLARY, $templateVal, true);
+        // 自動生成用テンプレートファイル
+        $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . self::CREATE_LIBRARY_FILE;
+        // 自動生成用テンプレート読み込み
+        $writeVal = $this->CI->load->view($targetFile, $templateVal, true);
         $writeVal = $this->ReturnPhpTag($writeVal);
         // 出力先パス
         $uploadPath = 'application/' . $filePath;
         // 出力先の親ディレクトリパス
         $uploadDir = dirname(dirname(APPPATH) . self::WEB_DIR_SEPARATOR . $uploadPath);
-        Base_lib::ConsoleLog($uploadPath);
-        Base_lib::ConsoleLog($uploadDir);
         // 出力ファイルの親ディレクトリが未存在の場合
         if (!file_exists($uploadDir)) {
             // ディレクトリを生成
@@ -93,25 +166,23 @@ class Create_lib extends Base_lib
     /**
      * Libraryファイル一覧の書出し処理
      *
-     * @param string|null $strData
      * @return void
      */
     public function CreateLibraries() : void
     {
         // ヘルパー関数読込み
         $this->CI->load->helper('file');
-        // 対象ディレクトリ
-        $targetDir = APPPATH . Base_lib::VIEW_DIR . self::WEB_DIR_SEPARATOR . self::JSON_LIBRARY_DIR;
+        // 自動生成ディレクトリ
+        $targetDir = APPPATH . self::VIEW_DIR . self::WEB_DIR_SEPARATOR;
+        $targetDir .= self::JSON_DIR . self::WEB_DIR_SEPARATOR . self::LIBRARY_DIR;
         // ディレクトリ一覧を取得
         $dirList = $this->CI->file_lib->GetDirList($targetDir);
-        Base_lib::ConsoleLog($dirList);
         foreach ($dirList as $dirVal) {
             // ディレクトリ内ファイル一覧
             $fileList = $this->CI->file_lib->GetNameList($targetDir . self::WEB_DIR_SEPARATOR . $dirVal);
             foreach ($fileList as $fileVal) {
-                Base_lib::ConsoleLog($fileList);
                 // JSONファイルパス
-                $targetFile = Base_lib::LIBRARY_DIR . self::WEB_DIR_SEPARATOR . $dirVal;
+                $targetFile = self::LIBRARY_DIR . self::WEB_DIR_SEPARATOR . $dirVal;
                 $targetFile .= self::WEB_DIR_SEPARATOR . $fileVal;
                 // ファイル書出し処理
                 $this->CreateLibrary($targetFile);
@@ -120,9 +191,8 @@ class Create_lib extends Base_lib
         // ファイル一覧
         $fileList = $this->CI->file_lib->GetNameList($targetDir);
         foreach ($fileList as $fileVal) {
-            Base_lib::ConsoleLog($fileList);
             // JSONファイルパス
-            $targetFile = Base_lib::LIBRARY_DIR . self::WEB_DIR_SEPARATOR . $fileVal;
+            $targetFile = self::LIBRARY_DIR . self::WEB_DIR_SEPARATOR . $fileVal;
             // ファイル書出し処理
             $this->CreateLibrary($targetFile);
         }

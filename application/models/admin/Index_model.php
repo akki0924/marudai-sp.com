@@ -1,31 +1,40 @@
 <?php
-/*
-■機　能： 管理画面トップページ用ライブラリ
-■概　要：
-■更新日： 2019/12/24
-■担　当： crew.miwa
-
-■更新履歴：
- 2019/12/24: 作成開始
-*/
-
+/**
+ * 管理画面ログイン画面用モデル
+ *
+ * ログイン画面、およびログイン、ログアウト処理
+ *
+ * @author a.miwa <miwa@ccrw.co.jp>
+ * @version 1.0.1
+ * @since 1.0.0     2019/12/24：新規作成
+ * @since 1.0.1     2021/04/25：コメントをPHPDoc版に変更
+ */
 class Index_model extends CI_Model
 {
+    /**
+     * const
+     */
     // ログイン対象
-    const LOGIN_KEY = "admin";
-    /*====================================================================
-        コントラクト
-    */
+    const LOGIN_KEY = Base_lib::ADMIN_DIR;
+
+
+    /**
+     * コントラクト
+     */
     public function __construct()
     {
         $loginTarget['key'] = self::LOGIN_KEY;
         // ライブラリー読込み
         $this->load->library('login_lib', $loginTarget);
     }
-    /*====================================================================
-        関数名： sharedTemplate
-        概　要： 共通テンプレート情報を取得
-    */
+
+
+    /**
+     * 共通テンプレート
+     *
+     * @param array|null $returnVal
+     * @return array
+     */
     public function sharedTemplate($returnVal = array())
     {
         // クラス定数をセット
@@ -38,31 +47,37 @@ class Index_model extends CI_Model
 
         return $returnVal;
     }
-    /*====================================================================
-        関数名： LoginTemplate
-        概　要： ログインページテンプレート情報を取得
-    */
-    public function LoginTemplate($validation_flg = false)
+
+
+    /**
+     * ログイン画面テンプレート
+     *
+     * @param boolean $validFlg
+     * @return array|null
+     */
+    public function LoginTemplate(bool $validFlg = false) : ?array
     {
         // 一覧情報をセット
         $returnVal = array();
         // FORM情報をセット
-        foreach ($this->FormDefaultList() as $key) {
+        foreach ($this->FormLoginList() as $key) {
             $returnVal['form'][$key] = $this->input->post_get($key, true);
         }
-
         return $this->sharedTemplate($returnVal);
     }
-    /*====================================================================
-        関数名： LoginAction
-        概　要： ログインページテンプレート情報を取得
-    */
-    public function LoginAction()
+
+
+    /**
+     * ログイン処理
+     *
+     * @return boolean
+     */
+    public function LoginAction() : bool
     {
         // 一覧情報をセット
         $returnVal = false;
         // FORM情報をセット
-        foreach ($this->FormDefaultList() as $key) {
+        foreach ($this->FormLoginList() as $key) {
             $form[$key] = $this->input->post_get($key, true);
         }
         // ログイン処理（SESSION情報を登録）
@@ -70,20 +85,26 @@ class Index_model extends CI_Model
 
         return $returnVal;
     }
-    /*====================================================================
-        関数名： LogoutAction
-        概　要： ログアウト処理
-    */
-    public function LogoutAction()
+
+
+    /**
+     * ログアウト処理
+     *
+     * @return void
+     */
+    public function LogoutAction() : void
     {
         // 対象SESSION情報を削除
         $this->login_lib->ClearSessionValues();
     }
-    /*====================================================================
-        関数名： FormDefaultList
-        概　要： フォーム用配列
-    */
-    public function FormDefaultList()
+
+
+    /**
+     * ログインフォーム用配列
+     *
+     * @return array
+     */
+    public function FormLoginList() : array
     {
         $returnVal = array(
             'account',
@@ -91,13 +112,16 @@ class Index_model extends CI_Model
         );
         return $returnVal;
     }
-    /*====================================================================
-        関数名： ConfigLoginValues
-        概　要： ログインページ エラーチェック配列
-    */
-    public function ConfigLoginValues()
+
+
+    /**
+     * ログイン画面 エラーチェック配列
+     *
+     * @return array
+     */
+    public function ConfigLoginValues() : array
     {
-        $returnValues = array(
+        $returnVal = array(
             array(
                 'field'   => 'account',
                 'label'   => 'アカウント',
@@ -109,6 +133,6 @@ class Index_model extends CI_Model
                 'rules'   => 'required|ValidLoginAdmin[' . $this->input->post_get('account', true) . ']'
             ),
         );
-        return ($returnValues);
+        return ($returnVal);
     }
 }

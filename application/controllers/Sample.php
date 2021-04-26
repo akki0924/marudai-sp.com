@@ -33,6 +33,13 @@ class Sample extends MY_Controller
         // テンプレート読み込み
         $this->load->view('sample', $this->sharedTemplate());
     }
+    // ファイル生成テスト（モデル版）
+    public function create_model()
+    {
+        // ファイル生成
+        $this->create_lib->CreateModels();
+        print "ok";
+    }
     // ファイル生成テスト
     public function create()
     {

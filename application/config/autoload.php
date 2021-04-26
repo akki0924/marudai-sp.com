@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
@@ -68,6 +68,7 @@ $autoload['libraries'] = array(
                             'Session_lib',          // セッション操作
                             'Upload_lib',           // ファイルアップロード操作
                             'File_lib',             // ファイル操作
+                            'Json_lib',             // JSONサポート用
                             'MY_Form_validation',   // FORMバリデーション
                             'Status_lib',           // ステータス（2択選択項目）用
                          );

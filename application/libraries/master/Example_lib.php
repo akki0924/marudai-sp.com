@@ -7,9 +7,9 @@ if (! defined('BASEPATH')) {
  *
  * 雛形データの取得および処理する為の関数群
  *
- * @author akki.m
+ * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/04/23：新規作成
+ * @since 1.0.0     2021/04/26：新規作成
  */
 class Example_lib extends Base_lib
 {
