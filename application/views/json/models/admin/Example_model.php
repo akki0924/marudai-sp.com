@@ -4,7 +4,7 @@
     "title":"雛形データ用ライブラリー",
     "description__comment":"クラス用説明文表記",
     "description":"雛形データの取得および処理する為の関数群",
-    "constOnly__comment":"定数宣言のみ  title:日本語表記, key:定数名, val:値",
+    "constOnly__comment":"定数宣言のみ title=日本語表記, key=定数名, val=値",
     "constOnly":[
         {
             "title":"ログイン対象",
@@ -12,7 +12,7 @@
             "val":"Base_lib::ADMIN_DIR"
         }
     ],
-    "construct__comment":"コントラクト description:説明, data:内容(配列)",
+    "construct__comment":"コントラクト description=説明, data=内容(配列)",
     "construct":[
         {
             "description":"一覧テンプレート情報を取得",
@@ -21,7 +21,7 @@
             ]
         }
     ],
-    "sharedTemplate__comment":"共通テンプレート description:説明, data:内容(配列)",
+    "sharedTemplate__comment":"共通テンプレート description=説明, data=内容(配列)",
     "sharedTemplate":[
         {
             "description":"クラス定数をセット",
@@ -47,8 +47,17 @@
             "key__comment":"関数名",
             "key":"ListTemplate",
             "arg__comment":"関数引数",
-            "arg":[],
-            "returnType__comment":"変値の型",
+            "arg":[
+                {
+                    "title":"ID",
+                    "key":"$id",
+                    "type":"string",
+                    "column":"id",
+                    "default":"''"
+                }
+            ],
+            "return":"$this->sharedTemplate($returnVal);",
+            "returnType__comment":"返値の型",
             "returnType":"array",
             "selectList":{
                 "title":"選択情報をセット",
@@ -56,13 +65,33 @@
                     "count":"$this->pagenavi_lib->GetListCount()"
                 }
             },
-            "var":{
-                "$whereSql":"array();"
-            },
-            "formList":"$this->FormDefaultList()"
+            "library":[
+                "$this->load->library('pagenavi_lib');"
+            ],
+            "var":[
+                {
+                    "description":"WHERE情報をセット",
+                    "key":"$whereSql",
+                    "val":"array();"
+                }
+            ],
+            "formList":"$this->FormDefaultList()",
+            "whereSql":[
+                {
+                    "title":"キーワード",
+                    "if":"$returnVal['form']['search_keyword'] != ''",
+                    "list":[
+                        "Example_lib::MASTER_TABLE . " . name LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";"
+                    ]
+                }
+            ],
+            "otherList__comment":"最後に書き出し、全てそのまま書出す",
+            "otherList":[
+                ""
+            ]
         }
     ],
-    "formList__comment":"フォーム用配列 description:関数説明文, key:関数名, list:配列",
+    "formList__comment":"フォーム用配列 description=関数説明文, key=関数名, list=配列",
     "formList":[
         {
             "description":"一覧フォーム用配列",
@@ -82,7 +111,7 @@
             ]
         }
     ],
-    "validList__comment":"エラーチェック用配列 description:関数説明文, key:関数名, list:配列",
+    "validList__comment":"エラーチェック用配列 description=関数説明文, key=関数名, list=配列",
     "validList":[
         {
             "description":"入力ページ エラーチェック配列",

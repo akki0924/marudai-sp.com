@@ -55,6 +55,9 @@ class Create_lib extends Base_lib
         $targetFile .= $filePath;
         // JSONファイルを読込み
         $jsonData = $this->CI->load->view($targetFile, '', true);
+        // クォート処理
+        $jsonData = $this->CI->json_lib->EscapeDoubleQuote($jsonData);
+        Base_lib::ConsoleLog($jsonData);
         // JSONデコード
         $templateVal = $this->CI->json_lib->Decode($jsonData);
         Base_lib::ConsoleLog($templateVal);

@@ -67,85 +67,157 @@ class <?= $className ?> extends CI_Model
     }
 
 
+<?php if (isset($templateList)) { ?>
+<?php for ($i = 0, $n = count($templateList); $i < $n; $i ++) { ?>
     /**
-     * ログインページテンプレート
+     * <?= $templateList[$i]['description'] ?>
+
      *
+<?php for ($arg_i = 0, $arg_n = count($templateList[$i]['arg']); $arg_i < $arg_n; $arg_i ++) { ?>
+     * @param <?= $templateList[$i]['arg'][$arg_i]['type'] ?> <?= $templateList[$i]['arg'][$arg_i]['key'] ?>：<?= $templateList[$i]['arg'][$arg_i]['title'] ?>
+
+<?php } ?>
      * @param boolean $validFlg
-     * @return array|null
+     * @return <?= $templateList[$i]['returnType'] ?>|null
      */
-    public function LoginTemplate(bool $validFlg = false) : ?array
+    public function <?= $templateList[$i]['key'] ?>(<?php
+    for ($arg_i = 0, $arg_n = count($templateList[$i]['arg']); $arg_i < $arg_n; $arg_i ++) {
+        echo $templateList[$i]['arg'][$arg_i]['type'] . ' ';
+        echo $templateList[$i]['arg'][$arg_i]['key'];
+        echo($templateList[$i]['arg'][$arg_i]['default'] ? ' = ' . $templateList[$i]['arg'][$arg_i]['default'] : '');
+        echo($arg_i < ($arg_n - 1) ? ', ' : ''); ?>
+<?php
+    }
+?>) : ?<?= $templateList[$i]['returnType'] ?>
+
     {
-        // 一覧情報をセット
+        // 読み込み時間を延長
+        ini_set('max_execution_time', '90');
+
+        // 返値を初期化
+<?php if ($templateList[$i]['returnType'] == 'array') { ?>
         $returnVal = array();
+<?php } elseif ($templateList[$i]['returnType'] == 'string') { ?>
+        $returnVal = '';
+<?php } elseif ($templateList[$i]['returnType'] == 'bool') { ?>
+        $returnVal = false;
+<?php } ?>
+
+<?php if (isset($templateList[$i]['library'])) { ?>
+        // 各ライブラリの読み込み
+<?php for ($lib_i = 0, $lib_n = count($templateList[$i]['library']); $lib_i < $lib_n; $lib_i ++) { ?>
+        <?= $templateList[$i]['library'][$lib_i] ?>
+
+<?php } ?>
+<?php } ?>
+
+<?php if (isset($templateList[$i]['var'])) { ?>
+<?php for ($var_i = 0, $var_n = count($templateList[$i]['var']); $var_i < $var_n; $var_i ++) { ?>
+        // <?= $templateList[$i]['var'][$var_i]['description'] ?>
+
+        <?= $templateList[$i]['var'][$var_i]['key'] ?> = <?= $templateList[$i]['var'][$var_i]['val'] ?>
+
+<?php } ?>
+<?php } ?>
+
+<?php if (isset($templateList[$i]['selectList'])) { ?>
+<?php foreach ($templateList[$i]['selectList']['list'] as $listKey => $listVal) { ?>
+        // <?= $templateList[$i]['selectList']['title'] ?>
+
+        $returnVal['select'][<?= $listKey ?>] = <?= $listVal ?>
+<?php } ?>
+<?php } ?>
+
         // FORM情報をセット
-        foreach ($this->FormDefaultList() as $key) {
+        $returnVal['action'] = $this->input->post_get('action', true);
+<?php if (isset($templateList[$i]['formList'])) { ?>
+        foreach (<?= $templateList[$i]['formList'] ?> as $key) {
             $returnVal['form'][$key] = $this->input->post_get($key, true);
         }
+<?php } ?>
 
-        return $this->sharedTemplate($returnVal);
-    }
-    /*====================================================================
-        関数名： LoginAction
-        概　要： ログインページテンプレート情報を取得
-    */
-    public function LoginAction()
-    {
-        // 一覧情報をセット
-        $returnVal = false;
-        // FORM情報をセット
-        foreach ($this->FormDefaultList() as $key) {
-            $form[$key] = $this->input->post_get($key, true);
+        // ページ一覧用の情報を取得
+        $returnVal['form']['select_list_count'] = ($returnVal['form']['select_list_count'] != '' ? $returnVal['form']['select_list_count'] : Pagenavi_lib::DEFAULT_LIST_COUNT);
+
+        // WHERE情報をセット
+        $whereSql = array();
+        // キーワード
+        if ($returnVal['form']['search_keyword'] != '') {
+            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . id LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
+            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . l_name LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
+            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . f_name LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
+            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . tel LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
+            $whereSql[] = "(" . @implode(" OR ", $whereSqlSearch) . ")";
+            unset($whereSqlSearch);
         }
-        // ログイン処理（SESSION情報を登録）
-        $returnVal = $this->login_lib->LoginAction($form['account'], $form['password']);
 
-        return $returnVal;
+        // 一覧数の取得
+        $returnVal['count'] = $this->GetListCount($whereSql);
+        // ページナビ情報を取得
+        $returnVal['pager'] = $this->pagenavi_lib->GetValeus($returnVal['count'], $returnVal['form']['page'], $returnVal['form']['select_list_count']);
+        // ORDER情報をセット
+        $orderSql[0]['key'] = User_lib::MASTER_TABLE . ' . edit_date';
+        $orderSql[0]['arrow'] = 'DESC';
+        // LIMIT情報をセット
+        $limitSql['begin'] = ($returnVal['pager']['listStart'] - 1);
+        $limitSql['row'] = $returnVal['form']['select_list_count'];
+        // 一覧情報を取得
+        $returnVal['list'] = $this->GetList($whereSql, $orderSql, $limitSql);
+
+        // FROM値の有無によって表示内容を変更してセット
+        $returnVal['no_list_msg'] = self::NO_LIST_MSG;
+
+        return <?= $templateList[$i]['return'] ?>
+
     }
-    /*====================================================================
-        関数名： LogoutAction
-        概　要： ログアウト処理
-    */
-    public function LogoutAction()
-    {
-        // 対象SESSION情報を削除
-        $this->login_lib->ClearSessionValues();
-    }
+<?php } ?>
+<?php } ?>
 
 
+<?php if (isset($formList)) { ?>
+<?php for ($i = 0, $n = count($formList); $i < $n; $i ++) { ?>
     /**
-     * フォーム用配列
+     * <?= $formList[$i]['description'] ?>
+
      *
      * @return array
      */
-    public function FormDefaultList() : array
+    public function <?= $formList[$i]['key'] ?>() : array
     {
         $returnVal = array(
-            'account',
-            'password',
+<?php for ($list_i = 0, $list_n = count($formList[$i]['list']); $list_i < $list_n; $list_i ++) { ?>
+            '<?= $formList[$i]['list'][$list_i] ?>',
+<?php } ?>
         );
         return $returnVal;
     }
 
 
+<?php } ?>
+<?php } ?>
+<?php if (isset($validList)) { ?>
+<?php for ($i = 0, $n = count($validList); $i < $n; $i ++) { ?>
     /**
-     * エラーチェック配列
+     * <?= $validList[$i]['description'] ?>
+
      *
      * @return array
      */
-    public function ConfigLoginValues() : array
+    public function <?= $validList[$i]['key'] ?>() : array
     {
         $returnVal = array(
+<?php for ($list_i = 0, $list_n = count($validList[$i]['list']); $list_i < $list_n; $list_i ++) { ?>
             array(
-                'field'   => 'account',
-                'label'   => 'アカウント',
-                'rules'   => 'required'
+                'field'   => '<?= $validList[$i]['list'][$list_i]['field'] ?>',
+                'label'   => '<?= $validList[$i]['list'][$list_i]['label'] ?>',
+                'rules'   => '<?= $validList[$i]['list'][$list_i]['rules'] ?>'
             ),
-            array(
-                'field'   => 'password',
-                'label'   => 'パスワード',
-                'rules'   => 'required|ValidLoginAdmin[' . $this->input->post_get('account', true) . ']'
-            ),
+<?php } ?>
         );
         return ($returnVal);
     }
+
+
+<?php } ?>
+<?php } ?>
 }

@@ -30,6 +30,8 @@
                     "default":"false"
                 }
             ],
+            "returnType__comment":"返値の型",
+            "returnType":"array",
             "column__comment":"取得カラム一覧",
             "column":[
                 "id",

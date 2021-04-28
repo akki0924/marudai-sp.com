@@ -8,7 +8,7 @@ if (! defined('BASEPATH')) {
  * 雛形データの取得および処理する為の関数群 *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/04/26：新規作成
+ * @since 1.0.0     2021/04/28：新規作成
  */
 class Example_model extends CI_Model
 {
@@ -50,84 +50,121 @@ class Example_model extends CI_Model
 
 
     /**
-     * ログインページテンプレート
+     * 一覧テンプレート情報を取得
      *
+     * @param string $id：ID
      * @param boolean $validFlg
      * @return array|null
      */
-    public function LoginTemplate(bool $validFlg = false) : ?array
+    public function ListTemplate(string $id = '') : ?array
     {
-        // 一覧情報をセット
+        // 読み込み時間を延長
+        ini_set('max_execution_time', '90');
+
+        // 返値を初期化
         $returnVal = array();
+
+        // 各ライブラリの読み込み
+        $this->load->library('pagenavi_lib');
+
+        // WHERE情報をセット
+        $whereSql = array();
+
+        // 選択情報をセット
+        $returnVal['select'][count] = $this->pagenavi_lib->GetListCount()
         // FORM情報をセット
+        $returnVal['action'] = $this->input->post_get('action', true);
         foreach ($this->FormDefaultList() as $key) {
             $returnVal['form'][$key] = $this->input->post_get($key, true);
         }
 
-        return $this->sharedTemplate($returnVal);
-    }
-    /*====================================================================
-        関数名： LoginAction
-        概　要： ログインページテンプレート情報を取得
-    */
-    public function LoginAction()
-    {
-        // 一覧情報をセット
-        $returnVal = false;
-        // FORM情報をセット
-        foreach ($this->FormDefaultList() as $key) {
-            $form[$key] = $this->input->post_get($key, true);
-        }
-        // ログイン処理（SESSION情報を登録）
-        $returnVal = $this->login_lib->LoginAction($form['account'], $form['password']);
+        // ページ一覧用の情報を取得
+        $returnVal['form']['select_list_count'] = ($returnVal['form']['select_list_count'] != '' ? $returnVal['form']['select_list_count'] : Pagenavi_lib::DEFAULT_LIST_COUNT);
 
-        return $returnVal;
-    }
-    /*====================================================================
-        関数名： LogoutAction
-        概　要： ログアウト処理
-    */
-    public function LogoutAction()
-    {
-        // 対象SESSION情報を削除
-        $this->login_lib->ClearSessionValues();
+        // WHERE情報をセット
+        $whereSql = array();
+        // キーワード
+        if ($returnVal['form']['search_keyword'] != '') {
+            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . id LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
+            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . l_name LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
+            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . f_name LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
+            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . tel LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
+            $whereSql[] = "(" . @implode(" OR ", $whereSqlSearch) . ")";
+            unset($whereSqlSearch);
+        }
+
+        // 一覧数の取得
+        $returnVal['count'] = $this->GetListCount($whereSql);
+        // ページナビ情報を取得
+        $returnVal['pager'] = $this->pagenavi_lib->GetValeus($returnVal['count'], $returnVal['form']['page'], $returnVal['form']['select_list_count']);
+        // ORDER情報をセット
+        $orderSql[0]['key'] = User_lib::MASTER_TABLE . ' . edit_date';
+        $orderSql[0]['arrow'] = 'DESC';
+        // LIMIT情報をセット
+        $limitSql['begin'] = ($returnVal['pager']['listStart'] - 1);
+        $limitSql['row'] = $returnVal['form']['select_list_count'];
+        // 一覧情報を取得
+        $returnVal['list'] = $this->GetList($whereSql, $orderSql, $limitSql);
+
+        // FROM値の有無によって表示内容を変更してセット
+        $returnVal['no_list_msg'] = self::NO_LIST_MSG;
+
+        return $this->sharedTemplate($returnVal);
     }
 
 
     /**
-     * フォーム用配列
+     * 一覧フォーム用配列
      *
      * @return array
      */
     public function FormDefaultList() : array
     {
         $returnVal = array(
-            'account',
-            'password',
+            'page',
+            'select_count',
+            'search_keyword',
         );
         return $returnVal;
     }
 
 
     /**
-     * エラーチェック配列
+     * 入力フォーム用配列
      *
      * @return array
      */
-    public function ConfigLoginValues() : array
+    public function FormInputList() : array
+    {
+        $returnVal = array(
+            'id',
+            'name',
+        );
+        return $returnVal;
+    }
+
+
+    /**
+     * 入力ページ エラーチェック配列
+     *
+     * @return array
+     */
+    public function ConfigInputValues() : array
     {
         $returnVal = array(
             array(
-                'field'   => 'account',
-                'label'   => 'アカウント',
+                'field'   => 'id',
+                'label'   => 'ID',
                 'rules'   => 'required'
             ),
             array(
-                'field'   => 'password',
-                'label'   => 'パスワード',
-                'rules'   => 'required|ValidLoginAdmin[' . $this->input->post_get('account', true) . ']'
+                'field'   => 'name',
+                'label'   => '名前',
+                'rules'   => 'required'
             ),
         );
         return ($returnVal);
     }
+
+
 }

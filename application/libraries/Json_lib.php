@@ -27,6 +27,10 @@ class Json_lib
     const STR_CLOSE_BRACES = '}';
     // カンマ
     const STR_COMMA = ',';
+    // コロン
+    const STR_COLON = ':';
+    // 半角空白
+    const STR_BLANK = ' ';
 
     /**
      * JSONエンコード処理（お勧めオプション設定）
@@ -111,5 +115,98 @@ class Json_lib
             // エラーメッセージをログ出力
             Base_lib::ConsoleLog('JSONエラー：' . $errMsg);
         }
+    }
+    /**
+     * JSONデータ内のダブルコーテーションをクォート処理
+     *
+     * @param string $targetVal：対象JSON文字列
+     * @return string：変換したJSON文字列
+     */
+    public function EscapeDoubleQuote(string $targetVal) : string
+    {
+        // 全行数を配列で取得
+        $dataLow = explode("\n", $targetVal);
+        // 各行をループ
+        for ($i = 0, $rowNum = 1, $n = count($dataLow); $i < $n; $i ++, $rowNum ++) {
+            // コロンの最初の位置を取得
+            $posColon = strpos($dataLow[$i], self::STR_COLON);
+            // コロンが存在
+            if ($posColon > 0) {
+                // コロンの次の文字がコロン以外
+                if (substr($dataLow[$i], ($posColon + 1), 1) != self::STR_COLON) {
+                    $dataLine[0] = substr($dataLow[$i], 0, $posColon);
+                    $dataLine[1] = substr($dataLow[$i], ($posColon + 1));
+                }
+                // コロンの次の文字もコロン
+                else {
+                    $dataLine[0] = '';
+                    $dataLine[1] = $dataLow[$i];
+                }
+            }
+            // コロンが未存在
+            else {
+                $dataLine[0] = '';
+                $dataLine[1] = $dataLow[$i];
+            }
+
+            // ダブルコーテーションが２つ以上
+            if (substr_count($dataLine[1], self::STR_DOUBLE_QUOTE) > 2) {
+                // ダブルコーテーションの最初の位置
+                $firstPos = strpos($dataLine[1], self::STR_DOUBLE_QUOTE);
+                // ダブルコーテーションの最後の位置
+                $lastPos = strrpos($dataLine[1], self::STR_DOUBLE_QUOTE);
+                // ダブルコーテーションの最後の位置の前後の文字列を取得
+                $editLine1 = substr($dataLow[$i], 0, ($lastPos));
+                $editLine2 = substr($dataLow[$i], ($lastPos + 1));
+                // ダブルコーテーションの最後の文字以外を再セット
+                $dataLine[1] = ($editLine1 ? $editLine1 : '') . ($editLine2 ? $editLine2 : '');
+                // ダブルコーテーションの最初の位置の前後の文字列を取得
+                $editLine1 = substr($dataLine[1], 0, ($firstPos));
+                $editLine2 = substr($dataLine[1], ($firstPos + 1));
+                // ダブルコーテーションの最初の文字以外を再セット
+                $dataLine[1] = ($editLine1 ? $editLine1 : '') . ($editLine2 ? $editLine2 : '');
+                // 残りのダブルコーテーションをクォート処理
+                $dataLine[1] = str_replace(self::STR_DOUBLE_QUOTE, '\\' . self::STR_DOUBLE_QUOTE, $dataLine[1]);
+                // 最初と最後の文字列を取得
+                $firstStr = substr($dataLine[1], 0, 1);
+                $lastStr = substr($dataLine[1], -1);
+                // 最後の文字列がカンマ
+                if ($lastStr == self::STR_COMMA) {
+                    $lastPos = strrpos($dataLine[1], self::STR_COMMA);
+                    $dataLine[1] = substr($dataLine[1], 0, $lastPos);
+                    $dataLine[1] .= self::STR_DOUBLE_QUOTE . self::STR_COMMA;
+                }
+                // 最後の文字列がカンマ以外
+                else {
+                    $dataLine[1] .= self::STR_DOUBLE_QUOTE;
+                }
+                // 最初の文字列が空白
+                if ($firstStr == self::STR_BLANK) {
+                    $targetPos = (strspn($dataLine[1], self::STR_BLANK) - 1);
+                    $editLine1 = substr($dataLine[1], 0, $targetPos);
+                    $editLine2 = substr($dataLine[1], ($targetPos + 1));
+                    $dataLine[1] = $editLine1 . self::STR_DOUBLE_QUOTE . $editLine2;
+                }
+                // 最初の文字列が空白以外
+                else {
+                    $dataLine[1] = self::STR_DOUBLE_QUOTE . $dataLine[1];
+                }
+            }
+            // キー、値が共にセットの場合
+            if (
+                $dataLine[0] != '' &&
+                $dataLine[1] != ''
+            ) {
+                // キーと値の間にコロンを追加
+                $dataLow[$i] = $dataLine[0] . self::STR_COLON . $dataLine[1];
+            }
+            // キーか値が未セットの場合
+            else {
+                // 値をそのままセット
+                $dataLow[$i] = $dataLine[0] . $dataLine[1];
+            }
+        }
+        // 各行の配列を改行で連結して返す
+        return implode("\n", $dataLow);
     }
 }

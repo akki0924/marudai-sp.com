@@ -68,7 +68,7 @@ class <?= $className ?> extends Base_lib
      * @param <?= $detailList[$i]['arg'][$arg_i]['type'] ?> <?= $detailList[$i]['arg'][$arg_i]['key'] ?>：<?= $detailList[$i]['arg'][$arg_i]['title'] ?>
 
 <?php } ?>
-     * @return array|null
+     * @return <?= $detailList[$i]['returnType'] ?>|null
      */
     public function <?= $detailList[$i]['key'] ?> (<?php
     for ($arg_i = 0, $arg_n = count($detailList[$i]['arg']); $arg_i < $arg_n; $arg_i ++) {
@@ -78,10 +78,17 @@ class <?= $className ?> extends Base_lib
         echo($arg_i < ($arg_n - 1) ? ', ' : ''); ?>
 <?php
     }
-?>) : ?array
+?>) : ?<?= $detailList[$i]['returnType'] ?>
+
     {
         // 返値を初期化
+<?php if ($detailList[$i]['returnType'] == 'array') { ?>
         $returnVal = array();
+<?php } elseif ($detailList[$i]['returnType'] == 'string') { ?>
+        $returnVal = '';
+<?php } elseif ($detailList[$i]['returnType'] == 'bool') { ?>
+        $returnVal = false;
+<?php } ?>
         // SQL
         $query = $this->CI->db->query("
             SELECT
