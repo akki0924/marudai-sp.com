@@ -53,6 +53,9 @@ class Base_lib
     // プルダウン無選択項目
     const DEFAULT_SELECT_FIRST_WORD = "▼選択して下さい";
 
+    // 一覧が存在しない際のメッセージ
+    const DEFAULT_NO_LIST_MSG = "NO LIST";
+
     // アップロード
     const SRC_DIR = 'src';                                  // アップロードディレクトリ
     const SRC_TEMP_DIR = 'tmp';                             // アップロード一時ディレクトリ

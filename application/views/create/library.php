@@ -100,8 +100,8 @@ class <?= $className ?> extends Base_lib
 <?php if ($detailList[$i]['arg']) { ?>
             WHERE (
 <?php for ($arg_i = 0, $arg_n = count($detailList[$i]['arg']); $arg_i < $arg_n; $arg_i ++) { ?>
-<?php if ($detailList[$i]['arg'][$arg_i]['key'] != '$public') { ?>
-                " . self::MASTER_TABLE . " . <?= $detailList[$i]['arg'][$arg_i]['column'] ?> = " . $this->CI->db_lib->SetWhereVar(<?= $detailList[$i]['arg'][$arg_i]['key'] ?>) . "<?= ($arg_i < ($arg_n - 1) ? ' AND' : '') ?>
+<?php if ($detailList[$i]['arg'][$arg_i]['key'] != '$public' && $detailList[$i]['arg'][$arg_i]['key'] != '') { ?>
+                " . self::MASTER_TABLE . " . <?= $detailList[$i]['arg'][$arg_i]['column'] ?> = " . $this->CI->db_lib->SetWhereVar(<?= $detailList[$i]['arg'][$arg_i]['key'] ?>) . "<?= (($arg_n > ($arg_i + 1)) && $detailList[$i]['arg'][($arg_i + 1)]['key'] != '$public' ? ' AND' : '') ?>
 
 <?php } else { ?>
                 " . ($public ? " AND " . self::MASTER_TABLE . " . status >= " . Base_lib::STATUS_ENABLE : "") . "
@@ -240,7 +240,7 @@ class <?= $className ?> extends Base_lib
      * @param string $id：登録対象ID
      * @return string|null
      */
-    public function Regist(?array $registData = '', string $id = '') : ?string
+    public function Regist(?array $registData = array(), string $id = '') : ?string
     {
         // 返り値をセット
         $returnVal = false;

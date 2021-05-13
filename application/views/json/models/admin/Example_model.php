@@ -56,9 +56,17 @@
                     "default":"''"
                 }
             ],
-            "return":"$this->sharedTemplate($returnVal);",
+            "return":"$this->sharedTemplate($returnVal)",
             "returnType__comment":"返値の型",
             "returnType":"array",
+            "iniSet":[
+                {
+                    "description":"読み込み時間を延長",
+                    "data":[
+                        "ini_set('max_execution_time', '90');"
+                    ]
+                }
+            ],
             "selectList":{
                 "title":"選択情報をセット",
                 "list":{
@@ -66,7 +74,7 @@
                 }
             },
             "library":[
-                "$this->load->library('pagenavi_lib');"
+                "$this->load->library('pagenavi_lib')"
             ],
             "var":[
                 {
@@ -76,15 +84,32 @@
                 }
             ],
             "formList":"$this->FormDefaultList()",
-            "whereSql":[
-                {
-                    "title":"キーワード",
-                    "if":"$returnVal['form']['search_keyword'] != ''",
-                    "list":[
-                        "Example_lib::MASTER_TABLE . " . name LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";"
-                    ]
-                }
-            ],
+            "list":{
+                "whereSql":[
+                    {
+                        "title":"キーワード",
+                        "if":"$returnVal['form']['search_keyword'] != ''",
+                        "list":[
+                            "Example_lib::MASTER_TABLE . " . name LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";"
+                        ]
+                    }
+                ],
+                "page":{
+                    "count":"$this->GetListCount($whereSql)",
+                    "pager":"$this->pagenavi_lib->GetValeus($returnVal['count'], $returnVal['form']['page'], $returnVal['form']['select_count'])",
+                    "limit":{
+                        "begin":"($returnVal['pager']['listStart'] - 1)",
+                        "row":"$returnVal['form']['select_count']"
+                    }
+                },
+                "order":[
+                    {
+                        "key":"User_lib::MASTER_TABLE . ' . edit_date'",
+                        "arrow":"DESC"
+                    }
+                ],
+                "getList":"$this->GetList($whereSql, $orderSql, $limitSql)"
+            },
             "otherList__comment":"最後に書き出し、全てそのまま書出す",
             "otherList":[
                 ""

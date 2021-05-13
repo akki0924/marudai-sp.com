@@ -8,7 +8,7 @@ if (! defined('BASEPATH')) {
  * 雛形データの取得および処理する為の関数群 *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/04/28：新規作成
+ * @since 1.0.0     2021/05/10：新規作成
  */
 class Example_model extends CI_Model
 {
@@ -71,7 +71,7 @@ class Example_model extends CI_Model
         $whereSql = array();
 
         // 選択情報をセット
-        $returnVal['select'][count] = $this->pagenavi_lib->GetListCount()
+        $returnVal['select']['count'] = $this->pagenavi_lib->GetListCount()
         // FORM情報をセット
         $returnVal['action'] = $this->input->post_get('action', true);
         foreach ($this->FormDefaultList() as $key) {
@@ -79,30 +79,24 @@ class Example_model extends CI_Model
         }
 
         // ページ一覧用の情報を取得
-        $returnVal['form']['select_list_count'] = ($returnVal['form']['select_list_count'] != '' ? $returnVal['form']['select_list_count'] : Pagenavi_lib::DEFAULT_LIST_COUNT);
+        $returnVal['form']['select_count'] = ($returnVal['form']['select_count'] != '' ? $returnVal['form']['select_count'] : Pagenavi_lib::DEFAULT_LIST_COUNT);
 
         // WHERE情報をセット
         $whereSql = array();
         // キーワード
         if ($returnVal['form']['search_keyword'] != '') {
-            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . id LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
-            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . l_name LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
-            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . f_name LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
-            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . tel LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
-            $whereSql[] = "(" . @implode(" OR ", $whereSqlSearch) . ")";
-            unset($whereSqlSearch);
+            $whereSql[] = Example_lib::MASTER_TABLE . " . name LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
         }
-
-        // 一覧数の取得
+        // 一覧表示数の取得
         $returnVal['count'] = $this->GetListCount($whereSql);
         // ページナビ情報を取得
-        $returnVal['pager'] = $this->pagenavi_lib->GetValeus($returnVal['count'], $returnVal['form']['page'], $returnVal['form']['select_list_count']);
+        $returnVal['pager'] = $this->pagenavi_lib->GetValeus($returnVal['count'], $returnVal['form']['page'], $returnVal['form']['select_count']);
+        // LIMIT情報をセット
+        $limitSql['begin'] = ($returnVal['pager']['listStart'] - 1);
+        $limitSql['row'] = $returnVal['form']['select_count'];
         // ORDER情報をセット
         $orderSql[0]['key'] = User_lib::MASTER_TABLE . ' . edit_date';
         $orderSql[0]['arrow'] = 'DESC';
-        // LIMIT情報をセット
-        $limitSql['begin'] = ($returnVal['pager']['listStart'] - 1);
-        $limitSql['row'] = $returnVal['form']['select_list_count'];
         // 一覧情報を取得
         $returnVal['list'] = $this->GetList($whereSql, $orderSql, $limitSql);
 

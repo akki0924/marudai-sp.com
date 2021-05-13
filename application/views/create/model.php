@@ -91,8 +91,16 @@ class <?= $className ?> extends CI_Model
 ?>) : ?<?= $templateList[$i]['returnType'] ?>
 
     {
-        // 読み込み時間を延長
-        ini_set('max_execution_time', '90');
+<?php if (isset($templateList[$i]['iniSet'])) { ?>
+<?php for ($ini_i = 0, $ini_n = count($templateList[$i]['iniSet']); $ini_i < $n; $ini_i ++) { ?>
+        // <?= $templateList[$i]['iniSet'][$i]['description'] ?>
+
+<?php for ($data_i = 0, $data_n = count($templateList[$i]['iniSet'][$ini_i]['data']); $data_i < $data_n; $data_i ++) { ?>
+        <?= $templateList[$i]['iniSet'][$ini_i]['data'][$data_i] ?>
+
+<?php } ?>
+<?php } ?>
+<?php } ?>
 
         // 返値を初期化
 <?php if ($templateList[$i]['returnType'] == 'array') { ?>
@@ -106,8 +114,7 @@ class <?= $className ?> extends CI_Model
 <?php if (isset($templateList[$i]['library'])) { ?>
         // 各ライブラリの読み込み
 <?php for ($lib_i = 0, $lib_n = count($templateList[$i]['library']); $lib_i < $lib_n; $lib_i ++) { ?>
-        <?= $templateList[$i]['library'][$lib_i] ?>
-
+        <?= $templateList[$i]['library'][$lib_i] ?>;
 <?php } ?>
 <?php } ?>
 
@@ -124,7 +131,7 @@ class <?= $className ?> extends CI_Model
 <?php foreach ($templateList[$i]['selectList']['list'] as $listKey => $listVal) { ?>
         // <?= $templateList[$i]['selectList']['title'] ?>
 
-        $returnVal['select'][<?= $listKey ?>] = <?= $listVal ?>
+        $returnVal['select']['<?= $listKey ?>'] = <?= $listVal ?>
 <?php } ?>
 <?php } ?>
 
@@ -137,38 +144,55 @@ class <?= $className ?> extends CI_Model
 <?php } ?>
 
         // ページ一覧用の情報を取得
-        $returnVal['form']['select_list_count'] = ($returnVal['form']['select_list_count'] != '' ? $returnVal['form']['select_list_count'] : Pagenavi_lib::DEFAULT_LIST_COUNT);
+        $returnVal['form']['select_count'] = ($returnVal['form']['select_count'] != '' ? $returnVal['form']['select_count'] : Pagenavi_lib::DEFAULT_LIST_COUNT);
 
+<?php if (isset($templateList[$i]['list']['whereSql'])) { ?>
         // WHERE情報をセット
         $whereSql = array();
-        // キーワード
-        if ($returnVal['form']['search_keyword'] != '') {
-            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . id LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
-            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . l_name LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
-            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . f_name LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
-            $whereSqlSearch[] = User_lib::MASTER_TABLE . " . tel LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";
-            $whereSql[] = "(" . @implode(" OR ", $whereSqlSearch) . ")";
-            unset($whereSqlSearch);
-        }
+<?php for ($where_i = 0, $where_n = count($templateList[$i]['list']['whereSql']); $where_i < $where_n; $where_i ++) { ?>
+        // <?= $templateList[$i]['list']['whereSql'][$where_i]['title'] ?>
 
-        // 一覧数の取得
-        $returnVal['count'] = $this->GetListCount($whereSql);
+        <?= ($templateList[$i]['list']['whereSql'][$where_i]['if'] ? 'if (' . $templateList[$i]['list']['whereSql'][$where_i]['if'] . ') {' : '') ?>
+
+<?php for ($list_i = 0, $list_n = count($templateList[$i]['list']['whereSql'][$where_i]['list']); $list_i < $list_n; $list_i ++) { ?>
+            $whereSql[] = <?= $templateList[$i]['list']['whereSql'][$where_i]['list'][$list_i] ?>
+
+<?php } ?>
+        <?= ($templateList[$i]['list']['whereSql'][$where_i]['if'] ? '}' : '') ?>
+
+<?php } ?>
+<?php } ?>
+<?php if (isset($templateList[$i]['list']['page'])) { ?>
+<?php if (isset($templateList[$i]['list']['page']['count'])) { ?>
+        // 一覧表示数の取得
+        $returnVal['count'] = <?= $templateList[$i]['list']['page']['count'] ?>;
+<?php } ?>
+<?php if (isset($templateList[$i]['list']['page']['pager'])) { ?>
         // ページナビ情報を取得
-        $returnVal['pager'] = $this->pagenavi_lib->GetValeus($returnVal['count'], $returnVal['form']['page'], $returnVal['form']['select_list_count']);
-        // ORDER情報をセット
-        $orderSql[0]['key'] = User_lib::MASTER_TABLE . ' . edit_date';
-        $orderSql[0]['arrow'] = 'DESC';
+        $returnVal['pager'] = <?= $templateList[$i]['list']['page']['pager'] ?>;
+<?php } ?>
+<?php if (isset($templateList[$i]['list']['page']['limit'])) { ?>
         // LIMIT情報をセット
-        $limitSql['begin'] = ($returnVal['pager']['listStart'] - 1);
-        $limitSql['row'] = $returnVal['form']['select_list_count'];
+        $limitSql['begin'] = <?= $templateList[$i]['list']['page']['limit']['begin'] ?>;
+        $limitSql['row'] = <?= $templateList[$i]['list']['page']['limit']['row'] ?>;
+<?php } ?>
+<?php } ?>
+<?php if (isset($templateList[$i]['list']['order'])) { ?>
+<?php for ($order_i = 0, $order_n = count($templateList[$i]['list']['order']); $order_i < $order_n; $order_i ++) { ?>
+        // ORDER情報をセット
+        $orderSql[<?= $order_i ?>]['key'] = <?= $templateList[$i]['list']['order'][$order_i]['key'] ?>;
+        $orderSql[<?= $order_i ?>]['arrow'] = '<?= $templateList[$i]['list']['order'][$order_i]['arrow'] ?>';
+<?php } ?>
+<?php } ?>
+<?php if (isset($templateList[$i]['list']['getList'])) { ?>
         // 一覧情報を取得
-        $returnVal['list'] = $this->GetList($whereSql, $orderSql, $limitSql);
+        $returnVal['list'] = <?= $templateList[$i]['list']['getList'] ?>;
 
+<?php } ?>
         // FROM値の有無によって表示内容を変更してセット
         $returnVal['no_list_msg'] = self::NO_LIST_MSG;
 
-        return <?= $templateList[$i]['return'] ?>
-
+        return <?= $templateList[$i]['return'] ?>;
     }
 <?php } ?>
 <?php } ?>

@@ -12,7 +12,7 @@
             "description__comment":"関数説明文",
             "description":"IDに対応した詳細データを取得",
             "key__comment":"関数名",
-            "key":"DetailValues",
+            "key":"GetDetailValues",
             "arg__comment":"関数引数 title:日本語表記, key:変数名, type:変数型, column:対応カラム名, default:初期値",
             "arg":[
                 {
