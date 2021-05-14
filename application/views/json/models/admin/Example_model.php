@@ -39,14 +39,11 @@
             ]
         }
     ],
-    "templateList__comment":"各テンプレート情報取得用関数",
-    "templateList":[
-        {
-            "description__comment":"関数説明文",
+    "templateList__comment":"各テンプレート情報取得用関数 key=関数頭文字",
+    "templateList__comment_child":"description=説明, arg=引数, returnType=返値の型",
+    "templateList":{
+        "list" :{
             "description":"一覧テンプレート情報を取得",
-            "key__comment":"関数名",
-            "key":"ListTemplate",
-            "arg__comment":"関数引数",
             "arg":[
                 {
                     "title":"ID",
@@ -57,7 +54,6 @@
                 }
             ],
             "return":"$this->sharedTemplate($returnVal)",
-            "returnType__comment":"返値の型",
             "returnType":"array",
             "iniSet":[
                 {
@@ -84,38 +80,163 @@
                 }
             ],
             "formList":"$this->FormDefaultList()",
-            "list":{
-                "whereSql":[
-                    {
-                        "title":"キーワード",
-                        "if":"$returnVal['form']['search_keyword'] != ''",
-                        "list":[
-                            "Example_lib::MASTER_TABLE . " . name LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";"
-                        ]
-                    }
-                ],
-                "page":{
-                    "count":"$this->GetListCount($whereSql)",
-                    "pager":"$this->pagenavi_lib->GetValeus($returnVal['count'], $returnVal['form']['page'], $returnVal['form']['select_count'])",
-                    "limit":{
-                        "begin":"($returnVal['pager']['listStart'] - 1)",
-                        "row":"$returnVal['form']['select_count']"
-                    }
-                },
-                "order":[
-                    {
-                        "key":"User_lib::MASTER_TABLE . ' . edit_date'",
-                        "arrow":"DESC"
-                    }
-                ],
-                "getList":"$this->GetList($whereSql, $orderSql, $limitSql)"
+            "whereSql":[
+                {
+                    "title":"キーワード",
+                    "if":"$returnVal['form']['search_keyword'] != ''",
+                    "list":[
+                        "Example_lib::MASTER_TABLE . " . name LIKE '%" . Base_lib::AddSlashes($returnVal['form']['search_keyword']) . "%'";"
+                    ]
+                }
+            ],
+            "page":{
+                "count":"$this->GetListCount($whereSql)",
+                "pager":"$this->pagenavi_lib->GetValeus($returnVal['count'], $returnVal['form']['page'], $returnVal['form']['select_count'])",
+                "limit":{
+                    "begin":"($returnVal['pager']['listStart'] - 1)",
+                    "row":"$returnVal['form']['select_count']"
+                }
             },
+            "order":[
+                {
+                    "key":"User_lib::MASTER_TABLE . ' . edit_date'",
+                    "arrow":"DESC"
+                }
+            ],
+            "getList":"$this->GetList($whereSql, $orderSql, $limitSql)",
             "otherList__comment":"最後に書き出し、全てそのまま書出す",
             "otherList":[
                 ""
             ]
+        },
+        "detail":{
+            "description":"詳細テンプレート情報を取得",
+            "arg":[
+                {
+                    "title":"ID",
+                    "key":"$id",
+                    "type":"string",
+                    "column":"id",
+                    "default":"''"
+                }
+            ],
+            "return":"$this->sharedTemplate($returnVal)",
+            "returnType":"array",
+            "exists":"$this->reserve_lib->IdExists($id)",
+            "getData":"$this->reserve_lib->GetDetailValues($id)"
+        },
+        "input":{
+            "description":"入力・確認テンプレート情報を取得",
+            "arg":[
+                {
+                    "title":"バリデーション結果",
+                    "key":"$validFlg",
+                    "type":"bool",
+                    "column":"validFlg",
+                    "default":"false"
+                }
+            ],
+            "return":"$this->sharedTemplate($returnVal)",
+            "returnType":"array",
+            "iniSet":[
+                {
+                }
+            ],
+            "getData":"$this->reserve_lib->GetDetailValues($id)",
+            "selectList":{
+                "title":"選択情報をセット",
+                "list":{
+                    "pref":"$this->user_lib->GetPrefList()",
+                    "status":"$this->user_lib->GetStatusList()"
+                }
+            },
+            "selectName":{
+                "title":"選択情報の表示名をセット",
+                "list":{
+                    "pref_name":"$this->user_lib->GetPrefName($returnVal['form']['pref_id'])",
+                    "status_name":"$this->user_lib->GetStatusName($returnVal['form']['status'])"
+                }
+            },
+            "library":[
+            ],
+            "var":[
+                {
+                    "description":"WHERE情報をセット",
+                    "key":"$whereSql",
+                    "val":"array();"
+                }
+            ],
+            "formList":"$this->FormInputList()",
+            "otherList__comment":"最後に書き出し、全てそのまま書出す",
+            "otherList":[
+                ""
+            ]
+        },
+        "comp":{
+            "description":"完了テンプレート情報を取得",
+            "arg":[
+                {
+                    "title":"ID",
+                    "key":"$id",
+                    "type":"string",
+                    "column":"id",
+                    "default":"''"
+                }
+            ],
+            "return":"$this->sharedTemplate($returnVal)",
+            "returnType":"array",
+            "exists":"$this->reserve_lib->IdExists($id)"
         }
-    ],
+    },
+    "actionList":{
+        "RegistAction":{
+            "description":"データ削除処理",
+            "arg":[
+                {
+                    "title":"ID",
+                    "key":"$id",
+                    "type":"string",
+                    "column":"id",
+                    "default":"''"
+                },
+                {
+                    "title":"バリデーションフラグ",
+                    "key":"$validFlg",
+                    "type":"bool",
+                    "column":"validFlg",
+                    "default":"false"
+                }
+            ],
+            "return":"$returnVal",
+            "returnType":"string",
+
+            "action":"$this->genre_lib->SelectDelete($id)"
+        },
+        "RegistStatusAction":{
+
+        },
+        "DelAction":{
+            "description":"データ削除処理",
+            "arg":[
+                {
+                    "title":"ID",
+                    "key":"$id",
+                    "type":"string",
+                    "column":"id",
+                    "default":"''"
+                }
+            ],
+            "return":"$returnVal",
+            "returnType":"bool",
+            "action":"$this->genre_lib->SelectDelete($id)"
+        },
+        "GetListCount":{
+
+        },
+        "GetList":{
+
+        }
+    },
     "formList__comment":"フォーム用配列 description=関数説明文, key=関数名, list=配列",
     "formList":[
         {

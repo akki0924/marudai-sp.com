@@ -68,68 +68,71 @@ class <?= $className ?> extends CI_Model
 
 
 <?php if (isset($templateList)) { ?>
-<?php for ($i = 0, $n = count($templateList); $i < $n; $i ++) { ?>
+<?php foreach ($templateList as $tempKey => $tempVal) { ?>
+<?php if (count($tempVal) > 0) { ?>
     /**
-     * <?= $templateList[$i]['description'] ?>
+     * <?= $tempVal['description'] ?>
 
      *
-<?php for ($arg_i = 0, $arg_n = count($templateList[$i]['arg']); $arg_i < $arg_n; $arg_i ++) { ?>
-     * @param <?= $templateList[$i]['arg'][$arg_i]['type'] ?> <?= $templateList[$i]['arg'][$arg_i]['key'] ?>：<?= $templateList[$i]['arg'][$arg_i]['title'] ?>
+<?php for ($arg_i = 0, $arg_n = count($tempVal['arg']); $arg_i < $arg_n; $arg_i ++) { ?>
+     * @param <?= $tempVal['arg'][$arg_i]['type'] ?> <?= $tempVal['arg'][$arg_i]['key'] ?>：<?= $tempVal['arg'][$arg_i]['title'] ?>
 
 <?php } ?>
-     * @param boolean $validFlg
-     * @return <?= $templateList[$i]['returnType'] ?>|null
+     * @return <?= $tempVal['returnType'] ?>|null
      */
-    public function <?= $templateList[$i]['key'] ?>(<?php
-    for ($arg_i = 0, $arg_n = count($templateList[$i]['arg']); $arg_i < $arg_n; $arg_i ++) {
-        echo $templateList[$i]['arg'][$arg_i]['type'] . ' ';
-        echo $templateList[$i]['arg'][$arg_i]['key'];
-        echo($templateList[$i]['arg'][$arg_i]['default'] ? ' = ' . $templateList[$i]['arg'][$arg_i]['default'] : '');
+    public function <?= ucfirst($tempKey) ?>Template(<?php
+    for ($arg_i = 0, $arg_n = count($tempVal['arg']); $arg_i < $arg_n; $arg_i ++) {
+        echo $tempVal['arg'][$arg_i]['type'] . ' ';
+        echo $tempVal['arg'][$arg_i]['key'];
+        echo($tempVal['arg'][$arg_i]['default'] ? ' = ' . $tempVal['arg'][$arg_i]['default'] : '');
         echo($arg_i < ($arg_n - 1) ? ', ' : ''); ?>
 <?php
     }
-?>) : ?<?= $templateList[$i]['returnType'] ?>
+?>) : ?<?= $tempVal['returnType'] ?>
 
     {
-<?php if (isset($templateList[$i]['iniSet'])) { ?>
-<?php for ($ini_i = 0, $ini_n = count($templateList[$i]['iniSet']); $ini_i < $n; $ini_i ++) { ?>
-        // <?= $templateList[$i]['iniSet'][$i]['description'] ?>
+<?php if (ucfirst($tempKey) == 'List') {/*一覧テンプレートここから*/?>
+<?php if (isset($tempVal['iniSet'])) { ?>
+<?php for ($ini_i = 0, $ini_n = count($tempVal['iniSet']); $ini_i < $ini_n; $ini_i ++) { ?>
+        // <?= $tempVal['iniSet'][$ini_i]['description'] ?>
 
-<?php for ($data_i = 0, $data_n = count($templateList[$i]['iniSet'][$ini_i]['data']); $data_i < $data_n; $data_i ++) { ?>
-        <?= $templateList[$i]['iniSet'][$ini_i]['data'][$data_i] ?>
+<?php for ($data_i = 0, $data_n = count($tempVal['iniSet'][$ini_i]['data']); $data_i < $data_n; $data_i ++) { ?>
+        <?= $tempVal['iniSet'][$ini_i]['data'][$data_i] ?>
 
 <?php } ?>
 <?php } ?>
 <?php } ?>
 
         // 返値を初期化
-<?php if ($templateList[$i]['returnType'] == 'array') { ?>
+<?php if ($tempVal['returnType'] == 'array') { ?>
         $returnVal = array();
-<?php } elseif ($templateList[$i]['returnType'] == 'string') { ?>
+<?php } elseif ($tempVal['returnType'] == 'string') { ?>
         $returnVal = '';
-<?php } elseif ($templateList[$i]['returnType'] == 'bool') { ?>
+<?php } elseif ($tempVal['returnType'] == 'int') { ?>
+        $returnVal = 0;
+<?php } elseif ($tempVal['returnType'] == 'bool') { ?>
         $returnVal = false;
 <?php } ?>
 
-<?php if (isset($templateList[$i]['library'])) { ?>
+<?php if (isset($tempVal['library']) && count($tempVal['library']) > 0) { ?>
         // 各ライブラリの読み込み
-<?php for ($lib_i = 0, $lib_n = count($templateList[$i]['library']); $lib_i < $lib_n; $lib_i ++) { ?>
-        <?= $templateList[$i]['library'][$lib_i] ?>;
+<?php for ($lib_i = 0, $lib_n = count($tempVal['library']); $lib_i < $lib_n; $lib_i ++) { ?>
+        <?= $tempVal['library'][$lib_i] ?>;
+<?php } ?>
+
+<?php } ?>
+<?php if (isset($tempVal['var'])) { ?>
+<?php for ($var_i = 0, $var_n = count($tempVal['var']); $var_i < $var_n; $var_i ++) { ?>
+        // <?= $tempVal['var'][$var_i]['description'] ?>
+
+        <?= $tempVal['var'][$var_i]['key'] ?> = <?= $tempVal['var'][$var_i]['val'] ?>
+
 <?php } ?>
 <?php } ?>
 
-<?php if (isset($templateList[$i]['var'])) { ?>
-<?php for ($var_i = 0, $var_n = count($templateList[$i]['var']); $var_i < $var_n; $var_i ++) { ?>
-        // <?= $templateList[$i]['var'][$var_i]['description'] ?>
-
-        <?= $templateList[$i]['var'][$var_i]['key'] ?> = <?= $templateList[$i]['var'][$var_i]['val'] ?>
-
-<?php } ?>
-<?php } ?>
-
-<?php if (isset($templateList[$i]['selectList'])) { ?>
-<?php foreach ($templateList[$i]['selectList']['list'] as $listKey => $listVal) { ?>
-        // <?= $templateList[$i]['selectList']['title'] ?>
+<?php if (isset($tempVal['selectList'])) { ?>
+<?php foreach ($tempVal['selectList']['list'] as $listKey => $listVal) { ?>
+        // <?= $tempVal['selectList']['title'] ?>
 
         $returnVal['select']['<?= $listKey ?>'] = <?= $listVal ?>
 <?php } ?>
@@ -137,8 +140,8 @@ class <?= $className ?> extends CI_Model
 
         // FORM情報をセット
         $returnVal['action'] = $this->input->post_get('action', true);
-<?php if (isset($templateList[$i]['formList'])) { ?>
-        foreach (<?= $templateList[$i]['formList'] ?> as $key) {
+<?php if (isset($tempVal['formList'])) { ?>
+        foreach (<?= $tempVal['formList'] ?> as $key) {
             $returnVal['form'][$key] = $this->input->post_get($key, true);
         }
 <?php } ?>
@@ -146,56 +149,308 @@ class <?= $className ?> extends CI_Model
         // ページ一覧用の情報を取得
         $returnVal['form']['select_count'] = ($returnVal['form']['select_count'] != '' ? $returnVal['form']['select_count'] : Pagenavi_lib::DEFAULT_LIST_COUNT);
 
-<?php if (isset($templateList[$i]['list']['whereSql'])) { ?>
+<?php if (isset($tempVal['whereSql'])) { ?>
         // WHERE情報をセット
         $whereSql = array();
-<?php for ($where_i = 0, $where_n = count($templateList[$i]['list']['whereSql']); $where_i < $where_n; $where_i ++) { ?>
-        // <?= $templateList[$i]['list']['whereSql'][$where_i]['title'] ?>
+<?php for ($where_i = 0, $where_n = count($tempVal['whereSql']); $where_i < $where_n; $where_i ++) { ?>
+        // <?= $tempVal['whereSql'][$where_i]['title'] ?>
 
-        <?= ($templateList[$i]['list']['whereSql'][$where_i]['if'] ? 'if (' . $templateList[$i]['list']['whereSql'][$where_i]['if'] . ') {' : '') ?>
+        <?= ($tempVal['whereSql'][$where_i]['if'] ? 'if (' . $tempVal['whereSql'][$where_i]['if'] . ') {' : '') ?>
 
-<?php for ($list_i = 0, $list_n = count($templateList[$i]['list']['whereSql'][$where_i]['list']); $list_i < $list_n; $list_i ++) { ?>
-            $whereSql[] = <?= $templateList[$i]['list']['whereSql'][$where_i]['list'][$list_i] ?>
-
-<?php } ?>
-        <?= ($templateList[$i]['list']['whereSql'][$where_i]['if'] ? '}' : '') ?>
+<?php for ($list_i = 0, $list_n = count($tempVal['whereSql'][$where_i]['list']); $list_i < $list_n; $list_i ++) { ?>
+            $whereSql[] = <?= $tempVal['whereSql'][$where_i]['list'][$list_i] ?>
 
 <?php } ?>
+        <?= ($tempVal['whereSql'][$where_i]['if'] ? '}' : '') ?>
+
 <?php } ?>
-<?php if (isset($templateList[$i]['list']['page'])) { ?>
-<?php if (isset($templateList[$i]['list']['page']['count'])) { ?>
+<?php } ?>
+<?php if (isset($tempVal['page'])) { ?>
+<?php if (isset($tempVal['page']['count'])) { ?>
         // 一覧表示数の取得
-        $returnVal['count'] = <?= $templateList[$i]['list']['page']['count'] ?>;
+        $returnVal['count'] = <?= $tempVal['page']['count'] ?>;
 <?php } ?>
-<?php if (isset($templateList[$i]['list']['page']['pager'])) { ?>
+<?php if (isset($tempVal['page']['pager'])) { ?>
         // ページナビ情報を取得
-        $returnVal['pager'] = <?= $templateList[$i]['list']['page']['pager'] ?>;
+        $returnVal['pager'] = <?= $tempVal['page']['pager'] ?>;
 <?php } ?>
-<?php if (isset($templateList[$i]['list']['page']['limit'])) { ?>
+<?php if (isset($tempVal['page']['limit'])) { ?>
         // LIMIT情報をセット
-        $limitSql['begin'] = <?= $templateList[$i]['list']['page']['limit']['begin'] ?>;
-        $limitSql['row'] = <?= $templateList[$i]['list']['page']['limit']['row'] ?>;
+        $limitSql['begin'] = <?= $tempVal['page']['limit']['begin'] ?>;
+        $limitSql['row'] = <?= $tempVal['page']['limit']['row'] ?>;
 <?php } ?>
 <?php } ?>
-<?php if (isset($templateList[$i]['list']['order'])) { ?>
-<?php for ($order_i = 0, $order_n = count($templateList[$i]['list']['order']); $order_i < $order_n; $order_i ++) { ?>
+<?php if (isset($tempVal['order'])) { ?>
+<?php for ($order_i = 0, $order_n = count($tempVal['order']); $order_i < $order_n; $order_i ++) { ?>
         // ORDER情報をセット
-        $orderSql[<?= $order_i ?>]['key'] = <?= $templateList[$i]['list']['order'][$order_i]['key'] ?>;
-        $orderSql[<?= $order_i ?>]['arrow'] = '<?= $templateList[$i]['list']['order'][$order_i]['arrow'] ?>';
+        $orderSql[<?= $order_i ?>]['key'] = <?= $tempVal['order'][$order_i]['key'] ?>;
+        $orderSql[<?= $order_i ?>]['arrow'] = '<?= $tempVal['order'][$order_i]['arrow'] ?>';
 <?php } ?>
 <?php } ?>
-<?php if (isset($templateList[$i]['list']['getList'])) { ?>
+<?php if (isset($tempVal['getList'])) { ?>
         // 一覧情報を取得
-        $returnVal['list'] = <?= $templateList[$i]['list']['getList'] ?>;
+        $returnVal['list'] = <?= $tempVal['getList'] ?>;
+<?php } ?>
+<?php /*一覧テンプレートここまで*/ ?>
+<?php  } elseif (ucfirst($tempKey) == 'Detail') {/*詳細テンプレートここから*/ ?>
+        // 返値を初期化
+<?php if ($tempVal['returnType'] == 'array') { ?>
+        $returnVal = array();
+<?php } elseif ($tempVal['returnType'] == 'string') { ?>
+        $returnVal = '';
+<?php } elseif ($tempVal['returnType'] == 'int') { ?>
+        $returnVal = 0;
+<?php } elseif ($tempVal['returnType'] == 'bool') { ?>
+        $returnVal = false;
+<?php } ?>
+        // FORM情報
+<?php for ($arg_i = 0, $arg_n = count($tempVal['arg']); $arg_i < $arg_n; $arg_i ++) { ?>
+        <?= $tempVal['arg'][$arg_i]['key'] ?> = (<?= $tempVal['arg'][$arg_i]['key'] ?> ? <?= $tempVal['arg'][$arg_i]['key'] ?> : $this->input->post_get('<?= substr($tempVal['arg'][$arg_i]['key'], 1) ?>', true));
+<?php } ?>
+<?php if (isset($tempVal['exists'])) { ?>
+        // 情報の存在有無
+        $exists = <?= $tempVal['exists'] ?>;
+        $returnVal['exists'] = $exists;
+<?php if (isset($tempVal['getData'])) { ?>
+        // 受注ID存在
+        if ($exists) {
+            // 受注詳細情報を取得
+            $returnVal['form'] = <?= $tempVal['getData'] ?>;
+        }
+<?php } ?>
+<?php } elseif (isset($tempVal['getData'])) { ?>
+        // 受注詳細情報を取得
+        $returnVal['form'] = <?= $tempVal['getData'] ?>;
+<?php } ?>
+<?php /*詳細テンプレートここまで*/ ?>
+<?php } elseif (ucfirst($tempKey) == 'Input') {/*入力テンプレートここから*/ ?>
+        // 返値を初期化
+<?php if ($tempVal['returnType'] == 'array') { ?>
+        $returnVal = array();
+<?php } elseif ($tempVal['returnType'] == 'string') { ?>
+        $returnVal = '';
+<?php } elseif ($tempVal['returnType'] == 'int') { ?>
+        $returnVal = 0;
+<?php } elseif ($tempVal['returnType'] == 'bool') { ?>
+        $returnVal = false;
+<?php } ?>
+<?php if (isset($tempVal['library']) && count($tempVal['library']) > 0) { ?>
+        // 各ライブラリの読み込み
+<?php for ($lib_i = 0, $lib_n = count($tempVal['library']); $lib_i < $lib_n; $lib_i ++) { ?>
+        <?= $tempVal['library'][$lib_i] ?>;
+<?php } ?>
+
+        // FORM情報をセット
+        $id = $this->input->post_get('id', true);
+        $action = $this->input->post_get('action', true);
+<?php if (isset($tempVal['formList'])) { ?>
+        foreach (<?= $tempVal['formList'] ?> as $key) {
+            $returnVal['form'][$key] = $this->input->post_get($key, true);
+        }
+<?php } ?>
+<?php } ?>
+<?php if (isset($tempVal['var'])) { ?>
+<?php for ($var_i = 0, $var_n = count($tempVal['var']); $var_i < $var_n; $var_i ++) { ?>
+        // <?= $tempVal['var'][$var_i]['description'] ?>
+
+        <?= $tempVal['var'][$var_i]['key'] ?> = <?= $tempVal['var'][$var_i]['val'] ?>
 
 <?php } ?>
-        // FROM値の有無によって表示内容を変更してセット
-        $returnVal['no_list_msg'] = self::NO_LIST_MSG;
+<?php } ?>
+        // 初期画面
+        if (
+            $action == '' &&
+            $exists
+        ) {
+            // ユーザーIDが存在
+            if ($exists) {
+                // 受注詳細情報を取得
+                $returnVal['form'] = <?= $tempVal['getData'] ?>;
+            }
+        }
+        // 遷移アクション時
+        else {
+<?php if (isset($tempVal['formList'])) { ?>
+            // FORM情報をセット
+            foreach (<?= $tempVal['formList'] ?> as $key) {
+                $returnVal['form'][$key] = $this->input->post_get($key, true);
+            }
+<?php } ?>
+            // バリデーションOK時
+            if ($validFlg) {
+<?php if (isset($tempVal['selectName'])) { ?>
+                // <?= $tempVal['selectName']['title'] ?>
 
-        return <?= $templateList[$i]['return'] ?>;
+<?php foreach ($tempVal['selectName']['list'] as $listKey => $listVal) { ?>
+                $returnVal['form']['<?= $listKey ?>'] = <?= $listVal ?>;
+<?php } ?>
+<?php } ?>
+            }
+        }
+<?php if (isset($tempVal['selectList'])) { ?>
+        // <?= $tempVal['selectList']['title'] ?>
+
+<?php foreach ($tempVal['selectList']['list'] as $listKey => $listVal) { ?>
+        $returnVal['select']['<?= $listKey ?>'] = <?= $listVal ?>;
+<?php } ?>
+<?php } ?>
+<?php /*入力テンプレートここまで*/ ?>
+<?php } elseif (ucfirst($tempKey) == 'Comp') {/*完了テンプレートここから*/ ?>
+        // 返値を初期化
+<?php if ($tempVal['returnType'] == 'array') { ?>
+        $returnVal = array();
+<?php } elseif ($tempVal['returnType'] == 'string') { ?>
+        $returnVal = '';
+<?php } elseif ($tempVal['returnType'] == 'int') { ?>
+        $returnVal = 0;
+<?php } elseif ($tempVal['returnType'] == 'bool') { ?>
+        $returnVal = false;
+<?php } ?>
+        // FORM情報
+<?php for ($arg_i = 0, $arg_n = count($tempVal['arg']); $arg_i < $arg_n; $arg_i ++) { ?>
+        <?= $tempVal['arg'][$arg_i]['key'] ?> = (<?= $tempVal['arg'][$arg_i]['key'] ?> ? <?= $tempVal['arg'][$arg_i]['key'] ?> : $this->input->post_get('<?= substr($tempVal['arg'][$arg_i]['key'], 1) ?>', true));
+<?php } ?>
+<?php if (isset($tempVal['exists'])) { ?>
+        // 情報の存在有無
+        $returnVal['exists'] = <?= $tempVal['exists'] ?>;
+<?php } ?>
+<?php }/*完了テンプレートここまで*/ ?>
+
+        return <?= $tempVal['return'] ?>;
     }
+
+
 <?php } ?>
 <?php } ?>
+<?php } ?>
+
+
+
+
+
+
+
+
+<?php if (isset($actionList)) { ?>
+<?php foreach ($actionList as $actionKey => $actionVal) { ?>
+<?php if (count($actionVal) > 0) { ?>
+    /**
+     * <?= $actionVal['description'] ?>
+
+     *
+<?php for ($arg_i = 0, $arg_n = count($actionVal['arg']); $arg_i < $arg_n; $arg_i ++) { ?>
+     * @param <?= $actionVal['arg'][$arg_i]['type'] ?> <?= $actionVal['arg'][$arg_i]['key'] ?>：<?= $actionVal['arg'][$arg_i]['title'] ?>
+
+<?php } ?>
+     * @return <?= $actionVal['returnType'] ?>|null
+     */
+    public function <?= ucfirst($actionKey) ?>(<?php
+    for ($arg_i = 0, $arg_n = count($actionVal['arg']); $arg_i < $arg_n; $arg_i ++) {
+        echo $actionVal['arg'][$arg_i]['type'] . ' ';
+        echo $actionVal['arg'][$arg_i]['key'];
+        echo($actionVal['arg'][$arg_i]['default'] ? ' = ' . $actionVal['arg'][$arg_i]['default'] : '');
+        echo($arg_i < ($arg_n - 1) ? ', ' : ''); ?>
+<?php
+    }
+?>) : ?<?= $actionVal['returnType'] ?>
+
+    {
+<?php if (ucfirst($actionKey) == 'RegistAction') {/*登録処理ここから*/ ?>
+        // 返値を初期化
+<?php if ($actionVal['returnType'] == 'array') { ?>
+        $returnVal = array();
+<?php } elseif ($actionVal['returnType'] == 'string') { ?>
+        $returnVal = '';
+<?php } elseif ($actionVal['returnType'] == 'int') { ?>
+        $returnVal = 0;
+<?php } elseif ($actionVal['returnType'] == 'bool') { ?>
+        $returnVal = false;
+<?php } ?>
+<?php if (isset($actionVal['iniSet'])) { ?>
+<?php for ($ini_i = 0, $ini_n = count($actionVal['iniSet']); $ini_i < $ini_n; $ini_i ++) { ?>
+        // <?= $actionVal['iniSet'][$ini_i]['description'] ?>
+
+<?php for ($data_i = 0, $data_n = count($actionVal['iniSet'][$ini_i]['data']); $data_i < $data_n; $data_i ++) { ?>
+        <?= $actionVal['iniSet'][$ini_i]['data'][$data_i] ?>
+
+<?php } ?>
+<?php } ?>
+<?php } ?>
+
+
+
+
+
+        // 登録情報の登録・更新
+        $returnVal = $this->reserve_lib->Regist($regist, $id);
+
+
+
+
+
+
+
+
+
+<?php /*登録処理ここまで*/ ?>
+<?php } elseif (ucfirst($actionKey) == 'DelAction') {/*削除処理ここから*/?>
+        // 返値を初期化
+<?php if ($actionVal['returnType'] == 'array') { ?>
+        $returnVal = array();
+<?php } elseif ($actionVal['returnType'] == 'string') { ?>
+        $returnVal = '';
+<?php } elseif ($actionVal['returnType'] == 'int') { ?>
+        $returnVal = 0;
+<?php } elseif ($actionVal['returnType'] == 'bool') { ?>
+        $returnVal = false;
+<?php } ?>
+        // FORM情報をセット
+        $id = $this->input->post_get('id', true);
+        // 削除処理
+        $returnVal = <?= $actionVal['action'] ?>;
+<?php /*削除処理ここまで*/ ?>
+<?php } elseif (ucfirst($actionKey) == 'GetListCount') {/*一覧合計数取得処理ここから*/?>
+        // 返値を初期化
+<?php if ($actionVal['returnType'] == 'array') { ?>
+        $returnVal = array();
+<?php } elseif ($actionVal['returnType'] == 'string') { ?>
+        $returnVal = '';
+<?php } elseif ($actionVal['returnType'] == 'int') { ?>
+        $returnVal = 0;
+<?php } elseif ($actionVal['returnType'] == 'bool') { ?>
+        $returnVal = false;
+<?php } ?>
+
+
+<?php /*一覧合計数取得処理ここまで*/ ?>
+<?php } elseif (ucfirst($actionKey) == 'GetList') {/*一覧リスト取得処理ここから*/?>
+        // 返値を初期化
+<?php if ($actionVal['returnType'] == 'array') { ?>
+        $returnVal = array();
+<?php } elseif ($actionVal['returnType'] == 'string') { ?>
+        $returnVal = '';
+<?php } elseif ($actionVal['returnType'] == 'int') { ?>
+        $returnVal = 0;
+<?php } elseif ($actionVal['returnType'] == 'bool') { ?>
+        $returnVal = false;
+<?php } ?>
+
+
+<?php /*一覧リスト取得処理ここまで*/ ?>
+<?php }/*完了ここまで*/ ?>
+
+        return <?= $actionVal['return'] ?>;
+    }
+
+<?php } ?>
+<?php } ?>
+<?php } ?>
+
+
+
+
+
+
 
 
 <?php if (isset($formList)) { ?>

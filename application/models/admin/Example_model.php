@@ -8,7 +8,7 @@ if (! defined('BASEPATH')) {
  * 雛形データの取得および処理する為の関数群 *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/05/10：新規作成
+ * @since 1.0.0     2021/05/14：新規作成
  */
 class Example_model extends CI_Model
 {
@@ -53,7 +53,6 @@ class Example_model extends CI_Model
      * 一覧テンプレート情報を取得
      *
      * @param string $id：ID
-     * @param boolean $validFlg
      * @return array|null
      */
     public function ListTemplate(string $id = '') : ?array
@@ -100,11 +99,122 @@ class Example_model extends CI_Model
         // 一覧情報を取得
         $returnVal['list'] = $this->GetList($whereSql, $orderSql, $limitSql);
 
-        // FROM値の有無によって表示内容を変更してセット
-        $returnVal['no_list_msg'] = self::NO_LIST_MSG;
+        return $this->sharedTemplate($returnVal);
+    }
+
+
+    /**
+     * 詳細テンプレート情報を取得
+     *
+     * @param string $id：ID
+     * @return array|null
+     */
+    public function DetailTemplate(string $id = '') : ?array
+    {
+        // 返値を初期化
+        $returnVal = array();
+        // FORM情報
+        $id = ($id ? $id : $this->input->post_get('id', true));
+        // 情報の存在有無
+        $exists = $this->reserve_lib->IdExists($id);
+        $returnVal['exists'] = $exists;
+        // 受注ID存在
+        if ($exists) {
+            // 受注詳細情報を取得
+            $returnVal['form'] = $this->reserve_lib->GetDetailValues($id);
+        }
 
         return $this->sharedTemplate($returnVal);
     }
+
+
+    /**
+     * 入力・確認テンプレート情報を取得
+     *
+     * @param bool $validFlg：バリデーション結果
+     * @return array|null
+     */
+    public function InputTemplate(bool $validFlg = false) : ?array
+    {
+        // 返値を初期化
+        $returnVal = array();
+        // WHERE情報をセット
+        $whereSql = array();
+        // 初期画面
+        if (
+            $action == '' &&
+            $exists
+        ) {
+            // ユーザーIDが存在
+            if ($exists) {
+                // 受注詳細情報を取得
+                $returnVal['form'] = $this->reserve_lib->GetDetailValues($id);
+            }
+        }
+        // 遷移アクション時
+        else {
+            // FORM情報をセット
+            foreach ($this->FormInputList() as $key) {
+                $returnVal['form'][$key] = $this->input->post_get($key, true);
+            }
+            // バリデーションOK時
+            if ($validFlg) {
+                // 選択情報の表示名をセット
+                $returnVal['form']['pref_name'] = $this->user_lib->GetPrefName($returnVal['form']['pref_id']);
+                $returnVal['form']['status_name'] = $this->user_lib->GetStatusName($returnVal['form']['status']);
+            }
+        }
+        // 選択情報をセット
+        $returnVal['select']['pref'] = $this->user_lib->GetPrefList();
+        $returnVal['select']['status'] = $this->user_lib->GetStatusList();
+
+        return $this->sharedTemplate($returnVal);
+    }
+
+
+    /**
+     * 完了テンプレート情報を取得
+     *
+     * @param string $id：ID
+     * @return array|null
+     */
+    public function CompTemplate(string $id = '') : ?array
+    {
+        // 返値を初期化
+        $returnVal = array();
+        // FORM情報
+        $id = ($id ? $id : $this->input->post_get('id', true));
+        // 情報の存在有無
+        $returnVal['exists'] = $this->reserve_lib->IdExists($id);
+
+        return $this->sharedTemplate($returnVal);
+    }
+
+
+    /**
+     * データ削除処理
+     *
+     * @param string $id：ID
+     * @return bool|null
+     */
+    public function DelActionTemplate(string $id = '') : ?bool
+    {
+        // 返値を初期化
+        $returnVal = false;
+        // FORM情報をセット
+        $id = $this->input->post_get('id', true);
+        // 削除処理
+        $returnVal = $this->genre_lib->SelectDelete($id);
+
+        return $returnVal;
+    }
+
+
+
+
+
+
+
 
 
     /**
