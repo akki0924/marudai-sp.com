@@ -804,4 +804,105 @@ class Db_lib
         }
         return $returnVal;
     }
+    /*====================================================================
+        関数名 : GetTables
+        概　要 : 対象テーブル一覧を取得
+        引　数 : $dbName : DB名
+    */
+    public function GetTables(?string $dbName = '') : ?array
+    {
+        // 返値を初期化
+        $returnVal = array();
+        // DB名を再セット
+        $dbName = ($dbName ? $dbName : $this->CI->db->database);
+        // SQLを実行
+        $query = $this->CI->db->query("
+            SHOW TABLES FROM " . Base_lib::AddSlashes($dbName) . ";
+        ");
+        // 結果が、空でない場合
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row) {
+                // 不要な配列情報を除外して取得
+                $returnVal[] = $row['Tables_in_' . $this->CI->db->database];
+            }
+        }
+        return $returnVal;
+    }
+    /*====================================================================
+        関数名 : GetColumns
+        概　要 : 対象カラム一覧を取得
+        引　数 : $tableName : テーブル名
+    */
+    public function GetColumns(?string $tableName) : ?array
+    {
+        // 返値を初期化
+        $returnVal = array();
+        // SQLを実行
+        $query = $this->CI->db->query("
+            SHOW COLUMNS FROM " . Base_lib::AddSlashes($tableName) . ";
+        ");
+        // 結果が、空でない場合
+        if ($query->num_rows() > 0) {
+//            $returnVal = $query->result_array();
+            foreach ($query->result_array() as $row) {
+                // 不要な配列情報を除外して取得
+                $returnVal[] = $row['Field'];
+            }
+        }
+        return $returnVal;
+    }
+    /*====================================================================
+        関数名 : GetTableComment
+        概　要 : 対象テーブルコメントを取得
+        引　数 : $tableName : テーブル名
+    */
+    public function GetTableComment(?string $tableName) : ?string
+    {
+        // 返値を初期化
+        $returnVal = '';
+        // SQLを実行
+        $query = $this->CI->db->query("
+            SELECT
+                table_comment
+            FROM INFORMATION_SCHEMA.TABLES
+            WHERE (
+                TABLE_SCHEMA = '" . $this->CI->db->database . "' AND
+                TABLE_NAME = '" . Base_lib::AddSlashes($tableName) . "'
+            );
+        ");
+        // 結果が、空でない場合
+        if ($query->num_rows() > 0) {
+            $resultList = $query->result_array();
+            if (isset($resultList[0]['table_comment'])) {
+                $returnVal = $resultList[0]['table_comment'];
+            }
+        }
+        return $returnVal;
+    }
+    /*====================================================================
+        関数名 : GetColumnsComment
+        概　要 : 対象カラムコメントを取得
+        引　数 : $tableName : テーブル名
+    */
+    public function GetColumnComment(?string $tableName) : ?array
+    {
+        // 返値を初期化
+        $returnVal = '';
+        // SQLを実行
+        $query = $this->CI->db->query("
+            SELECT
+                column_name AS name,
+                column_comment AS comment
+            FROM INFORMATION_SCHEMA.COLUMNS
+            WHERE (
+                TABLE_SCHEMA = '" . $this->CI->db->database . "' AND
+                TABLE_NAME = '" . Base_lib::AddSlashes($tableName) . "'
+            );
+        ");
+        // 結果が、空でない場合
+        if ($query->num_rows() > 0) {
+            $returnVal = $query->result_array();
+        }
+        return $returnVal;
+    }
 }

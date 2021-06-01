@@ -1,0 +1,29 @@
+{
+    "__comment":"管理画面生成用JSON",
+    "table__comment":"selectDisable:一部未利用（allは全テーブル共通）, disable:テーブル自体利用しない",
+    "table":{
+        "selectDisable":{
+            "m_admin":[
+                "company_id",
+                "authority"
+            ],
+            "all":[
+                "id",
+                "sort_id",
+                "regist_date",
+                "edit_date"
+            ]
+        },
+        "disable":[
+            "m_pref"
+        ]
+    },
+    "login__comment":"table:ログイン対象テーブル, id:ID対象カラム, password:パスワード対象カラム",
+    "login":{
+        "table":"m_admin",
+        "id":"account",
+        "id_name":"アカウント",
+        "password":"password",
+        "password_name":"password"
+    }
+}

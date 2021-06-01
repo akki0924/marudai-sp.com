@@ -31,6 +31,7 @@ class Base_lib
     const OWNER_DIR = "owner";                              // オーナー
     const ADMIN_DIR = "admin";                              // 管理
     const MASTER_DIR = "master";                            // マスタディレクトリ
+    const CONTROLLER_DIR = "controllers";                   // コントローラディレクトリ
     const VIEW_DIR = "views";                               // ビューディレクトリ
     const MODEL_DIR = "models";                             // モデルディレクトリ
     const LIBRARY_DIR = "libraries";                        // ライブラリーディレクトリ

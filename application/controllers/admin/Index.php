@@ -4,10 +4,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * 管理画面ログイン画面処理
  *
  * @author a.miwa <miwa@ccrw.co.jp>
- * @version 1.0.2
+ * @version 1.0.3
  * @since 1.0.0     2016/12/28：新規作成
  * @since 1.0.1     2017/01/06：ログイン機能追加
  * @since 1.0.2     2021/04/02：actionの値で動作するよう仕様変更
+ * @since 1.0.3     2021/05/31：自動生成用に修正
  */
 class Index extends MY_Controller
 {

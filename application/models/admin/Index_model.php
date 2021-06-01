@@ -5,9 +5,10 @@
  * ログイン画面、およびログイン、ログアウト処理
  *
  * @author a.miwa <miwa@ccrw.co.jp>
- * @version 1.0.1
+ * @version 1.0.2
  * @since 1.0.0     2019/12/24：新規作成
  * @since 1.0.1     2021/04/25：コメントをPHPDoc版に変更
+ * @since 1.0.2     2021/05/31：自動生成用に修正
  */
 class Index_model extends CI_Model
 {
@@ -129,7 +130,7 @@ class Index_model extends CI_Model
             ),
             array(
                 'field'   => 'password',
-                'label'   => 'パスワード',
+                'label'   => 'password',
                 'rules'   => 'required|ValidLoginAdmin[' . $this->input->post_get('account', true) . ']'
             ),
         );
