@@ -4,7 +4,7 @@
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/05/31：新規作成
+ * @since 1.0.0     2021/06/02：新規作成
  */
 class Sheet2_model extends CI_Model
 {
@@ -97,7 +97,7 @@ class Sheet2_model extends CI_Model
     /**
      * 入力テンプレート情報を取得
      *
-     * @param bool $templateVal：バリデーションフラグ
+     * @param bool $validFlg：バリデーションフラグ
      * @return array
      */
     public function InputTemplate(bool $validFlg = false) : ?array
@@ -164,7 +164,7 @@ class Sheet2_model extends CI_Model
     /**
      * 登録処理
      *
-     * @param bool $templateVal：バリデーションフラグ
+     * @param bool $validFlg：バリデーションフラグ
      * @return string
      */
     public function RegistAction($validFlg = false) : ?string

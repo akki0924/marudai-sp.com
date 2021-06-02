@@ -218,6 +218,8 @@ class Create_lib extends Base_lib
                 substr($tableName, 0, self::MASTER_TABLE_PREFIX_NUM) == self::MASTER_TABLE_PREFIX
             ) {
                 Base_lib::ConsoleLog('check1');
+                // テーブル名をセット
+                $tempVal['tableName'] = $tableName;
                 // 対象名をセット
                 $targetName = substr($tableName, self::MASTER_TABLE_PREFIX_NUM);
                 $tempVal['targetName'] = $targetName;
@@ -288,6 +290,21 @@ class Create_lib extends Base_lib
                     }
                     // librariesファイル生成
                     elseif ($createDir == self::LIBRARY_DIR) {
+                        // 自動生成用テンプレートファイル
+                        $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
+                        $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'Target_lib';
+                        // 自動生成用テンプレート情報を取得
+                        $writeVal = $this->CI->load->view($targetFile, $tempVal, true);
+                        // PHPタグの置換
+                        $writeVal = $this->ReturnPhpTag($writeVal);
+                        Base_lib::ConsoleLog($writeVal);
+                        // views出力先パス
+                        $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
+                        $uploadPath .= $adminDir . ucfirst($targetName) . '_lib.php';
+                        // ディレクトリ生成
+                        $this->CreateDir(dirname($uploadPath));
+                        // ファイル出力
+                        write_file($uploadPath, $writeVal);
                     }
                 }
             }

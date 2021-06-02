@@ -880,19 +880,21 @@ class Db_lib
         return $returnVal;
     }
     /*====================================================================
-        関数名 : GetColumnsComment
+        関数名 : GetColumnsData
         概　要 : 対象カラムコメントを取得
         引　数 : $tableName : テーブル名
     */
-    public function GetColumnComment(?string $tableName) : ?array
+    public function GetColumnsData(?string $tableName) : ?array
     {
         // 返値を初期化
         $returnVal = '';
         // SQLを実行
         $query = $this->CI->db->query("
             SELECT
-                column_name AS name,
-                column_comment AS comment
+                COLUMN_NAME AS name,
+                COLUMN_COMMENT AS comment,
+                DATA_TYPE AS type_simple,
+                COLUMN_COMMENT AS type
             FROM INFORMATION_SCHEMA.COLUMNS
             WHERE (
                 TABLE_SCHEMA = '" . $this->CI->db->database . "' AND
