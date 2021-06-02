@@ -2,24 +2,25 @@
 if (! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
-    /*
-    ■機　能 : ベース用マスタ処理プログラム
-    ■概　要 : 初期設定定数、コモン関数などのプログラム
-    ■更新日 : 2020/01/24
-    ■担　当 : crew.miwa
-
-    ■更新履歴：
-        2015/06/23 : 作成開始
-        2020/01/24 : マスタディレクトリを追加
-    */
-
+/**
+ * ベース用マスタ処理プログラム
+ *
+ * 初期設定定数、及び継承元ライブラリ
+ *
+ * @author akki.m
+ * @version 1.1.0
+ * @since 1.0.0     2015/06/23  作成開始
+ * @since 1.0.6     2020/01/24  各ディレクトリ名のメンバー定数追加
+ * @since 1.1.0     2021/06/02  各マスタライブラリ継承用の関数、メンバー変数の追加
+ */
 class Base_lib
 {
-    //=======================================
-    // 定数定義
-
+    /**
+     * const
+     */
     // サイト情報
     const SITE_TITLE_NAME = "サンプルサイト";
+
     // 各ページ名
     const PUBLIC_MAIN_PAGE = "main";                        // 表メインページ
     const OWNER_MAIN_PAGE = "main";                         // オーナーメインページ
@@ -68,15 +69,18 @@ class Base_lib
     const VALID_SEPARATE_STR = '|';                         // バリデーションの分割用文字列
     const VALID_STR_BEFORE = '<div class="form_error">';    // バリデーション囲い文字（前）
     const VALID_STR_AFTER = '</div>';                       // バリデーション囲い文字（後）
+
     // ハイフン
     const STR_HYPHEN = '-';
+
     // 区切り文字
     const STR_DELIMITER_DISPLAY = '、';                     // 表示用
     const STR_DELIMITER_SYSTEM = ',';                       // システム用
 
-    /*====================================================================
-        コントラクト
-    */
+
+    /**
+     * コンストラクタ
+     */
     public function __construct()
     {
         setlocale(LC_MONETARY, "ja_JP.UTF8"); // ロケール
@@ -91,55 +95,76 @@ class Base_lib
         }
 */
     }
-    /*====================================================================
-        関数名 : SelectboxDefalutForm
-        概　要 : 配列をプルダウン用に形に成形してはき出す
-        引　数 : $array : 対象プルダウン用配列
-                 $defaultWord : 無選択時の文字列
-    */
-    public static function SelectboxDefalutForm($array = "", $defaultWord = "")
-    {
-        $default_array[''] = ($defaultWord ? $defaultWord : self::DEFAULT_SELECT_FIRST_WORD);
-        $returnVal = (is_array($array) ? $default_array + $array : $default_array);
+
+
+    /**
+     * 配列をプルダウン用に形に成形してはき出す
+     *
+     * @param array $arrayData：対象プルダウン用配列
+     * @param string $defaultWord：無選択時の文字列
+     * @return array|null
+     */
+    public static function SelectboxDefalutForm(
+        $arrayData = array(),
+        $defaultWord = ""
+    ) : ?array {
+        // 初期値をセット
+        $defaultArray[''] = ($defaultWord ? $defaultWord : self::DEFAULT_SELECT_FIRST_WORD);
+        // 無選択時の文字列を配列に追加
+        $returnVal = (count($arrayData) > 0 ? $defaultArray + $arrayData : $defaultArray);
 
         return $returnVal;
     }
-    /*====================================================================
-        関数名 : NowDate
-        概　要 : DB登録用の現在日をセット
-    */
-    public static function NowDate()
+
+
+    /**
+     * サーバー設定の現年月日を返す
+     *
+     * @return string
+     */
+    public static function NowDate() : string
     {
         return date('Y-m-d');
     }
-    /*====================================================================
-        関数名 : NowDateTime
-        概　要 : DB登録用の現在日時をセット
-    */
-    public static function NowDateTime()
+
+
+    /**
+     * サーバー設定の現年月日時分秒を返す
+     *
+     * @return string
+     */
+    public static function NowDateTime() : string
     {
         return date('Y-m-d H:i:s');
     }
-    /*====================================================================
-        関数名 : NumFormat
-        概　要 : 数値を金額文字列にフォーマット
-        引　数 : $num : 対象数字
-    */
-    public static function NumFormat($num)
+
+
+    /**
+     * 数値を金額文字列にフォーマット
+     *
+     * @param string $num：対象数値文字列
+     * @return string|null
+     */
+    public static function NumFormat(int $num = 0) : ?string
     {
-        $returnVal = '';
+        // 返値を初期化
+        $returnVal = 0;
         // 数値の場合
         if (is_numeric($num)) {
+            // 金額文字列に置換
             $returnVal = self::AddSlashes(number_format($num));
         }
         return $returnVal;
     }
-    /*====================================================================
-        関数名 : AddSlashes
-        概　要 : 文字列をスラッシュでクォートする
-        引　数 : $str : 対象文字列
-    */
-    public static function AddSlashes($str)
+
+
+    /**
+     * 文字列をスラッシュでクォートする
+     *
+     * @param string $str：対象文字列
+     * @return string|null
+     */
+    public static function AddSlashes(string $str = '') : ?string
     {
         $str = addslashes($str);
         $str = preg_replace("/\\'/", "'", $str);
@@ -152,35 +177,46 @@ class Base_lib
 
         return $str;
     }
-    /*====================================================================
-        関数名 : EmptyToNull
-        概　要 : 文字列が空の場合ヌルを返す
-        引　数 : $data : 対象文字列
-    */
-    public static function EmptyToNull($data)
+
+
+    /**
+     * 文字列が空の場合ヌルを返す
+     *
+     * @param string $data：対象文字列
+     * @return string|null
+     */
+    public static function EmptyToNull($data = '') : ?string
     {
         if (($data == "" && $data !==  0) || !isset($data)) {
             $data = "NULL";
         }
         return self::AddSlashes($data);
     }
-    /*====================================================================
-        関数名 : GetConvValidInList
-        概　要 : validation - in_list用の配列キーから変換した文字列を返す
-        引　数 : $array : 対象配列
-    */
-    public static function GetConvValidInList($array)
+
+
+    /**
+     * [validation - in_list]用の配列キーから変換した文字列を返す
+     *
+     * @param array $array：対象配列
+     * @return string|null
+     */
+    public static function GetConvValidInList(array $array = array()) : ?string
     {
         return @implode(array_keys($array), self::STR_DELIMITER_SYSTEM);
     }
-    /*====================================================================
-        関数名： EditTableForm
-        概　要： 対象リストをテーブル用構造に変換して返す
-        引　数 : $arrayVal : 対象配列
-                $wrapCount : 改行行数
-    */
-    public static function EditTableForm($arrayVal, $wrapCount)
-    {
+
+
+    /**
+     * 対象リストをテーブル用構造に変換して返す
+     *
+     * @param array $arrayVal：対象配列
+     * @param string $wrapCount：改行行数
+     * @return array|null
+     */
+    public static function EditTableForm(
+        $arrayVal = array(),
+        $wrapCount = 0
+    ) : ?array {
         $n = ceil(count($arrayVal) / $wrapCount) * $wrapCount;
         for ($i = 0; $i < $n; $i ++) {
             if ($i == 0) {
@@ -195,11 +231,13 @@ class Base_lib
         }
         return $arrayVal;
     }
-    /*====================================================================
-        関数名： GetBaseConstList
-        概　要： ベースクラス定数一覧を取得
-        戻り値： クラス定数一覧
-    */
+
+
+    /**
+     * ベースクラス定数一覧を取得
+     *
+     * @return array|null
+     */
     public static function GetBaseConstList(): ?array
     {
         // 返値を初期化
@@ -215,13 +253,15 @@ class Base_lib
 
         return $returnVal;
     }
-    /*====================================================================
-        関数名： GetConstList
-        概　要： 対象クラス定数一覧を取得
-        引　数 : $className : 対象クラス名
-        戻り値： クラス定数一覧
-    */
-    public static function GetConstList(string $className = ''): array
+
+
+    /**
+     * 対象クラス定数一覧を取得
+     *
+     * @param string $className：対象クラス名
+     * @return array|null
+     */
+    public static function GetConstList(string $className = ''): ?array
     {
         // 返値を初期化
         $returnVal = array();
@@ -240,53 +280,71 @@ class Base_lib
 
         return $returnVal;
     }
-    /*====================================================================
-        関数名： SiteHost
-        概　要： サイトホストを返す
-    */
-    public static function SiteHost()
+
+
+    /**
+     * サイトホストを返す
+     *
+     * @return string|null
+     */
+    public static function SiteHost() : ?string
     {
         return $_SERVER["HTTP_HOST"];
     }
-    /*====================================================================
-        関数名： SiteMail
-        概　要： サイトメールアドレスを返す
-    */
-    public static function SiteMail()
+
+
+    /**
+     * サイトメールアドレスを返す
+     *
+     * @return string|null
+     */
+    public static function SiteMail() : ?string
     {
         return "info@" . self::SiteHost();
     }
-    /*====================================================================
-        関数名： AdminMail
-        概　要： 管理者メールアドレスを返す
-    */
-    public static function AdminMail()
+
+
+    /**
+     * 管理者メールアドレスを返す
+     *
+     * @return string|null
+     */
+    public static function AdminMail() : ?string
     {
 //        return "admin@" . self::SiteHost();
         return "miwa@ccrw.co.jp";
     }
-    /*====================================================================
-        関数名： SiteMailFrom
-        概　要： 差出人用メールアドレスを返す
-    */
-    public static function SiteMailFrom()
+
+
+    /**
+     * 差出人用メールアドレスを返す
+     *
+     * @return string|null
+     */
+    public static function SiteMailFrom() : ?string
     {
         return self::SITE_TITLE_NAME . " <" . self::SiteMail() . ">";
     }
-    /*====================================================================
-        関数名： SiteMailReply
-        概　要： エラー時返信用メールアドレスを返す
-    */
-    public static function SiteMailReply()
+
+
+    /**
+     * エラー時返信用メールアドレスを返す
+     *
+     * @return string
+     */
+    public static function SiteMailReply() : string
     {
         return "error@" . self::SiteHost();
     }
-    /*====================================================================
-        関数名： ConsoleLog
-        概　要： 対象データをコンソールログに表示
-        引　数 : $targetData : 対象データ
-    */
-    public static function ConsoleLog($targetData = "")
+
+
+    /**
+     * 対象データをコンソールログに表示
+     *
+     * @param string|array $targetData：対象データ
+     * @return void
+     */
+    public static function ConsoleLog($targetData = "") : void
     {
         if (ENVIRONMENT == 'development') {
             echo '<script>';
@@ -294,11 +352,14 @@ class Base_lib
             echo '</script>';
         }
     }
-    /*====================================================================
-        関数名： CreateTokenKey
-        概　要： トークンを生成
-    */
-    public function CreateTokenKey()
+
+
+    /**
+     * トークンを生成
+     *
+     * @return string
+     */
+    public function CreateTokenKey() : string
     {
         return bin2hex(random_bytes(32));
     }

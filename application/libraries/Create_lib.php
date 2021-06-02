@@ -67,10 +67,10 @@ class Create_lib extends Base_lib
         $jsonData = $this->CI->load->view($targetFile, '', true);
         // クォート処理
         $jsonData = $this->CI->json_lib->EscapeDoubleQuote($jsonData);
-        Base_lib::ConsoleLog($jsonData);
+        // Base_lib::ConsoleLog($jsonData);
         // JSONデコード
         $jsonVal = $this->CI->json_lib->Decode($jsonData);
-        Base_lib::ConsoleLog($jsonVal);
+        // Base_lib::ConsoleLog($jsonVal);
         // 共通変数をセット
         $adminDir = self::ADMIN_DIR . self::WEB_DIR_SEPARATOR;
         // 管理プログラムに不必要なテーブルを削除
@@ -90,13 +90,11 @@ class Create_lib extends Base_lib
 
         // 各テーブルのカラム情報を取得
         foreach ($tableList as $key => $val) {
-            // カラム一覧をセット
-            $table[$val] = $this->CI->db_lib->GetColumns($val);
-            // カラムコメント一覧をセット
-            $tableComment[$val] = $this->CI->db_lib->GetColumnComment($val);
-            for ($i = 0, $n = count($tableComment[$val]); $i < $n; $i ++) {
-                if (strpos($tableComment[$val][$i]['comment'], ' ') !== false) {
-                    $tableComment[$val][$i]['comment'] = (substr($tableComment[$val][$i]['comment'], 0, strpos($tableComment[$val][$i]['comment'], ' ')));
+            // カラムデータ一覧情報をセット
+            $table[$val] = $this->CI->db_lib->GetColumnsData($val);
+            for ($i = 0, $n = count($table[$val]); $i < $n; $i ++) {
+                if (strpos($table[$val][$i]['comment'], ' ') !== false) {
+                    $table[$val][$i]['comment'] = (substr($table[$val][$i]['comment'], 0, strpos($table[$val][$i]['comment'], ' ')));
                 }
             }
         }
@@ -117,7 +115,7 @@ class Create_lib extends Base_lib
                     ) {
                         for ($t_i = 0, $t_n = count($columnKey); $t_i < $t_n; $t_i ++) {
                             for ($s_i = 0, $s_n = count($selColumnKey); $s_i < $s_n; $s_i ++) {
-                                if ($columnKey[$t_i] == $selColumnKey[$s_i]) {
+                                if ($columnKey[$t_i]['name'] == $selColumnKey[$s_i]) {
                                     // カラム情報を削除
                                     unset($tableSel[$tableName][$t_i]);
                                 }
@@ -128,7 +126,7 @@ class Create_lib extends Base_lib
                     if ($selTableName == self::SELECT_DISABLE_ALL) {
                         for ($t_i = 0, $t_n = count($columnKey); $t_i < $t_n; $t_i ++) {
                             for ($s_i = 0, $s_n = count($selColumnKey); $s_i < $s_n; $s_i ++) {
-                                if ($columnKey[$t_i] == $selColumnKey[$s_i]) {
+                                if ($columnKey[$t_i]['name'] == $selColumnKey[$s_i]) {
                                     // カラム情報を削除
                                     unset($tableSel[$tableName][$t_i]);
                                 }
@@ -140,7 +138,9 @@ class Create_lib extends Base_lib
                 $tableSel[$tableName] = array_values($tableSel[$tableName]);
             }
         }
+        Base_lib::ConsoleLog('正しく');
         Base_lib::ConsoleLog($tableSel);
+        Base_lib::ConsoleLog('振り直された？');
 
         // 生成リスト
         $createList = array(
@@ -229,7 +229,6 @@ class Create_lib extends Base_lib
                 // テーブルカラム情報をセット
                 $tempVal['table'] = $table[$tableName];
                 $tempVal['tableSel'] = $tableSel[$tableName];
-                $tempVal['tableComment'] = $tableComment[$tableName];
                 Base_lib::ConsoleLog($tempVal);
                 foreach ($createList as $createDir) {
                     // controllersファイル生成
@@ -300,7 +299,7 @@ class Create_lib extends Base_lib
                         Base_lib::ConsoleLog($writeVal);
                         // views出力先パス
                         $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
-                        $uploadPath .= $adminDir . ucfirst($targetName) . '_lib.php';
+                        $uploadPath .= 'master' . ucfirst($targetName) . '_lib.php';
                         // ディレクトリ生成
                         $this->CreateDir(dirname($uploadPath));
                         // ファイル出力

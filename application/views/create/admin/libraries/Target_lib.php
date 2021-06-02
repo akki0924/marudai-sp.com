@@ -18,12 +18,14 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
      */
     // テーブル名
     const MASTER_TABLE = '<?= $tableName ?>';
-<?php if (in_array('status', $table)) { ?>
+<?php for ($i = 0, $n = count($table); $i < $n; $i ++) { ?>
+<?php if ($table[$i]['name'] == 'status') { ?>
     // 表示ステータス
     const ID_STATUS_ENABLE = 1;
     const ID_STATUS_DISABLE = -1;
     const NAME_STATUS_ENABLE = '表示';
     const NAME_STATUS_DISABLE = '非表示';
+<?php } ?>
 <?php } ?>
     // スーパーオブジェクト割当用変数
     protected $CI;
@@ -55,19 +57,19 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
         $query = $this->CI->db->query("
             SELECT
 <?php for ($i = 0, $n = count($table); $i < $n; $i ++) { ?>
-                " . self::MASTER_TABLE . " . <?= $table[$i] ?>,
-<?php } ?>
-<?php if (in_array('status', $table)) { ?>
+                " . self::MASTER_TABLE . " . <?= $table[$i]['name'] ?>,
+<?php if ($table[$i]['name'] == 'status') { ?>
                 CASE " . self::MASTER_TABLE . " . status
                     WHEN " . self::ID_STATUS_ENABLE . " THEN '" . self::NAME_STATUS_ENABLE . "'
                     ELSE '" . self::NAME_STATUS_DISABLE . "'
                 END AS status_name,
 <?php } ?>
-<?php if (in_array('regist_date', $table)) { ?>
-    DATE_FORMAT(" . self::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
+<?php if ($table[$i]['name'] == 'regist_date') { ?>
+                DATE_FORMAT(" . self::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
 <?php } ?>
-<?php if (in_array('edit_date', $table)) { ?>
-    DATE_FORMAT(" . self::MASTER_TABLE . ".edit_date, '%Y.%c.%e') AS edit_date_disp
+<?php if ($table[$i]['name'] == 'edit_date') { ?>
+                DATE_FORMAT(" . self::MASTER_TABLE . ".edit_date, '%Y.%c.%e') AS edit_date_disp
+<?php } ?>
 <?php } ?>
             FROM " . self::MASTER_TABLE . "
             WHERE (
@@ -87,6 +89,7 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
     }
 
 
+<?php for ($i = 0, $n = count($table); $i < $n; $i ++) { ?>
     /**
      * 内容一覧を取得
      *
@@ -98,6 +101,8 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
         return $this->CI->db_lib->GetSelectValues(self::MASTER_TABLE, 'contents', $public);
     }
 
+
+<?php } ?>
 
     /**
      * 内容を取得
