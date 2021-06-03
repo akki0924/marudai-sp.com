@@ -9,7 +9,7 @@ if (! defined('BASEPATH')) {
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/02：新規作成
+ * @since 1.0.0     2021/06/03：新規作成
  */
 class Sheet1_lib extends Base_lib
 {
@@ -116,7 +116,10 @@ class Sheet1_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetNo(string $id, bool $public = false) : ?string
+    public function GetNo(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'no', $id, 'id', $public);
     }
@@ -129,7 +132,10 @@ class Sheet1_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetPoint(string $id, bool $public = false) : ?string
+    public function GetPoint(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'point', $id, 'id', $public);
     }
@@ -142,7 +148,10 @@ class Sheet1_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromNo(string $no, bool $public = false) : ?string
+    public function GetIdFromNo(
+        string $no,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $no, 'no', $public);
     }
@@ -155,7 +164,10 @@ class Sheet1_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromPoint(string $point, bool $public = false) : ?string
+    public function GetIdFromPoint(
+        string $point,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $point, 'point', $public);
     }
@@ -168,7 +180,10 @@ class Sheet1_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromStatus(string $status, bool $public = false) : ?string
+    public function GetIdFromStatus(
+        string $status,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $status, 'status', $public);
     }
@@ -181,7 +196,10 @@ class Sheet1_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function NoExists(string $no, bool $public = false) : bool
+    public function NoExists(
+        string $no,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $no, 'no', $public);
     }
@@ -194,7 +212,10 @@ class Sheet1_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function PointExists(string $point, bool $public = false) : bool
+    public function PointExists(
+        string $point,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $point, 'point', $public);
     }
@@ -207,7 +228,10 @@ class Sheet1_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function StatusExists(string $status, bool $public = false) : bool
+    public function StatusExists(
+        string $status,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $status, 'status', $public);
     }
@@ -221,7 +245,11 @@ class Sheet1_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function NoSameExists($no, $id = '', $public = false) : bool
+    public function NoSameExists(
+        $no,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $no, 'no', $id, 'id', $public);
     }
@@ -235,7 +263,11 @@ class Sheet1_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function PointSameExists($point, $id = '', $public = false) : bool
+    public function PointSameExists(
+        $point,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $point, 'point', $id, 'id', $public);
     }
@@ -249,7 +281,11 @@ class Sheet1_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function StatusSameExists($status, $id = '', $public = false) : bool
+    public function StatusSameExists(
+        $status,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $status, 'status', $id, 'id', $public);
     }

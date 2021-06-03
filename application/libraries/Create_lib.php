@@ -152,6 +152,13 @@ class Create_lib extends Base_lib
             self::MODEL_DIR,
             self::LIBRARY_DIR,
         );
+        // viewファイル一覧
+        $viewList = array(
+            'list',
+            'input',
+            'conf',
+            'comp',
+        );
 
         // ログイン情報を処理
         if (isset($jsonVal['login'])) {
@@ -221,6 +228,8 @@ class Create_lib extends Base_lib
                 substr($tableName, 0, self::MASTER_TABLE_PREFIX_NUM) == self::MASTER_TABLE_PREFIX
             ) {
                 Base_lib::ConsoleLog('check1');
+                // テーブル一覧情報をセット
+                $tempVal['tableList'] = $tableList;
                 // テーブル名をセット
                 $tempVal['tableName'] = $tableName;
                 // 対象名をセット
@@ -252,9 +261,9 @@ class Create_lib extends Base_lib
                         // ファイル出力
                         write_file($uploadPath, $writeVal);
                     }
-                    /*
                     // viewsファイル生成
                     elseif ($createDir == self::VIEW_DIR) {
+                        //
                         // 自動生成用テンプレートファイル
                         $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
                         $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'login';
@@ -271,7 +280,6 @@ class Create_lib extends Base_lib
                         // ファイル出力
                         write_file($uploadPath, $writeVal);
                     }
-                    */
                     // modelsファイル生成
                     elseif ($createDir == self::MODEL_DIR) {
                         // 自動生成用テンプレートファイル

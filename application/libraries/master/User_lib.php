@@ -9,7 +9,7 @@ if (! defined('BASEPATH')) {
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/02：新規作成
+ * @since 1.0.0     2021/06/03：新規作成
  */
 class User_lib extends Base_lib
 {
@@ -608,7 +608,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetEcoId(string $id, bool $public = false) : ?string
+    public function GetEcoId(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'eco_id', $id, 'id', $public);
     }
@@ -621,7 +624,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetNickname(string $id, bool $public = false) : ?string
+    public function GetNickname(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'nickname', $id, 'id', $public);
     }
@@ -634,7 +640,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet111(string $id, bool $public = false) : ?string
+    public function GetSheet111(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_1_1', $id, 'id', $public);
     }
@@ -647,7 +656,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet112(string $id, bool $public = false) : ?string
+    public function GetSheet112(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_1_2', $id, 'id', $public);
     }
@@ -660,7 +672,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet113(string $id, bool $public = false) : ?string
+    public function GetSheet113(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_1_3', $id, 'id', $public);
     }
@@ -673,7 +688,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet114(string $id, bool $public = false) : ?string
+    public function GetSheet114(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_1_4', $id, 'id', $public);
     }
@@ -686,7 +704,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet115(string $id, bool $public = false) : ?string
+    public function GetSheet115(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_1_5', $id, 'id', $public);
     }
@@ -699,7 +720,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet116(string $id, bool $public = false) : ?string
+    public function GetSheet116(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_1_6', $id, 'id', $public);
     }
@@ -712,7 +736,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet117(string $id, bool $public = false) : ?string
+    public function GetSheet117(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_1_7', $id, 'id', $public);
     }
@@ -725,7 +752,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet121(string $id, bool $public = false) : ?string
+    public function GetSheet121(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_2_1', $id, 'id', $public);
     }
@@ -738,7 +768,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet122(string $id, bool $public = false) : ?string
+    public function GetSheet122(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_2_2', $id, 'id', $public);
     }
@@ -751,7 +784,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet123(string $id, bool $public = false) : ?string
+    public function GetSheet123(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_2_3', $id, 'id', $public);
     }
@@ -764,7 +800,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet124(string $id, bool $public = false) : ?string
+    public function GetSheet124(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_2_4', $id, 'id', $public);
     }
@@ -777,7 +816,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet125(string $id, bool $public = false) : ?string
+    public function GetSheet125(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_2_5', $id, 'id', $public);
     }
@@ -790,7 +832,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet126(string $id, bool $public = false) : ?string
+    public function GetSheet126(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_2_6', $id, 'id', $public);
     }
@@ -803,7 +848,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet127(string $id, bool $public = false) : ?string
+    public function GetSheet127(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_2_7', $id, 'id', $public);
     }
@@ -816,7 +864,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet131(string $id, bool $public = false) : ?string
+    public function GetSheet131(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_3_1', $id, 'id', $public);
     }
@@ -829,7 +880,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet132(string $id, bool $public = false) : ?string
+    public function GetSheet132(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_3_2', $id, 'id', $public);
     }
@@ -842,7 +896,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet133(string $id, bool $public = false) : ?string
+    public function GetSheet133(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_3_3', $id, 'id', $public);
     }
@@ -855,7 +912,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet134(string $id, bool $public = false) : ?string
+    public function GetSheet134(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_3_4', $id, 'id', $public);
     }
@@ -868,7 +928,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet135(string $id, bool $public = false) : ?string
+    public function GetSheet135(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_3_5', $id, 'id', $public);
     }
@@ -881,7 +944,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet136(string $id, bool $public = false) : ?string
+    public function GetSheet136(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_3_6', $id, 'id', $public);
     }
@@ -894,7 +960,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet137(string $id, bool $public = false) : ?string
+    public function GetSheet137(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_3_7', $id, 'id', $public);
     }
@@ -907,7 +976,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet141(string $id, bool $public = false) : ?string
+    public function GetSheet141(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_4_1', $id, 'id', $public);
     }
@@ -920,7 +992,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet142(string $id, bool $public = false) : ?string
+    public function GetSheet142(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_4_2', $id, 'id', $public);
     }
@@ -933,7 +1008,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet143(string $id, bool $public = false) : ?string
+    public function GetSheet143(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_4_3', $id, 'id', $public);
     }
@@ -946,7 +1024,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet144(string $id, bool $public = false) : ?string
+    public function GetSheet144(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_4_4', $id, 'id', $public);
     }
@@ -959,7 +1040,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet145(string $id, bool $public = false) : ?string
+    public function GetSheet145(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_4_5', $id, 'id', $public);
     }
@@ -972,7 +1056,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet146(string $id, bool $public = false) : ?string
+    public function GetSheet146(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_4_6', $id, 'id', $public);
     }
@@ -985,7 +1072,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet147(string $id, bool $public = false) : ?string
+    public function GetSheet147(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_4_7', $id, 'id', $public);
     }
@@ -998,7 +1088,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet151(string $id, bool $public = false) : ?string
+    public function GetSheet151(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_5_1', $id, 'id', $public);
     }
@@ -1011,7 +1104,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet152(string $id, bool $public = false) : ?string
+    public function GetSheet152(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_5_2', $id, 'id', $public);
     }
@@ -1024,7 +1120,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet153(string $id, bool $public = false) : ?string
+    public function GetSheet153(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_5_3', $id, 'id', $public);
     }
@@ -1037,7 +1136,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet154(string $id, bool $public = false) : ?string
+    public function GetSheet154(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_5_4', $id, 'id', $public);
     }
@@ -1050,7 +1152,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet155(string $id, bool $public = false) : ?string
+    public function GetSheet155(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_5_5', $id, 'id', $public);
     }
@@ -1063,7 +1168,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet156(string $id, bool $public = false) : ?string
+    public function GetSheet156(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_5_6', $id, 'id', $public);
     }
@@ -1076,7 +1184,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet157(string $id, bool $public = false) : ?string
+    public function GetSheet157(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet1_5_7', $id, 'id', $public);
     }
@@ -1089,7 +1200,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet21(string $id, bool $public = false) : ?string
+    public function GetSheet21(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet2_1', $id, 'id', $public);
     }
@@ -1102,7 +1216,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet22(string $id, bool $public = false) : ?string
+    public function GetSheet22(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet2_2', $id, 'id', $public);
     }
@@ -1115,7 +1232,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetSheet23(string $id, bool $public = false) : ?string
+    public function GetSheet23(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sheet2_3', $id, 'id', $public);
     }
@@ -1128,7 +1248,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromEcoId(string $ecoId, bool $public = false) : ?string
+    public function GetIdFromEcoId(
+        string $ecoId,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $ecoId, 'eco_id', $public);
     }
@@ -1141,7 +1264,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromNickname(string $nickname, bool $public = false) : ?string
+    public function GetIdFromNickname(
+        string $nickname,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $nickname, 'nickname', $public);
     }
@@ -1154,7 +1280,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet111(string $sheet111, bool $public = false) : ?string
+    public function GetIdFromSheet111(
+        string $sheet111,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet111, 'sheet1_1_1', $public);
     }
@@ -1167,7 +1296,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet112(string $sheet112, bool $public = false) : ?string
+    public function GetIdFromSheet112(
+        string $sheet112,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet112, 'sheet1_1_2', $public);
     }
@@ -1180,7 +1312,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet113(string $sheet113, bool $public = false) : ?string
+    public function GetIdFromSheet113(
+        string $sheet113,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet113, 'sheet1_1_3', $public);
     }
@@ -1193,7 +1328,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet114(string $sheet114, bool $public = false) : ?string
+    public function GetIdFromSheet114(
+        string $sheet114,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet114, 'sheet1_1_4', $public);
     }
@@ -1206,7 +1344,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet115(string $sheet115, bool $public = false) : ?string
+    public function GetIdFromSheet115(
+        string $sheet115,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet115, 'sheet1_1_5', $public);
     }
@@ -1219,7 +1360,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet116(string $sheet116, bool $public = false) : ?string
+    public function GetIdFromSheet116(
+        string $sheet116,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet116, 'sheet1_1_6', $public);
     }
@@ -1232,7 +1376,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet117(string $sheet117, bool $public = false) : ?string
+    public function GetIdFromSheet117(
+        string $sheet117,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet117, 'sheet1_1_7', $public);
     }
@@ -1245,7 +1392,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet121(string $sheet121, bool $public = false) : ?string
+    public function GetIdFromSheet121(
+        string $sheet121,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet121, 'sheet1_2_1', $public);
     }
@@ -1258,7 +1408,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet122(string $sheet122, bool $public = false) : ?string
+    public function GetIdFromSheet122(
+        string $sheet122,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet122, 'sheet1_2_2', $public);
     }
@@ -1271,7 +1424,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet123(string $sheet123, bool $public = false) : ?string
+    public function GetIdFromSheet123(
+        string $sheet123,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet123, 'sheet1_2_3', $public);
     }
@@ -1284,7 +1440,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet124(string $sheet124, bool $public = false) : ?string
+    public function GetIdFromSheet124(
+        string $sheet124,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet124, 'sheet1_2_4', $public);
     }
@@ -1297,7 +1456,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet125(string $sheet125, bool $public = false) : ?string
+    public function GetIdFromSheet125(
+        string $sheet125,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet125, 'sheet1_2_5', $public);
     }
@@ -1310,7 +1472,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet126(string $sheet126, bool $public = false) : ?string
+    public function GetIdFromSheet126(
+        string $sheet126,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet126, 'sheet1_2_6', $public);
     }
@@ -1323,7 +1488,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet127(string $sheet127, bool $public = false) : ?string
+    public function GetIdFromSheet127(
+        string $sheet127,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet127, 'sheet1_2_7', $public);
     }
@@ -1336,7 +1504,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet131(string $sheet131, bool $public = false) : ?string
+    public function GetIdFromSheet131(
+        string $sheet131,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet131, 'sheet1_3_1', $public);
     }
@@ -1349,7 +1520,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet132(string $sheet132, bool $public = false) : ?string
+    public function GetIdFromSheet132(
+        string $sheet132,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet132, 'sheet1_3_2', $public);
     }
@@ -1362,7 +1536,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet133(string $sheet133, bool $public = false) : ?string
+    public function GetIdFromSheet133(
+        string $sheet133,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet133, 'sheet1_3_3', $public);
     }
@@ -1375,7 +1552,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet134(string $sheet134, bool $public = false) : ?string
+    public function GetIdFromSheet134(
+        string $sheet134,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet134, 'sheet1_3_4', $public);
     }
@@ -1388,7 +1568,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet135(string $sheet135, bool $public = false) : ?string
+    public function GetIdFromSheet135(
+        string $sheet135,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet135, 'sheet1_3_5', $public);
     }
@@ -1401,7 +1584,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet136(string $sheet136, bool $public = false) : ?string
+    public function GetIdFromSheet136(
+        string $sheet136,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet136, 'sheet1_3_6', $public);
     }
@@ -1414,7 +1600,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet137(string $sheet137, bool $public = false) : ?string
+    public function GetIdFromSheet137(
+        string $sheet137,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet137, 'sheet1_3_7', $public);
     }
@@ -1427,7 +1616,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet141(string $sheet141, bool $public = false) : ?string
+    public function GetIdFromSheet141(
+        string $sheet141,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet141, 'sheet1_4_1', $public);
     }
@@ -1440,7 +1632,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet142(string $sheet142, bool $public = false) : ?string
+    public function GetIdFromSheet142(
+        string $sheet142,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet142, 'sheet1_4_2', $public);
     }
@@ -1453,7 +1648,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet143(string $sheet143, bool $public = false) : ?string
+    public function GetIdFromSheet143(
+        string $sheet143,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet143, 'sheet1_4_3', $public);
     }
@@ -1466,7 +1664,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet144(string $sheet144, bool $public = false) : ?string
+    public function GetIdFromSheet144(
+        string $sheet144,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet144, 'sheet1_4_4', $public);
     }
@@ -1479,7 +1680,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet145(string $sheet145, bool $public = false) : ?string
+    public function GetIdFromSheet145(
+        string $sheet145,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet145, 'sheet1_4_5', $public);
     }
@@ -1492,7 +1696,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet146(string $sheet146, bool $public = false) : ?string
+    public function GetIdFromSheet146(
+        string $sheet146,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet146, 'sheet1_4_6', $public);
     }
@@ -1505,7 +1712,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet147(string $sheet147, bool $public = false) : ?string
+    public function GetIdFromSheet147(
+        string $sheet147,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet147, 'sheet1_4_7', $public);
     }
@@ -1518,7 +1728,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet151(string $sheet151, bool $public = false) : ?string
+    public function GetIdFromSheet151(
+        string $sheet151,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet151, 'sheet1_5_1', $public);
     }
@@ -1531,7 +1744,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet152(string $sheet152, bool $public = false) : ?string
+    public function GetIdFromSheet152(
+        string $sheet152,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet152, 'sheet1_5_2', $public);
     }
@@ -1544,7 +1760,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet153(string $sheet153, bool $public = false) : ?string
+    public function GetIdFromSheet153(
+        string $sheet153,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet153, 'sheet1_5_3', $public);
     }
@@ -1557,7 +1776,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet154(string $sheet154, bool $public = false) : ?string
+    public function GetIdFromSheet154(
+        string $sheet154,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet154, 'sheet1_5_4', $public);
     }
@@ -1570,7 +1792,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet155(string $sheet155, bool $public = false) : ?string
+    public function GetIdFromSheet155(
+        string $sheet155,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet155, 'sheet1_5_5', $public);
     }
@@ -1583,7 +1808,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet156(string $sheet156, bool $public = false) : ?string
+    public function GetIdFromSheet156(
+        string $sheet156,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet156, 'sheet1_5_6', $public);
     }
@@ -1596,7 +1824,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet157(string $sheet157, bool $public = false) : ?string
+    public function GetIdFromSheet157(
+        string $sheet157,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet157, 'sheet1_5_7', $public);
     }
@@ -1609,7 +1840,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet21(string $sheet21, bool $public = false) : ?string
+    public function GetIdFromSheet21(
+        string $sheet21,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet21, 'sheet2_1', $public);
     }
@@ -1622,7 +1856,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet22(string $sheet22, bool $public = false) : ?string
+    public function GetIdFromSheet22(
+        string $sheet22,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet22, 'sheet2_2', $public);
     }
@@ -1635,7 +1872,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromSheet23(string $sheet23, bool $public = false) : ?string
+    public function GetIdFromSheet23(
+        string $sheet23,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sheet23, 'sheet2_3', $public);
     }
@@ -1648,7 +1888,10 @@ class User_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromStatus(string $status, bool $public = false) : ?string
+    public function GetIdFromStatus(
+        string $status,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $status, 'status', $public);
     }
@@ -1661,7 +1904,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function EcoIdExists(string $ecoId, bool $public = false) : bool
+    public function EcoIdExists(
+        string $ecoId,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $ecoId, 'eco_id', $public);
     }
@@ -1674,7 +1920,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function NicknameExists(string $nickname, bool $public = false) : bool
+    public function NicknameExists(
+        string $nickname,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $nickname, 'nickname', $public);
     }
@@ -1687,7 +1936,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet111Exists(string $sheet111, bool $public = false) : bool
+    public function Sheet111Exists(
+        string $sheet111,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet111, 'sheet1_1_1', $public);
     }
@@ -1700,7 +1952,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet112Exists(string $sheet112, bool $public = false) : bool
+    public function Sheet112Exists(
+        string $sheet112,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet112, 'sheet1_1_2', $public);
     }
@@ -1713,7 +1968,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet113Exists(string $sheet113, bool $public = false) : bool
+    public function Sheet113Exists(
+        string $sheet113,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet113, 'sheet1_1_3', $public);
     }
@@ -1726,7 +1984,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet114Exists(string $sheet114, bool $public = false) : bool
+    public function Sheet114Exists(
+        string $sheet114,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet114, 'sheet1_1_4', $public);
     }
@@ -1739,7 +2000,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet115Exists(string $sheet115, bool $public = false) : bool
+    public function Sheet115Exists(
+        string $sheet115,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet115, 'sheet1_1_5', $public);
     }
@@ -1752,7 +2016,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet116Exists(string $sheet116, bool $public = false) : bool
+    public function Sheet116Exists(
+        string $sheet116,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet116, 'sheet1_1_6', $public);
     }
@@ -1765,7 +2032,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet117Exists(string $sheet117, bool $public = false) : bool
+    public function Sheet117Exists(
+        string $sheet117,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet117, 'sheet1_1_7', $public);
     }
@@ -1778,7 +2048,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet121Exists(string $sheet121, bool $public = false) : bool
+    public function Sheet121Exists(
+        string $sheet121,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet121, 'sheet1_2_1', $public);
     }
@@ -1791,7 +2064,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet122Exists(string $sheet122, bool $public = false) : bool
+    public function Sheet122Exists(
+        string $sheet122,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet122, 'sheet1_2_2', $public);
     }
@@ -1804,7 +2080,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet123Exists(string $sheet123, bool $public = false) : bool
+    public function Sheet123Exists(
+        string $sheet123,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet123, 'sheet1_2_3', $public);
     }
@@ -1817,7 +2096,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet124Exists(string $sheet124, bool $public = false) : bool
+    public function Sheet124Exists(
+        string $sheet124,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet124, 'sheet1_2_4', $public);
     }
@@ -1830,7 +2112,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet125Exists(string $sheet125, bool $public = false) : bool
+    public function Sheet125Exists(
+        string $sheet125,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet125, 'sheet1_2_5', $public);
     }
@@ -1843,7 +2128,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet126Exists(string $sheet126, bool $public = false) : bool
+    public function Sheet126Exists(
+        string $sheet126,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet126, 'sheet1_2_6', $public);
     }
@@ -1856,7 +2144,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet127Exists(string $sheet127, bool $public = false) : bool
+    public function Sheet127Exists(
+        string $sheet127,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet127, 'sheet1_2_7', $public);
     }
@@ -1869,7 +2160,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet131Exists(string $sheet131, bool $public = false) : bool
+    public function Sheet131Exists(
+        string $sheet131,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet131, 'sheet1_3_1', $public);
     }
@@ -1882,7 +2176,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet132Exists(string $sheet132, bool $public = false) : bool
+    public function Sheet132Exists(
+        string $sheet132,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet132, 'sheet1_3_2', $public);
     }
@@ -1895,7 +2192,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet133Exists(string $sheet133, bool $public = false) : bool
+    public function Sheet133Exists(
+        string $sheet133,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet133, 'sheet1_3_3', $public);
     }
@@ -1908,7 +2208,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet134Exists(string $sheet134, bool $public = false) : bool
+    public function Sheet134Exists(
+        string $sheet134,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet134, 'sheet1_3_4', $public);
     }
@@ -1921,7 +2224,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet135Exists(string $sheet135, bool $public = false) : bool
+    public function Sheet135Exists(
+        string $sheet135,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet135, 'sheet1_3_5', $public);
     }
@@ -1934,7 +2240,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet136Exists(string $sheet136, bool $public = false) : bool
+    public function Sheet136Exists(
+        string $sheet136,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet136, 'sheet1_3_6', $public);
     }
@@ -1947,7 +2256,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet137Exists(string $sheet137, bool $public = false) : bool
+    public function Sheet137Exists(
+        string $sheet137,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet137, 'sheet1_3_7', $public);
     }
@@ -1960,7 +2272,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet141Exists(string $sheet141, bool $public = false) : bool
+    public function Sheet141Exists(
+        string $sheet141,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet141, 'sheet1_4_1', $public);
     }
@@ -1973,7 +2288,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet142Exists(string $sheet142, bool $public = false) : bool
+    public function Sheet142Exists(
+        string $sheet142,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet142, 'sheet1_4_2', $public);
     }
@@ -1986,7 +2304,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet143Exists(string $sheet143, bool $public = false) : bool
+    public function Sheet143Exists(
+        string $sheet143,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet143, 'sheet1_4_3', $public);
     }
@@ -1999,7 +2320,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet144Exists(string $sheet144, bool $public = false) : bool
+    public function Sheet144Exists(
+        string $sheet144,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet144, 'sheet1_4_4', $public);
     }
@@ -2012,7 +2336,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet145Exists(string $sheet145, bool $public = false) : bool
+    public function Sheet145Exists(
+        string $sheet145,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet145, 'sheet1_4_5', $public);
     }
@@ -2025,7 +2352,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet146Exists(string $sheet146, bool $public = false) : bool
+    public function Sheet146Exists(
+        string $sheet146,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet146, 'sheet1_4_6', $public);
     }
@@ -2038,7 +2368,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet147Exists(string $sheet147, bool $public = false) : bool
+    public function Sheet147Exists(
+        string $sheet147,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet147, 'sheet1_4_7', $public);
     }
@@ -2051,7 +2384,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet151Exists(string $sheet151, bool $public = false) : bool
+    public function Sheet151Exists(
+        string $sheet151,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet151, 'sheet1_5_1', $public);
     }
@@ -2064,7 +2400,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet152Exists(string $sheet152, bool $public = false) : bool
+    public function Sheet152Exists(
+        string $sheet152,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet152, 'sheet1_5_2', $public);
     }
@@ -2077,7 +2416,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet153Exists(string $sheet153, bool $public = false) : bool
+    public function Sheet153Exists(
+        string $sheet153,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet153, 'sheet1_5_3', $public);
     }
@@ -2090,7 +2432,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet154Exists(string $sheet154, bool $public = false) : bool
+    public function Sheet154Exists(
+        string $sheet154,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet154, 'sheet1_5_4', $public);
     }
@@ -2103,7 +2448,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet155Exists(string $sheet155, bool $public = false) : bool
+    public function Sheet155Exists(
+        string $sheet155,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet155, 'sheet1_5_5', $public);
     }
@@ -2116,7 +2464,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet156Exists(string $sheet156, bool $public = false) : bool
+    public function Sheet156Exists(
+        string $sheet156,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet156, 'sheet1_5_6', $public);
     }
@@ -2129,7 +2480,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet157Exists(string $sheet157, bool $public = false) : bool
+    public function Sheet157Exists(
+        string $sheet157,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet157, 'sheet1_5_7', $public);
     }
@@ -2142,7 +2496,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet21Exists(string $sheet21, bool $public = false) : bool
+    public function Sheet21Exists(
+        string $sheet21,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet21, 'sheet2_1', $public);
     }
@@ -2155,7 +2512,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet22Exists(string $sheet22, bool $public = false) : bool
+    public function Sheet22Exists(
+        string $sheet22,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet22, 'sheet2_2', $public);
     }
@@ -2168,7 +2528,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet23Exists(string $sheet23, bool $public = false) : bool
+    public function Sheet23Exists(
+        string $sheet23,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sheet23, 'sheet2_3', $public);
     }
@@ -2181,7 +2544,10 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function StatusExists(string $status, bool $public = false) : bool
+    public function StatusExists(
+        string $status,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $status, 'status', $public);
     }
@@ -2195,7 +2561,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function EcoIdSameExists($ecoId, $id = '', $public = false) : bool
+    public function EcoIdSameExists(
+        $ecoId,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $ecoId, 'eco_id', $id, 'id', $public);
     }
@@ -2209,7 +2579,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function NicknameSameExists($nickname, $id = '', $public = false) : bool
+    public function NicknameSameExists(
+        $nickname,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $nickname, 'nickname', $id, 'id', $public);
     }
@@ -2223,7 +2597,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet111SameExists($sheet111, $id = '', $public = false) : bool
+    public function Sheet111SameExists(
+        $sheet111,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet111, 'sheet1_1_1', $id, 'id', $public);
     }
@@ -2237,7 +2615,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet112SameExists($sheet112, $id = '', $public = false) : bool
+    public function Sheet112SameExists(
+        $sheet112,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet112, 'sheet1_1_2', $id, 'id', $public);
     }
@@ -2251,7 +2633,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet113SameExists($sheet113, $id = '', $public = false) : bool
+    public function Sheet113SameExists(
+        $sheet113,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet113, 'sheet1_1_3', $id, 'id', $public);
     }
@@ -2265,7 +2651,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet114SameExists($sheet114, $id = '', $public = false) : bool
+    public function Sheet114SameExists(
+        $sheet114,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet114, 'sheet1_1_4', $id, 'id', $public);
     }
@@ -2279,7 +2669,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet115SameExists($sheet115, $id = '', $public = false) : bool
+    public function Sheet115SameExists(
+        $sheet115,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet115, 'sheet1_1_5', $id, 'id', $public);
     }
@@ -2293,7 +2687,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet116SameExists($sheet116, $id = '', $public = false) : bool
+    public function Sheet116SameExists(
+        $sheet116,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet116, 'sheet1_1_6', $id, 'id', $public);
     }
@@ -2307,7 +2705,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet117SameExists($sheet117, $id = '', $public = false) : bool
+    public function Sheet117SameExists(
+        $sheet117,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet117, 'sheet1_1_7', $id, 'id', $public);
     }
@@ -2321,7 +2723,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet121SameExists($sheet121, $id = '', $public = false) : bool
+    public function Sheet121SameExists(
+        $sheet121,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet121, 'sheet1_2_1', $id, 'id', $public);
     }
@@ -2335,7 +2741,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet122SameExists($sheet122, $id = '', $public = false) : bool
+    public function Sheet122SameExists(
+        $sheet122,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet122, 'sheet1_2_2', $id, 'id', $public);
     }
@@ -2349,7 +2759,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet123SameExists($sheet123, $id = '', $public = false) : bool
+    public function Sheet123SameExists(
+        $sheet123,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet123, 'sheet1_2_3', $id, 'id', $public);
     }
@@ -2363,7 +2777,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet124SameExists($sheet124, $id = '', $public = false) : bool
+    public function Sheet124SameExists(
+        $sheet124,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet124, 'sheet1_2_4', $id, 'id', $public);
     }
@@ -2377,7 +2795,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet125SameExists($sheet125, $id = '', $public = false) : bool
+    public function Sheet125SameExists(
+        $sheet125,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet125, 'sheet1_2_5', $id, 'id', $public);
     }
@@ -2391,7 +2813,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet126SameExists($sheet126, $id = '', $public = false) : bool
+    public function Sheet126SameExists(
+        $sheet126,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet126, 'sheet1_2_6', $id, 'id', $public);
     }
@@ -2405,7 +2831,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet127SameExists($sheet127, $id = '', $public = false) : bool
+    public function Sheet127SameExists(
+        $sheet127,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet127, 'sheet1_2_7', $id, 'id', $public);
     }
@@ -2419,7 +2849,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet131SameExists($sheet131, $id = '', $public = false) : bool
+    public function Sheet131SameExists(
+        $sheet131,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet131, 'sheet1_3_1', $id, 'id', $public);
     }
@@ -2433,7 +2867,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet132SameExists($sheet132, $id = '', $public = false) : bool
+    public function Sheet132SameExists(
+        $sheet132,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet132, 'sheet1_3_2', $id, 'id', $public);
     }
@@ -2447,7 +2885,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet133SameExists($sheet133, $id = '', $public = false) : bool
+    public function Sheet133SameExists(
+        $sheet133,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet133, 'sheet1_3_3', $id, 'id', $public);
     }
@@ -2461,7 +2903,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet134SameExists($sheet134, $id = '', $public = false) : bool
+    public function Sheet134SameExists(
+        $sheet134,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet134, 'sheet1_3_4', $id, 'id', $public);
     }
@@ -2475,7 +2921,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet135SameExists($sheet135, $id = '', $public = false) : bool
+    public function Sheet135SameExists(
+        $sheet135,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet135, 'sheet1_3_5', $id, 'id', $public);
     }
@@ -2489,7 +2939,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet136SameExists($sheet136, $id = '', $public = false) : bool
+    public function Sheet136SameExists(
+        $sheet136,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet136, 'sheet1_3_6', $id, 'id', $public);
     }
@@ -2503,7 +2957,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet137SameExists($sheet137, $id = '', $public = false) : bool
+    public function Sheet137SameExists(
+        $sheet137,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet137, 'sheet1_3_7', $id, 'id', $public);
     }
@@ -2517,7 +2975,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet141SameExists($sheet141, $id = '', $public = false) : bool
+    public function Sheet141SameExists(
+        $sheet141,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet141, 'sheet1_4_1', $id, 'id', $public);
     }
@@ -2531,7 +2993,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet142SameExists($sheet142, $id = '', $public = false) : bool
+    public function Sheet142SameExists(
+        $sheet142,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet142, 'sheet1_4_2', $id, 'id', $public);
     }
@@ -2545,7 +3011,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet143SameExists($sheet143, $id = '', $public = false) : bool
+    public function Sheet143SameExists(
+        $sheet143,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet143, 'sheet1_4_3', $id, 'id', $public);
     }
@@ -2559,7 +3029,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet144SameExists($sheet144, $id = '', $public = false) : bool
+    public function Sheet144SameExists(
+        $sheet144,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet144, 'sheet1_4_4', $id, 'id', $public);
     }
@@ -2573,7 +3047,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet145SameExists($sheet145, $id = '', $public = false) : bool
+    public function Sheet145SameExists(
+        $sheet145,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet145, 'sheet1_4_5', $id, 'id', $public);
     }
@@ -2587,7 +3065,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet146SameExists($sheet146, $id = '', $public = false) : bool
+    public function Sheet146SameExists(
+        $sheet146,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet146, 'sheet1_4_6', $id, 'id', $public);
     }
@@ -2601,7 +3083,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet147SameExists($sheet147, $id = '', $public = false) : bool
+    public function Sheet147SameExists(
+        $sheet147,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet147, 'sheet1_4_7', $id, 'id', $public);
     }
@@ -2615,7 +3101,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet151SameExists($sheet151, $id = '', $public = false) : bool
+    public function Sheet151SameExists(
+        $sheet151,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet151, 'sheet1_5_1', $id, 'id', $public);
     }
@@ -2629,7 +3119,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet152SameExists($sheet152, $id = '', $public = false) : bool
+    public function Sheet152SameExists(
+        $sheet152,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet152, 'sheet1_5_2', $id, 'id', $public);
     }
@@ -2643,7 +3137,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet153SameExists($sheet153, $id = '', $public = false) : bool
+    public function Sheet153SameExists(
+        $sheet153,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet153, 'sheet1_5_3', $id, 'id', $public);
     }
@@ -2657,7 +3155,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet154SameExists($sheet154, $id = '', $public = false) : bool
+    public function Sheet154SameExists(
+        $sheet154,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet154, 'sheet1_5_4', $id, 'id', $public);
     }
@@ -2671,7 +3173,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet155SameExists($sheet155, $id = '', $public = false) : bool
+    public function Sheet155SameExists(
+        $sheet155,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet155, 'sheet1_5_5', $id, 'id', $public);
     }
@@ -2685,7 +3191,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet156SameExists($sheet156, $id = '', $public = false) : bool
+    public function Sheet156SameExists(
+        $sheet156,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet156, 'sheet1_5_6', $id, 'id', $public);
     }
@@ -2699,7 +3209,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet157SameExists($sheet157, $id = '', $public = false) : bool
+    public function Sheet157SameExists(
+        $sheet157,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet157, 'sheet1_5_7', $id, 'id', $public);
     }
@@ -2713,7 +3227,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet21SameExists($sheet21, $id = '', $public = false) : bool
+    public function Sheet21SameExists(
+        $sheet21,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet21, 'sheet2_1', $id, 'id', $public);
     }
@@ -2727,7 +3245,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet22SameExists($sheet22, $id = '', $public = false) : bool
+    public function Sheet22SameExists(
+        $sheet22,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet22, 'sheet2_2', $id, 'id', $public);
     }
@@ -2741,7 +3263,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function Sheet23SameExists($sheet23, $id = '', $public = false) : bool
+    public function Sheet23SameExists(
+        $sheet23,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $sheet23, 'sheet2_3', $id, 'id', $public);
     }
@@ -2755,7 +3281,11 @@ class User_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function StatusSameExists($status, $id = '', $public = false) : bool
+    public function StatusSameExists(
+        $status,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $status, 'status', $id, 'id', $public);
     }

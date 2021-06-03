@@ -115,7 +115,10 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function Get<?= ucfirst($tableSel[$i]['name_camel']) ?>(string $id, bool $public = false) : ?string
+    public function Get<?= ucfirst($tableSel[$i]['name_camel']) ?>(
+        string $id,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), '<?= $tableSel[$i]['name'] ?>', $id, 'id', $public);
     }
@@ -133,7 +136,10 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFrom<?= ucfirst($tableSel[$i]['name_camel']) ?>(string $<?= $tableSel[$i]['name_camel'] ?>, bool $public = false) : ?string
+    public function GetIdFrom<?= ucfirst($tableSel[$i]['name_camel']) ?>(
+        string $<?= $tableSel[$i]['name_camel'] ?>,
+        bool $public = false
+    ) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $<?= $tableSel[$i]['name_camel'] ?>, '<?= $tableSel[$i]['name'] ?>', $public);
     }
@@ -151,7 +157,10 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function <?= ucfirst($tableSel[$i]['name_camel']) ?>Exists(string $<?= $tableSel[$i]['name_camel'] ?>, bool $public = false) : bool
+    public function <?= ucfirst($tableSel[$i]['name_camel']) ?>Exists(
+        string $<?= $tableSel[$i]['name_camel'] ?>,
+        bool $public = false
+    ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $<?= $tableSel[$i]['name_camel'] ?>, '<?= $tableSel[$i]['name'] ?>', $public);
     }
@@ -170,7 +179,11 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
      * @param boolean $public
      * @return boolean
      */
-    public function <?= ucfirst($tableSel[$i]['name_camel']) ?>SameExists($<?= $tableSel[$i]['name_camel'] ?>, $id = '', $public = false) : bool
+    public function <?= ucfirst($tableSel[$i]['name_camel']) ?>SameExists(
+        $<?= $tableSel[$i]['name_camel'] ?>,
+        $id = '',
+        $public = false
+    ) : bool
     {
         return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $<?= $tableSel[$i]['name_camel'] ?>, '<?= $tableSel[$i]['name'] ?>', $id, 'id', $public);
     }

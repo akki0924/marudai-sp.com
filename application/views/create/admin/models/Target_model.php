@@ -314,13 +314,13 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         $query = $this->db->query("
             SELECT
 <?php for ($i = 0, $n = count($table); $i < $n; $i ++) { ?>
-                " . <?= $targetName ?>_lib::MASTER_TABLE . " . <?= $table[$i] ?>,
-<?php } ?>
-<?php if (in_array('regist_date', $table)) { ?>
+                " . <?= $targetName ?>_lib::MASTER_TABLE . " . <?= $table[$i]['name'] ?>,
+<?php if ($table[$i]['name'] == 'regist_date') { ?>
                 DATE_FORMAT(" . <?= $targetName ?>_lib::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
 <?php } ?>
-<?php if (in_array('edit_date', $table)) { ?>
+<?php if ($table[$i]['name'] == 'edit_date') { ?>
                 DATE_FORMAT(" . <?= $targetName ?>_lib::MASTER_TABLE . ".edit_date, '%Y.%c.%e') AS edit_date_disp
+<?php } ?>
 <?php } ?>
             FROM " . <?= $targetName ?>_lib::MASTER_TABLE . "
             " . (isset($whereSql) && count($whereSql) > 0 ? (" WHERE ( " . @implode(" AND ", $whereSql)) . " ) " : "") . "
@@ -360,7 +360,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
     {
         $returnVal = array(
 <?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
-            '<?= $tableSel[$i] ?>',
+            '<?= $tableSel[$i]['name'] ?>',
 <?php } ?>
         );
 
@@ -375,18 +375,14 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
      */
     public function ConfigInputValues() : array
     {
-<?php foreach ($tableSel as $selKey => $selVal) { ?>
-<?php for ($i = 0, $n = count($tableComment); $i < $n; $i ++) { ?>
-<?php if ($selVal == $tableComment[$i]['name']) { ?>
-        // <?= $tableComment[$i]['comment'] ?>
+<?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
+        // <?= $tableSel[$i]['comment'] ?>
 
         $returnVal[] = array(
-            'field'   => '<?= $tableComment[$i]['name'] ?>',
-            'label'   => '<?= $tableComment[$i]['comment'] ?>',
+            'field'   => '<?= $tableSel[$i]['name'] ?>',
+            'label'   => '<?= $tableSel[$i]['comment'] ?>',
             'rules'   => 'required'
         );
-<?php } ?>
-<?php } ?>
 <?php } ?>
 
         return $returnVal;
