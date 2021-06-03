@@ -79,6 +79,12 @@ class Base_lib
 
 
     /**
+     * var
+     */
+    private $dbTable;
+
+
+    /**
      * コンストラクタ
      */
     public function __construct()
@@ -344,11 +350,14 @@ class Base_lib
      * @param string|array $targetData：対象データ
      * @return void
      */
-    public static function ConsoleLog($targetData = "") : void
+    public static function ConsoleLog($targetData)
     {
-        if (ENVIRONMENT == 'development') {
+        if (
+            ENVIRONMENT == 'development' &&
+            $targetData
+        ) {
             echo '<script>';
-            echo 'console.log('. json_encode($targetData) .')';
+            echo 'console.log(' . json_encode($targetData) . ')';
             echo '</script>';
         }
     }
@@ -362,5 +371,454 @@ class Base_lib
     public function CreateTokenKey() : string
     {
         return bin2hex(random_bytes(32));
+    }
+
+
+    /**
+     * DBテーブル情報（メンバー変数）をセット
+     *
+     * @param string $targetData：対象データ
+     * @return void
+     */
+    public function SetDbTable($tableName = '') : void
+    {
+        $this->dbTable = $tableName;
+    }
+
+
+    /**
+     * DBテーブル情報（メンバー変数）を取得
+     *
+     * @return stirng|null
+     */
+    public function GetDbTable() : ?stirng
+    {
+        return $this->dbTable;
+    }
+
+
+    /**
+     * DBテーブル情報（メンバー変数）の確認
+     *
+     * @return bool
+     */
+    public function CheckDbTable() : bool
+    {
+        return ($this->dbTable ? true : false);
+    }
+
+
+    /**
+     * カラム名（スネークケース）をキャメルケースに変換し取得
+     *
+     * @param string $targetName：対象名
+     * @return string
+     */
+    public function GetCamelName(string $targetName = '') : string
+    {
+        return lcfirst(strtr(ucwords(strtr($targetName, ['_' => ' '])), [' ' => '']));
+    }
+
+
+    /**
+     * 以下、マスタライブラリ継承用関数
+     */
+
+
+
+    /**
+     * 名前一覧を取得
+     *
+     * @param bool $public
+     * @return array|null
+     */
+    public function GetNameList(bool $public = false) : ?array
+    {
+        return $this->CI->db_lib->GetSelectValues($this->GetDbTable(), 'name', $public);
+    }
+
+
+    /**
+     * 内容一覧を取得
+     *
+     * @param bool $public
+     * @return array|null
+     */
+    public function GetContentsList(bool $public = false) : ?array
+    {
+        return $this->CI->db_lib->GetSelectValues($this->GetDbTable(), 'contents', $public);
+    }
+
+
+    /**
+     * 名前を取得
+     *
+     * @param string $id
+     * @param boolean $public
+     * @return string|null
+     */
+    public function GetName(string $id, bool $public = false) : ?string
+    {
+        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'name', $id, 'id', $public);
+    }
+
+
+    /**
+     * 内容を取得
+     *
+     * @param string $id
+     * @param boolean $public
+     * @return string|null
+     */
+    public function GetContents(string $id, bool $public = false) : ?string
+    {
+        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'contents', $id, 'id', $public);
+    }
+
+
+    /**
+     * ユーザーIDをを取得
+     *
+     * @param string $id
+     * @param boolean $public
+     * @return string|null
+     */
+    public function GetUserId(string $id, bool $public = false) : ?string
+    {
+        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'user_id', $id, 'id', $public);
+    }
+
+
+    /**
+     * カテゴリーIDをを取得
+     *
+     * @param string $id
+     * @param boolean $public
+     * @return string|null
+     */
+    public function GetCategoryId(string $id, bool $public = false) : ?string
+    {
+        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'category_id', $id, 'id', $public);
+    }
+
+
+    /**
+     * 順番を取得
+     *
+     * @param string $id
+     * @param boolean $public
+     * @return string|null
+     */
+    public function GetSortId(string $id, bool $public = false) : ?string
+    {
+        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'sort_id', $id, 'id', $public);
+    }
+
+
+    /**
+     * 表示ステータスを取得
+     *
+     * @param string $id
+     * @param boolean $public
+     * @return string|null
+     */
+    public function GetStatus(string $id, bool $public = false) : ?string
+    {
+        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'status', $id, 'id', $public);
+    }
+
+
+    /**
+     * 名前からIDを取得
+     *
+     * @param string $name
+     * @param boolean $public
+     * @return string|null
+     */
+    public function GetIdFromName(string $contents, bool $public = false) : ?string
+    {
+        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $name, 'contents', $public);
+    }
+
+
+    /**
+     * 内容からIDを取得
+     *
+     * @param string $contents
+     * @param boolean $public
+     * @return string|null
+     */
+    public function GetIdFromContents(string $contents, bool $public = false) : ?string
+    {
+        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $contents, 'contents', $public);
+    }
+
+
+    /**
+     * ユーザーIDからIDを取得
+     *
+     * @param string $userId
+     * @param boolean $public
+     * @return string|null
+     */
+    public function GetIdFromUserId(string $userId, bool $public = false) : ?string
+    {
+        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $userId, 'user_id', $public);
+    }
+
+
+    /**
+     * カテゴリーIDからIDを取得
+     *
+     * @param string $cateogryId
+     * @param boolean $public
+     * @return string|null
+     */
+    public function GetIdFromCategoryId(string $cateogryId, bool $public = false) : ?string
+    {
+        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $cateogryId, 'category_id', $public);
+    }
+
+
+    /**
+     * 順番からIDを取得
+     *
+     * @param string $sort_id
+     * @param boolean $public
+     * @return string|null
+     */
+    public function GetIdFromSortId(string $sort_id, bool $public = false) : ?string
+    {
+        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $sort_id, 'sort_id', $public);
+    }
+
+
+    /**
+     * IDの登録有無
+     *
+     * @param string $id
+     * @param boolean $public
+     * @return boolean
+     */
+    public function IdExists(string $id, bool $public = false) : bool
+    {
+        return $this->CI->db_lib->ValueExists($this->GetDbTable(), $id, 'id', $public);
+    }
+
+
+    /**
+     * 名前の登録有無
+     *
+     * @param string $name
+     * @param boolean $public
+     * @return boolean
+     */
+    public function NameExists($name, $public = false) : bool
+    {
+        return $this->CI->db_lib->ValueExists($this->GetDbTable(), $name, 'name', $public);
+    }
+
+
+    /**
+     * ユーザーIDの登録有無
+     *
+     * @param string $userId
+     * @param boolean $public
+     * @return boolean
+     */
+    public function UserIdExists($userId, $public = false) : bool
+    {
+        return $this->CI->db_lib->ValueExists($this->GetDbTable(), $userId, 'user_id', $public);
+    }
+
+
+    /**
+     * カテゴリーIDの登録有無
+     *
+     * @param string $categoryId
+     * @param boolean $public
+     * @return boolean
+     */
+    public function CategoryIdExists($categoryId, $public = false) : bool
+    {
+        return $this->CI->db_lib->ValueExists($this->GetDbTable(), $categoryId, 'category_id', $public);
+    }
+
+
+    /**
+     * 内容の登録有無
+     *
+     * @param string $contents
+     * @param boolean $public
+     * @return boolean
+     */
+    public function ContentsExists($contents, $public = false) : bool
+    {
+        return $this->CI->db_lib->ValueExists($this->GetDbTable(), $contents, 'contents', $public);
+    }
+
+
+    /**
+     * 順番の登録有無
+     *
+     * @param string $sort_id
+     * @param boolean $public
+     * @return boolean
+     */
+    public function SortIdExists($sort_id, $public = false) : bool
+    {
+        return $this->CI->db_lib->ValueExists($this->GetDbTable(), $sort_id, 'sort_id', $public);
+    }
+
+
+    /**
+     * 名前が対象ID以外に同じ値が存在するかどうか
+     *
+     * @param string $name：対象名前
+     * @param string $id：除外ID
+     * @param boolean $public
+     * @return boolean
+     */
+    public function NameSameExists($contents, $id = '', $public = false) : bool
+    {
+        return $this->CI->db_lib->SameExists($this->GetDbTable(), $name, 'name', $id, 'id', $public);
+    }
+
+
+    /**
+     * 内容が対象ID以外に同じ値が存在するかどうか
+     *
+     * @param string $contents：対象内容
+     * @param string $id：除外ID
+     * @param boolean $public
+     * @return boolean
+     */
+    public function ContentsSameExists($contents, $id = '', $public = false) : bool
+    {
+        return $this->CI->db_lib->SameExists($this->GetDbTable(), $contents, 'contents', $id, 'id', $public);
+    }
+
+
+    /**
+     * 順番が対象ID以外に同じ値が存在するかどうか
+     *
+     * @param string $sort_id：対象順番
+     * @param string $id：除外ID
+     * @param boolean $public
+     * @return boolean
+     */
+    public function SortIdSameExists($sort_id, $id = '', $public = false) : bool
+    {
+        return $this->CI->db_lib->SameExists($this->GetDbTable(), $sort_id, 'sort_id', $id, 'id', $public);
+    }
+
+
+    /**
+     * IDを生成
+     *
+     * @param boolean $public
+     * @return boolean
+     */
+    public function CreateId($public = false)
+    {
+        // 未登録のランダム文字列を生成
+        return $this->CI->db_lib->CreateStr($this->GetDbTable(), self::ID_STR_NUM, $public);
+    }
+
+
+    /**
+     * DB登録処理
+     *
+     * @param array|null $registData：登録内容（連想配列[key : 対象カラム, value : 値]）
+     * @param string $id：登録対象ID
+     * @return string|null
+     */
+    public function Regist(?array $registData = array(), string $id = '') : ?string
+    {
+        // 返り値をセット
+        $returnVal = false;
+        // 配列形式の確認
+        if (is_array($registData)) {
+            // ユーザーIDが登録されているか
+            if ($this->IdExists($id)) {
+                // 登録情報にIDをセット
+                $registData['id'] = $id;
+                // 更新処理
+                $returnVal = $this->CI->db_lib->Update($this->GetDbTable(), $registData, $id);
+            } else {
+                // IDが未セットの場合、IDを生成
+                if (! isset($registData['id']) || $registData['id'] == '') {
+                    $registData['id'] = $this->CreateId();
+                }
+                // 新規作成
+                $returnVal = $this->CI->db_lib->Insert($this->GetDbTable(), $registData);
+            }
+            // 登録成功の場合、IDを返す
+            if ($returnVal) {
+                $returnVal = $registData['id'];
+            }
+        }
+        return $returnVal;
+    }
+
+
+    /**
+     * DB削除処理
+     *
+     * @param string $id：対象ID
+     * @return boolean|null
+     */
+    public function Delete(string $id) : ?bool
+    {
+        // 返り値をセット
+        $returnVal = false;
+        // 対象IDが登録されているか
+        if ($this->IdExists($id, true)) {
+            // 削除処理
+            $returnVal = $this->CI->db_lib->Delete($this->GetDbTable(), true, $id);
+        }
+        return $returnVal;
+    }
+
+
+    /**
+     * 表示ステータス一覧を配列形式で取得
+     *
+     * @return array
+     */
+    public function GetStatusList() : array
+    {
+        $returnVal[self::ID_STATUS_ENABLE] = self::NAME_STATUS_ENABLE;
+        $returnVal[self::ID_STATUS_DISABLE] = self::NAME_STATUS_DISABLE;
+
+        return $returnVal;
+    }
+
+
+    /**
+     * 表示ステータス名を取得
+     *
+     * @param string $id
+     * @return string
+     */
+    public function GetStatusName($id) : string
+    {
+        // 一覧リストを取得
+        $list = $this->GetStatusList();
+        return (isset($list[ $id ]) ? $list[ $id ] : '');
+    }
+
+
+    /**
+     * 表示ステータスの存在確認結果を取得
+     *
+     * @param string $id
+     * @return bool
+     */
+    public function GetStatusExists($id) : bool
+    {
+        // 一覧リストを取得
+        $list = $this->GetStatusList();
+        return (isset($list[ $id ]) ? true : false);
     }
 }

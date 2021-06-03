@@ -93,6 +93,9 @@ class Create_lib extends Base_lib
             // カラムデータ一覧情報をセット
             $table[$val] = $this->CI->db_lib->GetColumnsData($val);
             for ($i = 0, $n = count($table[$val]); $i < $n; $i ++) {
+                // カラム名キャメルケース用の値をセット
+                $table[$val][$i]['name_camel'] = $this->GetCamelName($table[$val][$i]['name']);
+                // コメントを自動生成用に修正
                 if (strpos($table[$val][$i]['comment'], ' ') !== false) {
                     $table[$val][$i]['comment'] = (substr($table[$val][$i]['comment'], 0, strpos($table[$val][$i]['comment'], ' ')));
                 }
@@ -299,7 +302,7 @@ class Create_lib extends Base_lib
                         Base_lib::ConsoleLog($writeVal);
                         // views出力先パス
                         $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
-                        $uploadPath .= 'master' . ucfirst($targetName) . '_lib.php';
+                        $uploadPath .= 'master/' . ucfirst($targetName) . '_lib.php';
                         // ディレクトリ生成
                         $this->CreateDir(dirname($uploadPath));
                         // ファイル出力

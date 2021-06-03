@@ -4,7 +4,7 @@
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/05/31：新規作成
+ * @since 1.0.0     2021/06/02：新規作成
  */
 class User_model extends CI_Model
 {
@@ -97,7 +97,7 @@ class User_model extends CI_Model
     /**
      * 入力テンプレート情報を取得
      *
-     * @param bool $templateVal：バリデーションフラグ
+     * @param bool $validFlg：バリデーションフラグ
      * @return array
      */
     public function InputTemplate(bool $validFlg = false) : ?array
@@ -164,7 +164,7 @@ class User_model extends CI_Model
     /**
      * 登録処理
      *
-     * @param bool $templateVal：バリデーションフラグ
+     * @param bool $validFlg：バリデーションフラグ
      * @return string
      */
     public function RegistAction($validFlg = false) : ?string
@@ -313,52 +313,2514 @@ class User_model extends CI_Model
         }
         $query = $this->db->query("
             SELECT
-                " . user_lib::MASTER_TABLE . " . id,
-                " . user_lib::MASTER_TABLE . " . eco_id,
-                " . user_lib::MASTER_TABLE . " . nickname,
-                " . user_lib::MASTER_TABLE . " . sheet1_1_1,
-                " . user_lib::MASTER_TABLE . " . sheet1_1_2,
-                " . user_lib::MASTER_TABLE . " . sheet1_1_3,
-                " . user_lib::MASTER_TABLE . " . sheet1_1_4,
-                " . user_lib::MASTER_TABLE . " . sheet1_1_5,
-                " . user_lib::MASTER_TABLE . " . sheet1_1_6,
-                " . user_lib::MASTER_TABLE . " . sheet1_1_7,
-                " . user_lib::MASTER_TABLE . " . sheet1_2_1,
-                " . user_lib::MASTER_TABLE . " . sheet1_2_2,
-                " . user_lib::MASTER_TABLE . " . sheet1_2_3,
-                " . user_lib::MASTER_TABLE . " . sheet1_2_4,
-                " . user_lib::MASTER_TABLE . " . sheet1_2_5,
-                " . user_lib::MASTER_TABLE . " . sheet1_2_6,
-                " . user_lib::MASTER_TABLE . " . sheet1_2_7,
-                " . user_lib::MASTER_TABLE . " . sheet1_3_1,
-                " . user_lib::MASTER_TABLE . " . sheet1_3_2,
-                " . user_lib::MASTER_TABLE . " . sheet1_3_3,
-                " . user_lib::MASTER_TABLE . " . sheet1_3_4,
-                " . user_lib::MASTER_TABLE . " . sheet1_3_5,
-                " . user_lib::MASTER_TABLE . " . sheet1_3_6,
-                " . user_lib::MASTER_TABLE . " . sheet1_3_7,
-                " . user_lib::MASTER_TABLE . " . sheet1_4_1,
-                " . user_lib::MASTER_TABLE . " . sheet1_4_2,
-                " . user_lib::MASTER_TABLE . " . sheet1_4_3,
-                " . user_lib::MASTER_TABLE . " . sheet1_4_4,
-                " . user_lib::MASTER_TABLE . " . sheet1_4_5,
-                " . user_lib::MASTER_TABLE . " . sheet1_4_6,
-                " . user_lib::MASTER_TABLE . " . sheet1_4_7,
-                " . user_lib::MASTER_TABLE . " . sheet1_5_1,
-                " . user_lib::MASTER_TABLE . " . sheet1_5_2,
-                " . user_lib::MASTER_TABLE . " . sheet1_5_3,
-                " . user_lib::MASTER_TABLE . " . sheet1_5_4,
-                " . user_lib::MASTER_TABLE . " . sheet1_5_5,
-                " . user_lib::MASTER_TABLE . " . sheet1_5_6,
-                " . user_lib::MASTER_TABLE . " . sheet1_5_7,
-                " . user_lib::MASTER_TABLE . " . sheet2_1,
-                " . user_lib::MASTER_TABLE . " . sheet2_2,
-                " . user_lib::MASTER_TABLE . " . sheet2_3,
-                " . user_lib::MASTER_TABLE . " . status,
-                " . user_lib::MASTER_TABLE . " . regist_date,
-                " . user_lib::MASTER_TABLE . " . edit_date,
-                DATE_FORMAT(" . user_lib::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
-                DATE_FORMAT(" . user_lib::MASTER_TABLE . ".edit_date, '%Y.%c.%e') AS edit_date_disp
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
+                " . user_lib::MASTER_TABLE . " . 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 317</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 317<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array,
             FROM " . user_lib::MASTER_TABLE . "
             " . (isset($whereSql) && count($whereSql) > 0 ? (" WHERE ( " . @implode(" AND ", $whereSql)) . " ) " : "") . "
             " . $orderSqlVal . "
@@ -396,47 +2858,2343 @@ class User_model extends CI_Model
     public function FormInputList()
     {
         $returnVal = array(
-            'eco_id',
-            'nickname',
-            'sheet1_1_1',
-            'sheet1_1_2',
-            'sheet1_1_3',
-            'sheet1_1_4',
-            'sheet1_1_5',
-            'sheet1_1_6',
-            'sheet1_1_7',
-            'sheet1_2_1',
-            'sheet1_2_2',
-            'sheet1_2_3',
-            'sheet1_2_4',
-            'sheet1_2_5',
-            'sheet1_2_6',
-            'sheet1_2_7',
-            'sheet1_3_1',
-            'sheet1_3_2',
-            'sheet1_3_3',
-            'sheet1_3_4',
-            'sheet1_3_5',
-            'sheet1_3_6',
-            'sheet1_3_7',
-            'sheet1_4_1',
-            'sheet1_4_2',
-            'sheet1_4_3',
-            'sheet1_4_4',
-            'sheet1_4_5',
-            'sheet1_4_6',
-            'sheet1_4_7',
-            'sheet1_5_1',
-            'sheet1_5_2',
-            'sheet1_5_3',
-            'sheet1_5_4',
-            'sheet1_5_5',
-            'sheet1_5_6',
-            'sheet1_5_7',
-            'sheet2_1',
-            'sheet2_2',
-            'sheet2_3',
-            'status',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
+            '
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Array to string conversion</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 363</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 363<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>Array',
         );
 
         return $returnVal;
@@ -450,253 +5208,4599 @@ class User_model extends CI_Model
      */
     public function ConfigInputValues() : array
     {
-        // エコアップID
-        $returnVal[] = array(
-            'field'   => 'eco_id',
-            'label'   => 'エコアップID',
-            'rules'   => 'required'
-        );
-        // ニックネーム
-        $returnVal[] = array(
-            'field'   => 'nickname',
-            'label'   => 'ニックネーム',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_1_1',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_1_2',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_1_3',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_1_4',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_1_5',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_1_6',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_1_7',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_2_1',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_2_2',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_2_3',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_2_4',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_2_5',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_2_6',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_2_7',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_3_1',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_3_2',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_3_3',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_3_4',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_3_5',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_3_6',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_3_7',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_4_1',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_4_2',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_4_3',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_4_4',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_4_5',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_4_6',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_4_7',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_5_1',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_5_2',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_5_3',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_5_4',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_5_5',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_5_6',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート1
-        $returnVal[] = array(
-            'field'   => 'sheet1_5_7',
-            'label'   => 'シート1',
-            'rules'   => 'required'
-        );
-        // シート2
-        $returnVal[] = array(
-            'field'   => 'sheet2_1',
-            'label'   => 'シート2',
-            'rules'   => 'required'
-        );
-        // シート2
-        $returnVal[] = array(
-            'field'   => 'sheet2_2',
-            'label'   => 'シート2',
-            'rules'   => 'required'
-        );
-        // シート2
-        $returnVal[] = array(
-            'field'   => 'sheet2_3',
-            'label'   => 'シート2',
-            'rules'   => 'required'
-        );
-        // 表示ステータス
-        $returnVal[] = array(
-            'field'   => 'status',
-            'label'   => '表示ステータス',
-            'rules'   => 'required'
-        );
 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Notice</p>
+<p>Message:  Undefined variable: tableComment</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  count(): Parameter must be an array or an object that implements Countable</p>
+<p>Filename: models/Target_model.php</p>
+<p>Line Number: 379</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\views\create\admin\models\Target_model.php<br />
+			Line: 379<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\libraries\Create_lib.php<br />
+			Line: 281<br />
+			Function: view			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\application\controllers\Create.php<br />
+			Line: 40<br />
+			Function: CreateAdmin			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: C:\document\Dropbox\xampp\htdocs\beta\index.php<br />
+			Line: 321<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
         return $returnVal;
     }
 }
