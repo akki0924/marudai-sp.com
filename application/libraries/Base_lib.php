@@ -20,6 +20,7 @@ class Base_lib
      */
     // サイト情報
     const SITE_TITLE_NAME = "サンプルサイト";
+    const COPYRIGHT_NAME = "beta";
 
     // 各ページ名
     const PUBLIC_MAIN_PAGE = "main";                        // 表メインページ

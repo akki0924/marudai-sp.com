@@ -829,6 +829,31 @@ class Db_lib
         return $returnVal;
     }
     /*====================================================================
+        関数名 : GetTablesData
+        概　要 : 対象テーブル一覧を取得
+        引　数 : $dbName : DB名
+    */
+    public function GetTablesData(?string $dbName = '') : ?array
+    {
+        // 返値を初期化
+        $returnVal = array();
+        // DB名を再セット
+        $dbName = ($dbName ? $dbName : $this->CI->db->database);
+        // SQLを実行
+        $query = $this->CI->db->query("
+            SELECT
+                table_name AS name,
+                table_comment AS comment
+            FROM information_schema.tables
+            WHERE table_schema = '" . Base_lib::AddSlashes($dbName) . "';
+        ");
+        // 結果が、空でない場合
+        if ($query->num_rows() > 0) {
+            $returnVal = $query->result_array();
+        }
+        return $returnVal;
+    }
+    /*====================================================================
         関数名 : GetColumns
         概　要 : 対象カラム一覧を取得
         引　数 : $tableName : テーブル名
@@ -894,7 +919,7 @@ class Db_lib
                 COLUMN_NAME AS name,
                 COLUMN_COMMENT AS comment,
                 DATA_TYPE AS type_simple,
-                COLUMN_COMMENT AS type
+                COLUMN_TYPE AS type
             FROM INFORMATION_SCHEMA.COLUMNS
             WHERE (
                 TABLE_SCHEMA = '" . $this->CI->db->database . "' AND

@@ -15,7 +15,7 @@ $(function() {
 	$('.edit_btn').click(function() {
 		$('#id').val( $(this).data('id') );
 
-		$('#operation_form').attr( 'action', '\<\?= SiteDir(); \?\>admin/user/input' );
+		$('#operation_form').attr( 'action', '\<\?= SiteDir(); \?\>admin/<?= $targetName ?>/input' );
 		$('#operation_form').submit();
 	});
 });
@@ -41,9 +41,9 @@ $(function() {
 
 	<nav class="globalMenuSp sp">
 		<ul>
-			<li><a href="\<\?= SiteDir(); \?\>admin/reserve">応募管理</a></li>
-			<li><a href="\<\?= SiteDir(); \?\>admin/user">利用者管理</a></li>
-			<li><a href="\<\?= SiteDir(); \?\>admin/seat">座席管理</a></li>
+<?php for ($i = 0, $n = count($tableList); $i < $n; $i ++) { ?>
+			<li><a href="\<\?= SiteDir(); \?\>admin/<?= $tableList[$i]['targetName'] ?>"><?= $tableList[$i]['comment'] ?>管理</a></li>
+<?php } ?>
 			<li><a href="\<\?= SiteDir(); \?\>admin/index/logout">ログアウト</a></li>
 		</ul>
 	</nav>
@@ -56,41 +56,45 @@ $(function() {
 	<section id="management">
 		<div class="container">
 			<div class="row mb_80">
-				<div class="col3"><a href="\<\?= SiteDir(); \?\>admin/reserve" class="btn mng">応募管理</a></div>
-				<div class="col3"><a href="\<\?= SiteDir(); \?\>admin/user" class="btn frame mng">利用者管理</a></div>
-				<div class="col3"><a href="\<\?= SiteDir(); \?\>admin/seat" class="btn mng">座席管理</a></div>
+<?php for ($i = 0, $n = count($tableList); $i < $n; $i ++) { ?>
+				<div class="col<?= $n ?>"><a href="\<\?= SiteDir(); \?\>admin/<?= $tableList[$i]['targetName'] ?>" class="btn mng<?= ($tableList[$i]['name'] == $tableName ? ' frame' : '') ?>"><?= $tableList[$i]['comment'] ?>管理</a></div>
+<?php } ?>
 			</div>
 		</div><!--/.container-->
 
 		<div class="container">
-		<form method="post" id="operation_form" name="operation_form" action="\<\?= SiteDir(); \?\>admin/user">
-			<h2 class="mb_40">利用者管理</h2>
+		<form method="post" id="operation_form" name="operation_form" action="\<\?= SiteDir(); \?\>admin/<?= $targetName ?>">
+			<h2 class="mb_40"><?= $comment ?>管理</h2>
 			<div class="scroll">
 				<table class="management">
 					<tbody>
 					\<\?php if (isset($list) && count($list) > 0) { \?\>
 						<tr>
-							<th>ユーザーID</th>
-							<th>登録日</th>
-							<th>名前</th>
-							<th>来場日（座席）</th>
-							<th>ステータス</th>
+							<th>ID</th>
+<?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
+<?php if ($tableSel[$i]['comment'] != '') { ?>
+							<th><?= $tableSel[$i]['comment'] ?></th>
+<?php } ?>
+<?php } ?>
+							<th>登録日時</th>
 							<th>&nbsp;</th>
 						</tr>
 						\<\?php for ($i = 0, $n = count($list); $i < $n; $i ++) { \?\>
 						<tr>
 							<td>\<\?= $list[$i]['id'] \?\></td>
-							<td>\<\?= $list[$i]['regist_date'] \?\></td>
-							<td>\<\?= $list[$i]['name'] \?\></td>
-							<td>
-								\<\?php for ($date_i = 0, $date_n = count($list[$i]['date_list']); $date_i < $date_n; $date_i ++) { \?\>
-									\<\?= (isset($list[$i]['date_list'][$date_i]) ? $list[$i]['date_list'][$date_i] : '') \?\>
-									\<\?= (isset($list[$i]['seat_id_list'][$date_i]) ? '（' . $list[$i]['seat_id_list'][$date_i] . '）' : '') \?\>
-									<br>
-								\<\?php } \?\>
-							</td>
+<?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
+<?php if ($tableSel[$i]['comment'] != '') { ?>
+<?php if ($tableSel[$i]['name'] != 'status') { ?>
+							<td>\<\?= $list[$i]['<?= $tableSel[$i]['name'] ?>'] \?\></td>
+<?php } else { ?>
 							<td>\<\?= $list[$i]['status_name'] \?\></td>
-							<td><a class="btn frame shortest edit_btn" data-id="\<\?= $list[$i]['id'] \?\>">編集</a></td>
+<?php } ?>
+<?php } ?>
+<?php } ?>
+							<td>\<\?= $list[$i]['regist_date'] \?\></td>
+							<td>
+								<a class="btn frame shortest edit_btn" data-id="\<\?= $list[$i]['id'] \?\>">編集</a>
+							</td>
 						</tr>
 						\<\?php } \?\>
 					\<\?php } else { \?\>
@@ -108,7 +112,7 @@ $(function() {
 
 <footer>
 	<div class="container">
-		<p class="copy">Copyright &copy; All Rights Reserved</p>
+		<p class="copy">Copyright &copy;\<\?= $const['copyright_name'] \?\> All Rights Reserved</p>
 	</div><!--./container-->
 </footer>
 

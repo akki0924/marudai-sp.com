@@ -57,9 +57,16 @@ class Create_lib extends Base_lib
     {
         // ヘルパー関数読込み
         $this->CI->load->helper('file');
-        // DBテーブル一覧を取得
-        $tableList = $this->CI->db_lib->GetTables();
+        // DBテーブル情報一覧を取得
+        $tableList = $this->CI->db_lib->GetTablesData();
+        for ($i = 0, $n = count($tableList); $i < $n; $i ++) {
+            // コメント内容を更新
+            $tableList[$i]['comment'] = $this->GetCommentEdit($tableList[$i]['comment']);
+            // 対象名をセット
+            $tableList[$i]['targetName'] = substr($tableList[$i]['name'], self::MASTER_TABLE_PREFIX_NUM);
+        }
 
+        Base_lib::ConsoleLog($tableList);
         // 読込みJSONファイルをセット
         $targetFile = self::JSON_DIR . self::WEB_DIR_SEPARATOR;
         $targetFile .= 'admin.php';
@@ -79,25 +86,26 @@ class Create_lib extends Base_lib
             count($jsonVal['table']['disable']) > 0
         ) {
             foreach ($jsonVal['table']['disable'] as $key => $val) {
-                foreach ($tableList as $tableKey => $tableVal) {
-                    if ($tableVal == $val) {
-                        unset($tableList[$tableKey]);
+                for ($i = 0, $n = count($tableList); $i < $n; $i ++) {
+                    if ($tableList[$i]['name'] == $val) {
+                        unset($tableList[$i]);
                     }
                 }
             }
             $tableList = array_values($tableList);
         }
+        Base_lib::ConsoleLog($tableList);
 
         // 各テーブルのカラム情報を取得
-        foreach ($tableList as $key => $val) {
+        for ($t_i = 0, $t_n = count($tableList); $t_i < $t_n; $t_i ++) {
             // カラムデータ一覧情報をセット
-            $table[$val] = $this->CI->db_lib->GetColumnsData($val);
-            for ($i = 0, $n = count($table[$val]); $i < $n; $i ++) {
+            $table[$tableList[$t_i]['name']] = $this->CI->db_lib->GetColumnsData($tableList[$t_i]['name']);
+            for ($i = 0, $n = count($table[$tableList[$t_i]['name']]); $i < $n; $i ++) {
                 // カラム名キャメルケース用の値をセット
-                $table[$val][$i]['name_camel'] = $this->GetCamelName($table[$val][$i]['name']);
+                $table[$tableList[$t_i]['name']][$i]['name_camel'] = $this->GetCamelName($table[$tableList[$t_i]['name']][$i]['name']);
                 // コメントを自動生成用に修正
-                if (strpos($table[$val][$i]['comment'], ' ') !== false) {
-                    $table[$val][$i]['comment'] = (substr($table[$val][$i]['comment'], 0, strpos($table[$val][$i]['comment'], ' ')));
+                if (strpos($table[$tableList[$t_i]['name']][$i]['comment'], ' ') !== false) {
+                    $table[$tableList[$t_i]['name']][$i]['comment'] = (substr($table[$tableList[$t_i]['name']][$i]['comment'], 0, strpos($table[$tableList[$t_i]['name']][$i]['comment'], ' ')));
                 }
             }
         }
@@ -241,6 +249,9 @@ class Create_lib extends Base_lib
                 // テーブルカラム情報をセット
                 $tempVal['table'] = $table[$tableName];
                 $tempVal['tableSel'] = $tableSel[$tableName];
+                // クラス定数をセット
+                $tempVal['const'] = $this->GetBaseConstList();
+
                 Base_lib::ConsoleLog($tempVal);
                 foreach ($createList as $createDir) {
                     // controllersファイル生成
@@ -252,7 +263,6 @@ class Create_lib extends Base_lib
                         $writeVal = $this->CI->load->view($targetFile, $tempVal, true);
                         // PHPタグの置換
                         $writeVal = $this->ReturnPhpTag($writeVal);
-                        // Base_lib::ConsoleLog($writeVal);
                         // views出力先パス
                         $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
                         $uploadPath .= $adminDir . ucfirst($targetName) . '.php';
@@ -263,22 +273,23 @@ class Create_lib extends Base_lib
                     }
                     // viewsファイル生成
                     elseif ($createDir == self::VIEW_DIR) {
-                        //
-                        // 自動生成用テンプレートファイル
-                        $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
-                        $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'login';
-                        // 自動生成用テンプレート情報を取得
-                        $writeVal = $this->CI->load->view($targetFile, $tempVal, true);
-                        // PHPタグの置換
-                        $writeVal = $this->ReturnPhpTag($writeVal);
-                        Base_lib::ConsoleLog($writeVal);
-                        // views出力先パス
-                        $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
-                        $uploadPath .= $adminDir . 'login.php';
-                        // ディレクトリ生成
-                        $this->CreateDir(dirname($uploadPath));
-                        // ファイル出力
-                        write_file($uploadPath, $writeVal);
+                        // 生成するviewsファイル分ループ
+                        for ($v_i = 0, $v_n = count($viewList); $v_i < $v_n; $v_i ++) {
+                            // 自動生成用テンプレートファイル
+                            $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
+                            $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'target_' . $viewList[$v_i];
+                            // 自動生成用テンプレート情報を取得
+                            $writeVal = $this->CI->load->view($targetFile, $tempVal, true);
+                            // PHPタグの置換
+                            $writeVal = $this->ReturnPhpTag($writeVal);
+                            // views出力先パス
+                            $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
+                            $uploadPath .= $adminDir . $targetName . '_' . $viewList[$v_i] . '.php';
+                            // ディレクトリ生成
+                            $this->CreateDir(dirname($uploadPath));
+                            // ファイル出力
+                            write_file($uploadPath, $writeVal);
+                        }
                     }
                     // modelsファイル生成
                     elseif ($createDir == self::MODEL_DIR) {
@@ -289,7 +300,6 @@ class Create_lib extends Base_lib
                         $writeVal = $this->CI->load->view($targetFile, $tempVal, true);
                         // PHPタグの置換
                         $writeVal = $this->ReturnPhpTag($writeVal);
-                        Base_lib::ConsoleLog($writeVal);
                         // views出力先パス
                         $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
                         $uploadPath .= $adminDir . ucfirst($targetName) . '_model.php';
@@ -307,7 +317,6 @@ class Create_lib extends Base_lib
                         $writeVal = $this->CI->load->view($targetFile, $tempVal, true);
                         // PHPタグの置換
                         $writeVal = $this->ReturnPhpTag($writeVal);
-                        Base_lib::ConsoleLog($writeVal);
                         // views出力先パス
                         $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
                         $uploadPath .= 'master/' . ucfirst($targetName) . '_lib.php';

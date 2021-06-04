@@ -4,7 +4,7 @@
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/03：新規作成
+ * @since 1.0.0     2021/06/04：新規作成
  */
 class Sheet2_model extends CI_Model
 {
@@ -319,6 +319,10 @@ class Sheet2_model extends CI_Model
                 " . sheet2_lib::MASTER_TABLE . " . point,
                 " . sheet2_lib::MASTER_TABLE . " . sort_id,
                 " . sheet2_lib::MASTER_TABLE . " . status,
+                CASE " . sheet2_lib::MASTER_TABLE . " . status
+                    WHEN " . sheet2_lib::ID_STATUS_ENABLE . " THEN " . sheet2_lib::NAME_STATUS_ENABLE . "
+                    ELSE " . sheet2_lib::NAME_STATUS_DISABLE . "
+                END status_name,
                 " . sheet2_lib::MASTER_TABLE . " . regist_date,
                 DATE_FORMAT(" . sheet2_lib::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
                 " . sheet2_lib::MASTER_TABLE . " . edit_date,

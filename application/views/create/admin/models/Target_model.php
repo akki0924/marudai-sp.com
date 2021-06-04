@@ -315,6 +315,12 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
             SELECT
 <?php for ($i = 0, $n = count($table); $i < $n; $i ++) { ?>
                 " . <?= $targetName ?>_lib::MASTER_TABLE . " . <?= $table[$i]['name'] ?>,
+<?php if ($table[$i]['name'] == 'status') { ?>
+                CASE " . <?= $targetName ?>_lib::MASTER_TABLE . " . status
+                    WHEN " . <?= $targetName ?>_lib::ID_STATUS_ENABLE . " THEN " . <?= $targetName ?>_lib::NAME_STATUS_ENABLE . "
+                    ELSE " . <?= $targetName ?>_lib::NAME_STATUS_DISABLE . "
+                END status_name,
+<?php } ?>
 <?php if ($table[$i]['name'] == 'regist_date') { ?>
                 DATE_FORMAT(" . <?= $targetName ?>_lib::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
 <?php } ?>
