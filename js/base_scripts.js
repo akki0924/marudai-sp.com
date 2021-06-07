@@ -105,7 +105,7 @@ function AjaxEditData(targetObj, ajaxUrl, callbackObj = {}, no_loading = false) 
             if (!no_loading) ShowLording();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            console.log(XMLHttpRequest + "<br>" + textStatus + "<br>" + errorThrown);
+            //console.log(XMLHttpRequest + "<br>" + textStatus + "<br>" + errorThrown);
         },
         success: function (content) {
             // 結果用の値が取得できた場合

@@ -252,6 +252,8 @@ class Db_lib
         $sekectId = "",
         $public = false
     ) {
+        // WHERE情報を初期化
+        $whereSql = [];
         if ($selectKey != '' && $sekectId != '') {
             $whereSql[] = $selectKey = "'" . Base_lib::AddSlashes($sekectId) . "'";
         }

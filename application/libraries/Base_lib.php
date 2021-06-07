@@ -793,6 +793,8 @@ class Base_lib
      * DBソート更新処理
      *
      * @param string $id：対象ID
+     * @param string $targetSort：対象ソートID
+     * @param string $column：対象カラム
      * @return void
      */
     public function UpdateSort(
@@ -801,25 +803,23 @@ class Base_lib
         string $column = 'sort_id'
     ) : void {
         // 現在のソートを取得
-        $sortNow = $this->db_lib->GetValue($this->GetDbTable(), $column, $id);
-
+        $sortNow = $this->CI->db_lib->GetValue($this->GetDbTable(), $column, $id);
         // トランザクション開始
         $this->CI->db->trans_start();
         // WHERE情報をセット
-        $this->CI->db->where($column . ' ' . ($targetSort > $sortNow ? '<' : '>'), $targetSort);
-        $this->CI->db->where($column . ' ' . ($targetSort > $sortNow ? '>' : '<'), $sortNow);
+        $this->CI->db->where($column . ' ' . ($targetSort > $sortNow ? '<=' : '>='), $targetSort);
+        $this->CI->db->where($column . ' ' . ($targetSort > $sortNow ? '>=' : '<='), $sortNow);
         // 更新
-        $formValues[$column] = $column . ($targetSort > $sortNow ? '-' : '+') . 1;
+        $this->CI->db->set($column, $column . ($targetSort > $sortNow ? '-' : '+') . '1', false);
         // 更新処理
-        $returnVal = $this->CI->db->update($this->GetDbTable(), $formValues);
+        $returnVal = $this->CI->db->update($this->GetDbTable());
 
         // WHERE情報をセット
         $this->CI->db->where('id', $id);
         // 更新
-        $formValues[$column] = $targetSort;
+        $this->CI->db->set($column, $targetSort, false);
         // 更新処理
-        $returnVal = $this->CI->db->update($this->GetDbTable(), $formValues);
-
+        $returnVal = $this->CI->db->update($this->GetDbTable());
         // トランザクション終了
         $this->CI->db->trans_complete();
     }

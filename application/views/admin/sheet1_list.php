@@ -8,11 +8,12 @@
 <link href="<?= SiteDir(); ?>css/<?= JqueryUiCssFile() ?>" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="<?= SiteDir(); ?>css/style_admin.css">
 <link rel="stylesheet" href="<?= SiteDir(); ?>css/reset.css">
+<link rel="stylesheet" type="text/css" href="<?= SiteDir(); ?>form/css">
 <!--JavaScript-->
 <script src="<?= SiteDir(); ?>js/<?= JqueryFile() ?>"></script>
 <SCRIPT src="<?= SiteDir(); ?>js/<?= JqueryUiJsFile() ?>"></SCRIPT>
 <script type="text/javascript" src="<?= SiteDir(); ?>js/nav.js"></script>
-<SCRIPT language = "JavaScript" src="<?= SiteDir(); ?>js/base_scripts.js"></SCRIPT>
+<script type="text/javascript" src="<?= SiteDir(); ?>form/js"></script>
 <script language="JavaScript">
 $(function() {
 	var sortId;
@@ -47,12 +48,13 @@ $(function() {
 			) {
 				sortRow = ui.item[0]['sectionRowIndex'];
 				console.log('start:' + sortId + ', end:' + sortRow);
-				var ajaxUrl = '<?= SiteDir(); ?>admin/sheet1/sort';
+				var ajaxUrl = 'admin/sheet1/sort';
 				var dataList = {
 					'id':sortId,
 					'sort_id':sortRow
 				};
-				AjaxEditData(dataList, ajaxUrl);
+//				AjaxEditData(dataList, ajaxUrl);
+				AjaxAction(ajaxUrl, dataList);
 
 			}
 			console.log(dataList);

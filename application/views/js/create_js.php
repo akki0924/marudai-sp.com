@@ -7,26 +7,33 @@ $(function() {
  * AJAX処理
  *
  * @param mixed url:実行処理用URL
+ * @param object sendObj:送信用オブジェクト
  */
 // AJAX処理
-function AjaxAction(url) {
+function AjaxAction(url, sendObj = {}) {
     $(document).ajaxSend(function() {
         $("<?= $const['sel_loader'] ?>").fadeIn(<?= $const['time_loading_speed'] ?>);
     });
     $.ajax({
         url: '<?= SiteDir(); ?>' + url,
-        dataType:'json',
+        dataType: 'json',
+        data: sendObj,
         cache: false
     })
     .then(
         // 成功時
         function (returnData) {
-            // 画面への反映フラグ
-            if (returnData['<?= $const['key_ajax_reaction_flg'] ?>']) {
+            // 画面遷移確認
+            if (returnData['<?= $const['key_ajax_location'] ?>']) {
+                window.location.href = returnData['<?= $const['key_ajax_location'] ?>'];
+            }
+            // 画面反映フラグ
+            else if (returnData['<?= $const['key_ajax_reaction_flg'] ?>']) {
+                // 画面反映処理
                 $.each(
                     returnData['<?= $const['key_ajax_reaction'] ?>'],
                     function( key, value ) {
-                        var targetSel = ( $('#' + key).length ? '#' + key : '.' + key );
+                        var targetSel = key;
                         $(targetSel).html(value);
                     }
                 );
@@ -35,11 +42,9 @@ function AjaxAction(url) {
             setTimeout(function(){
                 $("<?= $const['sel_loader'] ?>").fadeOut(<?= $const['time_loading_speed'] ?>);
             },<?= $const['time_loading_timeout'] ?>);
-            console.log('loading end2');
         },
         // エラー時
         function (XMLHttpRequest, textStatus, errorThrown) {
-            console.log(XMLHttpRequest);
             // エラー処理
             setTimeout(function(){
                 $("<?= $const['sel_loader'] ?>").fadeOut(<?= $const['time_loading_speed'] ?>);
@@ -213,7 +218,6 @@ function GetFormElemVal( targetName ) {
         // 単独テキスト型
         returnVal = ( Object.keys(returnVal).length == 1 ? returnVal[0] : returnVal );
     }
-// console.log (returnVal);
     return returnVal;
 }
 

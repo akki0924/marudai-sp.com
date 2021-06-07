@@ -231,7 +231,7 @@ class Sheet1_model extends CI_Model
         if (strtoupper(self::SORT_ARROW) == 'DESC') {
             // 並び順最大
             $sortMax = $this->db_lib->GetValueMax(sheet1_lib::MASTER_TABLE);
-            $sortId = ($sortMax - $sortId);
+            $sortId = ($sortMax - $sortId) + 1;
         }
         // ソート処理実行
         $this->sheet1_lib->UpdateSort($id, $sortId);
