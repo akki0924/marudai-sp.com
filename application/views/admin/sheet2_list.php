@@ -5,19 +5,57 @@
 <title>チェックシート2管理｜<?= $const['site_title_name'] ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--CSS-->
+<link href="<?= SiteDir(); ?>css/<?= JqueryUiCssFile() ?>" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="<?= SiteDir(); ?>css/style_admin.css">
 <link rel="stylesheet" href="<?= SiteDir(); ?>css/reset.css">
+<link rel="stylesheet" type="text/css" href="<?= SiteDir(); ?>form/css">
 <!--JavaScript-->
 <script src="<?= SiteDir(); ?>js/<?= JqueryFile() ?>"></script>
+<script src="<?= SiteDir(); ?>js/<?= JqueryUiJsFile() ?>"></script>
 <script type="text/javascript" src="<?= SiteDir(); ?>js/nav.js"></script>
+<script type="text/javascript" src="<?= SiteDir(); ?>form/js"></script>
 <script language="JavaScript">
 $(function() {
 	$('.edit_btn').click(function() {
 		$('#id').val( $(this).data('id') );
-
 		$('#operation_form').attr( 'action', '<?= SiteDir(); ?>admin/sheet2/input' );
 		$('#operation_form').submit();
 	});
+	$('#list_area').sortable({
+		items: "tr",
+		cursor: 'ns-resize',
+		axis: 'y',
+		placeholder: 'ui-state-highlight',
+		start: function(event, ui){
+			sortId = ui.item[0]['dataset'].id;
+			sortRow = ui.item[0]['sectionRowIndex'];
+            ui.placeholder.height(ui.helper.outerHeight());
+        },
+        helper: fixPlaceHolderWidth,
+		containment:'parent',
+		cancel:'.list_header',
+		update: function(event, ui){
+			var listLen = $("#list_area").children().length;
+			if (
+				sortId == ui.item[0]['dataset'].id &&
+				sortRow != ui.item[0]['sectionRowIndex']
+			) {
+				sortRow = ui.item[0]['sectionRowIndex'];
+				var ajaxUrl = 'admin/sheet2/sort';
+				var dataList = {
+					'id':sortId,
+					'sort_id':sortRow
+				};
+				AjaxAction(ajaxUrl, dataList);
+			}
+		}
+	});
+	function fixPlaceHolderWidth(event, ui){
+        ui.children().each(function(){
+            $(this).width($(this).width());
+        });
+        return ui;
+    };
 });
 </script>
 
@@ -67,9 +105,9 @@ $(function() {
 			<h2 class="mb_40">チェックシート2管理</h2>
 			<div class="scroll">
 				<table class="management">
-					<tbody>
+					<tbody id="list_area">
 					<?php if (isset($list) && count($list) > 0) { ?>
-						<tr>
+						<tr class="list_header">
 							<th>ID</th>
 							<th>ナンバー</th>
 							<th>内容</th>
@@ -79,7 +117,7 @@ $(function() {
 							<th>&nbsp;</th>
 						</tr>
 						<?php for ($i = 0, $n = count($list); $i < $n; $i ++) { ?>
-						<tr>
+						<tr data-id="<?= $list[$i]['id'] ?>">
 							<td><?= $list[$i]['id'] ?></td>
 							<td><?= $list[$i]['no'] ?></td>
 							<td><?= $list[$i]['contents'] ?></td>

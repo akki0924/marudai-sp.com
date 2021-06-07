@@ -11,57 +11,46 @@
 <link rel="stylesheet" type="text/css" href="<?= SiteDir(); ?>form/css">
 <!--JavaScript-->
 <script src="<?= SiteDir(); ?>js/<?= JqueryFile() ?>"></script>
-<SCRIPT src="<?= SiteDir(); ?>js/<?= JqueryUiJsFile() ?>"></SCRIPT>
+<script src="<?= SiteDir(); ?>js/<?= JqueryUiJsFile() ?>"></script>
 <script type="text/javascript" src="<?= SiteDir(); ?>js/nav.js"></script>
 <script type="text/javascript" src="<?= SiteDir(); ?>form/js"></script>
 <script language="JavaScript">
 $(function() {
-	var sortId;
-	var sortRow;
 	$('.edit_btn').click(function() {
 		$('#id').val( $(this).data('id') );
-
 		$('#operation_form').attr( 'action', '<?= SiteDir(); ?>admin/sheet1/input' );
 		$('#operation_form').submit();
 	});
-	$('#sortable').sortable({
+	$('#list_area').sortable({
 		items: "tr",
 		cursor: 'ns-resize',
 		axis: 'y',
 		placeholder: 'ui-state-highlight',
 		start: function(event, ui){
-			console.log(ui.item[0]['dataset'].id);
 			sortId = ui.item[0]['dataset'].id;
-			console.log(ui.item[0]['sectionRowIndex']);
 			sortRow = ui.item[0]['sectionRowIndex'];
             ui.placeholder.height(ui.helper.outerHeight());
         },
         helper: fixPlaceHolderWidth,
+		containment:'parent',
 		cancel:'.list_header',
 		update: function(event, ui){
-			var listLen = $("#sortable").children().length;
-
-			//
+			var listLen = $("#list_area").children().length;
 			if (
 				sortId == ui.item[0]['dataset'].id &&
 				sortRow != ui.item[0]['sectionRowIndex']
 			) {
 				sortRow = ui.item[0]['sectionRowIndex'];
-				console.log('start:' + sortId + ', end:' + sortRow);
 				var ajaxUrl = 'admin/sheet1/sort';
 				var dataList = {
 					'id':sortId,
 					'sort_id':sortRow
 				};
-//				AjaxEditData(dataList, ajaxUrl);
 				AjaxAction(ajaxUrl, dataList);
-
 			}
-			console.log(dataList);
 		}
 	});
 	function fixPlaceHolderWidth(event, ui){
-        // adjust placeholder td width to original td width
         ui.children().each(function(){
             $(this).width($(this).width());
         });
@@ -116,9 +105,9 @@ $(function() {
 			<h2 class="mb_40">チェックシート1管理</h2>
 			<div class="scroll">
 				<table class="management">
-					<tbody id="sortable">
+					<tbody id="list_area">
 					<?php if (isset($list) && count($list) > 0) { ?>
-						<tr class="list_header" data-id="">
+						<tr class="list_header">
 							<th>ID</th>
 							<th>ナンバー</th>
 							<th>内容</th>
@@ -128,7 +117,7 @@ $(function() {
 							<th>&nbsp;</th>
 						</tr>
 						<?php for ($i = 0, $n = count($list); $i < $n; $i ++) { ?>
-						<tr id="<?= $list[$i]['id'] ?>" data-id="<?= $list[$i]['id'] ?>">
+						<tr data-id="<?= $list[$i]['id'] ?>">
 							<td><?= $list[$i]['id'] ?></td>
 							<td><?= $list[$i]['no'] ?></td>
 							<td><?= $list[$i]['contents'] ?></td>

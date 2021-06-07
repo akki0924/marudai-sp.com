@@ -133,4 +133,16 @@ class <?= ucfirst($targetName) ?> extends MY_Controller
         // 一覧ページへ遷移
         redirect(Base_lib::ADMIN_DIR . '/<?= $targetName  ?>/');
     }
+
+
+    /**
+     * ソート処理
+     *
+     * @return void
+     */
+    public function sort()
+    {
+        // ソート処理
+        $this-><?= $targetName  ?>_model->SortAction();
+    }
 }

@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/04：新規作成
+ * @since 1.0.0     2021/06/07：新規作成
  */
 class Sheet2 extends MY_Controller
 {
@@ -132,5 +132,17 @@ class Sheet2 extends MY_Controller
         $this->sheet2_model->DelAction();
         // 一覧ページへ遷移
         redirect(Base_lib::ADMIN_DIR . '/sheet2/');
+    }
+
+
+    /**
+     * ソート処理
+     *
+     * @return void
+     */
+    public function sort()
+    {
+        // ソート処理
+        $this->sheet2_model->SortAction();
     }
 }

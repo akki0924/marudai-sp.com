@@ -794,13 +794,13 @@ class Base_lib
      *
      * @param string $id：対象ID
      * @param string $targetSort：対象ソートID
-     * @param string $column：対象カラム
+     * @param string|null $column：対象カラム
      * @return void
      */
     public function UpdateSort(
         string $id,
         string $targetSort,
-        string $column = 'sort_id'
+        ?string $column = 'sort_id'
     ) : void {
         // 現在のソートを取得
         $sortNow = $this->CI->db_lib->GetValue($this->GetDbTable(), $column, $id);

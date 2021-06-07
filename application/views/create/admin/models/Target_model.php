@@ -12,8 +12,8 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
     const FIRST_MSG = '検索項目を選択してください。';
     const NO_LIST_MSG = '一覧リストが見つかりません。';
     // 並び順用文字列
-    const SORT_ARROW_UP_STR = 'up';
-    const SORT_ARROW_DOWN_STR = 'down';
+    const SORT_COLUMN = 'sort_id';
+    const SORT_ARROW = 'desc';
     // ログイン対象
     const LOGIN_KEY = Base_lib::ADMIN_DIR;
 
@@ -224,41 +224,15 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         ini_set('max_execution_time', '90');
         // FORM情報
         $id = $this->input->post_get('id', true);
-        $arrow = $this->input->post_get('arrow', true);
-        $action = $this->input->post_get('action', true);
-        // 対象並び順を取得
-        $sortId = $this->db_lib->GetValue(<?= $targetName ?>_lib::MASTER_TABLE, 'sort_id', $id);
-        // 並び順最大
-        $sortMax = $this->db_lib->GetValueMax(<?= $targetName ?>_lib::MASTER_TABLE);
-        if (
-            $arrow == self::SORT_ARROW_UP_STR &&
-            $sortId < $sortMax
-        ) {
-            // ソートから対象IDを取得
-            $targetId = $this-><?= $targetName ?>_lib->GetSortIdForId(($sortId + 1));
-            if ($targetId) {
-                // 登録処理
-                $form['sort_id'] = ($sortId + 1);
-                $this-><?= $targetName ?>_lib->Regist($form, $id);
-                // 登録処理
-                $form['sort_id'] = $sortId;
-                $this-><?= $targetName ?>_lib->Regist($form, $targetId);
-            }
-        } elseif (
-            $arrow == self::SORT_ARROW_DOWN_STR &&
-            $sortId > 1
-        ) {
-            // ソートから対象IDを取得
-            $targetId = $this-><?= $targetName ?>_lib->GetSortIdForId(($sortId - 1));
-            if ($targetId) {
-                // 登録処理
-                $form['sort_id'] = ($sortId - 1);
-                $this-><?= $targetName ?>_lib->Regist($form, $id);
-                // 登録処理
-                $form['sort_id'] = $sortId;
-                $this-><?= $targetName ?>_lib->Regist($form, $targetId);
-            }
+        $sortId = $this->input->post_get('sort_id', true);
+        // ソート順が降順
+        if (strtoupper(self::SORT_ARROW) == 'DESC') {
+            // 並び順最大
+            $sortMax = $this->db_lib->GetValueMax(<?= $targetName ?>_lib::MASTER_TABLE);
+            $sortId = ($sortMax - $sortId) + 1;
         }
+        // ソート処理実行
+        $this-><?= $targetName ?>_lib->UpdateSort($id, $sortId);
     }
 
 

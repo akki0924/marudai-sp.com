@@ -4,7 +4,7 @@
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/04：新規作成
+ * @since 1.0.0     2021/06/07：新規作成
  */
 class Sheet1_model extends CI_Model
 {
@@ -12,12 +12,11 @@ class Sheet1_model extends CI_Model
     const FIRST_MSG = '検索項目を選択してください。';
     const NO_LIST_MSG = '一覧リストが見つかりません。';
     // 並び順用文字列
-    const SORT_ARROW_UP_STR = 'up';
-    const SORT_ARROW_DOWN_STR = 'down';
     const SORT_COLUMN = 'sort_id';
     const SORT_ARROW = 'desc';
     // ログイン対象
     const LOGIN_KEY = Base_lib::ADMIN_DIR;
+
 
     /**
      * コントラクト
@@ -226,7 +225,6 @@ class Sheet1_model extends CI_Model
         // FORM情報
         $id = $this->input->post_get('id', true);
         $sortId = $this->input->post_get('sort_id', true);
-
         // ソート順が降順
         if (strtoupper(self::SORT_ARROW) == 'DESC') {
             // 並び順最大
@@ -262,7 +260,8 @@ class Sheet1_model extends CI_Model
         ?array $whereSql = array(),
         ?array $orderSql = array(),
         ?array $limitSql = array()
-    ) : ? array {
+    ) : ? array
+    {
         // 返値を初期化
         $returnVal = array();
         // WHERE情報を再セット
