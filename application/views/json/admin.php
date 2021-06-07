@@ -18,12 +18,13 @@
             "m_pref"
         ]
     },
-    "login__comment":"table:ログイン対象テーブル, id:ID対象カラム, password:パスワード対象カラム",
+    "login__comment":"table:ログイン対象テーブル, id:ID対象カラム, password:パスワード対象カラム first_page:ログイン後の最初のページ",
     "login":{
         "table":"m_admin",
         "id":"account",
         "id_name":"アカウント",
         "password":"password",
-        "password_name":"password"
+        "password_name":"パスワード",
+        "first_page":"sheet1"
     }
 }

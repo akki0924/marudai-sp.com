@@ -45,7 +45,7 @@ $(function() {
 										<td><input type="tel" name="<?= $id ?>" value="\<\?= VarDisp($form['<?= $id ?>']) \?\>" class="\<\?= ((isset($error_account) && $error_account) ? 'formerr_color' : '') \?\>"></td>
 									</tr>
 									<tr>
-									<th><span class="required"><?= $password_name ?>パスワード</span></th>
+									<th><span class="required"><?= $password_name ?></span></th>
 									<td><input type="password" name="<?= $password ?>"  value="\<\?= VarDisp($form['<?= $password ?>']) \?\>"  class="\<\?= ((isset($error_password) && $error_password) ? 'formerr_color' : '') \?\>"></td>
 									</tr>
 								</tbody>

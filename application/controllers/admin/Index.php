@@ -46,7 +46,7 @@ class Index extends MY_Controller
             } else {
                 $this->index_model->LoginAction();
                 // 設定ページへ遷移
-                redirect(Base_lib::ACCESS_ADMIN_DIR . '/' . Base_lib::ADMIN_MAIN_PAGE);
+                redirect(Base_lib::ACCESS_ADMIN_DIR . '/sheet1');
             }
         } else {
             $templateVal = $this->index_model->LoginTemplate();

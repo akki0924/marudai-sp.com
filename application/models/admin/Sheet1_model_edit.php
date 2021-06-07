@@ -1,12 +1,12 @@
-\<\?php
+<?php
 /**
- * <?= $comment ?>画面用モデル
+ * チェックシート1画面用モデル
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     <?= date('Y/m/d') ?>：新規作成
+ * @since 1.0.0     2021/06/04：新規作成
  */
-class <?= ucfirst($targetName) ?>_model extends CI_Model
+class Sheet1_model extends CI_Model
 {
     const DEFAULT_LIST_COUNT = 200;
     const FIRST_MSG = '検索項目を選択してください。';
@@ -14,9 +14,10 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
     // 並び順用文字列
     const SORT_ARROW_UP_STR = 'up';
     const SORT_ARROW_DOWN_STR = 'down';
+    const SORT_COLUMN = 'sort_id';
+    const SORT_ARROW = 'desc';
     // ログイン対象
     const LOGIN_KEY = Base_lib::ADMIN_DIR;
-
 
     /**
      * コントラクト
@@ -32,7 +33,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
             redirect(Base_lib::ADMIN_DIR ."/index/error");
         }
         // ライブラリー読込み
-        $this->load->library(Base_lib::MASTER_DIR . '/<?= $targetName ?>_lib');
+        $this->load->library(Base_lib::MASTER_DIR . '/sheet1_lib');
     }
 
 
@@ -83,7 +84,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         // 一覧数の取得
         $returnVal['count'] = $this->GetListCount($whereSql);
         // ORDER情報をセット
-        $orderSql[0]['key'] = <?= $targetName ?>_lib::MASTER_TABLE . ' . sort_id';
+        $orderSql[0]['key'] = sheet1_lib::MASTER_TABLE . ' . sort_id';
         $orderSql[0]['arrow'] = 'DESC';
         // 一覧情報を取得
         $returnVal['list'] = $this->GetList($whereSql, $orderSql, null, true);
@@ -107,23 +108,23 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         // FORM情報
         $id = $this->input->post_get('id', true);
         $action = $this->input->post_get('action', true);
-        // <?= $comment ?>情報が存在有無情報をセット
-        $exists =  $this-><?= $targetName ?>_lib->IdExists($id);
+        // チェックシート1情報が存在有無情報をセット
+        $exists =  $this->sheet1_lib->IdExists($id);
         $returnVal['exists'] = $exists;
         // 選択情報をセット
-        $returnVal['select']['status'] = $this-><?= $targetName ?>_lib->GetStatusList();
+        $returnVal['select']['status'] = $this->sheet1_lib->GetStatusList();
         if ($action == '') {
-            // <?= $comment ?>ID存在しない
+            // チェックシート1ID存在しない
             if (!$exists) {
                 // FORM情報をセット
                 foreach ($this->FormInputList() as $key) {
                     $returnVal['form'][$key] = $this->input->post_get($key, true);
                 }
             }
-            // <?= $comment ?>IDが存在
+            // チェックシート1IDが存在
             else {
-                // <?= $comment ?>詳細情報を取得
-                $returnVal['form'] = $this-><?= $targetName ?>_lib->GetDetailValues($id);
+                // チェックシート1詳細情報を取得
+                $returnVal['form'] = $this->sheet1_lib->GetDetailValues($id);
             }
         }
         // 遷移アクション時
@@ -135,7 +136,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
             // バリデーションOK時
             if ($validFlg) {
                 // 各選択情報の表示名をセット
-                $returnVal['form']['status_name'] = $this-><?= $targetName ?>_lib->GetStatusName($returnVal['form']['status']);
+                $returnVal['form']['status_name'] = $this->sheet1_lib->GetStatusName($returnVal['form']['status']);
             }
         }
 
@@ -153,8 +154,8 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
     {
         // 返値を初期化
         $returnVal = array();
-        // <?= $comment ?>情報が存在有無情報をセット
-        $exists =  $this-><?= $targetName ?>_lib->IdExists($id);
+        // チェックシート1情報が存在有無情報をセット
+        $exists =  $this->sheet1_lib->IdExists($id);
         $returnVal['exists'] = $exists;
 
         return $this->sharedTemplate($returnVal);
@@ -187,7 +188,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
                 $form[$key] = $this->input->post_get($key, true);
             }
             // 登録処理（IDを返す）
-            $returnVal = $this-><?= $targetName ?>_lib->Regist($form, $id);
+            $returnVal = $this->sheet1_lib->Regist($form, $id);
         }
 
         return $returnVal;
@@ -206,7 +207,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         // FORM情報をセット
         $id = $this->input->post_get('id', true);
         // 削除処理
-        $returnVal = $this-><?= $targetName ?>_lib->Delete($id);
+        $returnVal = $this->sheet1_lib->Delete($id);
         // 関連受注情報削除
 
         return $returnVal;
@@ -227,36 +228,36 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         $arrow = $this->input->post_get('arrow', true);
         $action = $this->input->post_get('action', true);
         // 対象並び順を取得
-        $sortId = $this->db_lib->GetValue(<?= $targetName ?>_lib::MASTER_TABLE, 'sort_id', $id);
+        $sortId = $this->db_lib->GetValue(sheet1_lib::MASTER_TABLE, 'sort_id', $id);
         // 並び順最大
-        $sortMax = $this->db_lib->GetValueMax(<?= $targetName ?>_lib::MASTER_TABLE);
+        $sortMax = $this->db_lib->GetValueMax(sheet1_lib::MASTER_TABLE);
         if (
             $arrow == self::SORT_ARROW_UP_STR &&
             $sortId < $sortMax
         ) {
             // ソートから対象IDを取得
-            $targetId = $this-><?= $targetName ?>_lib->GetSortIdForId(($sortId + 1));
+            $targetId = $this->sheet1_lib->GetSortIdForId(($sortId + 1));
             if ($targetId) {
                 // 登録処理
                 $form['sort_id'] = ($sortId + 1);
-                $this-><?= $targetName ?>_lib->Regist($form, $id);
+                $this->sheet1_lib->Regist($form, $id);
                 // 登録処理
                 $form['sort_id'] = $sortId;
-                $this-><?= $targetName ?>_lib->Regist($form, $targetId);
+                $this->sheet1_lib->Regist($form, $targetId);
             }
         } elseif (
             $arrow == self::SORT_ARROW_DOWN_STR &&
             $sortId > 1
         ) {
             // ソートから対象IDを取得
-            $targetId = $this-><?= $targetName ?>_lib->GetSortIdForId(($sortId - 1));
+            $targetId = $this->sheet1_lib->GetSortIdForId(($sortId - 1));
             if ($targetId) {
                 // 登録処理
                 $form['sort_id'] = ($sortId - 1);
-                $this-><?= $targetName ?>_lib->Regist($form, $id);
+                $this->sheet1_lib->Regist($form, $id);
                 // 登録処理
                 $form['sort_id'] = $sortId;
-                $this-><?= $targetName ?>_lib->Regist($form, $targetId);
+                $this->sheet1_lib->Regist($form, $targetId);
             }
         }
     }
@@ -270,7 +271,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
      */
     public function GetListCount(?array $whereSql = array()) : ?string
     {
-        return $this->db_lib->GetCount(<?= $targetName ?>_lib::MASTER_TABLE, $whereSql);
+        return $this->db_lib->GetCount(sheet1_lib::MASTER_TABLE, $whereSql);
     }
 
 
@@ -286,8 +287,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         ?array $whereSql = array(),
         ?array $orderSql = array(),
         ?array $limitSql = array()
-    ) : ? array
-    {
+    ) : ? array {
         // 返値を初期化
         $returnVal = array();
         // WHERE情報を再セット
@@ -297,7 +297,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         // ORDER情報を再セット
         if (! is_array($orderSql)) {
             $orderSql = array();
-            $orderSql[0]['key'] = <?= $targetName ?>_lib::MASTER_TABLE . ' . regist_date';
+            $orderSql[0]['key'] = sheet1_lib::MASTER_TABLE . ' . regist_date';
             $orderSql[0]['arrow'] = 'DESC';
         }
         // ORDER文を生成
@@ -311,22 +311,21 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         }
         $query = $this->db->query("
             SELECT
-<?php for ($i = 0, $n = count($table); $i < $n; $i ++) { ?>
-                " . <?= $targetName ?>_lib::MASTER_TABLE . " . <?= $table[$i]['name'] ?>,
-<?php if ($table[$i]['name'] == 'status') { ?>
-                CASE " . <?= $targetName ?>_lib::MASTER_TABLE . " . status
-                    WHEN " . <?= $targetName ?>_lib::ID_STATUS_ENABLE . " THEN '" . <?= $targetName ?>_lib::NAME_STATUS_ENABLE . "'
-                    ELSE '" . <?= $targetName ?>_lib::NAME_STATUS_DISABLE . "'
+                " . sheet1_lib::MASTER_TABLE . " . id,
+                " . sheet1_lib::MASTER_TABLE . " . no,
+                " . sheet1_lib::MASTER_TABLE . " . contents,
+                " . sheet1_lib::MASTER_TABLE . " . point,
+                " . sheet1_lib::MASTER_TABLE . " . sort_id,
+                " . sheet1_lib::MASTER_TABLE . " . status,
+                CASE " . sheet1_lib::MASTER_TABLE . " . status
+                    WHEN " . sheet1_lib::ID_STATUS_ENABLE . " THEN '" . sheet1_lib::NAME_STATUS_ENABLE . "'
+                    ELSE '" . sheet1_lib::NAME_STATUS_DISABLE . "'
                 END status_name,
-<?php } ?>
-<?php if ($table[$i]['name'] == 'regist_date') { ?>
-                DATE_FORMAT(" . <?= $targetName ?>_lib::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
-<?php } ?>
-<?php if ($table[$i]['name'] == 'edit_date') { ?>
-                DATE_FORMAT(" . <?= $targetName ?>_lib::MASTER_TABLE . ".edit_date, '%Y.%c.%e') AS edit_date_disp
-<?php } ?>
-<?php } ?>
-            FROM " . <?= $targetName ?>_lib::MASTER_TABLE . "
+                " . sheet1_lib::MASTER_TABLE . " . regist_date,
+                DATE_FORMAT(" . sheet1_lib::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
+                " . sheet1_lib::MASTER_TABLE . " . edit_date,
+                DATE_FORMAT(" . sheet1_lib::MASTER_TABLE . ".edit_date, '%Y.%c.%e') AS edit_date_disp
+            FROM " . sheet1_lib::MASTER_TABLE . "
             " . (isset($whereSql) && count($whereSql) > 0 ? (" WHERE ( " . @implode(" AND ", $whereSql)) . " ) " : "") . "
             " . $orderSqlVal . "
             " . (isset($limitSqlVal) ? $limitSqlVal : '') . ";
@@ -363,9 +362,10 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
     public function FormInputList()
     {
         $returnVal = array(
-<?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
-            '<?= $tableSel[$i]['name'] ?>',
-<?php } ?>
+            'no',
+            'contents',
+            'point',
+            'status',
         );
 
         return $returnVal;
@@ -379,15 +379,30 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
      */
     public function ConfigInputValues() : array
     {
-<?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
-        // <?= $tableSel[$i]['comment'] ?>
-
+        // ナンバー
         $returnVal[] = array(
-            'field'   => '<?= $tableSel[$i]['name'] ?>',
-            'label'   => '<?= $tableSel[$i]['comment'] ?>',
+            'field'   => 'no',
+            'label'   => 'ナンバー',
             'rules'   => 'required'
         );
-<?php } ?>
+        // 内容
+        $returnVal[] = array(
+            'field'   => 'contents',
+            'label'   => '内容',
+            'rules'   => 'required'
+        );
+        // 点数
+        $returnVal[] = array(
+            'field'   => 'point',
+            'label'   => '点数',
+            'rules'   => 'required'
+        );
+        // 表示ステータス
+        $returnVal[] = array(
+            'field'   => 'status',
+            'label'   => '表示ステータス',
+            'rules'   => 'required'
+        );
 
         return $returnVal;
     }

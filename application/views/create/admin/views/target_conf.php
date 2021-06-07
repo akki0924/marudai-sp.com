@@ -73,9 +73,6 @@ $(function(){
 			<h2 class="mb_20">\<\?= $exists ? '<?= $comment ?>情報編集' : '新規<?= $comment ?>登録' \?\></h2>
 			<div class="max680">
 				<div class="bg_gray pd60 mb_40">
-					\<\?php if ($exists) { \?\>
-						<p class="font_20 bold mb_40">利用者ID：\<\?= VarDisp($form['id']) \?\></p>
-					\<\?php } \?\>
 					<form method="post" id="operation_form" name="operation_form" action="\<\?= SiteDir(); \?\>admin/<?= $targetName ?>/input" class="h-adr">
 						<table class="form mb_40">
 							<tbody>

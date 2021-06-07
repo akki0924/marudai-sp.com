@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 /**
- * チェックシート1管理ページ画面処理
+ * ログイン管理ページ画面処理
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
  * @since 1.0.0     2021/06/04：新規作成
  */
-class Sheet1 extends MY_Controller
+class Admin extends MY_Controller
 {
     /**
      * コントラクト
@@ -17,7 +17,7 @@ class Sheet1 extends MY_Controller
         // Controllerクラスのコンストラクタを呼び出す
         parent::__construct();
         // モデル呼出し
-        $this->load->model(Base_lib::ADMIN_DIR . '/sheet1_model');
+        $this->load->model(Base_lib::ADMIN_DIR . '/admin_model');
     }
 
 
@@ -45,9 +45,9 @@ class Sheet1 extends MY_Controller
         // FORM情報の確認
         $action = $this->input->post_get('action', true);
         // テンプレート情報をセット
-        $templateVal = $this->sheet1_model->ListTemplate();
+        $templateVal = $this->admin_model->ListTemplate();
         // テンプレート読み込み
-        $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'sheet1_list', $templateVal);
+        $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'admin_list', $templateVal);
     }
 
 
@@ -66,43 +66,43 @@ class Sheet1 extends MY_Controller
             $action == 'back'
         ) {
             // エラーチェックルールをセット
-            $config = $this->sheet1_model->ConfigInputValues();
+            $config = $this->admin_model->ConfigInputValues();
             $this->form_validation->set_rules($config);
             // バリデーション実行結果を取得
             $validFlg = $this->form_validation->run();
-            $templateVal = $this->sheet1_model->InputTemplate($validFlg);
+            $templateVal = $this->admin_model->InputTemplate($validFlg);
             if (
                 $validFlg &&
                 $action == 'conf'
             ) {
                 // 確認テンプレート読み込み
-                $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'sheet1_conf', $templateVal);
+                $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'admin_conf', $templateVal);
             } else {
                 // 入力テンプレート読み込み
-                $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'sheet1_input', $templateVal);
+                $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'admin_input', $templateVal);
             }
             // 完了画面処理
         } elseif ($action == 'comp') {
             // エラーチェックルールをセット
-            $config = $this->sheet1_model->ConfigInputValues();
+            $config = $this->admin_model->ConfigInputValues();
             $this->form_validation->set_rules($config);
             // バリデーション実行結果を取得
             $validFlg = $this->form_validation->run();
             if ($validFlg) {
                 // 登録処理
-                $this->sheet1_model->RegistAction($validFlg);
+                $this->admin_model->RegistAction($validFlg);
                 // テンプレート読み込み
-                redirect(Base_lib::ADMIN_DIR . '/sheet1/comp' . ($id ? '/' . $id : ''));
+                redirect(Base_lib::ADMIN_DIR . '/admin/comp' . ($id ? '/' . $id : ''));
             } else {
-                $templateVal = $this->sheet1_model->InputTemplate($validFlg);
+                $templateVal = $this->admin_model->InputTemplate($validFlg);
                 // 入力テンプレート読み込み
-                $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'sheet1_input', $templateVal);
+                $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'admin_input', $templateVal);
             }
         } else {
             // テンプレート情報をセット
-            $templateVal = $this->sheet1_model->InputTemplate();
+            $templateVal = $this->admin_model->InputTemplate();
             // テンプレート読み込み
-            $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'sheet1_input', $templateVal);
+            $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'admin_input', $templateVal);
         }
     }
 
@@ -115,9 +115,9 @@ class Sheet1 extends MY_Controller
     public function comp($id = "")
     {
         // テンプレート情報をセット
-        $templateVal = $this->sheet1_model->CompTemplate($id);
+        $templateVal = $this->admin_model->CompTemplate($id);
         // テンプレート読み込み
-        $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'sheet1_comp', $templateVal);
+        $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'admin_comp', $templateVal);
     }
 
 
@@ -129,20 +129,8 @@ class Sheet1 extends MY_Controller
     public function del()
     {
         // 削除処理
-        $this->sheet1_model->DelAction();
+        $this->admin_model->DelAction();
         // 一覧ページへ遷移
-        redirect(Base_lib::ADMIN_DIR . '/sheet1/');
-    }
-
-
-    /**
-     * ソート処理
-     *
-     * @return void
-     */
-    public function sort()
-    {
-        // ソート処理
-        $this->sheet1_model->SortAction();
+        redirect(Base_lib::ADMIN_DIR . '/admin/');
     }
 }

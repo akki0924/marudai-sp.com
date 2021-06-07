@@ -45,7 +45,7 @@ class Sheet2_model extends CI_Model
     public function sharedTemplate(array $templateVal = array()) : ?array
     {
         // 変数を再セット
-        $returnVal = ($returnVal != "" ? $returnVal : array());
+        $returnVal = $templateVal;
         // クラス定数をセット
         $returnVal['const'] = $this->base_lib->GetBaseConstList();
         Base_lib::ConsoleLog($returnVal);
@@ -259,8 +259,6 @@ class Sheet2_model extends CI_Model
                 $this->sheet2_lib->Regist($form, $targetId);
             }
         }
-
-        return $returnVal;
     }
 
 
@@ -320,8 +318,8 @@ class Sheet2_model extends CI_Model
                 " . sheet2_lib::MASTER_TABLE . " . sort_id,
                 " . sheet2_lib::MASTER_TABLE . " . status,
                 CASE " . sheet2_lib::MASTER_TABLE . " . status
-                    WHEN " . sheet2_lib::ID_STATUS_ENABLE . " THEN " . sheet2_lib::NAME_STATUS_ENABLE . "
-                    ELSE " . sheet2_lib::NAME_STATUS_DISABLE . "
+                    WHEN " . sheet2_lib::ID_STATUS_ENABLE . " THEN '" . sheet2_lib::NAME_STATUS_ENABLE . "'
+                    ELSE '" . sheet2_lib::NAME_STATUS_DISABLE . "'
                 END status_name,
                 " . sheet2_lib::MASTER_TABLE . " . regist_date,
                 DATE_FORMAT(" . sheet2_lib::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,

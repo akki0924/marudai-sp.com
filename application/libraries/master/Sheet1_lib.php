@@ -174,22 +174,6 @@ class Sheet1_lib extends Base_lib
 
 
     /**
-     * 表示ステータスからIDを取得
-     *
-     * @param string $status：対象表示ステータス
-     * @param boolean $public：ステータスフラグ
-     * @return string|null
-     */
-    public function GetIdFromStatus(
-        string $status,
-        bool $public = false
-    ) : ?string
-    {
-        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $status, 'status', $public);
-    }
-
-
-    /**
      * ナンバーの登録有無
      *
      * @param string $no：対象ナンバー
@@ -218,22 +202,6 @@ class Sheet1_lib extends Base_lib
     ) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $point, 'point', $public);
-    }
-
-
-    /**
-     * 表示ステータスの登録有無
-     *
-     * @param string $status：対象表示ステータス
-     * @param boolean $public
-     * @return boolean
-     */
-    public function StatusExists(
-        string $status,
-        bool $public = false
-    ) : bool
-    {
-        return $this->CI->db_lib->ValueExists($this->GetDbTable(), $status, 'status', $public);
     }
 
 
@@ -274,21 +242,47 @@ class Sheet1_lib extends Base_lib
 
 
     /**
-     * 表示ステータスが対象ID以外に同じ値が存在するかどうか
+     * 表示ステータス一覧を配列形式で取得
      *
-     * @param string $status：対象表示ステータス
-     * @param string $id：除外ID
-     * @param boolean $public
-     * @return boolean
+     * @return array
      */
-    public function StatusSameExists(
-        $status,
-        $id = '',
-        $public = false
-    ) : bool
+    public function GetStatusList() : array
     {
-        return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $status, 'status', $id, 'id', $public);
+        $returnVal[self::ID_STATUS_ENABLE] = self::NAME_STATUS_ENABLE;
+        $returnVal[self::ID_STATUS_DISABLE] = self::NAME_STATUS_DISABLE;
+
+        return $returnVal;
     }
+
+
+    /**
+     * 表示ステータス名を取得
+     *
+     * @param string $id
+     * @return string
+     */
+    public function GetStatusName($id) : string
+    {
+        // 一覧リストを取得
+        $list = $this->GetStatusList();
+        return (isset($list[ $id ]) ? $list[ $id ] : '');
+    }
+
+
+    /**
+     * 表示ステータスの存在確認結果を取得
+     *
+     * @param string $id
+     * @return bool
+     */
+    public function GetStatusExists($id) : bool
+    {
+        // 一覧リストを取得
+        $list = $this->GetStatusList();
+        return (isset($list[ $id ]) ? true : false);
+    }
+
+
 
 
 }

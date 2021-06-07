@@ -919,7 +919,8 @@ class Db_lib
                 COLUMN_NAME AS name,
                 COLUMN_COMMENT AS comment,
                 DATA_TYPE AS type_simple,
-                COLUMN_TYPE AS type
+                COLUMN_TYPE AS type,
+                EXTRA AS extra
             FROM INFORMATION_SCHEMA.COLUMNS
             WHERE (
                 TABLE_SCHEMA = '" . $this->CI->db->database . "' AND
@@ -929,6 +930,34 @@ class Db_lib
         // 結果が、空でない場合
         if ($query->num_rows() > 0) {
             $returnVal = $query->result_array();
+        }
+        return $returnVal;
+    }
+    /*====================================================================
+        関数名 : CheckAutoIncrement
+        概　要 : 対象テーブルカラムコメントを取得
+        引　数 : $tableName : テーブル名
+    */
+    public function CheckAutoIncrement(?string $tableName) : bool
+    {
+        // 返値を初期化
+        $returnVal = false;
+        // SQLを実行
+        $query = $this->CI->db->query("
+            SELECT
+                AUTO_INCREMENT
+            FROM INFORMATION_SCHEMA.TABLES
+            WHERE (
+                TABLE_SCHEMA = '" . $this->CI->db->database . "' AND
+                TABLE_NAME = '" . Base_lib::AddSlashes($tableName) . "'
+            );
+        ");
+        // 結果が、空でない場合
+        if ($query->num_rows() > 0) {
+            $resultList = $query->result_array();
+            if (isset($resultList[0]['AUTO_INCREMENT'])) {
+                $returnVal = ($resultList[0]['AUTO_INCREMENT'] > 0 ? true : false);
+            }
         }
         return $returnVal;
     }

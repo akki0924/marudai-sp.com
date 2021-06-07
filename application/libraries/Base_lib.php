@@ -381,7 +381,7 @@ class Base_lib
      * @param string $targetData：対象データ
      * @return void
      */
-    public function SetDbTable($tableName = '') : void
+    public function SetDbTable(string $tableName = '') : void
     {
         $this->dbTable = $tableName;
     }
@@ -390,9 +390,9 @@ class Base_lib
     /**
      * DBテーブル情報（メンバー変数）を取得
      *
-     * @return stirng|null
+     * @return string|null
      */
-    public function GetDbTable() : ?stirng
+    public function GetDbTable() : string
     {
         return $this->dbTable;
     }
@@ -430,7 +430,7 @@ class Base_lib
     /**
      * 名前一覧を取得
      *
-     * @param bool $public
+     * @param bool $public：ステータスフラグ
      * @return array|null
      */
     public function GetNameList(bool $public = false) : ?array
@@ -442,7 +442,7 @@ class Base_lib
     /**
      * 内容一覧を取得
      *
-     * @param bool $public
+     * @param bool $public：ステータスフラグ
      * @return array|null
      */
     public function GetContentsList(bool $public = false) : ?array
@@ -455,7 +455,7 @@ class Base_lib
      * 名前を取得
      *
      * @param string $id
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return string|null
      */
     public function GetName(string $id, bool $public = false) : ?string
@@ -468,7 +468,7 @@ class Base_lib
      * 内容を取得
      *
      * @param string $id
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return string|null
      */
     public function GetContents(string $id, bool $public = false) : ?string
@@ -481,7 +481,7 @@ class Base_lib
      * ユーザーIDをを取得
      *
      * @param string $id
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return string|null
      */
     public function GetUserId(string $id, bool $public = false) : ?string
@@ -494,7 +494,7 @@ class Base_lib
      * カテゴリーIDをを取得
      *
      * @param string $id
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return string|null
      */
     public function GetCategoryId(string $id, bool $public = false) : ?string
@@ -507,7 +507,7 @@ class Base_lib
      * 順番を取得
      *
      * @param string $id
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return string|null
      */
     public function GetSortId(string $id, bool $public = false) : ?string
@@ -520,7 +520,7 @@ class Base_lib
      * 表示ステータスを取得
      *
      * @param string $id
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return string|null
      */
     public function GetStatus(string $id, bool $public = false) : ?string
@@ -533,7 +533,7 @@ class Base_lib
      * 名前からIDを取得
      *
      * @param string $name
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return string|null
      */
     public function GetIdFromName(string $contents, bool $public = false) : ?string
@@ -546,7 +546,7 @@ class Base_lib
      * 内容からIDを取得
      *
      * @param string $contents
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return string|null
      */
     public function GetIdFromContents(string $contents, bool $public = false) : ?string
@@ -559,7 +559,7 @@ class Base_lib
      * ユーザーIDからIDを取得
      *
      * @param string $userId
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return string|null
      */
     public function GetIdFromUserId(string $userId, bool $public = false) : ?string
@@ -572,7 +572,7 @@ class Base_lib
      * カテゴリーIDからIDを取得
      *
      * @param string $cateogryId
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return string|null
      */
     public function GetIdFromCategoryId(string $cateogryId, bool $public = false) : ?string
@@ -585,7 +585,7 @@ class Base_lib
      * 順番からIDを取得
      *
      * @param string $sort_id
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return string|null
      */
     public function GetIdFromSortId(string $sort_id, bool $public = false) : ?string
@@ -598,7 +598,7 @@ class Base_lib
      * IDの登録有無
      *
      * @param string $id
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return boolean
      */
     public function IdExists(string $id, bool $public = false) : bool
@@ -611,7 +611,7 @@ class Base_lib
      * 名前の登録有無
      *
      * @param string $name
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return boolean
      */
     public function NameExists($name, $public = false) : bool
@@ -624,7 +624,7 @@ class Base_lib
      * ユーザーIDの登録有無
      *
      * @param string $userId
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return boolean
      */
     public function UserIdExists($userId, $public = false) : bool
@@ -637,7 +637,7 @@ class Base_lib
      * カテゴリーIDの登録有無
      *
      * @param string $categoryId
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return boolean
      */
     public function CategoryIdExists($categoryId, $public = false) : bool
@@ -650,7 +650,7 @@ class Base_lib
      * 内容の登録有無
      *
      * @param string $contents
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return boolean
      */
     public function ContentsExists($contents, $public = false) : bool
@@ -663,7 +663,7 @@ class Base_lib
      * 順番の登録有無
      *
      * @param string $sort_id
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return boolean
      */
     public function SortIdExists($sort_id, $public = false) : bool
@@ -677,7 +677,7 @@ class Base_lib
      *
      * @param string $name：対象名前
      * @param string $id：除外ID
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return boolean
      */
     public function NameSameExists($contents, $id = '', $public = false) : bool
@@ -691,7 +691,7 @@ class Base_lib
      *
      * @param string $contents：対象内容
      * @param string $id：除外ID
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return boolean
      */
     public function ContentsSameExists($contents, $id = '', $public = false) : bool
@@ -705,7 +705,7 @@ class Base_lib
      *
      * @param string $sort_id：対象順番
      * @param string $id：除外ID
-     * @param boolean $public
+     * @param boolean $public：ステータスフラグ
      * @return boolean
      */
     public function SortIdSameExists($sort_id, $id = '', $public = false) : bool
@@ -717,13 +717,14 @@ class Base_lib
     /**
      * IDを生成
      *
-     * @param boolean $public
+     * @param string $strNum：文字数
+     * @param boolean $public：ステータスフラグ
      * @return boolean
      */
-    public function CreateId($public = false)
+    public function CreateId($strNum, $public = false)
     {
         // 未登録のランダム文字列を生成
-        return $this->CI->db_lib->CreateStr($this->GetDbTable(), self::ID_STR_NUM, $public);
+        return $this->CI->db_lib->CreateStr($this->GetDbTable(), $strNum, $public);
     }
 
 
@@ -748,7 +749,13 @@ class Base_lib
                 $returnVal = $this->CI->db_lib->Update($this->GetDbTable(), $registData, $id);
             } else {
                 // IDが未セットの場合、IDを生成
-                if (! isset($registData['id']) || $registData['id'] == '') {
+                if (
+                    (
+                        ! isset($registData['id']) ||
+                        $registData['id'] == ''
+                    ) &&
+                    ! $this->CI->db_lib->CheckAutoIncrement($this->GetDbTable())
+                ) {
                     $registData['id'] = $this->CreateId();
                 }
                 // 新規作成
@@ -783,43 +790,37 @@ class Base_lib
 
 
     /**
-     * 表示ステータス一覧を配列形式で取得
+     * DBソート更新処理
      *
-     * @return array
+     * @param string $id：対象ID
+     * @return void
      */
-    public function GetStatusList() : array
-    {
-        $returnVal[self::ID_STATUS_ENABLE] = self::NAME_STATUS_ENABLE;
-        $returnVal[self::ID_STATUS_DISABLE] = self::NAME_STATUS_DISABLE;
+    public function UpdateSort(
+        string $id,
+        string $targetSort,
+        string $column = 'sort_id'
+    ) : void {
+        // 現在のソートを取得
+        $sortNow = $this->db_lib->GetValue($this->GetDbTable(), $column, $id);
 
-        return $returnVal;
-    }
+        // トランザクション開始
+        $this->CI->db->trans_start();
+        // WHERE情報をセット
+        $this->CI->db->where($column . ' ' . ($targetSort > $sortNow ? '<' : '>'), $targetSort);
+        $this->CI->db->where($column . ' ' . ($targetSort > $sortNow ? '>' : '<'), $sortNow);
+        // 更新
+        $formValues[$column] = $column . ($targetSort > $sortNow ? '-' : '+') . 1;
+        // 更新処理
+        $returnVal = $this->CI->db->update($this->GetDbTable(), $formValues);
 
+        // WHERE情報をセット
+        $this->CI->db->where('id', $id);
+        // 更新
+        $formValues[$column] = $targetSort;
+        // 更新処理
+        $returnVal = $this->CI->db->update($this->GetDbTable(), $formValues);
 
-    /**
-     * 表示ステータス名を取得
-     *
-     * @param string $id
-     * @return string
-     */
-    public function GetStatusName($id) : string
-    {
-        // 一覧リストを取得
-        $list = $this->GetStatusList();
-        return (isset($list[ $id ]) ? $list[ $id ] : '');
-    }
-
-
-    /**
-     * 表示ステータスの存在確認結果を取得
-     *
-     * @param string $id
-     * @return bool
-     */
-    public function GetStatusExists($id) : bool
-    {
-        // 一覧リストを取得
-        $list = $this->GetStatusList();
-        return (isset($list[ $id ]) ? true : false);
+        // トランザクション終了
+        $this->CI->db->trans_complete();
     }
 }

@@ -130,7 +130,7 @@ class Index_model extends CI_Model
             ),
             array(
                 'field'   => 'password',
-                'label'   => 'password',
+                'label'   => 'パスワード',
                 'rules'   => 'required|ValidLoginAdmin[' . $this->input->post_get('account', true) . ']'
             ),
         );

@@ -1,12 +1,12 @@
-\<\?php
+<?php
 /**
- * <?= $comment ?>画面用モデル
+ * ログイン画面用モデル
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     <?= date('Y/m/d') ?>：新規作成
+ * @since 1.0.0     2021/06/04：新規作成
  */
-class <?= ucfirst($targetName) ?>_model extends CI_Model
+class Admin_model extends CI_Model
 {
     const DEFAULT_LIST_COUNT = 200;
     const FIRST_MSG = '検索項目を選択してください。';
@@ -32,7 +32,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
             redirect(Base_lib::ADMIN_DIR ."/index/error");
         }
         // ライブラリー読込み
-        $this->load->library(Base_lib::MASTER_DIR . '/<?= $targetName ?>_lib');
+        $this->load->library(Base_lib::MASTER_DIR . '/admin_lib');
     }
 
 
@@ -45,7 +45,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
     public function sharedTemplate(array $templateVal = array()) : ?array
     {
         // 変数を再セット
-        $returnVal = $templateVal;
+        $returnVal = ($returnVal != "" ? $returnVal : array());
         // クラス定数をセット
         $returnVal['const'] = $this->base_lib->GetBaseConstList();
         Base_lib::ConsoleLog($returnVal);
@@ -83,7 +83,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         // 一覧数の取得
         $returnVal['count'] = $this->GetListCount($whereSql);
         // ORDER情報をセット
-        $orderSql[0]['key'] = <?= $targetName ?>_lib::MASTER_TABLE . ' . sort_id';
+        $orderSql[0]['key'] = admin_lib::MASTER_TABLE . ' . sort_id';
         $orderSql[0]['arrow'] = 'DESC';
         // 一覧情報を取得
         $returnVal['list'] = $this->GetList($whereSql, $orderSql, null, true);
@@ -107,23 +107,23 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         // FORM情報
         $id = $this->input->post_get('id', true);
         $action = $this->input->post_get('action', true);
-        // <?= $comment ?>情報が存在有無情報をセット
-        $exists =  $this-><?= $targetName ?>_lib->IdExists($id);
+        // ログイン情報が存在有無情報をセット
+        $exists =  $this->admin_lib->IdExists($id);
         $returnVal['exists'] = $exists;
         // 選択情報をセット
-        $returnVal['select']['status'] = $this-><?= $targetName ?>_lib->GetStatusList();
+        $returnVal['select']['status'] = $this->admin_lib->GetStatusList();
         if ($action == '') {
-            // <?= $comment ?>ID存在しない
+            // ログインID存在しない
             if (!$exists) {
                 // FORM情報をセット
                 foreach ($this->FormInputList() as $key) {
                     $returnVal['form'][$key] = $this->input->post_get($key, true);
                 }
             }
-            // <?= $comment ?>IDが存在
+            // ログインIDが存在
             else {
-                // <?= $comment ?>詳細情報を取得
-                $returnVal['form'] = $this-><?= $targetName ?>_lib->GetDetailValues($id);
+                // ログイン詳細情報を取得
+                $returnVal['form'] = $this->admin_lib->GetDetailValues($id);
             }
         }
         // 遷移アクション時
@@ -135,7 +135,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
             // バリデーションOK時
             if ($validFlg) {
                 // 各選択情報の表示名をセット
-                $returnVal['form']['status_name'] = $this-><?= $targetName ?>_lib->GetStatusName($returnVal['form']['status']);
+                $returnVal['form']['status_name'] = $this->admin_lib->GetStatusName($returnVal['form']['status']);
             }
         }
 
@@ -153,8 +153,8 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
     {
         // 返値を初期化
         $returnVal = array();
-        // <?= $comment ?>情報が存在有無情報をセット
-        $exists =  $this-><?= $targetName ?>_lib->IdExists($id);
+        // ログイン情報が存在有無情報をセット
+        $exists =  $this->admin_lib->IdExists($id);
         $returnVal['exists'] = $exists;
 
         return $this->sharedTemplate($returnVal);
@@ -187,7 +187,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
                 $form[$key] = $this->input->post_get($key, true);
             }
             // 登録処理（IDを返す）
-            $returnVal = $this-><?= $targetName ?>_lib->Regist($form, $id);
+            $returnVal = $this->admin_lib->Regist($form, $id);
         }
 
         return $returnVal;
@@ -206,7 +206,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         // FORM情報をセット
         $id = $this->input->post_get('id', true);
         // 削除処理
-        $returnVal = $this-><?= $targetName ?>_lib->Delete($id);
+        $returnVal = $this->admin_lib->Delete($id);
         // 関連受注情報削除
 
         return $returnVal;
@@ -227,38 +227,40 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         $arrow = $this->input->post_get('arrow', true);
         $action = $this->input->post_get('action', true);
         // 対象並び順を取得
-        $sortId = $this->db_lib->GetValue(<?= $targetName ?>_lib::MASTER_TABLE, 'sort_id', $id);
+        $sortId = $this->db_lib->GetValue(admin_lib::MASTER_TABLE, 'sort_id', $id);
         // 並び順最大
-        $sortMax = $this->db_lib->GetValueMax(<?= $targetName ?>_lib::MASTER_TABLE);
+        $sortMax = $this->db_lib->GetValueMax(admin_lib::MASTER_TABLE);
         if (
             $arrow == self::SORT_ARROW_UP_STR &&
             $sortId < $sortMax
         ) {
             // ソートから対象IDを取得
-            $targetId = $this-><?= $targetName ?>_lib->GetSortIdForId(($sortId + 1));
+            $targetId = $this->admin_lib->GetSortIdForId(($sortId + 1));
             if ($targetId) {
                 // 登録処理
                 $form['sort_id'] = ($sortId + 1);
-                $this-><?= $targetName ?>_lib->Regist($form, $id);
+                $this->admin_lib->Regist($form, $id);
                 // 登録処理
                 $form['sort_id'] = $sortId;
-                $this-><?= $targetName ?>_lib->Regist($form, $targetId);
+                $this->admin_lib->Regist($form, $targetId);
             }
         } elseif (
             $arrow == self::SORT_ARROW_DOWN_STR &&
             $sortId > 1
         ) {
             // ソートから対象IDを取得
-            $targetId = $this-><?= $targetName ?>_lib->GetSortIdForId(($sortId - 1));
+            $targetId = $this->admin_lib->GetSortIdForId(($sortId - 1));
             if ($targetId) {
                 // 登録処理
                 $form['sort_id'] = ($sortId - 1);
-                $this-><?= $targetName ?>_lib->Regist($form, $id);
+                $this->admin_lib->Regist($form, $id);
                 // 登録処理
                 $form['sort_id'] = $sortId;
-                $this-><?= $targetName ?>_lib->Regist($form, $targetId);
+                $this->admin_lib->Regist($form, $targetId);
             }
         }
+
+        return $returnVal;
     }
 
 
@@ -270,7 +272,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
      */
     public function GetListCount(?array $whereSql = array()) : ?string
     {
-        return $this->db_lib->GetCount(<?= $targetName ?>_lib::MASTER_TABLE, $whereSql);
+        return $this->db_lib->GetCount(admin_lib::MASTER_TABLE, $whereSql);
     }
 
 
@@ -297,7 +299,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         // ORDER情報を再セット
         if (! is_array($orderSql)) {
             $orderSql = array();
-            $orderSql[0]['key'] = <?= $targetName ?>_lib::MASTER_TABLE . ' . regist_date';
+            $orderSql[0]['key'] = admin_lib::MASTER_TABLE . ' . regist_date';
             $orderSql[0]['arrow'] = 'DESC';
         }
         // ORDER文を生成
@@ -311,22 +313,22 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         }
         $query = $this->db->query("
             SELECT
-<?php for ($i = 0, $n = count($table); $i < $n; $i ++) { ?>
-                " . <?= $targetName ?>_lib::MASTER_TABLE . " . <?= $table[$i]['name'] ?>,
-<?php if ($table[$i]['name'] == 'status') { ?>
-                CASE " . <?= $targetName ?>_lib::MASTER_TABLE . " . status
-                    WHEN " . <?= $targetName ?>_lib::ID_STATUS_ENABLE . " THEN '" . <?= $targetName ?>_lib::NAME_STATUS_ENABLE . "'
-                    ELSE '" . <?= $targetName ?>_lib::NAME_STATUS_DISABLE . "'
+                " . admin_lib::MASTER_TABLE . " . id,
+                " . admin_lib::MASTER_TABLE . " . account,
+                " . admin_lib::MASTER_TABLE . " . password,
+                " . admin_lib::MASTER_TABLE . " . company_id,
+                " . admin_lib::MASTER_TABLE . " . authority,
+                " . admin_lib::MASTER_TABLE . " . name,
+                " . admin_lib::MASTER_TABLE . " . status,
+                CASE " . admin_lib::MASTER_TABLE . " . status
+                    WHEN " . admin_lib::ID_STATUS_ENABLE . " THEN " . admin_lib::NAME_STATUS_ENABLE . "
+                    ELSE " . admin_lib::NAME_STATUS_DISABLE . "
                 END status_name,
-<?php } ?>
-<?php if ($table[$i]['name'] == 'regist_date') { ?>
-                DATE_FORMAT(" . <?= $targetName ?>_lib::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
-<?php } ?>
-<?php if ($table[$i]['name'] == 'edit_date') { ?>
-                DATE_FORMAT(" . <?= $targetName ?>_lib::MASTER_TABLE . ".edit_date, '%Y.%c.%e') AS edit_date_disp
-<?php } ?>
-<?php } ?>
-            FROM " . <?= $targetName ?>_lib::MASTER_TABLE . "
+                " . admin_lib::MASTER_TABLE . " . regist_date,
+                DATE_FORMAT(" . admin_lib::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
+                " . admin_lib::MASTER_TABLE . " . edit_date,
+                DATE_FORMAT(" . admin_lib::MASTER_TABLE . ".edit_date, '%Y.%c.%e') AS edit_date_disp
+            FROM " . admin_lib::MASTER_TABLE . "
             " . (isset($whereSql) && count($whereSql) > 0 ? (" WHERE ( " . @implode(" AND ", $whereSql)) . " ) " : "") . "
             " . $orderSqlVal . "
             " . (isset($limitSqlVal) ? $limitSqlVal : '') . ";
@@ -363,9 +365,15 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
     public function FormInputList()
     {
         $returnVal = array(
-<?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
-            '<?= $tableSel[$i]['name'] ?>',
-<?php } ?>
+            'id',
+            'account',
+            'password',
+            'company_id',
+            'authority',
+            'name',
+            'status',
+            'regist_date',
+            'edit_date',
         );
 
         return $returnVal;
@@ -379,15 +387,60 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
      */
     public function ConfigInputValues() : array
     {
-<?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
-        // <?= $tableSel[$i]['comment'] ?>
-
+        // 
         $returnVal[] = array(
-            'field'   => '<?= $tableSel[$i]['name'] ?>',
-            'label'   => '<?= $tableSel[$i]['comment'] ?>',
+            'field'   => 'id',
+            'label'   => '',
             'rules'   => 'required'
         );
-<?php } ?>
+        // 
+        $returnVal[] = array(
+            'field'   => 'account',
+            'label'   => '',
+            'rules'   => 'required'
+        );
+        // 
+        $returnVal[] = array(
+            'field'   => 'password',
+            'label'   => '',
+            'rules'   => 'required'
+        );
+        // 
+        $returnVal[] = array(
+            'field'   => 'company_id',
+            'label'   => '',
+            'rules'   => 'required'
+        );
+        // 
+        $returnVal[] = array(
+            'field'   => 'authority',
+            'label'   => '',
+            'rules'   => 'required'
+        );
+        // 
+        $returnVal[] = array(
+            'field'   => 'name',
+            'label'   => '',
+            'rules'   => 'required'
+        );
+        // 
+        $returnVal[] = array(
+            'field'   => 'status',
+            'label'   => '',
+            'rules'   => 'required'
+        );
+        // 
+        $returnVal[] = array(
+            'field'   => 'regist_date',
+            'label'   => '',
+            'rules'   => 'required'
+        );
+        // 
+        $returnVal[] = array(
+            'field'   => 'edit_date',
+            'label'   => '',
+            'rules'   => 'required'
+        );
 
         return $returnVal;
     }

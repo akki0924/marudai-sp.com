@@ -92,6 +92,7 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
 
 <?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
 <?php if (!method_exists('Base_lib', 'Get' . ucfirst($tableSel[$i]['name_camel']) . 'List')) { ?>
+<?php if ($tableSel[$i]['name'] != 'status') { ?>
     /**
      * <?= $tableSel[$i]['comment'] ?>一覧を取得
      *
@@ -104,6 +105,7 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
     }
 
 
+<?php } ?>
 <?php } ?>
 <?php } ?>
 <?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
@@ -128,6 +130,7 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
 <?php } ?>
 <?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
 <?php if (!method_exists('Base_lib', 'GetIdFrom' . ucfirst($tableSel[$i]['name_camel']))) { ?>
+<?php if ($tableSel[$i]['name'] != 'status') { ?>
     /**
      * <?= $tableSel[$i]['comment'] ?>からIDを取得
      *
@@ -147,8 +150,10 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
 
 <?php } ?>
 <?php } ?>
+<?php } ?>
 <?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
 <?php if (!method_exists('Base_lib', ucfirst($tableSel[$i]['name_camel']) . 'Exists')) { ?>
+<?php if ($tableSel[$i]['name'] != 'status') { ?>
     /**
      * <?= $tableSel[$i]['comment'] ?>の登録有無
      *
@@ -168,8 +173,10 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
 
 <?php } ?>
 <?php } ?>
+<?php } ?>
 <?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
 <?php if (!method_exists('Base_lib', ucfirst($tableSel[$i]['name_camel']) . 'SameExists')) { ?>
+<?php if ($tableSel[$i]['name'] != 'status') { ?>
     /**
      * <?= $tableSel[$i]['comment'] ?>が対象ID以外に同じ値が存在するかどうか
      *
@@ -191,4 +198,54 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
 
 <?php } ?>
 <?php } ?>
+<?php } ?>
+<?php for ($i = 0, $n = count($table); $i < $n; $i ++) { ?>
+<?php if ($table[$i]['name'] == 'status') { ?>
+    /**
+     * 表示ステータス一覧を配列形式で取得
+     *
+     * @return array
+     */
+    public function GetStatusList() : array
+    {
+        $returnVal[self::ID_STATUS_ENABLE] = self::NAME_STATUS_ENABLE;
+        $returnVal[self::ID_STATUS_DISABLE] = self::NAME_STATUS_DISABLE;
+
+        return $returnVal;
+    }
+
+
+    /**
+     * 表示ステータス名を取得
+     *
+     * @param string $id
+     * @return string
+     */
+    public function GetStatusName($id) : string
+    {
+        // 一覧リストを取得
+        $list = $this->GetStatusList();
+        return (isset($list[ $id ]) ? $list[ $id ] : '');
+    }
+
+
+    /**
+     * 表示ステータスの存在確認結果を取得
+     *
+     * @param string $id
+     * @return bool
+     */
+    public function GetStatusExists($id) : bool
+    {
+        // 一覧リストを取得
+        $list = $this->GetStatusList();
+        return (isset($list[ $id ]) ? true : false);
+    }
+
+
+<?php break; ?>
+<?php } ?>
+<?php } ?>
+
+
 }
