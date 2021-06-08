@@ -23,7 +23,7 @@
 <div class="container">
 
 <center>
-<a href="<?=site_dir();?>admin" class="btn btn-warning btn-lg w250">TOPへ</a>
+<a href="<?=site_dir();?>\<\?= $const['access_admin_dir'] \?\>" class="btn btn-warning btn-lg w250">TOPへ</a>
 </center>
 
 

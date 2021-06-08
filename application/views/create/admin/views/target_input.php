@@ -27,7 +27,7 @@ $(function(){
 	<div class="container">
 		<div class="row align_center">
 			<p class="font_20">\<\?= $const['site_title_name'] \?\></p>
-			<div class="pc"><a href="\<\?= SiteDir(); \?\>admin/index/logout" class="btn frame short">ログアウト</a></div>
+			<div class="pc"><a href="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/index/logout" class="btn frame short">ログアウト</a></div>
 		</div><!--/.row-->
 	</div><!--/.container-->
 
@@ -41,9 +41,9 @@ $(function(){
 	<nav class="globalMenuSp sp">
 		<ul>
 <?php for ($i = 0, $n = count($tableList); $i < $n; $i ++) { ?>
-			<li><a href="\<\?= SiteDir(); \?\>admin/<?= $tableList[$i]['targetName'] ?>"><?= $tableList[$i]['comment'] ?>管理</a></li>
+			<li><a href="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $tableList[$i]['targetName'] ?>"><?= $tableList[$i]['comment'] ?>管理</a></li>
 <?php } ?>
-			<li><a href="\<\?= SiteDir(); \?\>admin/index/logout">ログアウト</a></li>
+			<li><a href="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/index/logout">ログアウト</a></li>
 		</ul>
 	</nav>
 	<!-- /sp menu ---------------------------->
@@ -60,7 +60,7 @@ $(function(){
 		<div class="container">
 			<div class="row">
 <?php for ($i = 0, $n = count($tableList); $i < $n; $i ++) { ?>
-				<div class="col<?= $n ?>"><a href="\<\?= SiteDir(); \?\>admin/<?= $tableList[$i]['targetName'] ?>" class="btn mng<?= ($tableList[$i]['name'] == $tableName ? ' frame' : '') ?>"><?= $tableList[$i]['comment'] ?>管理</a></div>
+				<div class="col<?= $n ?>"><a href="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $tableList[$i]['targetName'] ?>" class="btn mng<?= ($tableList[$i]['name'] == $tableName ? ' frame' : '') ?>"><?= $tableList[$i]['comment'] ?>管理</a></div>
 <?php } ?>
 			</div>
 		</div><!--./container-->
@@ -71,7 +71,7 @@ $(function(){
 			<h2 class="mb_20">\<\?= $exists ? '<?= $comment ?>情報編集' : '新規<?= $comment ?>登録' \?\></h2>
 			<div class="max680">
 				<div class="bg_gray pd60 mb_40">
-					<form method="post" id="operation_form" name="operation_form" action="\<\?= SiteDir(); \?\>admin/<?= $targetName ?>/input" class="h-adr">
+					<form method="post" id="operation_form" name="operation_form" action="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $targetName ?>/input" class="h-adr">
 						<table class="form mb_40">
 							<tbody>
 <?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
@@ -101,7 +101,7 @@ $(function(){
 						</table>
 
 						<a class="btn mb_20 conf_btn">確認</a>
-						<a href="\<\?= SiteDir(); \?\>admin/<?= $targetName ?>" class="btn frame">キャンセル</a>
+						<a href="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $targetName ?>" class="btn frame">キャンセル</a>
 						<input type="hidden" name="id" value="\<\?= (isset($form['id']) ? $form['id'] : '') \?\>">
 						<input type="hidden" name="action" id="action">
 					</form>

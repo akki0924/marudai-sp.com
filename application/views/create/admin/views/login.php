@@ -36,7 +36,7 @@ $(function() {
 		<div class="bg_gray pd60">
 			<div class="container">
 				<div class="max680">
-					<form id="operation_form" name="operation_form" action="\<\?= SiteDir(); \?\>admin" method="post" class="white_boad mb_40">
+					<form id="operation_form" name="operation_form" action="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>" method="post" class="white_boad mb_40">
 						<div class="max480">
 							<table class="mb_20">
 								<tbody>

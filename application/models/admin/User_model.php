@@ -4,7 +4,7 @@
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/03：新規作成
+ * @since 1.0.0     2021/06/07：新規作成
  */
 class User_model extends CI_Model
 {
@@ -12,8 +12,8 @@ class User_model extends CI_Model
     const FIRST_MSG = '検索項目を選択してください。';
     const NO_LIST_MSG = '一覧リストが見つかりません。';
     // 並び順用文字列
-    const SORT_ARROW_UP_STR = 'up';
-    const SORT_ARROW_DOWN_STR = 'down';
+    const SORT_COLUMN = 'sort_id';
+    const SORT_ARROW = 'desc';
     // ログイン対象
     const LOGIN_KEY = Base_lib::ADMIN_DIR;
 
@@ -29,7 +29,7 @@ class User_model extends CI_Model
         // ログイン情報の確認
         if (! $this->login_lib->LoginCheck()) {
             // エラーページへ遷移
-            redirect(Base_lib::ADMIN_DIR ."/index/error");
+            redirect(Base_lib::ACCESS_ADMIN_DIR ."/index/error");
         }
         // ライブラリー読込み
         $this->load->library(Base_lib::MASTER_DIR . '/user_lib');
@@ -45,7 +45,7 @@ class User_model extends CI_Model
     public function sharedTemplate(array $templateVal = array()) : ?array
     {
         // 変数を再セット
-        $returnVal = ($returnVal != "" ? $returnVal : array());
+        $returnVal = $templateVal;
         // クラス定数をセット
         $returnVal['const'] = $this->base_lib->GetBaseConstList();
         Base_lib::ConsoleLog($returnVal);
@@ -224,43 +224,15 @@ class User_model extends CI_Model
         ini_set('max_execution_time', '90');
         // FORM情報
         $id = $this->input->post_get('id', true);
-        $arrow = $this->input->post_get('arrow', true);
-        $action = $this->input->post_get('action', true);
-        // 対象並び順を取得
-        $sortId = $this->db_lib->GetValue(user_lib::MASTER_TABLE, 'sort_id', $id);
-        // 並び順最大
-        $sortMax = $this->db_lib->GetValueMax(user_lib::MASTER_TABLE);
-        if (
-            $arrow == self::SORT_ARROW_UP_STR &&
-            $sortId < $sortMax
-        ) {
-            // ソートから対象IDを取得
-            $targetId = $this->user_lib->GetSortIdForId(($sortId + 1));
-            if ($targetId) {
-                // 登録処理
-                $form['sort_id'] = ($sortId + 1);
-                $this->user_lib->Regist($form, $id);
-                // 登録処理
-                $form['sort_id'] = $sortId;
-                $this->user_lib->Regist($form, $targetId);
-            }
-        } elseif (
-            $arrow == self::SORT_ARROW_DOWN_STR &&
-            $sortId > 1
-        ) {
-            // ソートから対象IDを取得
-            $targetId = $this->user_lib->GetSortIdForId(($sortId - 1));
-            if ($targetId) {
-                // 登録処理
-                $form['sort_id'] = ($sortId - 1);
-                $this->user_lib->Regist($form, $id);
-                // 登録処理
-                $form['sort_id'] = $sortId;
-                $this->user_lib->Regist($form, $targetId);
-            }
+        $sortId = $this->input->post_get('sort_id', true);
+        // ソート順が降順
+        if (strtoupper(self::SORT_ARROW) == 'DESC') {
+            // 並び順最大
+            $sortMax = $this->db_lib->GetValueMax(user_lib::MASTER_TABLE);
+            $sortId = ($sortMax - $sortId) + 1;
         }
-
-        return $returnVal;
+        // ソート処理実行
+        $this->user_lib->UpdateSort($id, $sortId);
     }
 
 
@@ -355,6 +327,10 @@ class User_model extends CI_Model
                 " . user_lib::MASTER_TABLE . " . sheet2_2,
                 " . user_lib::MASTER_TABLE . " . sheet2_3,
                 " . user_lib::MASTER_TABLE . " . status,
+                CASE " . user_lib::MASTER_TABLE . " . status
+                    WHEN " . user_lib::ID_STATUS_ENABLE . " THEN '" . user_lib::NAME_STATUS_ENABLE . "'
+                    ELSE '" . user_lib::NAME_STATUS_DISABLE . "'
+                END status_name,
                 " . user_lib::MASTER_TABLE . " . regist_date,
                 DATE_FORMAT(" . user_lib::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
                 " . user_lib::MASTER_TABLE . " . edit_date,

@@ -92,7 +92,7 @@ class Sheet2 extends MY_Controller
                 // 登録処理
                 $this->sheet2_model->RegistAction($validFlg);
                 // テンプレート読み込み
-                redirect(Base_lib::ADMIN_DIR . '/sheet2/comp' . ($id ? '/' . $id : ''));
+                redirect(Base_lib::ACCESS_ADMIN_DIR . '/sheet2/comp' . ($id ? '/' . $id : ''));
             } else {
                 $templateVal = $this->sheet2_model->InputTemplate($validFlg);
                 // 入力テンプレート読み込み
@@ -131,7 +131,7 @@ class Sheet2 extends MY_Controller
         // 削除処理
         $this->sheet2_model->DelAction();
         // 一覧ページへ遷移
-        redirect(Base_lib::ADMIN_DIR . '/sheet2/');
+        redirect(Base_lib::ACCESS_ADMIN_DIR . '/sheet2/');
     }
 
 

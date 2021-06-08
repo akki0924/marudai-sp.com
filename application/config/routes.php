@@ -53,9 +53,12 @@ $route['default_controller'] = 'index';
 $route['404_override'] = 'error/error_404';
 $route['translate_uri_dashes'] = false;
 
-// サイト管理
+// 管理画面
 $route['adminc'] = "admin/index";
 $route['adminc/(:any)'] = "admin/$1";
+$route['adminc/(:any)/(:any)'] = "admin/$1/$2";
+$route['adminc/(:any)/(:any)/(:any)'] = "admin/$1/$2/$3";
+$route['adminc/(:any)/(:any)/(:any)/(:any)'] = "admin/$1/$2/$3/$4";
 // オーナー
 $route['owner'] = "owner/index";
 $route['owner/(:any)'] = "owner/$1";

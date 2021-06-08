@@ -27,7 +27,7 @@ $(function(){
 	<div class="container">
 		<div class="row align_center">
 			<p class="font_20"><?= $const['site_title_name'] ?></p>
-			<div class="pc"><a href="<?= SiteDir(); ?>admin/index/logout" class="btn frame short">ログアウト</a></div>
+			<div class="pc"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/index/logout" class="btn frame short">ログアウト</a></div>
 		</div><!--/.row-->
 	</div><!--/.container-->
 
@@ -40,10 +40,11 @@ $(function(){
 
 	<nav class="globalMenuSp sp">
 		<ul>
-			<li><a href="<?= SiteDir(); ?>admin/admin">ログイン管理</a></li>
-			<li><a href="<?= SiteDir(); ?>admin/sheet1">チェックシート1管理</a></li>
-			<li><a href="<?= SiteDir(); ?>admin/sheet2">チェックシート2管理</a></li>
-			<li><a href="<?= SiteDir(); ?>admin/index/logout">ログアウト</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/admin">ログイン管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1">チェックシート1管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2">チェックシート2管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/user">登録者管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/index/logout">ログアウト</a></li>
 		</ul>
 	</nav>
 	<!-- /sp menu ---------------------------->
@@ -59,9 +60,10 @@ $(function(){
 	<section id="management">
 		<div class="container">
 			<div class="row">
-				<div class="col3"><a href="<?= SiteDir(); ?>admin/admin" class="btn mng">ログイン管理</a></div>
-				<div class="col3"><a href="<?= SiteDir(); ?>admin/sheet1" class="btn mng frame">チェックシート1管理</a></div>
-				<div class="col3"><a href="<?= SiteDir(); ?>admin/sheet2" class="btn mng">チェックシート2管理</a></div>
+				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/admin" class="btn mng">ログイン管理</a></div>
+				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1" class="btn mng frame">チェックシート1管理</a></div>
+				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2" class="btn mng">チェックシート2管理</a></div>
+				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/user" class="btn mng">登録者管理</a></div>
 			</div>
 		</div><!--./container-->
 	</section>
@@ -71,7 +73,7 @@ $(function(){
 			<h2 class="mb_20"><?= $exists ? 'チェックシート1情報編集' : '新規チェックシート1登録' ?></h2>
 			<div class="max680">
 				<div class="bg_gray pd60 mb_40">
-					<form method="post" id="operation_form" name="operation_form" action="<?= SiteDir(); ?>admin/sheet1/input" class="h-adr">
+					<form method="post" id="operation_form" name="operation_form" action="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1/input" class="h-adr">
 						<table class="form mb_40">
 							<tbody>
 								<tr>
@@ -116,7 +118,7 @@ $(function(){
 						</table>
 
 						<a class="btn mb_20 conf_btn">確認</a>
-						<a href="<?= SiteDir(); ?>admin/sheet1" class="btn frame">キャンセル</a>
+						<a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1" class="btn frame">キャンセル</a>
 						<input type="hidden" name="id" value="<?= (isset($form['id']) ? $form['id'] : '') ?>">
 						<input type="hidden" name="action" id="action">
 					</form>

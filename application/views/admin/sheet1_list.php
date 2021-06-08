@@ -18,7 +18,7 @@
 $(function() {
 	$('.edit_btn').click(function() {
 		$('#id').val( $(this).data('id') );
-		$('#operation_form').attr( 'action', '<?= SiteDir(); ?>admin/sheet1/input' );
+		$('#operation_form').attr( 'action', '<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1/input' );
 		$('#operation_form').submit();
 	});
 	$('#list_area').sortable({
@@ -41,7 +41,7 @@ $(function() {
 				sortRow != ui.item[0]['sectionRowIndex']
 			) {
 				sortRow = ui.item[0]['sectionRowIndex'];
-				var ajaxUrl = 'admin/sheet1/sort';
+				var ajaxUrl = '<?= $const['access_admin_dir'] ?>/sheet1/sort';
 				var dataList = {
 					'id':sortId,
 					'sort_id':sortRow
@@ -66,7 +66,7 @@ $(function() {
 	<div class="container">
 		<div class="row align_center">
 			<div class="logo"><?= $const['site_title_name'] ?></div>
-			<div class="member"><a href="<?= SiteDir(); ?>admin/index/logout" class="btn frame shortest">ログアウト</a></div>
+			<div class="member"><a href="<?= SiteDir(); ?><?= $const['admin_dir'] ?>/index/logout" class="btn frame shortest">ログアウト</a></div>
 		</div>
 	</div><!--/.container-->
 
@@ -79,10 +79,11 @@ $(function() {
 
 	<nav class="globalMenuSp sp">
 		<ul>
-			<li><a href="<?= SiteDir(); ?>admin/admin">ログイン管理</a></li>
-			<li><a href="<?= SiteDir(); ?>admin/sheet1">チェックシート1管理</a></li>
-			<li><a href="<?= SiteDir(); ?>admin/sheet2">チェックシート2管理</a></li>
-			<li><a href="<?= SiteDir(); ?>admin/index/logout">ログアウト</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/admin">ログイン管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1">チェックシート1管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2">チェックシート2管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/user">登録者管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/index/logout">ログアウト</a></li>
 		</ul>
 	</nav>
 	<!-- /sp menu ---------------------------->
@@ -94,14 +95,15 @@ $(function() {
 	<section id="management">
 		<div class="container">
 			<div class="row mb_80">
-				<div class="col3"><a href="<?= SiteDir(); ?>admin/admin" class="btn mng">ログイン管理</a></div>
-				<div class="col3"><a href="<?= SiteDir(); ?>admin/sheet1" class="btn mng frame">チェックシート1管理</a></div>
-				<div class="col3"><a href="<?= SiteDir(); ?>admin/sheet2" class="btn mng">チェックシート2管理</a></div>
+				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/admin" class="btn mng">ログイン管理</a></div>
+				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1" class="btn mng frame">チェックシート1管理</a></div>
+				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2" class="btn mng">チェックシート2管理</a></div>
+				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/user" class="btn mng">登録者管理</a></div>
 			</div>
 		</div><!--/.container-->
 
 		<div class="container">
-		<form method="post" id="operation_form" name="operation_form" action="<?= SiteDir(); ?>admin/sheet1">
+		<form method="post" id="operation_form" name="operation_form" action="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1">
 			<h2 class="mb_40">チェックシート1管理</h2>
 			<div class="scroll">
 				<table class="management">

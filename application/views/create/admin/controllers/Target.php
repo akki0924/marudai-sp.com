@@ -92,7 +92,7 @@ class <?= ucfirst($targetName) ?> extends MY_Controller
                 // 登録処理
                 $this-><?= $targetName  ?>_model->RegistAction($validFlg);
                 // テンプレート読み込み
-                redirect(Base_lib::ADMIN_DIR . '/<?= $targetName  ?>/comp' . ($id ? '/' . $id : ''));
+                redirect(Base_lib::ACCESS_ADMIN_DIR . '/<?= $targetName  ?>/comp' . ($id ? '/' . $id : ''));
             } else {
                 $templateVal = $this-><?= $targetName  ?>_model->InputTemplate($validFlg);
                 // 入力テンプレート読み込み
@@ -131,7 +131,7 @@ class <?= ucfirst($targetName) ?> extends MY_Controller
         // 削除処理
         $this-><?= $targetName  ?>_model->DelAction();
         // 一覧ページへ遷移
-        redirect(Base_lib::ADMIN_DIR . '/<?= $targetName  ?>/');
+        redirect(Base_lib::ACCESS_ADMIN_DIR . '/<?= $targetName  ?>/');
     }
 
 

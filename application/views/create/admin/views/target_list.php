@@ -18,7 +18,7 @@
 $(function() {
 	$('.edit_btn').click(function() {
 		$('#id').val( $(this).data('id') );
-		$('#operation_form').attr( 'action', '\<\?= SiteDir(); \?\>admin/<?= $targetName ?>/input' );
+		$('#operation_form').attr( 'action', '\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $targetName ?>/input' );
 		$('#operation_form').submit();
 	});
 	$('#list_area').sortable({
@@ -41,7 +41,7 @@ $(function() {
 				sortRow != ui.item[0]['sectionRowIndex']
 			) {
 				sortRow = ui.item[0]['sectionRowIndex'];
-				var ajaxUrl = 'admin/<?= $targetName ?>/sort';
+				var ajaxUrl = '\<\?= $const['access_admin_dir'] \?\>/<?= $targetName ?>/sort';
 				var dataList = {
 					'id':sortId,
 					'sort_id':sortRow
@@ -66,7 +66,7 @@ $(function() {
 	<div class="container">
 		<div class="row align_center">
 			<div class="logo">\<\?= $const['site_title_name'] \?\></div>
-			<div class="member"><a href="\<\?= SiteDir(); \?\>admin/index/logout" class="btn frame shortest">ログアウト</a></div>
+			<div class="member"><a href="\<\?= SiteDir(); \?\>\<\?= $const['admin_dir'] \?\>/index/logout" class="btn frame shortest">ログアウト</a></div>
 		</div>
 	</div><!--/.container-->
 
@@ -80,9 +80,9 @@ $(function() {
 	<nav class="globalMenuSp sp">
 		<ul>
 <?php for ($i = 0, $n = count($tableList); $i < $n; $i ++) { ?>
-			<li><a href="\<\?= SiteDir(); \?\>admin/<?= $tableList[$i]['targetName'] ?>"><?= $tableList[$i]['comment'] ?>管理</a></li>
+			<li><a href="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $tableList[$i]['targetName'] ?>"><?= $tableList[$i]['comment'] ?>管理</a></li>
 <?php } ?>
-			<li><a href="\<\?= SiteDir(); \?\>admin/index/logout">ログアウト</a></li>
+			<li><a href="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/index/logout">ログアウト</a></li>
 		</ul>
 	</nav>
 	<!-- /sp menu ---------------------------->
@@ -95,13 +95,13 @@ $(function() {
 		<div class="container">
 			<div class="row mb_80">
 <?php for ($i = 0, $n = count($tableList); $i < $n; $i ++) { ?>
-				<div class="col<?= $n ?>"><a href="\<\?= SiteDir(); \?\>admin/<?= $tableList[$i]['targetName'] ?>" class="btn mng<?= ($tableList[$i]['name'] == $tableName ? ' frame' : '') ?>"><?= $tableList[$i]['comment'] ?>管理</a></div>
+				<div class="col<?= $n ?>"><a href="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $tableList[$i]['targetName'] ?>" class="btn mng<?= ($tableList[$i]['name'] == $tableName ? ' frame' : '') ?>"><?= $tableList[$i]['comment'] ?>管理</a></div>
 <?php } ?>
 			</div>
 		</div><!--/.container-->
 
 		<div class="container">
-		<form method="post" id="operation_form" name="operation_form" action="\<\?= SiteDir(); \?\>admin/<?= $targetName ?>">
+		<form method="post" id="operation_form" name="operation_form" action="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $targetName ?>">
 			<h2 class="mb_40"><?= $comment ?>管理</h2>
 			<div class="scroll">
 				<table class="management">

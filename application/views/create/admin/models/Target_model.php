@@ -29,7 +29,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         // ログイン情報の確認
         if (! $this->login_lib->LoginCheck()) {
             // エラーページへ遷移
-            redirect(Base_lib::ADMIN_DIR ."/index/error");
+            redirect(Base_lib::ACCESS_ADMIN_DIR ."/index/error");
         }
         // ライブラリー読込み
         $this->load->library(Base_lib::MASTER_DIR . '/<?= $targetName ?>_lib');

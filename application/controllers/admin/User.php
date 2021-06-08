@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/03：新規作成
+ * @since 1.0.0     2021/06/07：新規作成
  */
 class User extends MY_Controller
 {
@@ -92,7 +92,7 @@ class User extends MY_Controller
                 // 登録処理
                 $this->user_model->RegistAction($validFlg);
                 // テンプレート読み込み
-                redirect(Base_lib::ADMIN_DIR . '/user/comp' . ($id ? '/' . $id : ''));
+                redirect(Base_lib::ACCESS_ADMIN_DIR . '/user/comp' . ($id ? '/' . $id : ''));
             } else {
                 $templateVal = $this->user_model->InputTemplate($validFlg);
                 // 入力テンプレート読み込み
@@ -131,6 +131,18 @@ class User extends MY_Controller
         // 削除処理
         $this->user_model->DelAction();
         // 一覧ページへ遷移
-        redirect(Base_lib::ADMIN_DIR . '/user/');
+        redirect(Base_lib::ACCESS_ADMIN_DIR . '/user/');
+    }
+
+
+    /**
+     * ソート処理
+     *
+     * @return void
+     */
+    public function sort()
+    {
+        // ソート処理
+        $this->user_model->SortAction();
     }
 }

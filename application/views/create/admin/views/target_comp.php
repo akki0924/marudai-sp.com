@@ -17,7 +17,7 @@
 	<div class="container">
 		<div class="row align_center">
 			<p class="font_20">\<\?= $const['site_title_name'] \?\></p>
-			<div class="pc"><a href="\<\?= SiteDir(); \?\>admin/index/logout" class="btn frame short">ログアウト</a></div>
+			<div class="pc"><a href="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/index/logout" class="btn frame short">ログアウト</a></div>
 		</div><!--/.row-->
 	</div><!--/.container-->
 
@@ -31,9 +31,9 @@
 	<nav class="globalMenuSp sp">
 		<ul>
 <?php for ($i = 0, $n = count($tableList); $i < $n; $i ++) { ?>
-			<li><a href="\<\?= SiteDir(); \?\>admin/<?= $tableList[$i]['targetName'] ?>"><?= $tableList[$i]['comment'] ?>管理</a></li>
+			<li><a href="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $tableList[$i]['targetName'] ?>"><?= $tableList[$i]['comment'] ?>管理</a></li>
 <?php } ?>
-			<li><a href="\<\?= SiteDir(); \?\>admin/index/logout">ログアウト</a></li>
+			<li><a href="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/index/logout">ログアウト</a></li>
 		</ul>
 	</nav>
 	<!-- /sp menu ---------------------------->
@@ -50,7 +50,7 @@
 		<div class="container">
 			<div class="row">
 <?php for ($i = 0, $n = count($tableList); $i < $n; $i ++) { ?>
-				<div class="col<?= $n ?>"><a href="\<\?= SiteDir(); \?\>admin/<?= $tableList[$i]['targetName'] ?>" class="btn mng<?= ($tableList[$i]['name'] == $tableName ? ' frame' : '') ?>"><?= $tableList[$i]['comment'] ?>管理</a></div>
+				<div class="col<?= $n ?>"><a href="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $tableList[$i]['targetName'] ?>" class="btn mng<?= ($tableList[$i]['name'] == $tableName ? ' frame' : '') ?>"><?= $tableList[$i]['comment'] ?>管理</a></div>
 <?php } ?>
 			</div>
 		</div><!--./container-->
@@ -63,7 +63,7 @@
 				<div class="bg_gray pd60">
 					<p class="font_20 bold mb_10">\<\?= $exists ? '<?= $comment ?>情報更新' : '新規<?= $comment ?>登録' \?\>完了</p>
 					<p class="mb_40">\<\?= $exists ? '<?= $comment ?>情報の更新' : '新規<?= $comment ?>登録' \?\>が完了しました。</p>
-					<center><a href="\<\?= SiteDir(); \?\>admin/<?= $targetName ?>" class="btn short"><?= $comment ?>管理へ戻る</a></center>
+					<center><a href="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $targetName ?>" class="btn short"><?= $comment ?>管理へ戻る</a></center>
 				</div><!--./bg_gray-->
 			</div><!--./max680-->
 		</div><!--./container-->
