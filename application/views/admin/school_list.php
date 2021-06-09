@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>チェックシート1管理｜<?= $const['site_title_name'] ?></title>
+<title>小学校管理｜<?= $const['site_title_name'] ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--CSS-->
 <link href="<?= SiteDir(); ?>css/<?= JqueryUiCssFile() ?>" type="text/css" rel="stylesheet">
@@ -18,7 +18,7 @@
 $(function() {
 	$('.edit_btn').click(function() {
 		$('#id').val( $(this).data('id') );
-		$('#operation_form').attr( 'action', '<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1/input' );
+		$('#operation_form').attr( 'action', '<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school/input' );
 		$('#operation_form').submit();
 	});
 	$('#list_area').sortable({
@@ -41,7 +41,7 @@ $(function() {
 				sortRow != ui.item[0]['sectionRowIndex']
 			) {
 				sortRow = ui.item[0]['sectionRowIndex'];
-				var ajaxUrl = '<?= $const['access_admin_dir'] ?>/sheet1/sort';
+				var ajaxUrl = '<?= $const['access_admin_dir'] ?>/school/sort';
 				var dataList = {
 					'id':sortId,
 					'sort_id':sortRow
@@ -95,16 +95,16 @@ $(function() {
 	<section id="management">
 		<div class="container">
 			<div class="row mb_80">
-				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school" class="btn mng">小学校管理</a></div>
-				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1" class="btn mng frame">チェックシート1管理</a></div>
+				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school" class="btn mng frame">小学校管理</a></div>
+				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1" class="btn mng">チェックシート1管理</a></div>
 				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2" class="btn mng">チェックシート2管理</a></div>
 				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/user" class="btn mng">登録者管理</a></div>
 			</div>
 		</div><!--/.container-->
 
 		<div class="container">
-		<form method="post" id="operation_form" name="operation_form" action="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1">
-			<h2 class="mb_40">チェックシート1管理</h2>
+		<form method="post" id="operation_form" name="operation_form" action="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school">
+			<h2 class="mb_40">小学校管理</h2>
 			<div class="scroll">
 				<table class="management">
 					<tbody id="list_area">
@@ -112,8 +112,8 @@ $(function() {
 						<tr class="list_header">
 							<th>ID</th>
 							<th>ナンバー</th>
-							<th>内容</th>
-							<th>点数</th>
+							<th>小学校名</th>
+							<th>設立団体名</th>
 							<th>表示ステータス</th>
 							<th>登録日時</th>
 							<th>&nbsp;</th>
@@ -122,8 +122,8 @@ $(function() {
 						<tr data-id="<?= $list[$i]['id'] ?>">
 							<td><?= $list[$i]['id'] ?></td>
 							<td><?= $list[$i]['no'] ?></td>
-							<td><?= $list[$i]['contents'] ?></td>
-							<td><?= $list[$i]['point'] ?></td>
+							<td><?= $list[$i]['name'] ?></td>
+							<td><?= $list[$i]['establish'] ?></td>
 							<td><?= $list[$i]['status_name'] ?></td>
 							<td><?= $list[$i]['regist_date'] ?></td>
 							<td>

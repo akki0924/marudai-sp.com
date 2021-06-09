@@ -55,6 +55,8 @@ class Create_lib extends Base_lib
      */
     public function CreateAdmin()
     {
+        // 必要なライブラリの読み込む
+        $this->CI->load->library('admin_lib');
         // ヘルパー関数読込み
         $this->CI->load->helper('file');
         // DBテーブル情報一覧を取得
@@ -94,6 +96,13 @@ class Create_lib extends Base_lib
             }
             $tableList = array_values($tableList);
         }
+        // ログイン用テーブルを一覧から削除
+        for ($i = 0, $n = count($tableList); $i < $n; $i ++) {
+            if ($tableList[$i]['name'] == Admin_lib::MASTER_TABLE) {
+                unset($tableList[$i]);
+            }
+        }
+        $tableList = array_values($tableList);
         Base_lib::ConsoleLog($tableList);
 
         // 各テーブルのカラム情報を取得
@@ -112,7 +121,7 @@ class Create_lib extends Base_lib
         $tableSel = $table;
         Base_lib::ConsoleLog($table);
 
-        // 管理プログラムの登録に不必要なカラムを削除した配列を作成
+        // 管理画面用のテーブル配列一覧を生成
         if (
             isset($jsonVal['table']['selectDisable']) &&
             count($jsonVal['table']['selectDisable']) > 0
@@ -149,6 +158,9 @@ class Create_lib extends Base_lib
                 $tableSel[$tableName] = array_values($tableSel[$tableName]);
             }
         }
+        // 管理画面用のテーブル配列一覧からログイン用テーブルを省く
+        unset($tableSel[Admin_lib::MASTER_TABLE]);
+
         Base_lib::ConsoleLog('正しく');
         Base_lib::ConsoleLog($tableSel);
         Base_lib::ConsoleLog('振り直された？');

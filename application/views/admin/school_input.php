@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>チェックシート2管理｜<?= $const['site_title_name'] ?></title>
+<title>小学校管理｜<?= $const['site_title_name'] ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--CSS-->
 <link rel="stylesheet" href="<?= SiteDir(); ?>css/style_admin.css">
@@ -10,16 +10,14 @@
 <!--JavaScript-->
 <script src="<?= SiteDir(); ?>js/<?= JqueryFile() ?>"></script>
 <script type="text/javascript" src="<?= SiteDir(); ?>js/nav.js"></script>
+<script type="text/javascript" src="<?= SiteDir(); ?>js/yubinbango.js"></script>
 <script>
 $(function(){
-	$('.back_btn').click(function() {
-		$('#action').val( 'back' );
+	$('.conf_btn').click(function() {
+		$('#action').val( 'conf' );
 		$('#operation_form').submit();
 	});
-	$('.comp_btn').click(function() {
-		$('#action').val( 'comp' );
-		$('#operation_form').submit();
-	});
+
 });
 </script>
 </head>
@@ -62,9 +60,9 @@ $(function(){
 	<section id="management">
 		<div class="container">
 			<div class="row">
-				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school" class="btn mng">小学校管理</a></div>
+				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school" class="btn mng frame">小学校管理</a></div>
 				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1" class="btn mng">チェックシート1管理</a></div>
-				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2" class="btn mng frame">チェックシート2管理</a></div>
+				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2" class="btn mng">チェックシート2管理</a></div>
 				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/user" class="btn mng">登録者管理</a></div>
 			</div>
 		</div><!--./container-->
@@ -72,38 +70,57 @@ $(function(){
 
 	<section id="new_member">
 		<div class="container">
-			<h2 class="mb_20"><?= $exists ? 'チェックシート2情報編集' : '新規チェックシート2登録' ?></h2>
+			<h2 class="mb_20"><?= $exists ? '小学校情報編集' : '新規小学校登録' ?></h2>
 			<div class="max680">
 				<div class="bg_gray pd60 mb_40">
-					<form method="post" id="operation_form" name="operation_form" action="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2/input" class="h-adr">
+					<form method="post" id="operation_form" name="operation_form" action="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school/input" class="h-adr">
 						<table class="form mb_40">
 							<tbody>
 								<tr>
 									<th><span class="required">ナンバー</span></th>
-									<td><?= VarDisp($form['no']) ?></td>
+									<td>
+										<input type="text" name="no" value="<?= VarDisp($form['no']) ?>" class="half">
+										<?php if (form_error('no')) : ?>
+											<span><?= form_error('no'); ?></span>
+										<?php endif; ?>
+									</td>
 								</tr>
 								<tr>
-									<th><span class="required">内容</span></th>
-									<td><?= VarDisp($form['contents']) ?></td>
+									<th><span class="required">小学校名</span></th>
+									<td>
+										<input type="text" name="name" value="<?= VarDisp($form['name']) ?>" class="half">
+										<?php if (form_error('name')) : ?>
+											<span><?= form_error('name'); ?></span>
+										<?php endif; ?>
+									</td>
 								</tr>
 								<tr>
-									<th><span class="required">点数</span></th>
-									<td><?= VarDisp($form['point']) ?></td>
+									<th><span class="required">設立団体名</span></th>
+									<td>
+										<input type="text" name="establish" value="<?= VarDisp($form['establish']) ?>" class="half">
+										<?php if (form_error('establish')) : ?>
+											<span><?= form_error('establish'); ?></span>
+										<?php endif; ?>
+									</td>
 								</tr>
 								<tr>
 									<th><span class="required">表示ステータス</span></th>
-									<td><?= VarDisp($form['status_name']) ?></td>
+									<td>
+										<div class="select size_m">
+											<?= form_dropdown("status", $select['status'], (isset($form['status']) ? $form['status'] : ""), 'id="status"'); ?>
+										</div>
+										<?php if (form_error('status')) : ?>
+											<span><?= form_error('status'); ?></span>
+										<?php endif; ?>
+									</td>
 								</tr>
 							</tbody>
 						</table>
 
-						<a class="btn mb_20 comp_btn"><?= $exists ? '更新' : '登録' ?></a>
-						<a class="btn frame back_btn">戻る</a>
-						<input type="hidden" name="id" id="id">
+						<a class="btn mb_20 conf_btn">確認</a>
+						<a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school" class="btn frame">キャンセル</a>
+						<input type="hidden" name="id" value="<?= (isset($form['id']) ? $form['id'] : '') ?>">
 						<input type="hidden" name="action" id="action">
-						<?php foreach ($form as $key => $val) { ?>
-							<?= form_hidden($key, $val); ?>
-						<?php } ?>
 					</form>
 				</div><!--./bg_gray-->
 

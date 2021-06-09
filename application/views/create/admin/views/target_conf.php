@@ -73,7 +73,7 @@ $(function(){
 			<h2 class="mb_20">\<\?= $exists ? '<?= $comment ?>情報編集' : '新規<?= $comment ?>登録' \?\></h2>
 			<div class="max680">
 				<div class="bg_gray pd60 mb_40">
-					<form method="post" id="operation_form" name="operation_form" action="\<\?= SiteDir(); \?\>admin/<?= $targetName ?>/input" class="h-adr">
+					<form method="post" id="operation_form" name="operation_form" action="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $targetName ?>/input" class="h-adr">
 						<table class="form mb_40">
 							<tbody>
 <?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>

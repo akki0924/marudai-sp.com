@@ -4,7 +4,7 @@
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/07：新規作成
+ * @since 1.0.0     2021/06/09：新規作成
  */
 class User_model extends CI_Model
 {
@@ -83,7 +83,7 @@ class User_model extends CI_Model
         // 一覧数の取得
         $returnVal['count'] = $this->GetListCount($whereSql);
         // ORDER情報をセット
-        $orderSql[0]['key'] = user_lib::MASTER_TABLE . ' . sort_id';
+        $orderSql[0]['key'] = user_lib::MASTER_TABLE . ' . regist_date';
         $orderSql[0]['arrow'] = 'DESC';
         // 一覧情報を取得
         $returnVal['list'] = $this->GetList($whereSql, $orderSql, null, true);
@@ -372,6 +372,7 @@ class User_model extends CI_Model
     public function FormInputList()
     {
         $returnVal = array(
+            'id',
             'eco_id',
             'nickname',
             'sheet1_1_1',

@@ -1,19 +1,19 @@
 <?php
 /**
- * ログイン画面用モデル
+ * 小学校画面用モデル
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/04：新規作成
+ * @since 1.0.0     2021/06/09：新規作成
  */
-class Admin_model extends CI_Model
+class School_model extends CI_Model
 {
     const DEFAULT_LIST_COUNT = 200;
     const FIRST_MSG = '検索項目を選択してください。';
     const NO_LIST_MSG = '一覧リストが見つかりません。';
     // 並び順用文字列
-    const SORT_ARROW_UP_STR = 'up';
-    const SORT_ARROW_DOWN_STR = 'down';
+    const SORT_COLUMN = 'sort_id';
+    const SORT_ARROW = 'desc';
     // ログイン対象
     const LOGIN_KEY = Base_lib::ADMIN_DIR;
 
@@ -29,10 +29,10 @@ class Admin_model extends CI_Model
         // ログイン情報の確認
         if (! $this->login_lib->LoginCheck()) {
             // エラーページへ遷移
-            redirect(Base_lib::ADMIN_DIR ."/index/error");
+            redirect(Base_lib::ACCESS_ADMIN_DIR ."/index/error");
         }
         // ライブラリー読込み
-        $this->load->library(Base_lib::MASTER_DIR . '/admin_lib');
+        $this->load->library(Base_lib::MASTER_DIR . '/school_lib');
     }
 
 
@@ -45,7 +45,7 @@ class Admin_model extends CI_Model
     public function sharedTemplate(array $templateVal = array()) : ?array
     {
         // 変数を再セット
-        $returnVal = ($returnVal != "" ? $returnVal : array());
+        $returnVal = $templateVal;
         // クラス定数をセット
         $returnVal['const'] = $this->base_lib->GetBaseConstList();
         Base_lib::ConsoleLog($returnVal);
@@ -83,7 +83,9 @@ class Admin_model extends CI_Model
         // 一覧数の取得
         $returnVal['count'] = $this->GetListCount($whereSql);
         // ORDER情報をセット
-        $orderSql[0]['key'] = admin_lib::MASTER_TABLE . ' . sort_id';
+        $orderSql[0]['key'] = school_lib::MASTER_TABLE . ' . sort_id';
+        $orderSql[0]['arrow'] = 'ASC';
+        $orderSql[0]['key'] = school_lib::MASTER_TABLE . ' . regist_date';
         $orderSql[0]['arrow'] = 'DESC';
         // 一覧情報を取得
         $returnVal['list'] = $this->GetList($whereSql, $orderSql, null, true);
@@ -107,23 +109,23 @@ class Admin_model extends CI_Model
         // FORM情報
         $id = $this->input->post_get('id', true);
         $action = $this->input->post_get('action', true);
-        // ログイン情報が存在有無情報をセット
-        $exists =  $this->admin_lib->IdExists($id);
+        // 小学校情報が存在有無情報をセット
+        $exists =  $this->school_lib->IdExists($id);
         $returnVal['exists'] = $exists;
         // 選択情報をセット
-        $returnVal['select']['status'] = $this->admin_lib->GetStatusList();
+        $returnVal['select']['status'] = $this->school_lib->GetStatusList();
         if ($action == '') {
-            // ログインID存在しない
+            // 小学校ID存在しない
             if (!$exists) {
                 // FORM情報をセット
                 foreach ($this->FormInputList() as $key) {
                     $returnVal['form'][$key] = $this->input->post_get($key, true);
                 }
             }
-            // ログインIDが存在
+            // 小学校IDが存在
             else {
-                // ログイン詳細情報を取得
-                $returnVal['form'] = $this->admin_lib->GetDetailValues($id);
+                // 小学校詳細情報を取得
+                $returnVal['form'] = $this->school_lib->GetDetailValues($id);
             }
         }
         // 遷移アクション時
@@ -135,7 +137,7 @@ class Admin_model extends CI_Model
             // バリデーションOK時
             if ($validFlg) {
                 // 各選択情報の表示名をセット
-                $returnVal['form']['status_name'] = $this->admin_lib->GetStatusName($returnVal['form']['status']);
+                $returnVal['form']['status_name'] = $this->school_lib->GetStatusName($returnVal['form']['status']);
             }
         }
 
@@ -153,8 +155,8 @@ class Admin_model extends CI_Model
     {
         // 返値を初期化
         $returnVal = array();
-        // ログイン情報が存在有無情報をセット
-        $exists =  $this->admin_lib->IdExists($id);
+        // 小学校情報が存在有無情報をセット
+        $exists =  $this->school_lib->IdExists($id);
         $returnVal['exists'] = $exists;
 
         return $this->sharedTemplate($returnVal);
@@ -187,7 +189,7 @@ class Admin_model extends CI_Model
                 $form[$key] = $this->input->post_get($key, true);
             }
             // 登録処理（IDを返す）
-            $returnVal = $this->admin_lib->Regist($form, $id);
+            $returnVal = $this->school_lib->Regist($form, $id);
         }
 
         return $returnVal;
@@ -206,7 +208,7 @@ class Admin_model extends CI_Model
         // FORM情報をセット
         $id = $this->input->post_get('id', true);
         // 削除処理
-        $returnVal = $this->admin_lib->Delete($id);
+        $returnVal = $this->school_lib->Delete($id);
         // 関連受注情報削除
 
         return $returnVal;
@@ -224,43 +226,15 @@ class Admin_model extends CI_Model
         ini_set('max_execution_time', '90');
         // FORM情報
         $id = $this->input->post_get('id', true);
-        $arrow = $this->input->post_get('arrow', true);
-        $action = $this->input->post_get('action', true);
-        // 対象並び順を取得
-        $sortId = $this->db_lib->GetValue(admin_lib::MASTER_TABLE, 'sort_id', $id);
-        // 並び順最大
-        $sortMax = $this->db_lib->GetValueMax(admin_lib::MASTER_TABLE);
-        if (
-            $arrow == self::SORT_ARROW_UP_STR &&
-            $sortId < $sortMax
-        ) {
-            // ソートから対象IDを取得
-            $targetId = $this->admin_lib->GetSortIdForId(($sortId + 1));
-            if ($targetId) {
-                // 登録処理
-                $form['sort_id'] = ($sortId + 1);
-                $this->admin_lib->Regist($form, $id);
-                // 登録処理
-                $form['sort_id'] = $sortId;
-                $this->admin_lib->Regist($form, $targetId);
-            }
-        } elseif (
-            $arrow == self::SORT_ARROW_DOWN_STR &&
-            $sortId > 1
-        ) {
-            // ソートから対象IDを取得
-            $targetId = $this->admin_lib->GetSortIdForId(($sortId - 1));
-            if ($targetId) {
-                // 登録処理
-                $form['sort_id'] = ($sortId - 1);
-                $this->admin_lib->Regist($form, $id);
-                // 登録処理
-                $form['sort_id'] = $sortId;
-                $this->admin_lib->Regist($form, $targetId);
-            }
+        $sortId = $this->input->post_get('sort_id', true);
+        // ソート順が降順
+        if (strtoupper(self::SORT_ARROW) == 'DESC') {
+            // 並び順最大
+            $sortMax = $this->db_lib->GetValueMax(school_lib::MASTER_TABLE);
+            $sortId = ($sortMax - $sortId) + 1;
         }
-
-        return $returnVal;
+        // ソート処理実行
+        $this->school_lib->UpdateSort($id, $sortId);
     }
 
 
@@ -272,7 +246,7 @@ class Admin_model extends CI_Model
      */
     public function GetListCount(?array $whereSql = array()) : ?string
     {
-        return $this->db_lib->GetCount(admin_lib::MASTER_TABLE, $whereSql);
+        return $this->db_lib->GetCount(school_lib::MASTER_TABLE, $whereSql);
     }
 
 
@@ -299,7 +273,7 @@ class Admin_model extends CI_Model
         // ORDER情報を再セット
         if (! is_array($orderSql)) {
             $orderSql = array();
-            $orderSql[0]['key'] = admin_lib::MASTER_TABLE . ' . regist_date';
+            $orderSql[0]['key'] = school_lib::MASTER_TABLE . ' . regist_date';
             $orderSql[0]['arrow'] = 'DESC';
         }
         // ORDER文を生成
@@ -313,22 +287,21 @@ class Admin_model extends CI_Model
         }
         $query = $this->db->query("
             SELECT
-                " . admin_lib::MASTER_TABLE . " . id,
-                " . admin_lib::MASTER_TABLE . " . account,
-                " . admin_lib::MASTER_TABLE . " . password,
-                " . admin_lib::MASTER_TABLE . " . company_id,
-                " . admin_lib::MASTER_TABLE . " . authority,
-                " . admin_lib::MASTER_TABLE . " . name,
-                " . admin_lib::MASTER_TABLE . " . status,
-                CASE " . admin_lib::MASTER_TABLE . " . status
-                    WHEN " . admin_lib::ID_STATUS_ENABLE . " THEN " . admin_lib::NAME_STATUS_ENABLE . "
-                    ELSE " . admin_lib::NAME_STATUS_DISABLE . "
+                " . school_lib::MASTER_TABLE . " . id,
+                " . school_lib::MASTER_TABLE . " . no,
+                " . school_lib::MASTER_TABLE . " . name,
+                " . school_lib::MASTER_TABLE . " . establish,
+                " . school_lib::MASTER_TABLE . " . sort_id,
+                " . school_lib::MASTER_TABLE . " . status,
+                CASE " . school_lib::MASTER_TABLE . " . status
+                    WHEN " . school_lib::ID_STATUS_ENABLE . " THEN '" . school_lib::NAME_STATUS_ENABLE . "'
+                    ELSE '" . school_lib::NAME_STATUS_DISABLE . "'
                 END status_name,
-                " . admin_lib::MASTER_TABLE . " . regist_date,
-                DATE_FORMAT(" . admin_lib::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
-                " . admin_lib::MASTER_TABLE . " . edit_date,
-                DATE_FORMAT(" . admin_lib::MASTER_TABLE . ".edit_date, '%Y.%c.%e') AS edit_date_disp
-            FROM " . admin_lib::MASTER_TABLE . "
+                " . school_lib::MASTER_TABLE . " . regist_date,
+                DATE_FORMAT(" . school_lib::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
+                " . school_lib::MASTER_TABLE . " . edit_date,
+                DATE_FORMAT(" . school_lib::MASTER_TABLE . ".edit_date, '%Y.%c.%e') AS edit_date_disp
+            FROM " . school_lib::MASTER_TABLE . "
             " . (isset($whereSql) && count($whereSql) > 0 ? (" WHERE ( " . @implode(" AND ", $whereSql)) . " ) " : "") . "
             " . $orderSqlVal . "
             " . (isset($limitSqlVal) ? $limitSqlVal : '') . ";
@@ -366,14 +339,10 @@ class Admin_model extends CI_Model
     {
         $returnVal = array(
             'id',
-            'account',
-            'password',
-            'company_id',
-            'authority',
+            'no',
             'name',
+            'establish',
             'status',
-            'regist_date',
-            'edit_date',
         );
 
         return $returnVal;
@@ -387,58 +356,28 @@ class Admin_model extends CI_Model
      */
     public function ConfigInputValues() : array
     {
-        // 
+        // ナンバー
         $returnVal[] = array(
-            'field'   => 'id',
-            'label'   => '',
+            'field'   => 'no',
+            'label'   => 'ナンバー',
             'rules'   => 'required'
         );
-        // 
-        $returnVal[] = array(
-            'field'   => 'account',
-            'label'   => '',
-            'rules'   => 'required'
-        );
-        // 
-        $returnVal[] = array(
-            'field'   => 'password',
-            'label'   => '',
-            'rules'   => 'required'
-        );
-        // 
-        $returnVal[] = array(
-            'field'   => 'company_id',
-            'label'   => '',
-            'rules'   => 'required'
-        );
-        // 
-        $returnVal[] = array(
-            'field'   => 'authority',
-            'label'   => '',
-            'rules'   => 'required'
-        );
-        // 
+        // 小学校名
         $returnVal[] = array(
             'field'   => 'name',
-            'label'   => '',
+            'label'   => '小学校名',
             'rules'   => 'required'
         );
-        // 
+        // 設立団体名
+        $returnVal[] = array(
+            'field'   => 'establish',
+            'label'   => '設立団体名',
+            'rules'   => 'required'
+        );
+        // 表示ステータス
         $returnVal[] = array(
             'field'   => 'status',
-            'label'   => '',
-            'rules'   => 'required'
-        );
-        // 
-        $returnVal[] = array(
-            'field'   => 'regist_date',
-            'label'   => '',
-            'rules'   => 'required'
-        );
-        // 
-        $returnVal[] = array(
-            'field'   => 'edit_date',
-            'label'   => '',
+            'label'   => '表示ステータス',
             'rules'   => 'required'
         );
 

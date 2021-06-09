@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/07：新規作成
+ * @since 1.0.0     2021/06/09：新規作成
  */
 class User extends MY_Controller
 {

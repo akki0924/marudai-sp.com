@@ -4,7 +4,7 @@
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/07：新規作成
+ * @since 1.0.0     2021/06/09：新規作成
  */
 class Sheet2_model extends CI_Model
 {
@@ -84,6 +84,8 @@ class Sheet2_model extends CI_Model
         $returnVal['count'] = $this->GetListCount($whereSql);
         // ORDER情報をセット
         $orderSql[0]['key'] = sheet2_lib::MASTER_TABLE . ' . sort_id';
+        $orderSql[0]['arrow'] = 'ASC';
+        $orderSql[0]['key'] = sheet2_lib::MASTER_TABLE . ' . regist_date';
         $orderSql[0]['arrow'] = 'DESC';
         // 一覧情報を取得
         $returnVal['list'] = $this->GetList($whereSql, $orderSql, null, true);
@@ -336,6 +338,7 @@ class Sheet2_model extends CI_Model
     public function FormInputList()
     {
         $returnVal = array(
+            'id',
             'no',
             'contents',
             'point',

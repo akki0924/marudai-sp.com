@@ -3,21 +3,21 @@ if (! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 /**
- * チェックシート1用ライブラリー
+ * 小学校用ライブラリー
  *
- * チェックシート1データの取得および処理する為の関数群
+ * 小学校データの取得および処理する為の関数群
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
  * @since 1.0.0     2021/06/09：新規作成
  */
-class Sheet1_lib extends Base_lib
+class School_lib extends Base_lib
 {
     /**
      * const
      */
     // テーブル名
-    const MASTER_TABLE = 'm_sheet1';
+    const MASTER_TABLE = 'm_school';
     // 表示ステータス
     const ID_STATUS_ENABLE = 1;
     const ID_STATUS_DISABLE = -1;
@@ -35,7 +35,7 @@ class Sheet1_lib extends Base_lib
         // CodeIgniter のスーパーオブジェクトを割り当て
         $this->CI =& get_instance();
         // テーブル名をセット
-        $this->SetDbTable('m_sheet1');
+        $this->SetDbTable('m_school');
     }
 
 
@@ -55,8 +55,8 @@ class Sheet1_lib extends Base_lib
             SELECT
                 " . self::MASTER_TABLE . " . id,
                 " . self::MASTER_TABLE . " . no,
-                " . self::MASTER_TABLE . " . contents,
-                " . self::MASTER_TABLE . " . point,
+                " . self::MASTER_TABLE . " . name,
+                " . self::MASTER_TABLE . " . establish,
                 " . self::MASTER_TABLE . " . sort_id,
                 " . self::MASTER_TABLE . " . status,
                 CASE " . self::MASTER_TABLE . " . status
@@ -98,14 +98,14 @@ class Sheet1_lib extends Base_lib
 
 
     /**
-     * 点数一覧を取得
+     * 設立団体名一覧を取得
      *
      * @param bool $public：ステータスフラグ
      * @return array|null
      */
-    public function GetPointList(bool $public = false) : ?array
+    public function GetEstablishList(bool $public = false) : ?array
     {
-        return $this->CI->db_lib->GetSelectValues($this->GetDbTable(), 'point', $public);
+        return $this->CI->db_lib->GetSelectValues($this->GetDbTable(), 'establish', $public);
     }
 
 
@@ -126,18 +126,18 @@ class Sheet1_lib extends Base_lib
 
 
     /**
-     * 点数を取得
+     * 設立団体名を取得
      *
      * @param string $id：ID
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetPoint(
+    public function GetEstablish(
         string $id,
         bool $public = false
     ) : ?string
     {
-        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'point', $id, 'id', $public);
+        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'establish', $id, 'id', $public);
     }
 
 
@@ -158,18 +158,18 @@ class Sheet1_lib extends Base_lib
 
 
     /**
-     * 点数からIDを取得
+     * 設立団体名からIDを取得
      *
-     * @param string $point：対象点数
+     * @param string $establish：対象設立団体名
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromPoint(
-        string $point,
+    public function GetIdFromEstablish(
+        string $establish,
         bool $public = false
     ) : ?string
     {
-        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $point, 'point', $public);
+        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $establish, 'establish', $public);
     }
 
 
@@ -190,18 +190,18 @@ class Sheet1_lib extends Base_lib
 
 
     /**
-     * 点数の登録有無
+     * 設立団体名の登録有無
      *
-     * @param string $point：対象点数
+     * @param string $establish：対象設立団体名
      * @param boolean $public
      * @return boolean
      */
-    public function PointExists(
-        string $point,
+    public function EstablishExists(
+        string $establish,
         bool $public = false
     ) : bool
     {
-        return $this->CI->db_lib->ValueExists($this->GetDbTable(), $point, 'point', $public);
+        return $this->CI->db_lib->ValueExists($this->GetDbTable(), $establish, 'establish', $public);
     }
 
 
@@ -224,20 +224,20 @@ class Sheet1_lib extends Base_lib
 
 
     /**
-     * 点数が対象ID以外に同じ値が存在するかどうか
+     * 設立団体名が対象ID以外に同じ値が存在するかどうか
      *
-     * @param string $point：対象点数
+     * @param string $establish：対象設立団体名
      * @param string $id：除外ID
      * @param boolean $public
      * @return boolean
      */
-    public function PointSameExists(
-        $point,
+    public function EstablishSameExists(
+        $establish,
         $id = '',
         $public = false
     ) : bool
     {
-        return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $point, 'point', $id, 'id', $public);
+        return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $establish, 'establish', $id, 'id', $public);
     }
 
 

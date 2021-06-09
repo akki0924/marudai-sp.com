@@ -290,6 +290,7 @@ class Admin_lib
     {
         // 返値を初期化
         $returnVal = false;
+        // アクセス用ディレクトリが設定
         if (Base_lib::ACCESS_ADMIN_DIR) {
             $targetStr = substr($_SERVER['REQUEST_URI'], (strlen(D_ROOT)));
             $targetArray = explode('/', $targetStr);
@@ -297,6 +298,13 @@ class Admin_lib
             if ($targetArray[0] == Base_lib::ACCESS_ADMIN_DIR) {
                 $returnVal = true;
             }
+        }
+        // 自動生成用プログラムで利用
+        if (
+            !$returnVal &&
+            $this->CI->load->is_loaded('create_lib')
+        ) {
+            $returnVal = true;
         }
         return $returnVal;
     }

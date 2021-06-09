@@ -83,8 +83,16 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
         // 一覧数の取得
         $returnVal['count'] = $this->GetListCount($whereSql);
         // ORDER情報をセット
+<?php for ($i = 0, $n = count($table); $i < $n; $i ++) { ?>
+<?php if ($table[$i]['name'] == 'sort_id') { ?>
         $orderSql[0]['key'] = <?= $targetName ?>_lib::MASTER_TABLE . ' . sort_id';
+        $orderSql[0]['arrow'] = 'ASC';
+<?php } ?>
+<?php } ?>
+<?php if (!isset($orderSql)) { ?>
+        $orderSql[0]['key'] = <?= $targetName ?>_lib::MASTER_TABLE . ' . regist_date';
         $orderSql[0]['arrow'] = 'DESC';
+<?php } ?>
         // 一覧情報を取得
         $returnVal['list'] = $this->GetList($whereSql, $orderSql, null, true);
         // FROM値の有無によって表示内容を変更してセット
@@ -337,6 +345,7 @@ class <?= ucfirst($targetName) ?>_model extends CI_Model
     public function FormInputList()
     {
         $returnVal = array(
+            'id',
 <?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
             '<?= $tableSel[$i]['name'] ?>',
 <?php } ?>

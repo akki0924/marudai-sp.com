@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>チェックシート2管理｜<?= $const['site_title_name'] ?></title>
+<title>小学校管理｜<?= $const['site_title_name'] ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--CSS-->
 <link rel="stylesheet" href="<?= SiteDir(); ?>css/style_admin.css">
@@ -10,18 +10,6 @@
 <!--JavaScript-->
 <script src="<?= SiteDir(); ?>js/<?= JqueryFile() ?>"></script>
 <script type="text/javascript" src="<?= SiteDir(); ?>js/nav.js"></script>
-<script>
-$(function(){
-	$('.back_btn').click(function() {
-		$('#action').val( 'back' );
-		$('#operation_form').submit();
-	});
-	$('.comp_btn').click(function() {
-		$('#action').val( 'comp' );
-		$('#operation_form').submit();
-	});
-});
-</script>
 </head>
 
 <body>
@@ -62,9 +50,9 @@ $(function(){
 	<section id="management">
 		<div class="container">
 			<div class="row">
-				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school" class="btn mng">小学校管理</a></div>
+				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school" class="btn mng frame">小学校管理</a></div>
 				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1" class="btn mng">チェックシート1管理</a></div>
-				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2" class="btn mng frame">チェックシート2管理</a></div>
+				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2" class="btn mng">チェックシート2管理</a></div>
 				<div class="col4"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/user" class="btn mng">登録者管理</a></div>
 			</div>
 		</div><!--./container-->
@@ -72,41 +60,13 @@ $(function(){
 
 	<section id="new_member">
 		<div class="container">
-			<h2 class="mb_20"><?= $exists ? 'チェックシート2情報編集' : '新規チェックシート2登録' ?></h2>
+			<h2 class="mb_20"><?= $exists ? '小学校情報編集' : '新規小学校登録' ?></h2>
 			<div class="max680">
-				<div class="bg_gray pd60 mb_40">
-					<form method="post" id="operation_form" name="operation_form" action="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2/input" class="h-adr">
-						<table class="form mb_40">
-							<tbody>
-								<tr>
-									<th><span class="required">ナンバー</span></th>
-									<td><?= VarDisp($form['no']) ?></td>
-								</tr>
-								<tr>
-									<th><span class="required">内容</span></th>
-									<td><?= VarDisp($form['contents']) ?></td>
-								</tr>
-								<tr>
-									<th><span class="required">点数</span></th>
-									<td><?= VarDisp($form['point']) ?></td>
-								</tr>
-								<tr>
-									<th><span class="required">表示ステータス</span></th>
-									<td><?= VarDisp($form['status_name']) ?></td>
-								</tr>
-							</tbody>
-						</table>
-
-						<a class="btn mb_20 comp_btn"><?= $exists ? '更新' : '登録' ?></a>
-						<a class="btn frame back_btn">戻る</a>
-						<input type="hidden" name="id" id="id">
-						<input type="hidden" name="action" id="action">
-						<?php foreach ($form as $key => $val) { ?>
-							<?= form_hidden($key, $val); ?>
-						<?php } ?>
-					</form>
+				<div class="bg_gray pd60">
+					<p class="font_20 bold mb_10"><?= $exists ? '小学校情報更新' : '新規小学校登録' ?>完了</p>
+					<p class="mb_40"><?= $exists ? '小学校情報の更新' : '新規小学校登録' ?>が完了しました。</p>
+					<center><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school" class="btn short">小学校管理へ戻る</a></center>
 				</div><!--./bg_gray-->
-
 			</div><!--./max680-->
 		</div><!--./container-->
 	</section>
@@ -120,4 +80,3 @@ $(function(){
 
 </body>
 </html>
-

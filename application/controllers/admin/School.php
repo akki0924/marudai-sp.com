@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 /**
- * ログイン管理ページ画面処理
+ * 小学校管理ページ画面処理
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/04：新規作成
+ * @since 1.0.0     2021/06/09：新規作成
  */
-class Admin extends MY_Controller
+class School extends MY_Controller
 {
     /**
      * コントラクト
@@ -17,7 +17,7 @@ class Admin extends MY_Controller
         // Controllerクラスのコンストラクタを呼び出す
         parent::__construct();
         // モデル呼出し
-        $this->load->model(Base_lib::ADMIN_DIR . '/admin_model');
+        $this->load->model(Base_lib::ADMIN_DIR . '/school_model');
     }
 
 
@@ -45,9 +45,9 @@ class Admin extends MY_Controller
         // FORM情報の確認
         $action = $this->input->post_get('action', true);
         // テンプレート情報をセット
-        $templateVal = $this->admin_model->ListTemplate();
+        $templateVal = $this->school_model->ListTemplate();
         // テンプレート読み込み
-        $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'admin_list', $templateVal);
+        $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'school_list', $templateVal);
     }
 
 
@@ -66,43 +66,43 @@ class Admin extends MY_Controller
             $action == 'back'
         ) {
             // エラーチェックルールをセット
-            $config = $this->admin_model->ConfigInputValues();
+            $config = $this->school_model->ConfigInputValues();
             $this->form_validation->set_rules($config);
             // バリデーション実行結果を取得
             $validFlg = $this->form_validation->run();
-            $templateVal = $this->admin_model->InputTemplate($validFlg);
+            $templateVal = $this->school_model->InputTemplate($validFlg);
             if (
                 $validFlg &&
                 $action == 'conf'
             ) {
                 // 確認テンプレート読み込み
-                $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'admin_conf', $templateVal);
+                $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'school_conf', $templateVal);
             } else {
                 // 入力テンプレート読み込み
-                $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'admin_input', $templateVal);
+                $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'school_input', $templateVal);
             }
             // 完了画面処理
         } elseif ($action == 'comp') {
             // エラーチェックルールをセット
-            $config = $this->admin_model->ConfigInputValues();
+            $config = $this->school_model->ConfigInputValues();
             $this->form_validation->set_rules($config);
             // バリデーション実行結果を取得
             $validFlg = $this->form_validation->run();
             if ($validFlg) {
                 // 登録処理
-                $this->admin_model->RegistAction($validFlg);
+                $this->school_model->RegistAction($validFlg);
                 // テンプレート読み込み
-                redirect(Base_lib::ADMIN_DIR . '/admin/comp' . ($id ? '/' . $id : ''));
+                redirect(Base_lib::ACCESS_ADMIN_DIR . '/school/comp' . ($id ? '/' . $id : ''));
             } else {
-                $templateVal = $this->admin_model->InputTemplate($validFlg);
+                $templateVal = $this->school_model->InputTemplate($validFlg);
                 // 入力テンプレート読み込み
-                $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'admin_input', $templateVal);
+                $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'school_input', $templateVal);
             }
         } else {
             // テンプレート情報をセット
-            $templateVal = $this->admin_model->InputTemplate();
+            $templateVal = $this->school_model->InputTemplate();
             // テンプレート読み込み
-            $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'admin_input', $templateVal);
+            $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'school_input', $templateVal);
         }
     }
 
@@ -115,9 +115,9 @@ class Admin extends MY_Controller
     public function comp($id = "")
     {
         // テンプレート情報をセット
-        $templateVal = $this->admin_model->CompTemplate($id);
+        $templateVal = $this->school_model->CompTemplate($id);
         // テンプレート読み込み
-        $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'admin_comp', $templateVal);
+        $this->load->view(Base_lib::ADMIN_DIR . Base_lib::WEB_DIR_SEPARATOR . 'school_comp', $templateVal);
     }
 
 
@@ -129,8 +129,20 @@ class Admin extends MY_Controller
     public function del()
     {
         // 削除処理
-        $this->admin_model->DelAction();
+        $this->school_model->DelAction();
         // 一覧ページへ遷移
-        redirect(Base_lib::ADMIN_DIR . '/admin/');
+        redirect(Base_lib::ACCESS_ADMIN_DIR . '/school/');
+    }
+
+
+    /**
+     * ソート処理
+     *
+     * @return void
+     */
+    public function sort()
+    {
+        // ソート処理
+        $this->school_model->SortAction();
     }
 }
