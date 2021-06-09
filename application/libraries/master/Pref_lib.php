@@ -9,7 +9,7 @@ if (! defined('BASEPATH')) {
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/04：新規作成
+ * @since 1.0.0     2021/06/09：新規作成
  */
 class Pref_lib extends Base_lib
 {
@@ -84,283 +84,47 @@ class Pref_lib extends Base_lib
 
 
     /**
-     * 一覧を取得
+     * 表示ステータス一覧を配列形式で取得
      *
-     * @param bool $public：ステータスフラグ
-     * @return array|null
+     * @return array
      */
-    public function GetIdList(bool $public = false) : ?array
+    public function GetStatusList() : array
     {
-        return $this->CI->db_lib->GetSelectValues($this->GetDbTable(), 'id', $public);
+        $returnVal[self::ID_STATUS_ENABLE] = self::NAME_STATUS_ENABLE;
+        $returnVal[self::ID_STATUS_DISABLE] = self::NAME_STATUS_DISABLE;
+
+        return $returnVal;
     }
 
 
     /**
-     * 一覧を取得
+     * 表示ステータス名を取得
      *
-     * @param bool $public：ステータスフラグ
-     * @return array|null
+     * @param string $id
+     * @return string
      */
-    public function GetSortIdList(bool $public = false) : ?array
+    public function GetStatusName($id) : string
     {
-        return $this->CI->db_lib->GetSelectValues($this->GetDbTable(), 'sort_id', $public);
+        // 一覧リストを取得
+        $list = $this->GetStatusList();
+        return (isset($list[ $id ]) ? $list[ $id ] : '');
     }
 
 
     /**
-     * 一覧を取得
+     * 表示ステータスの存在確認結果を取得
      *
-     * @param bool $public：ステータスフラグ
-     * @return array|null
+     * @param string $id
+     * @return bool
      */
-    public function GetRegistDateList(bool $public = false) : ?array
+    public function GetStatusExists($id) : bool
     {
-        return $this->CI->db_lib->GetSelectValues($this->GetDbTable(), 'regist_date', $public);
+        // 一覧リストを取得
+        $list = $this->GetStatusList();
+        return (isset($list[ $id ]) ? true : false);
     }
 
 
-    /**
-     * 一覧を取得
-     *
-     * @param bool $public：ステータスフラグ
-     * @return array|null
-     */
-    public function GetEditDateList(bool $public = false) : ?array
-    {
-        return $this->CI->db_lib->GetSelectValues($this->GetDbTable(), 'edit_date', $public);
-    }
-
-
-    /**
-     * を取得
-     *
-     * @param string $id：ID
-     * @param boolean $public：ステータスフラグ
-     * @return string|null
-     */
-    public function GetId(
-        string $id,
-        bool $public = false
-    ) : ?string
-    {
-        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $id, 'id', $public);
-    }
-
-
-    /**
-     * を取得
-     *
-     * @param string $id：ID
-     * @param boolean $public：ステータスフラグ
-     * @return string|null
-     */
-    public function GetRegistDate(
-        string $id,
-        bool $public = false
-    ) : ?string
-    {
-        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'regist_date', $id, 'id', $public);
-    }
-
-
-    /**
-     * を取得
-     *
-     * @param string $id：ID
-     * @param boolean $public：ステータスフラグ
-     * @return string|null
-     */
-    public function GetEditDate(
-        string $id,
-        bool $public = false
-    ) : ?string
-    {
-        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'edit_date', $id, 'id', $public);
-    }
-
-
-    /**
-     * からIDを取得
-     *
-     * @param string $id：対象
-     * @param boolean $public：ステータスフラグ
-     * @return string|null
-     */
-    public function GetIdFromId(
-        string $id,
-        bool $public = false
-    ) : ?string
-    {
-        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $id, 'id', $public);
-    }
-
-
-    /**
-     * からIDを取得
-     *
-     * @param string $status：対象
-     * @param boolean $public：ステータスフラグ
-     * @return string|null
-     */
-    public function GetIdFromStatus(
-        string $status,
-        bool $public = false
-    ) : ?string
-    {
-        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $status, 'status', $public);
-    }
-
-
-    /**
-     * からIDを取得
-     *
-     * @param string $registDate：対象
-     * @param boolean $public：ステータスフラグ
-     * @return string|null
-     */
-    public function GetIdFromRegistDate(
-        string $registDate,
-        bool $public = false
-    ) : ?string
-    {
-        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $registDate, 'regist_date', $public);
-    }
-
-
-    /**
-     * からIDを取得
-     *
-     * @param string $editDate：対象
-     * @param boolean $public：ステータスフラグ
-     * @return string|null
-     */
-    public function GetIdFromEditDate(
-        string $editDate,
-        bool $public = false
-    ) : ?string
-    {
-        return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $editDate, 'edit_date', $public);
-    }
-
-
-    /**
-     * の登録有無
-     *
-     * @param string $status：対象
-     * @param boolean $public
-     * @return boolean
-     */
-    public function StatusExists(
-        string $status,
-        bool $public = false
-    ) : bool
-    {
-        return $this->CI->db_lib->ValueExists($this->GetDbTable(), $status, 'status', $public);
-    }
-
-
-    /**
-     * の登録有無
-     *
-     * @param string $registDate：対象
-     * @param boolean $public
-     * @return boolean
-     */
-    public function RegistDateExists(
-        string $registDate,
-        bool $public = false
-    ) : bool
-    {
-        return $this->CI->db_lib->ValueExists($this->GetDbTable(), $registDate, 'regist_date', $public);
-    }
-
-
-    /**
-     * の登録有無
-     *
-     * @param string $editDate：対象
-     * @param boolean $public
-     * @return boolean
-     */
-    public function EditDateExists(
-        string $editDate,
-        bool $public = false
-    ) : bool
-    {
-        return $this->CI->db_lib->ValueExists($this->GetDbTable(), $editDate, 'edit_date', $public);
-    }
-
-
-    /**
-     * が対象ID以外に同じ値が存在するかどうか
-     *
-     * @param string $id：対象
-     * @param string $id：除外ID
-     * @param boolean $public
-     * @return boolean
-     */
-    public function IdSameExists(
-        $id,
-        $id = '',
-        $public = false
-    ) : bool
-    {
-        return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $id, 'id', $id, 'id', $public);
-    }
-
-
-    /**
-     * が対象ID以外に同じ値が存在するかどうか
-     *
-     * @param string $status：対象
-     * @param string $id：除外ID
-     * @param boolean $public
-     * @return boolean
-     */
-    public function StatusSameExists(
-        $status,
-        $id = '',
-        $public = false
-    ) : bool
-    {
-        return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $status, 'status', $id, 'id', $public);
-    }
-
-
-    /**
-     * が対象ID以外に同じ値が存在するかどうか
-     *
-     * @param string $registDate：対象
-     * @param string $id：除外ID
-     * @param boolean $public
-     * @return boolean
-     */
-    public function RegistDateSameExists(
-        $registDate,
-        $id = '',
-        $public = false
-    ) : bool
-    {
-        return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $registDate, 'regist_date', $id, 'id', $public);
-    }
-
-
-    /**
-     * が対象ID以外に同じ値が存在するかどうか
-     *
-     * @param string $editDate：対象
-     * @param string $id：除外ID
-     * @param boolean $public
-     * @return boolean
-     */
-    public function EditDateSameExists(
-        $editDate,
-        $id = '',
-        $public = false
-    ) : bool
-    {
-        return $this->CI->db_lib->SameExists(self::MASTER_TABLE, $editDate, 'edit_date', $id, 'id', $public);
-    }
 
 
 }

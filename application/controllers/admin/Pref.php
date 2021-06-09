@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/04：新規作成
+ * @since 1.0.0     2021/06/09：新規作成
  */
 class Pref extends MY_Controller
 {
@@ -92,7 +92,7 @@ class Pref extends MY_Controller
                 // 登録処理
                 $this->pref_model->RegistAction($validFlg);
                 // テンプレート読み込み
-                redirect(Base_lib::ADMIN_DIR . '/pref/comp' . ($id ? '/' . $id : ''));
+                redirect(Base_lib::ACCESS_ADMIN_DIR . '/pref/comp' . ($id ? '/' . $id : ''));
             } else {
                 $templateVal = $this->pref_model->InputTemplate($validFlg);
                 // 入力テンプレート読み込み
@@ -131,6 +131,18 @@ class Pref extends MY_Controller
         // 削除処理
         $this->pref_model->DelAction();
         // 一覧ページへ遷移
-        redirect(Base_lib::ADMIN_DIR . '/pref/');
+        redirect(Base_lib::ACCESS_ADMIN_DIR . '/pref/');
+    }
+
+
+    /**
+     * ソート処理
+     *
+     * @return void
+     */
+    public function sort()
+    {
+        // ソート処理
+        $this->pref_model->SortAction();
     }
 }

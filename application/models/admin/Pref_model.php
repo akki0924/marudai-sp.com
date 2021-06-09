@@ -4,7 +4,7 @@
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/04：新規作成
+ * @since 1.0.0     2021/06/09：新規作成
  */
 class Pref_model extends CI_Model
 {
@@ -12,8 +12,8 @@ class Pref_model extends CI_Model
     const FIRST_MSG = '検索項目を選択してください。';
     const NO_LIST_MSG = '一覧リストが見つかりません。';
     // 並び順用文字列
-    const SORT_ARROW_UP_STR = 'up';
-    const SORT_ARROW_DOWN_STR = 'down';
+    const SORT_COLUMN = 'sort_id';
+    const SORT_ARROW = 'desc';
     // ログイン対象
     const LOGIN_KEY = Base_lib::ADMIN_DIR;
 
@@ -29,7 +29,7 @@ class Pref_model extends CI_Model
         // ログイン情報の確認
         if (! $this->login_lib->LoginCheck()) {
             // エラーページへ遷移
-            redirect(Base_lib::ADMIN_DIR ."/index/error");
+            redirect(Base_lib::ACCESS_ADMIN_DIR ."/index/error");
         }
         // ライブラリー読込み
         $this->load->library(Base_lib::MASTER_DIR . '/pref_lib');
@@ -45,7 +45,7 @@ class Pref_model extends CI_Model
     public function sharedTemplate(array $templateVal = array()) : ?array
     {
         // 変数を再セット
-        $returnVal = ($returnVal != "" ? $returnVal : array());
+        $returnVal = $templateVal;
         // クラス定数をセット
         $returnVal['const'] = $this->base_lib->GetBaseConstList();
         Base_lib::ConsoleLog($returnVal);
@@ -84,6 +84,8 @@ class Pref_model extends CI_Model
         $returnVal['count'] = $this->GetListCount($whereSql);
         // ORDER情報をセット
         $orderSql[0]['key'] = pref_lib::MASTER_TABLE . ' . sort_id';
+        $orderSql[0]['arrow'] = 'ASC';
+        $orderSql[0]['key'] = pref_lib::MASTER_TABLE . ' . regist_date';
         $orderSql[0]['arrow'] = 'DESC';
         // 一覧情報を取得
         $returnVal['list'] = $this->GetList($whereSql, $orderSql, null, true);
@@ -224,43 +226,15 @@ class Pref_model extends CI_Model
         ini_set('max_execution_time', '90');
         // FORM情報
         $id = $this->input->post_get('id', true);
-        $arrow = $this->input->post_get('arrow', true);
-        $action = $this->input->post_get('action', true);
-        // 対象並び順を取得
-        $sortId = $this->db_lib->GetValue(pref_lib::MASTER_TABLE, 'sort_id', $id);
-        // 並び順最大
-        $sortMax = $this->db_lib->GetValueMax(pref_lib::MASTER_TABLE);
-        if (
-            $arrow == self::SORT_ARROW_UP_STR &&
-            $sortId < $sortMax
-        ) {
-            // ソートから対象IDを取得
-            $targetId = $this->pref_lib->GetSortIdForId(($sortId + 1));
-            if ($targetId) {
-                // 登録処理
-                $form['sort_id'] = ($sortId + 1);
-                $this->pref_lib->Regist($form, $id);
-                // 登録処理
-                $form['sort_id'] = $sortId;
-                $this->pref_lib->Regist($form, $targetId);
-            }
-        } elseif (
-            $arrow == self::SORT_ARROW_DOWN_STR &&
-            $sortId > 1
-        ) {
-            // ソートから対象IDを取得
-            $targetId = $this->pref_lib->GetSortIdForId(($sortId - 1));
-            if ($targetId) {
-                // 登録処理
-                $form['sort_id'] = ($sortId - 1);
-                $this->pref_lib->Regist($form, $id);
-                // 登録処理
-                $form['sort_id'] = $sortId;
-                $this->pref_lib->Regist($form, $targetId);
-            }
+        $sortId = $this->input->post_get('sort_id', true);
+        // ソート順が降順
+        if (strtoupper(self::SORT_ARROW) == 'DESC') {
+            // 並び順最大
+            $sortMax = $this->db_lib->GetValueMax(pref_lib::MASTER_TABLE);
+            $sortId = ($sortMax - $sortId) + 1;
         }
-
-        return $returnVal;
+        // ソート処理実行
+        $this->pref_lib->UpdateSort($id, $sortId);
     }
 
 
@@ -318,8 +292,8 @@ class Pref_model extends CI_Model
                 " . pref_lib::MASTER_TABLE . " . sort_id,
                 " . pref_lib::MASTER_TABLE . " . status,
                 CASE " . pref_lib::MASTER_TABLE . " . status
-                    WHEN " . pref_lib::ID_STATUS_ENABLE . " THEN " . pref_lib::NAME_STATUS_ENABLE . "
-                    ELSE " . pref_lib::NAME_STATUS_DISABLE . "
+                    WHEN " . pref_lib::ID_STATUS_ENABLE . " THEN '" . pref_lib::NAME_STATUS_ENABLE . "'
+                    ELSE '" . pref_lib::NAME_STATUS_DISABLE . "'
                 END status_name,
                 " . pref_lib::MASTER_TABLE . " . regist_date,
                 DATE_FORMAT(" . pref_lib::MASTER_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
@@ -364,10 +338,7 @@ class Pref_model extends CI_Model
         $returnVal = array(
             'id',
             'name',
-            'sort_id',
             'status',
-            'regist_date',
-            'edit_date',
         );
 
         return $returnVal;
@@ -383,37 +354,13 @@ class Pref_model extends CI_Model
     {
         // 
         $returnVal[] = array(
-            'field'   => 'id',
-            'label'   => '',
-            'rules'   => 'required'
-        );
-        // 
-        $returnVal[] = array(
             'field'   => 'name',
             'label'   => '',
             'rules'   => 'required'
         );
         // 
         $returnVal[] = array(
-            'field'   => 'sort_id',
-            'label'   => '',
-            'rules'   => 'required'
-        );
-        // 
-        $returnVal[] = array(
             'field'   => 'status',
-            'label'   => '',
-            'rules'   => 'required'
-        );
-        // 
-        $returnVal[] = array(
-            'field'   => 'regist_date',
-            'label'   => '',
-            'rules'   => 'required'
-        );
-        // 
-        $returnVal[] = array(
-            'field'   => 'edit_date',
             'label'   => '',
             'rules'   => 'required'
         );

@@ -29,7 +29,7 @@ $(function(){
 	<div class="container">
 		<div class="row align_center">
 			<p class="font_20"><?= $const['site_title_name'] ?></p>
-			<div class="pc"><a href="<?= SiteDir(); ?>admin/index/logout" class="btn frame short">ログアウト</a></div>
+			<div class="pc"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/index/logout" class="btn frame short">ログアウト</a></div>
 		</div><!--/.row-->
 	</div><!--/.container-->
 
@@ -42,11 +42,12 @@ $(function(){
 
 	<nav class="globalMenuSp sp">
 		<ul>
-			<li><a href="<?= SiteDir(); ?>admin/admin">ログイン管理</a></li>
-			<li><a href="<?= SiteDir(); ?>admin/pref">都道府県管理</a></li>
-			<li><a href="<?= SiteDir(); ?>admin/sheet1">チェックシート1管理</a></li>
-			<li><a href="<?= SiteDir(); ?>admin/sheet2">チェックシート2管理</a></li>
-			<li><a href="<?= SiteDir(); ?>admin/index/logout">ログアウト</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/pref">都道府県管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school">小学校管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1">チェックシート1管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2">チェックシート2管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/user">登録者管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/index/logout">ログアウト</a></li>
 		</ul>
 	</nav>
 	<!-- /sp menu ---------------------------->
@@ -62,10 +63,11 @@ $(function(){
 	<section id="management">
 		<div class="container">
 			<div class="row">
-				<div class="col4"><a href="<?= SiteDir(); ?>admin/admin" class="btn mng">ログイン管理</a></div>
-				<div class="col4"><a href="<?= SiteDir(); ?>admin/pref" class="btn mng frame">都道府県管理</a></div>
-				<div class="col4"><a href="<?= SiteDir(); ?>admin/sheet1" class="btn mng">チェックシート1管理</a></div>
-				<div class="col4"><a href="<?= SiteDir(); ?>admin/sheet2" class="btn mng">チェックシート2管理</a></div>
+				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/pref" class="btn mng frame">都道府県管理</a></div>
+				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school" class="btn mng">小学校管理</a></div>
+				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1" class="btn mng">チェックシート1管理</a></div>
+				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2" class="btn mng">チェックシート2管理</a></div>
+				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/user" class="btn mng">登録者管理</a></div>
 			</div>
 		</div><!--./container-->
 	</section>
@@ -75,35 +77,16 @@ $(function(){
 			<h2 class="mb_20"><?= $exists ? '都道府県情報編集' : '新規都道府県登録' ?></h2>
 			<div class="max680">
 				<div class="bg_gray pd60 mb_40">
-					<?php if ($exists) { ?>
-						<p class="font_20 bold mb_40">利用者ID：<?= VarDisp($form['id']) ?></p>
-					<?php } ?>
-					<form method="post" id="operation_form" name="operation_form" action="<?= SiteDir(); ?>admin/pref/input" class="h-adr">
+					<form method="post" id="operation_form" name="operation_form" action="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/pref/input" class="h-adr">
 						<table class="form mb_40">
 							<tbody>
-								<tr>
-									<th><span class="required"></span></th>
-									<td><?= VarDisp($form['id']) ?></td>
-								</tr>
 								<tr>
 									<th><span class="required"></span></th>
 									<td><?= VarDisp($form['name']) ?></td>
 								</tr>
 								<tr>
 									<th><span class="required"></span></th>
-									<td><?= VarDisp($form['sort_id']) ?></td>
-								</tr>
-								<tr>
-									<th><span class="required"></span></th>
 									<td><?= VarDisp($form['status_name']) ?></td>
-								</tr>
-								<tr>
-									<th><span class="required"></span></th>
-									<td><?= VarDisp($form['regist_date']) ?></td>
-								</tr>
-								<tr>
-									<th><span class="required"></span></th>
-									<td><?= VarDisp($form['edit_date']) ?></td>
 								</tr>
 							</tbody>
 						</table>

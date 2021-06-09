@@ -17,7 +17,7 @@
 	<div class="container">
 		<div class="row align_center">
 			<p class="font_20"><?= $const['site_title_name'] ?></p>
-			<div class="pc"><a href="<?= SiteDir(); ?>admin/index/logout" class="btn frame short">ログアウト</a></div>
+			<div class="pc"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/index/logout" class="btn frame short">ログアウト</a></div>
 		</div><!--/.row-->
 	</div><!--/.container-->
 
@@ -30,11 +30,12 @@
 
 	<nav class="globalMenuSp sp">
 		<ul>
-			<li><a href="<?= SiteDir(); ?>admin/admin">ログイン管理</a></li>
-			<li><a href="<?= SiteDir(); ?>admin/pref">都道府県管理</a></li>
-			<li><a href="<?= SiteDir(); ?>admin/sheet1">チェックシート1管理</a></li>
-			<li><a href="<?= SiteDir(); ?>admin/sheet2">チェックシート2管理</a></li>
-			<li><a href="<?= SiteDir(); ?>admin/index/logout">ログアウト</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/pref">都道府県管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school">小学校管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1">チェックシート1管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2">チェックシート2管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/user">登録者管理</a></li>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/index/logout">ログアウト</a></li>
 		</ul>
 	</nav>
 	<!-- /sp menu ---------------------------->
@@ -50,10 +51,11 @@
 	<section id="management">
 		<div class="container">
 			<div class="row">
-				<div class="col4"><a href="<?= SiteDir(); ?>admin/admin" class="btn mng">ログイン管理</a></div>
-				<div class="col4"><a href="<?= SiteDir(); ?>admin/pref" class="btn mng frame">都道府県管理</a></div>
-				<div class="col4"><a href="<?= SiteDir(); ?>admin/sheet1" class="btn mng">チェックシート1管理</a></div>
-				<div class="col4"><a href="<?= SiteDir(); ?>admin/sheet2" class="btn mng">チェックシート2管理</a></div>
+				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/pref" class="btn mng frame">都道府県管理</a></div>
+				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school" class="btn mng">小学校管理</a></div>
+				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1" class="btn mng">チェックシート1管理</a></div>
+				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2" class="btn mng">チェックシート2管理</a></div>
+				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/user" class="btn mng">登録者管理</a></div>
 			</div>
 		</div><!--./container-->
 	</section>
@@ -65,7 +67,7 @@
 				<div class="bg_gray pd60">
 					<p class="font_20 bold mb_10"><?= $exists ? '都道府県情報更新' : '新規都道府県登録' ?>完了</p>
 					<p class="mb_40"><?= $exists ? '都道府県情報の更新' : '新規都道府県登録' ?>が完了しました。</p>
-					<center><a href="<?= SiteDir(); ?>admin/pref" class="btn short">都道府県管理へ戻る</a></center>
+					<center><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/pref" class="btn short">都道府県管理へ戻る</a></center>
 				</div><!--./bg_gray-->
 			</div><!--./max680-->
 		</div><!--./container-->

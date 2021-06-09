@@ -212,6 +212,21 @@ section {
 .col4 {
 	width: calc(100% / 4 - 20px);
 }
+.col4_2 {
+	width: calc(100% / 4 * 2);
+}
+.col5 {
+	width: calc(100% / 5 - 20px);
+}
+.col5_2 {
+	width: calc(100% / 5 * 2);
+}
+.col6 {
+	width: calc(100% / 6 - 20px);
+}
+.col6_2 {
+	width: calc(100% / 6 * 2);
+}
 
 .bg_gray {
 	background: #EFEFEF;
@@ -807,6 +822,21 @@ footer p.copy {
 	}
 	.col4 {
 		width: calc(100% / 2 - 10px);
+	}
+	.col4_2 {
+		width: calc(100% / 2 - 10px);
+	}
+	.col5 {
+		width: calc(100% / 3 - 10px);
+	}
+	.col5_2 {
+		width: calc(100% / 3 - 10px);
+	}
+	.col6 {
+		width: calc(100% / 4 - 10px);
+	}
+	.col6_2 {
+		width: calc(100% / 4 - 10px);
 	}
 
 	.white_boad {

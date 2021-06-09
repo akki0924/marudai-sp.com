@@ -96,6 +96,7 @@ class Create_lib extends Base_lib
             }
             $tableList = array_values($tableList);
         }
+        Base_lib::ConsoleLog($tableList);
         // ログイン用テーブルを一覧から削除
         for ($i = 0, $n = count($tableList); $i < $n; $i ++) {
             if ($tableList[$i]['name'] == Admin_lib::MASTER_TABLE) {
