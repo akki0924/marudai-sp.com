@@ -750,19 +750,26 @@ class Base_lib
             } else {
                 // IDが未セットの場合、IDを生成
                 if (
-                    (
-                        ! isset($registData['id']) ||
-                        $registData['id'] == ''
-                    ) &&
-                    ! $this->CI->db_lib->CheckAutoIncrement($this->GetDbTable())
+                    ! isset($registData['id']) ||
+                    $registData['id'] == ''
                 ) {
-                    $registData['id'] = $this->CreateId();
+                    // 自動採番以外
+                    if (! $this->CI->db_lib->CheckAutoIncrement($this->GetDbTable())) {
+                        $registData['id'] = $this->CreateId();
+                    }
+                    // 自動採番
+                    else {
+                        $registData['id'] = ($this->CI->db_lib->GetValueMax($this->GetDbTable(), 'id') + 1);
+                    }
                 }
                 // 新規作成
                 $returnVal = $this->CI->db_lib->Insert($this->GetDbTable(), $registData);
             }
             // 登録成功の場合、IDを返す
-            if ($returnVal) {
+            if (
+                $returnVal &&
+                isset($registData['id'])
+            ) {
                 $returnVal = $registData['id'];
             }
         }
