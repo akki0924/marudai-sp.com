@@ -295,4 +295,22 @@ class File_lib
         }
         return $returnVal;
     }
+    /*====================================================================
+        関数名： CreateDir
+        概　要： ディレクトリ生成
+        引　数： $path：ファイルパス
+    */
+    public function CreateDir($path)
+    {
+        // 返値の初期値をセット
+        $returnVal = false;
+        // ファイルパスが存在しない
+        if (!file_exists($path)) {
+            if (mkdir($path, 0777)) {
+                $returnVal = true;
+            }
+        }
+
+        return $returnVal;
+    }
 }

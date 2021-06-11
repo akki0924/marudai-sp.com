@@ -79,6 +79,7 @@ $(function() {
 
 	<nav class="globalMenuSp sp">
 		<ul>
+			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/create_log">自動生成ログ管理</a></li>
 			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/pref">都道府県管理</a></li>
 			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school">小学校管理</a></li>
 			<li><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1">チェックシート1管理</a></li>
@@ -96,11 +97,12 @@ $(function() {
 	<section id="management">
 		<div class="container">
 			<div class="row mb_80">
-				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/pref" class="btn mng frame">都道府県管理</a></div>
-				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school" class="btn mng">小学校管理</a></div>
-				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1" class="btn mng">チェックシート1管理</a></div>
-				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2" class="btn mng">チェックシート2管理</a></div>
-				<div class="col5"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/user" class="btn mng">登録者管理</a></div>
+				<div class="col6"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/create_log" class="btn mng">自動生成ログ管理</a></div>
+				<div class="col6"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/pref" class="btn mng frame">都道府県管理</a></div>
+				<div class="col6"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/school" class="btn mng">小学校管理</a></div>
+				<div class="col6"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet1" class="btn mng">チェックシート1管理</a></div>
+				<div class="col6"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/sheet2" class="btn mng">チェックシート2管理</a></div>
+				<div class="col6"><a href="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/user" class="btn mng">登録者管理</a></div>
 			</div>
 		</div><!--/.container-->
 
@@ -113,12 +115,14 @@ $(function() {
 					<?php if (isset($list) && count($list) > 0) { ?>
 						<tr class="list_header">
 							<th>ID</th>
+							<th>都道府県名</th>
 							<th>登録日時</th>
 							<th>&nbsp;</th>
 						</tr>
 						<?php for ($i = 0, $n = count($list); $i < $n; $i ++) { ?>
 						<tr data-id="<?= $list[$i]['id'] ?>">
 							<td><?= $list[$i]['id'] ?></td>
+							<td><?= $list[$i]['name'] ?></td>
 							<td><?= $list[$i]['regist_date'] ?></td>
 							<td>
 								<a class="btn frame shortest edit_btn" data-id="<?= $list[$i]['id'] ?>">編集</a>

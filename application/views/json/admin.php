@@ -15,7 +15,7 @@
             ]
         },
         "disable":[
-            "m_pref"
+            "m_pref_temp"
         ]
     },
     "login__comment":"table:ログイン対象テーブル, id:ID対象カラム, password:パスワード対象カラム first_page:ログイン後の最初のページ",

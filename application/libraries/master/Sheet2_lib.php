@@ -9,7 +9,7 @@ if (! defined('BASEPATH')) {
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/09：新規作成
+ * @since 1.0.0     2021/06/11：新規作成
  */
 class Sheet2_lib extends Base_lib
 {
@@ -35,7 +35,7 @@ class Sheet2_lib extends Base_lib
         // CodeIgniter のスーパーオブジェクトを割り当て
         $this->CI =& get_instance();
         // テーブル名をセット
-        $this->SetDbTable('m_sheet2');
+        $this->SetDbTable(self::MASTER_TABLE);
     }
 
 

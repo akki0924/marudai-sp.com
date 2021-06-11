@@ -39,7 +39,7 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
         // CodeIgniter のスーパーオブジェクトを割り当て
         $this->CI =& get_instance();
         // テーブル名をセット
-        $this->SetDbTable('<?= $tableName ?>');
+        $this->SetDbTable(self::MASTER_TABLE);
     }
 
 
