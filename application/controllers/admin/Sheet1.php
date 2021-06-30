@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/11：新規作成
+ * @since 1.0.0     2021/06/30：新規作成
  */
 class Sheet1 extends MY_Controller
 {
@@ -67,6 +67,9 @@ class Sheet1 extends MY_Controller
         ) {
             // エラーチェックルールをセット
             $config = $this->sheet1_model->ConfigInputValues();
+            // バリデーションのデータを再セット（調整中）
+            $this->sheet1_model->ValidSetData();
+            // バリデーションにルールをセット
             $this->form_validation->set_rules($config);
             // バリデーション実行結果を取得
             $validFlg = $this->form_validation->run();

@@ -70,6 +70,7 @@ class Base_lib
     const VALID_SEPARATE_STR = '|';                         // バリデーションの分割用文字列
     const VALID_STR_BEFORE = '<div class="form_error">';    // バリデーション囲い文字（前）
     const VALID_STR_AFTER = '</div>';                       // バリデーション囲い文字（後）
+    const VALID_ADD_NAME = 'valid_error';                   // バリデーションエラー時の追加フォーム名
 
     // ハイフン
     const STR_HYPHEN = '-';

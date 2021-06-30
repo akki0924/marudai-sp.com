@@ -67,6 +67,9 @@ class <?= ucfirst($targetName) ?> extends MY_Controller
         ) {
             // エラーチェックルールをセット
             $config = $this-><?= $targetName  ?>_model->ConfigInputValues();
+            // バリデーションのデータを再セット（調整中）
+            $this-><?= $targetName  ?>_model->ValidSetData();
+            // バリデーションにルールをセット
             $this->form_validation->set_rules($config);
             // バリデーション実行結果を取得
             $validFlg = $this->form_validation->run();

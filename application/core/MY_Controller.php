@@ -17,7 +17,5 @@ class MY_Controller extends CI_Controller
         $this->form_validation->set_error_delimiters('<div class="form_error">', '</div>');
 
         // モデル呼出し
-        
-
     }
 }

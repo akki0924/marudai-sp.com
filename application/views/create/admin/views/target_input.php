@@ -66,6 +66,10 @@ $(function(){
 		</div><!--./container-->
 	</section>
 
+	\<\?php if (form_error($const['valid_add_name'])) : \?\>
+		<span>\<\?= form_error($const['valid_add_name']); \?\></span><br>
+	\<\?php endif; \?\>
+
 	<section id="new_member">
 		<div class="container">
 			<h2 class="mb_20">\<\?= $exists ? '<?= $comment ?>情報編集' : '新規<?= $comment ?>登録' \?\></h2>

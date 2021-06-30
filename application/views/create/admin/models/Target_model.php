@@ -6,7 +6,7 @@
  * @version 1.0.0
  * @since 1.0.0     <?= date('Y/m/d') ?>：新規作成
  */
-class <?= ucfirst($targetName) ?>_model extends CI_Model
+class <?= ucfirst($targetName) ?>_model extends MY_Model
 {
     const DEFAULT_LIST_COUNT = 200;
     const FIRST_MSG = '検索項目を選択してください。';

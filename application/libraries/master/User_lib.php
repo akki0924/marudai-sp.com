@@ -9,7 +9,7 @@ if (! defined('BASEPATH')) {
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/11：新規作成
+ * @since 1.0.0     2021/06/30：新規作成
  */
 class User_lib extends Base_lib
 {

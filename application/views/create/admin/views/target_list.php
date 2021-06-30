@@ -100,6 +100,10 @@ $(function() {
 			</div>
 		</div><!--/.container-->
 
+		\<\?php if (form_error($const['valid_add_name'])) : \?\>
+			<span>\<\?= form_error($const['valid_add_name']); \?\></span><br>
+		\<\?php endif; \?\>
+
 		<div class="container">
 		<form method="post" id="operation_form" name="operation_form" action="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $targetName ?>">
 			<h2 class="mb_40"><?= $comment ?>管理</h2>

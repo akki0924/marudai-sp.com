@@ -26,11 +26,15 @@ class Create_lib extends Base_lib
     // テーブル名
     const LOG_TABLE = 'd_create_log';
     //　テーブルカラム名
+    const LOG_COLUMN_MESSAGE = 'message';
     const LOG_COLUMN_BACKUP = 'backup_log';
     const LOG_COLUMN_CONTROLLER = 'controller_log';
     const LOG_COLUMN_VIEW = 'view_log';
     const LOG_COLUMN_MODEL = 'model_log';
     const LOG_COLUMN_LIBRARY = 'library_log';
+    const LOG_MESSAGE_NOT_RUN = '自動実行が正しく処理出来ませんでした';
+    const LOG_MESSAGE_ERROR = '自動実行中にエラーが発生しました';
+    const LOG_MESSAGE_SUCCESS = '自動生成に成功しました';
     // 自動生成用テンプレートディレクトリ
     const TEMPLATE_DIR = 'create';
     // 自動生成用テンプレートファイル
@@ -74,14 +78,12 @@ class Create_lib extends Base_lib
      * 管理プログラム一覧ファイルの書出し処理
      *
      * 今後の更新予定内容
-     * ・自動生成前に対象ディレクトリ内にある不必要なデータを削除
      * ・エラーページを他の管理画面に合わせて表示出来るように更新
-     * ・DBに専用のログを残す
      * ・実行画面にログを表示
      *
-     * @return void
+     * @return string|null
      */
-    public function CreateAdmin() : void
+    public function CreateAdmin() : ?string
     {
         // 必要なライブラリの読み込む
         $this->CI->load->library('admin_lib');
@@ -91,6 +93,8 @@ class Create_lib extends Base_lib
         $this->SetLogId($this->RegistLogAction());
         // ログデータ用変数を初期化
         $logData = array();
+        // ログデータに初期メッセージをセット
+        $logData[self::LOG_COLUMN_MESSAGE] = self::LOG_MESSAGE_NOT_RUN;
         // 不要なデータの退避処理
         $this->BackupAdminFile();
         // DBテーブル情報一覧を取得
@@ -276,6 +280,8 @@ class Create_lib extends Base_lib
                     }
                     // ログ用変数に追加
                     $logData[$logColumn][] = $uploadPath;
+                    // ログデータのメッセージを更新
+                    $logData[self::LOG_COLUMN_MESSAGE] = self::LOG_MESSAGE_ERROR;
                     // 出力パスを初期化
                     $uploadPath = '';
                 }
@@ -400,6 +406,18 @@ class Create_lib extends Base_lib
         }
         // ログ用変数がセット
         if ($logData) {
+            // 全てに更新情報が存在
+            if (
+                count($logData[self::LOG_COLUMN_CONTROLLER]) > 0 &&
+                count($logData[self::LOG_COLUMN_VIEW]) > 0 &&
+                count($logData[self::LOG_COLUMN_MODEL]) > 0 &&
+                count($logData[self::LOG_COLUMN_LIBRARY]) > 0
+            ) {
+                // ログデータのコメントを更新
+                $logData[self::LOG_COLUMN_MESSAGE] = self::LOG_MESSAGE_SUCCESS;
+                // ログデータ表示用変数をセット
+                $logDataDisp = $logData;
+            }
             // ログ用変数をJSON化
             $logData[self::LOG_COLUMN_CONTROLLER] = json_encode(
                 $logData[self::LOG_COLUMN_CONTROLLER],
@@ -417,9 +435,11 @@ class Create_lib extends Base_lib
                 $logData[self::LOG_COLUMN_LIBRARY],
                 JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES
             );
+
             // ログ保存処理
             $this->RegistLogAction($logData, $this->GetLogId());
         }
+        return ($this->GetLogId() ? $this->GetLogId() : '');
     }
 
 
@@ -829,5 +849,122 @@ class Create_lib extends Base_lib
     public function CheckLogId() : bool
     {
         return ($this->logId ? true : false);
+    }
+
+
+    /**
+     * IDに対応したログ詳細データを取得
+     *
+     * @param string $id：ID
+     * @return array|null
+     */
+    public function GetLogDetailValues(string $id = '') : ?array
+    {
+        // 返値を初期化
+        $returnVal = array();
+        // SQL
+        $query = $this->CI->db->query("
+            SELECT
+                " . self::LOG_TABLE . " . id,
+                " . self::LOG_TABLE . " . message,
+                " . self::LOG_TABLE . " . backup_log,
+                " . self::LOG_TABLE . " . controller_log,
+                " . self::LOG_TABLE . " . view_log,
+                " . self::LOG_TABLE . " . model_log,
+                " . self::LOG_TABLE . " . library_log,
+                " . self::LOG_TABLE . " . regist_date,
+                DATE_FORMAT(" . self::LOG_TABLE . " . regist_date, '%Y.%c.%e') AS regist_date_disp,
+                " . self::LOG_TABLE . " . edit_date,
+                DATE_FORMAT(" . self::LOG_TABLE . ".edit_date, '%Y.%c.%e') AS edit_date_disp
+            FROM " . self::LOG_TABLE . "
+            WHERE (
+                " . self::LOG_TABLE . " . id = " . $this->CI->db_lib->SetWhereVar($id) . "
+            )
+            ");
+        // 結果が、空でない場合
+        if ($query->num_rows() > 0) {
+            $resultList = $query->result_array();
+            foreach ($resultList[0] as $key => $val) {
+                // CordIgniter用配列にセット
+                $returnVal[$key] = $val;
+            }
+        }
+        return $returnVal;
+    }
+
+
+    /**
+     * ログデータを表示用に変換して書出すID情報（メンバー変数）の確認
+     *
+     * @param string $logId：対象データ
+     * @return string|null
+     */
+    public function GetLogDataDisp($logData) : ?string
+    {
+        // 返値を初期化
+        $returnVal = '';
+        // メッセージ
+        $returnVal .= '◆実行結果：' . $logData[self::LOG_COLUMN_MESSAGE] . '<br>';
+        $returnVal .= '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>';
+        $returnVal .= '◆実行内容：<br>';
+        // バックアップ
+        if ($logData[self::LOG_COLUMN_BACKUP]) {
+            $tempVal = json_decode($logData[self::LOG_COLUMN_BACKUP], true);
+            $returnVal .= '　○バックアップログ<br>';
+            if (count($tempVal) > 0) {
+                Base_lib::ConsoleLog($tempVal);
+                foreach ($tempVal as $key => $val) {
+                    $returnVal .= '　　' . $key . '：<br>';
+                    for ($i = 0, $n = count($tempVal[$key]); $i < $n; $i ++) {
+                        $returnVal .= '　　　' . $tempVal[$key][$i] . '<br>';
+                    }
+                }
+            }
+        }
+        // コントローラー
+        if ($logData[self::LOG_COLUMN_CONTROLLER]) {
+            $tempVal = json_decode($logData[self::LOG_COLUMN_CONTROLLER], true);
+            $returnVal .= '　○コントローラーログ<br>';
+            if (count($tempVal) > 0) {
+                for ($i = 0, $n = count($tempVal); $i < $n; $i ++) {
+                    //
+                    $returnVal .= '　　' . $tempVal[$i] . '<br>';
+                }
+            }
+        }
+        // ビュー
+        if ($logData[self::LOG_COLUMN_VIEW]) {
+            $tempVal = json_decode($logData[self::LOG_COLUMN_VIEW], true);
+            $returnVal .= '　○ビューログ<br>';
+            if (count($tempVal) > 0) {
+                for ($i = 0, $n = count($tempVal); $i < $n; $i ++) {
+                    //
+                    $returnVal .= '　　' . $tempVal[$i] . '<br>';
+                }
+            }
+        }
+        // モデル
+        if ($logData[self::LOG_COLUMN_MODEL]) {
+            $tempVal = json_decode($logData[self::LOG_COLUMN_MODEL], true);
+            $returnVal .= '　○モデルログ<br>';
+            if (count($tempVal) > 0) {
+                for ($i = 0, $n = count($tempVal); $i < $n; $i ++) {
+                    //
+                    $returnVal .= '　　' . $tempVal[$i] . '<br>';
+                }
+            }
+        }
+        // ライブラリー
+        if ($logData[self::LOG_COLUMN_LIBRARY]) {
+            $tempVal = json_decode($logData[self::LOG_COLUMN_LIBRARY], true);
+            $returnVal .= '　○ライブラリーログ<br>';
+            if (count($tempVal) > 0) {
+                for ($i = 0, $n = count($tempVal); $i < $n; $i ++) {
+                    //
+                    $returnVal .= '　　' . $tempVal[$i] . '<br>';
+                }
+            }
+        }
+        return $returnVal;
     }
 }

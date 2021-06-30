@@ -4,9 +4,9 @@
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/11：新規作成
+ * @since 1.0.0     2021/06/30：新規作成
  */
-class User_model extends CI_Model
+class User_model extends MY_Model
 {
     const DEFAULT_LIST_COUNT = 200;
     const FIRST_MSG = '検索項目を選択してください。';

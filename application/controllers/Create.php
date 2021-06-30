@@ -4,12 +4,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Create extends MY_Controller
 {
     /*
-        ■機　能： 動作確認用画面処理
+        ■機　能： 自動実行画面処理
         ■概　要：
-        ■更新日： 2021/02/26
+        ■更新日： 2021/06/30
         ■担　当： crew.miwa
         ■更新履歴：
-            2021/02/26: 作成開始
+            2021/02/26：作成開始
+            2021/06/30：自動実行結果ログを画面上に表示
     */
     // コンストラクタ
     public function __construct()
@@ -37,8 +38,10 @@ class Create extends MY_Controller
     public function admin()
     {
         // ファイル生成
-        $this->create_lib->CreateAdmin();
-        print "ok";
+        $logId = $this->create_lib->CreateAdmin();
+        // 実行結果を取得
+        $returnVal = $this->create_lib->GetLogDetailValues($logId);
+        echo $this->create_lib->GetLogDataDisp($returnVal);
     }
 
     // ファイル生成テスト（モデル版）
