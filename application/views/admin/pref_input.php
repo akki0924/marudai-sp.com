@@ -87,7 +87,7 @@ $(function(){
 								<tr>
 									<th><span class="required">都道府県名</span></th>
 									<td>
-										<input type="text" name="name" value="<?= VarDisp($form['name']) ?>" class="half">
+										<input type="text" name="name" value="<?= VarDisp($form['name']) ?>">
 										<?php if (form_error('name')) : ?>
 											<span><?= form_error('name'); ?></span>
 										<?php endif; ?>

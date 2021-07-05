@@ -87,7 +87,7 @@ $(function(){
 								<tr>
 									<th><span class="required">ナンバー</span></th>
 									<td>
-										<input type="number" name="no" value="<?= VarDisp($form['no']) ?>" class="half">
+										<input type="number" name="no" value="<?= VarDisp($form['no']) ?>">
 										<?php if (form_error('no')) : ?>
 											<span><?= form_error('no'); ?></span>
 										<?php endif; ?>
@@ -96,7 +96,7 @@ $(function(){
 								<tr>
 									<th><span class="required">内容</span></th>
 									<td>
-										<input type="text" name="contents" value="<?= VarDisp($form['contents']) ?>" class="half">
+										<input type="text" name="contents" value="<?= VarDisp($form['contents']) ?>">
 										<?php if (form_error('contents')) : ?>
 											<span><?= form_error('contents'); ?></span>
 										<?php endif; ?>
@@ -105,7 +105,7 @@ $(function(){
 								<tr>
 									<th><span class="required">点数</span></th>
 									<td>
-										<input type="number" name="point" value="<?= VarDisp($form['point']) ?>" class="half">
+										<input type="number" name="point" value="<?= VarDisp($form['point']) ?>">
 										<?php if (form_error('point')) : ?>
 											<span><?= form_error('point'); ?></span>
 										<?php endif; ?>

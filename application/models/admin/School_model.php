@@ -4,7 +4,7 @@
  *
  * @author a.miwa <miwa@ccrw.co.jp>
  * @version 1.0.0
- * @since 1.0.0     2021/06/30：新規作成
+ * @since 1.0.0     2021/07/05：新規作成
  */
 class School_model extends MY_Model
 {

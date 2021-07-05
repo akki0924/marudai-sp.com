@@ -87,7 +87,7 @@ $(function(){
 								<tr>
 									<th><span class="required">エコアップID</span></th>
 									<td>
-										<input type="text" name="eco_id" value="<?= VarDisp($form['eco_id']) ?>" class="half">
+										<input type="text" name="eco_id" value="<?= VarDisp($form['eco_id']) ?>">
 										<?php if (form_error('eco_id')) : ?>
 											<span><?= form_error('eco_id'); ?></span>
 										<?php endif; ?>
@@ -96,7 +96,7 @@ $(function(){
 								<tr>
 									<th><span class="required">ニックネーム</span></th>
 									<td>
-										<input type="text" name="nickname" value="<?= VarDisp($form['nickname']) ?>" class="half">
+										<input type="text" name="nickname" value="<?= VarDisp($form['nickname']) ?>">
 										<?php if (form_error('nickname')) : ?>
 											<span><?= form_error('nickname'); ?></span>
 										<?php endif; ?>
@@ -105,7 +105,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_1_1" value="<?= VarDisp($form['sheet1_1_1']) ?>" class="half">
+										<input type="number" name="sheet1_1_1" value="<?= VarDisp($form['sheet1_1_1']) ?>">
 										<?php if (form_error('sheet1_1_1')) : ?>
 											<span><?= form_error('sheet1_1_1'); ?></span>
 										<?php endif; ?>
@@ -114,7 +114,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_1_2" value="<?= VarDisp($form['sheet1_1_2']) ?>" class="half">
+										<input type="number" name="sheet1_1_2" value="<?= VarDisp($form['sheet1_1_2']) ?>">
 										<?php if (form_error('sheet1_1_2')) : ?>
 											<span><?= form_error('sheet1_1_2'); ?></span>
 										<?php endif; ?>
@@ -123,7 +123,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_1_3" value="<?= VarDisp($form['sheet1_1_3']) ?>" class="half">
+										<input type="number" name="sheet1_1_3" value="<?= VarDisp($form['sheet1_1_3']) ?>">
 										<?php if (form_error('sheet1_1_3')) : ?>
 											<span><?= form_error('sheet1_1_3'); ?></span>
 										<?php endif; ?>
@@ -132,7 +132,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_1_4" value="<?= VarDisp($form['sheet1_1_4']) ?>" class="half">
+										<input type="number" name="sheet1_1_4" value="<?= VarDisp($form['sheet1_1_4']) ?>">
 										<?php if (form_error('sheet1_1_4')) : ?>
 											<span><?= form_error('sheet1_1_4'); ?></span>
 										<?php endif; ?>
@@ -141,7 +141,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_1_5" value="<?= VarDisp($form['sheet1_1_5']) ?>" class="half">
+										<input type="number" name="sheet1_1_5" value="<?= VarDisp($form['sheet1_1_5']) ?>">
 										<?php if (form_error('sheet1_1_5')) : ?>
 											<span><?= form_error('sheet1_1_5'); ?></span>
 										<?php endif; ?>
@@ -150,7 +150,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_1_6" value="<?= VarDisp($form['sheet1_1_6']) ?>" class="half">
+										<input type="number" name="sheet1_1_6" value="<?= VarDisp($form['sheet1_1_6']) ?>">
 										<?php if (form_error('sheet1_1_6')) : ?>
 											<span><?= form_error('sheet1_1_6'); ?></span>
 										<?php endif; ?>
@@ -159,7 +159,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_1_7" value="<?= VarDisp($form['sheet1_1_7']) ?>" class="half">
+										<input type="number" name="sheet1_1_7" value="<?= VarDisp($form['sheet1_1_7']) ?>">
 										<?php if (form_error('sheet1_1_7')) : ?>
 											<span><?= form_error('sheet1_1_7'); ?></span>
 										<?php endif; ?>
@@ -168,7 +168,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_2_1" value="<?= VarDisp($form['sheet1_2_1']) ?>" class="half">
+										<input type="number" name="sheet1_2_1" value="<?= VarDisp($form['sheet1_2_1']) ?>">
 										<?php if (form_error('sheet1_2_1')) : ?>
 											<span><?= form_error('sheet1_2_1'); ?></span>
 										<?php endif; ?>
@@ -177,7 +177,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_2_2" value="<?= VarDisp($form['sheet1_2_2']) ?>" class="half">
+										<input type="number" name="sheet1_2_2" value="<?= VarDisp($form['sheet1_2_2']) ?>">
 										<?php if (form_error('sheet1_2_2')) : ?>
 											<span><?= form_error('sheet1_2_2'); ?></span>
 										<?php endif; ?>
@@ -186,7 +186,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_2_3" value="<?= VarDisp($form['sheet1_2_3']) ?>" class="half">
+										<input type="number" name="sheet1_2_3" value="<?= VarDisp($form['sheet1_2_3']) ?>">
 										<?php if (form_error('sheet1_2_3')) : ?>
 											<span><?= form_error('sheet1_2_3'); ?></span>
 										<?php endif; ?>
@@ -195,7 +195,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_2_4" value="<?= VarDisp($form['sheet1_2_4']) ?>" class="half">
+										<input type="number" name="sheet1_2_4" value="<?= VarDisp($form['sheet1_2_4']) ?>">
 										<?php if (form_error('sheet1_2_4')) : ?>
 											<span><?= form_error('sheet1_2_4'); ?></span>
 										<?php endif; ?>
@@ -204,7 +204,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_2_5" value="<?= VarDisp($form['sheet1_2_5']) ?>" class="half">
+										<input type="number" name="sheet1_2_5" value="<?= VarDisp($form['sheet1_2_5']) ?>">
 										<?php if (form_error('sheet1_2_5')) : ?>
 											<span><?= form_error('sheet1_2_5'); ?></span>
 										<?php endif; ?>
@@ -213,7 +213,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_2_6" value="<?= VarDisp($form['sheet1_2_6']) ?>" class="half">
+										<input type="number" name="sheet1_2_6" value="<?= VarDisp($form['sheet1_2_6']) ?>">
 										<?php if (form_error('sheet1_2_6')) : ?>
 											<span><?= form_error('sheet1_2_6'); ?></span>
 										<?php endif; ?>
@@ -222,7 +222,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_2_7" value="<?= VarDisp($form['sheet1_2_7']) ?>" class="half">
+										<input type="number" name="sheet1_2_7" value="<?= VarDisp($form['sheet1_2_7']) ?>">
 										<?php if (form_error('sheet1_2_7')) : ?>
 											<span><?= form_error('sheet1_2_7'); ?></span>
 										<?php endif; ?>
@@ -231,7 +231,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_3_1" value="<?= VarDisp($form['sheet1_3_1']) ?>" class="half">
+										<input type="number" name="sheet1_3_1" value="<?= VarDisp($form['sheet1_3_1']) ?>">
 										<?php if (form_error('sheet1_3_1')) : ?>
 											<span><?= form_error('sheet1_3_1'); ?></span>
 										<?php endif; ?>
@@ -240,7 +240,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_3_2" value="<?= VarDisp($form['sheet1_3_2']) ?>" class="half">
+										<input type="number" name="sheet1_3_2" value="<?= VarDisp($form['sheet1_3_2']) ?>">
 										<?php if (form_error('sheet1_3_2')) : ?>
 											<span><?= form_error('sheet1_3_2'); ?></span>
 										<?php endif; ?>
@@ -249,7 +249,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_3_3" value="<?= VarDisp($form['sheet1_3_3']) ?>" class="half">
+										<input type="number" name="sheet1_3_3" value="<?= VarDisp($form['sheet1_3_3']) ?>">
 										<?php if (form_error('sheet1_3_3')) : ?>
 											<span><?= form_error('sheet1_3_3'); ?></span>
 										<?php endif; ?>
@@ -258,7 +258,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_3_4" value="<?= VarDisp($form['sheet1_3_4']) ?>" class="half">
+										<input type="number" name="sheet1_3_4" value="<?= VarDisp($form['sheet1_3_4']) ?>">
 										<?php if (form_error('sheet1_3_4')) : ?>
 											<span><?= form_error('sheet1_3_4'); ?></span>
 										<?php endif; ?>
@@ -267,7 +267,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_3_5" value="<?= VarDisp($form['sheet1_3_5']) ?>" class="half">
+										<input type="number" name="sheet1_3_5" value="<?= VarDisp($form['sheet1_3_5']) ?>">
 										<?php if (form_error('sheet1_3_5')) : ?>
 											<span><?= form_error('sheet1_3_5'); ?></span>
 										<?php endif; ?>
@@ -276,7 +276,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_3_6" value="<?= VarDisp($form['sheet1_3_6']) ?>" class="half">
+										<input type="number" name="sheet1_3_6" value="<?= VarDisp($form['sheet1_3_6']) ?>">
 										<?php if (form_error('sheet1_3_6')) : ?>
 											<span><?= form_error('sheet1_3_6'); ?></span>
 										<?php endif; ?>
@@ -285,7 +285,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_3_7" value="<?= VarDisp($form['sheet1_3_7']) ?>" class="half">
+										<input type="number" name="sheet1_3_7" value="<?= VarDisp($form['sheet1_3_7']) ?>">
 										<?php if (form_error('sheet1_3_7')) : ?>
 											<span><?= form_error('sheet1_3_7'); ?></span>
 										<?php endif; ?>
@@ -294,7 +294,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_4_1" value="<?= VarDisp($form['sheet1_4_1']) ?>" class="half">
+										<input type="number" name="sheet1_4_1" value="<?= VarDisp($form['sheet1_4_1']) ?>">
 										<?php if (form_error('sheet1_4_1')) : ?>
 											<span><?= form_error('sheet1_4_1'); ?></span>
 										<?php endif; ?>
@@ -303,7 +303,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_4_2" value="<?= VarDisp($form['sheet1_4_2']) ?>" class="half">
+										<input type="number" name="sheet1_4_2" value="<?= VarDisp($form['sheet1_4_2']) ?>">
 										<?php if (form_error('sheet1_4_2')) : ?>
 											<span><?= form_error('sheet1_4_2'); ?></span>
 										<?php endif; ?>
@@ -312,7 +312,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_4_3" value="<?= VarDisp($form['sheet1_4_3']) ?>" class="half">
+										<input type="number" name="sheet1_4_3" value="<?= VarDisp($form['sheet1_4_3']) ?>">
 										<?php if (form_error('sheet1_4_3')) : ?>
 											<span><?= form_error('sheet1_4_3'); ?></span>
 										<?php endif; ?>
@@ -321,7 +321,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_4_4" value="<?= VarDisp($form['sheet1_4_4']) ?>" class="half">
+										<input type="number" name="sheet1_4_4" value="<?= VarDisp($form['sheet1_4_4']) ?>">
 										<?php if (form_error('sheet1_4_4')) : ?>
 											<span><?= form_error('sheet1_4_4'); ?></span>
 										<?php endif; ?>
@@ -330,7 +330,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_4_5" value="<?= VarDisp($form['sheet1_4_5']) ?>" class="half">
+										<input type="number" name="sheet1_4_5" value="<?= VarDisp($form['sheet1_4_5']) ?>">
 										<?php if (form_error('sheet1_4_5')) : ?>
 											<span><?= form_error('sheet1_4_5'); ?></span>
 										<?php endif; ?>
@@ -339,7 +339,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_4_6" value="<?= VarDisp($form['sheet1_4_6']) ?>" class="half">
+										<input type="number" name="sheet1_4_6" value="<?= VarDisp($form['sheet1_4_6']) ?>">
 										<?php if (form_error('sheet1_4_6')) : ?>
 											<span><?= form_error('sheet1_4_6'); ?></span>
 										<?php endif; ?>
@@ -348,7 +348,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_4_7" value="<?= VarDisp($form['sheet1_4_7']) ?>" class="half">
+										<input type="number" name="sheet1_4_7" value="<?= VarDisp($form['sheet1_4_7']) ?>">
 										<?php if (form_error('sheet1_4_7')) : ?>
 											<span><?= form_error('sheet1_4_7'); ?></span>
 										<?php endif; ?>
@@ -357,7 +357,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_5_1" value="<?= VarDisp($form['sheet1_5_1']) ?>" class="half">
+										<input type="number" name="sheet1_5_1" value="<?= VarDisp($form['sheet1_5_1']) ?>">
 										<?php if (form_error('sheet1_5_1')) : ?>
 											<span><?= form_error('sheet1_5_1'); ?></span>
 										<?php endif; ?>
@@ -366,7 +366,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_5_2" value="<?= VarDisp($form['sheet1_5_2']) ?>" class="half">
+										<input type="number" name="sheet1_5_2" value="<?= VarDisp($form['sheet1_5_2']) ?>">
 										<?php if (form_error('sheet1_5_2')) : ?>
 											<span><?= form_error('sheet1_5_2'); ?></span>
 										<?php endif; ?>
@@ -375,7 +375,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_5_3" value="<?= VarDisp($form['sheet1_5_3']) ?>" class="half">
+										<input type="number" name="sheet1_5_3" value="<?= VarDisp($form['sheet1_5_3']) ?>">
 										<?php if (form_error('sheet1_5_3')) : ?>
 											<span><?= form_error('sheet1_5_3'); ?></span>
 										<?php endif; ?>
@@ -384,7 +384,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_5_4" value="<?= VarDisp($form['sheet1_5_4']) ?>" class="half">
+										<input type="number" name="sheet1_5_4" value="<?= VarDisp($form['sheet1_5_4']) ?>">
 										<?php if (form_error('sheet1_5_4')) : ?>
 											<span><?= form_error('sheet1_5_4'); ?></span>
 										<?php endif; ?>
@@ -393,7 +393,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_5_5" value="<?= VarDisp($form['sheet1_5_5']) ?>" class="half">
+										<input type="number" name="sheet1_5_5" value="<?= VarDisp($form['sheet1_5_5']) ?>">
 										<?php if (form_error('sheet1_5_5')) : ?>
 											<span><?= form_error('sheet1_5_5'); ?></span>
 										<?php endif; ?>
@@ -402,7 +402,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_5_6" value="<?= VarDisp($form['sheet1_5_6']) ?>" class="half">
+										<input type="number" name="sheet1_5_6" value="<?= VarDisp($form['sheet1_5_6']) ?>">
 										<?php if (form_error('sheet1_5_6')) : ?>
 											<span><?= form_error('sheet1_5_6'); ?></span>
 										<?php endif; ?>
@@ -411,7 +411,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート1</span></th>
 									<td>
-										<input type="number" name="sheet1_5_7" value="<?= VarDisp($form['sheet1_5_7']) ?>" class="half">
+										<input type="number" name="sheet1_5_7" value="<?= VarDisp($form['sheet1_5_7']) ?>">
 										<?php if (form_error('sheet1_5_7')) : ?>
 											<span><?= form_error('sheet1_5_7'); ?></span>
 										<?php endif; ?>
@@ -420,7 +420,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート2</span></th>
 									<td>
-										<input type="number" name="sheet2_1" value="<?= VarDisp($form['sheet2_1']) ?>" class="half">
+										<input type="number" name="sheet2_1" value="<?= VarDisp($form['sheet2_1']) ?>">
 										<?php if (form_error('sheet2_1')) : ?>
 											<span><?= form_error('sheet2_1'); ?></span>
 										<?php endif; ?>
@@ -429,7 +429,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート2</span></th>
 									<td>
-										<input type="number" name="sheet2_2" value="<?= VarDisp($form['sheet2_2']) ?>" class="half">
+										<input type="number" name="sheet2_2" value="<?= VarDisp($form['sheet2_2']) ?>">
 										<?php if (form_error('sheet2_2')) : ?>
 											<span><?= form_error('sheet2_2'); ?></span>
 										<?php endif; ?>
@@ -438,7 +438,7 @@ $(function(){
 								<tr>
 									<th><span class="required">シート2</span></th>
 									<td>
-										<input type="number" name="sheet2_3" value="<?= VarDisp($form['sheet2_3']) ?>" class="half">
+										<input type="number" name="sheet2_3" value="<?= VarDisp($form['sheet2_3']) ?>">
 										<?php if (form_error('sheet2_3')) : ?>
 											<span><?= form_error('sheet2_3'); ?></span>
 										<?php endif; ?>

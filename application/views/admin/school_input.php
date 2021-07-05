@@ -87,7 +87,7 @@ $(function(){
 								<tr>
 									<th><span class="required">ナンバー</span></th>
 									<td>
-										<input type="text" name="no" value="<?= VarDisp($form['no']) ?>" class="half">
+										<input type="text" name="no" value="<?= VarDisp($form['no']) ?>">
 										<?php if (form_error('no')) : ?>
 											<span><?= form_error('no'); ?></span>
 										<?php endif; ?>
@@ -96,7 +96,7 @@ $(function(){
 								<tr>
 									<th><span class="required">小学校名</span></th>
 									<td>
-										<input type="text" name="name" value="<?= VarDisp($form['name']) ?>" class="half">
+										<input type="text" name="name" value="<?= VarDisp($form['name']) ?>">
 										<?php if (form_error('name')) : ?>
 											<span><?= form_error('name'); ?></span>
 										<?php endif; ?>
@@ -105,7 +105,7 @@ $(function(){
 								<tr>
 									<th><span class="required">設立団体名</span></th>
 									<td>
-										<input type="text" name="establish" value="<?= VarDisp($form['establish']) ?>" class="half">
+										<input type="text" name="establish" value="<?= VarDisp($form['establish']) ?>">
 										<?php if (form_error('establish')) : ?>
 											<span><?= form_error('establish'); ?></span>
 										<?php endif; ?>

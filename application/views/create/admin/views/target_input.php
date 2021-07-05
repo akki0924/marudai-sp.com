@@ -87,9 +87,9 @@ $(function(){
 											\<\?= form_dropdown("status", $select['status'], (isset($form['status']) ? $form['status'] : ""), 'id="status"'); \?\>
 										</div>
 <?php } elseif ($tableSel[$i]['type_simple'] == 'varchar') { ?>
-										<input type="text" name="<?= $tableSel[$i]['name'] ?>" value="\<\?= VarDisp($form['<?= $tableSel[$i]['name'] ?>']) \?\>" class="half">
+										<input type="text" name="<?= $tableSel[$i]['name'] ?>" value="\<\?= VarDisp($form['<?= $tableSel[$i]['name'] ?>']) \?\>">
 <?php } elseif ($tableSel[$i]['type_simple'] == 'smallint') { ?>
-										<input type="number" name="<?= $tableSel[$i]['name'] ?>" value="\<\?= VarDisp($form['<?= $tableSel[$i]['name'] ?>']) \?\>" class="half">
+										<input type="number" name="<?= $tableSel[$i]['name'] ?>" value="\<\?= VarDisp($form['<?= $tableSel[$i]['name'] ?>']) \?\>">
 <?php } elseif ($tableSel[$i]['type_simple'] == 'text') { ?>
 										<textarea name="<?= $tableSel[$i]['name'] ?>">
 											\<\?= VarDisp($form['<?= $tableSel[$i]['name'] ?>']) \?\>
