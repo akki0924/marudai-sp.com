@@ -127,7 +127,10 @@ class Create_lib extends Base_lib
         ) {
             foreach ($jsonVal['table']['disable'] as $key => $val) {
                 for ($i = 0, $n = count($tableList); $i < $n; $i ++) {
-                    if ($tableList[$i]['name'] == $val) {
+                    if (
+                        isset($tableList[$i]['name']) &&
+                        $tableList[$i]['name'] == $val
+                    ) {
                         unset($tableList[$i]);
                     }
                 }
