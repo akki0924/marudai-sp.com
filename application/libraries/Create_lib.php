@@ -8,7 +8,7 @@ if (! defined('BASEPATH')) {
  * PHPプログラム用のファイルを自動生成する為の関数群
  *
  * @author akki.m
- * @version 1.1.1
+ * @version 1.1.2
  * @since 1.0.0     2021/04/21  新規作成
  * @since 1.0.1     2021/04/26  libraryファイル自動生成完成
  * @since 1.0.2     2021/05/10  libraryファイル一括自動生成機能追加
@@ -16,6 +16,7 @@ if (! defined('BASEPATH')) {
  * @since 1.0.4     2021/05/21  modelファイル一括自動生成機能追加
  * @since 1.1.0     2021/06/02  管理画面一括自動生成機能追加
  * @since 1.1.1     2021/06/11  管理画面一括自動生成機能にログ保存機能、実行前のファイル退避機能追加
+ * @since 1.1.2     2021/07/09  管理画面一括自動生成機能のバグ修正（利用しないテーブル正しく設定されるように）
  *
  */
 class Create_lib extends Base_lib
@@ -105,8 +106,6 @@ class Create_lib extends Base_lib
             // 対象名をセット
             $tableList[$i]['targetName'] = substr($tableList[$i]['name'], self::MASTER_TABLE_PREFIX_NUM);
         }
-
-        Base_lib::ConsoleLog($tableList);
         // 読込みJSONファイルをセット
         $targetFile = self::JSON_DIR . self::WEB_DIR_SEPARATOR;
         $targetFile .= 'admin.php';
@@ -127,14 +126,24 @@ class Create_lib extends Base_lib
         ) {
             foreach ($jsonVal['table']['disable'] as $key => $val) {
                 for ($i = 0, $n = count($tableList); $i < $n; $i ++) {
+                    // 利用しないテーブル一覧の各テーブル名と登録テーブル名が一致
                     if (
                         isset($tableList[$i]['name']) &&
                         $tableList[$i]['name'] == $val
                     ) {
-                        unset($tableList[$i]);
+                        // 登録テーブル名を空に
+                        $tableList[$i]['name'] = '';
                     }
                 }
             }
+            for ($i = 0, $n = count($tableList); $i < $n; $i ++) {
+                // 登録テーブル名が空のもの
+                if (! $tableList[$i]['name']) {
+                    // 対象登録テーブル情報を削除
+                    unset($tableList[$i]);
+                }
+            }
+            // 配列キーの振り直し
             $tableList = array_values($tableList);
         }
         Base_lib::ConsoleLog($tableList);
