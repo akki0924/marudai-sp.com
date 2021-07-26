@@ -27,10 +27,13 @@ class MY_Model extends CI_Model
     /**
      * バリデーションへ追加用の項目を追加
      *
+     * @param array $addForm : 追加フォーム情報
      * @return array
      */
-    public function ValidSetData() : ?array
+    public function ValidSetData(?array $addForm = array()) : ?array
     {
+        // 登録フォーム情報を初期化
+        $setForm = array();
         // POSTデータを取得
         foreach ($_POST as $key => $val) {
             $formKeys[$key] = $val;
@@ -41,11 +44,20 @@ class MY_Model extends CI_Model
         }
         // POST・GETデータをXSSフィルタリングで再取得
         foreach ($formKeys as $key => $value) {
-            $addForm[$key] = $this->input->post_get($key, true);
+            $setForm[$key] = $this->input->post_get($key, true);
         }
-        // 追加フォームをセット
-        $addForm[Base_lib::VALID_ADD_NAME] = '1';
+        // 追加フォームがセット済み
+        if (
+            is_array($addForm) &&
+            count($addForm) > 0
+        ) {
+            foreach ($addForm as $key => $value) {
+                $setForm[$key] = $value;
+            }
+        }
+        // 登録フォームをセット
+        $setForm[Base_lib::VALID_ADD_NAME] = '1';
         // バリデーション用データを再セット
-        $this->form_validation->set_data($addForm);
+        $this->form_validation->set_data($setForm);
     }
 }
