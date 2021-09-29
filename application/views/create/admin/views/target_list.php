@@ -16,6 +16,11 @@
 <script type="text/javascript" src="\<\?= SiteDir(); \?\>form/js"></script>
 <script language="JavaScript">
 $(function() {
+	$('.add_btn').click(function() {
+		$('#id').val( '' );
+		$('#operation_form').attr( 'action', '\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $targetName ?>/input' );
+		$('#operation_form').submit();
+	});
 	$('.edit_btn').click(function() {
 		$('#id').val( $(this).data('id') );
 		$('#operation_form').attr( 'action', '\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $targetName ?>/input' );
@@ -107,6 +112,7 @@ $(function() {
 		<div class="container">
 		<form method="post" id="operation_form" name="operation_form" action="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $targetName ?>">
 			<h2 class="mb_40"><?= $comment ?>管理</h2>
+			<a class="btn frame shortest add_btn">新規作成</a><br>
 			<div class="scroll">
 				<table class="management">
 					<tbody id="list_area">

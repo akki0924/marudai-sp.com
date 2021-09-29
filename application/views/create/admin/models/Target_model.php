@@ -285,6 +285,7 @@ class <?= ucfirst($targetName) ?>_model extends MY_Model
         // ORDER文を生成
         $orderSqlVal = 'ORDER BY';
         for ($i = 0, $n = count($orderSql); $i < $n; $i ++) {
+            $orderSqlVal .= ($i > 0 ? ',' : '');
             $orderSqlVal .= ' ' . $orderSql[$i]['key'] . ' ' . $orderSql[$i]['arrow'];
         }
         // LIMIT文を生成

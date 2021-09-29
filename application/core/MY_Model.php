@@ -3,8 +3,9 @@
  * 共通モデル
  *
  * @author a.miwa <miwa@ccrw.co.jp>
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0     2021/06/16：新規作成
+ * @since 1.0.1     2021/07/26：バリデーション用FORM情報セット関数に引数追加
  */
 class MY_Model extends CI_Model
 {
@@ -30,7 +31,7 @@ class MY_Model extends CI_Model
      * @param array $addForm : 追加フォーム情報
      * @return array
      */
-    public function ValidSetData(?array $addForm = array()) : ?array
+    public function SetValidData(?array $addForm = array()) : ?array
     {
         // 登録フォーム情報を初期化
         $setForm = array();
