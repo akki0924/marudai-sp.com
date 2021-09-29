@@ -29,9 +29,9 @@ class MY_Model extends CI_Model
      * バリデーションへ追加用の項目を追加
      *
      * @param array $addForm : 追加フォーム情報
-     * @return array
+     * @return void
      */
-    public function SetValidData(?array $addForm = array()) : ?array
+    public function SetValidData(?array $addForm = array()) : void
     {
         // 登録フォーム情報を初期化
         $setForm = array();
