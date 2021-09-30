@@ -92,9 +92,14 @@ class Db_lib
         引　数 : $tableName : テーブル名
                 $targetKey : 対象の値のカラム名
                 $public : ステータスフラグ
+                $groupKey : グループにするカラム名
     */
-    public function GetSelectValues($tableName, $targetKey = 'name', $public = false)
-    {
+    public function GetSelectValues(
+        $tableName,
+        $targetKey = 'name',
+        $public = false,
+        $groupKey = ''
+    ) {
         // ソートキーをセット
         if ($this->ColumnExists($tableName, self::DEFAULT_SORT_COLUMN)) {
             $sortKey = self::DEFAULT_SORT_COLUMN;
@@ -108,6 +113,7 @@ class Db_lib
                 " . Base_lib::AddSlashes($targetKey) . "
             FROM " . Base_lib::AddSlashes($tableName) . "
             " . ($public ? "WHERE status >= " . Base_lib::STATUS_ENABLE : "") . "
+            " . ($groupKey ? 'GROUP BY ' . Base_lib::AddSlashes($groupKey) : '') . "
             ORDER BY " . Base_lib::AddSlashes($sortKey) . " ASC;
         ");
         // 結果が、空でない場合
