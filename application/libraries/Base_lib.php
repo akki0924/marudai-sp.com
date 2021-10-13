@@ -22,6 +22,9 @@ class Base_lib
     const SITE_TITLE_NAME = "サンプルサイト";
     const COPYRIGHT_NAME = "beta";
 
+    // メール情報
+    const ADMIN_MAIL = "miwa@ccrw.co.jp";
+
     // 各ページ名
     const PUBLIC_MAIN_PAGE = "main";                        // 表メインページ
     const OWNER_MAIN_PAGE = "main";                         // オーナーメインページ
@@ -320,7 +323,7 @@ class Base_lib
     public static function AdminMail() : ?string
     {
 //        return "admin@" . self::SiteHost();
-        return "miwa@ccrw.co.jp";
+        return self::ADMIN_MAIL;
     }
 
 
@@ -830,5 +833,38 @@ class Base_lib
         $returnVal = $this->CI->db->update($this->GetDbTable());
         // トランザクション終了
         $this->CI->db->trans_complete();
+    }
+
+
+    /**
+     * 日付情報より[date('YYYY-mm-dd')]より曜日名(日本語)を取得
+     *
+     * @param string $date：対象日（YYYY-mm-dd）
+     * @param bool $shortFlg：省略フラグ
+     * @return string
+     */
+    public function WeekDayJp(
+        string $date,
+        bool $shortFlg = false
+    ) : string
+    {
+        // 返り値をセット
+        $returnVal = '';
+        // 曜日の配列一覧
+        $weekList[] = array ('normal' => '日曜日', 'short' => '日' );
+        $weekList[] = array ('normal' => '月曜日', 'short' => '月' );
+        $weekList[] = array ('normal' => '火曜日', 'short' => '火' );
+        $weekList[] = array ('normal' => '水曜日', 'short' => '水' );
+        $weekList[] = array ('normal' => '木曜日', 'short' => '木' );
+        $weekList[] = array ('normal' => '金曜日', 'short' => '金' );
+        $weekList[] = array ('normal' => '土曜日', 'short' => '土' );
+        // 曜日番号をセット
+        $weekDay = date('w', strtotime($date));
+        // 曜日番号が取得出来ている場合
+        if ($weekDay) {
+            // 曜日名(日本語)をセット
+            $returnVal = $weekList[$weekDay][(!$shortFlg ? 'normal' : 'short')];
+        }
+        return $returnVal;
     }
 }
