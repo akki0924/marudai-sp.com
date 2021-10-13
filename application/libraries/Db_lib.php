@@ -308,6 +308,34 @@ class Db_lib
         return $returnVal;
     }
     /*====================================================================
+        関数名 : GetSum
+        概　要 : 取得合計数を返す
+        引　数 : $tableName : テーブル名
+                $columnKey : 対象カラムキー
+                $whereSql : WHERE文（配列）
+                $public : ステータスフラグ
+    */
+    public function GetSum($tableName, $columnKey, $whereSql = "", $public = false)
+    {
+        // 初期値をセット
+        $returnVal = 0;
+
+        if ($public) {
+            $whereSql[] = Base_lib::AddSlashes($tableName) . " . status >= " . Base_lib::STATUS_ENABLE;
+        }
+        // SQLクエリ
+        $query = $this->CI->db->query("
+            SELECT SUM(" . Base_lib::AddSlashes($columnKey) . ") AS sum
+            FROM " . Base_lib::AddSlashes($tableName) . "
+            ".(is_array($whereSql) && count($whereSql) > 0 ? " WHERE ( ".@implode(" AND ", $whereSql)." ) " : "")."
+        ");
+        // 結果が、空でない場合
+        if ($query->num_rows() > 0) {
+            $returnVal = $query->row()->sum;
+        }
+        return $returnVal;
+    }
+    /*====================================================================
         関数名 : ColumnExists
         概　要 : カラムが存在するかどうか
         引　数 : $tableName : テーブル名
