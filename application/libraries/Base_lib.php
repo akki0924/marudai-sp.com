@@ -846,22 +846,21 @@ class Base_lib
     public function WeekDayJp(
         string $date,
         bool $shortFlg = false
-    ) : string
-    {
+    ) : string {
         // 返り値をセット
         $returnVal = '';
         // 曜日の配列一覧
-        $weekList[] = array ('normal' => '日曜日', 'short' => '日' );
-        $weekList[] = array ('normal' => '月曜日', 'short' => '月' );
-        $weekList[] = array ('normal' => '火曜日', 'short' => '火' );
-        $weekList[] = array ('normal' => '水曜日', 'short' => '水' );
-        $weekList[] = array ('normal' => '木曜日', 'short' => '木' );
-        $weekList[] = array ('normal' => '金曜日', 'short' => '金' );
-        $weekList[] = array ('normal' => '土曜日', 'short' => '土' );
+        $weekList[] = array('normal' => '日曜日', 'short' => '日' );
+        $weekList[] = array('normal' => '月曜日', 'short' => '月' );
+        $weekList[] = array('normal' => '火曜日', 'short' => '火' );
+        $weekList[] = array('normal' => '水曜日', 'short' => '水' );
+        $weekList[] = array('normal' => '木曜日', 'short' => '木' );
+        $weekList[] = array('normal' => '金曜日', 'short' => '金' );
+        $weekList[] = array('normal' => '土曜日', 'short' => '土' );
         // 曜日番号をセット
         $weekDay = date('w', strtotime($date));
         // 曜日番号が取得出来ている場合
-        if ($weekDay) {
+        if ($weekDay !== null) {
             // 曜日名(日本語)をセット
             $returnVal = $weekList[$weekDay][(!$shortFlg ? 'normal' : 'short')];
         }
