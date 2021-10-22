@@ -12,6 +12,7 @@ if (! defined('BASEPATH')) {
  * @since 1.0.0     2015/06/23  作成開始
  * @since 1.0.6     2020/01/24  各ディレクトリ名のメンバー定数追加
  * @since 1.1.0     2021/06/02  各マスタライブラリ継承用の関数、メンバー変数の追加
+ * @since 1.0.1     2021/10/22  DB登録処理関数のバグを微修正
  */
 class Base_lib
 {
@@ -747,8 +748,6 @@ class Base_lib
         if (is_array($registData)) {
             // ユーザーIDが登録されているか
             if ($this->IdExists($id)) {
-                // 登録情報にIDをセット
-                $registData['id'] = $id;
                 // 更新処理
                 $returnVal = $this->CI->db_lib->Update($this->GetDbTable(), $registData, $id);
             } else {
