@@ -60,6 +60,7 @@ $autoload['packages'] = array();
 */
 $autoload['libraries'] = array(
                             'database',             // DB（CodeIgniter基幹ファイル）
+                            'email',                // E-mail（CodeIgniter基幹ファイル）
                             'session',              // セッション（CodeIgniter基幹ファイル）
                             'form_validation',      // FORMバリデーション（CodeIgniter基幹ファイル）
                             'Base_lib',             // ベースとなるライブラリー（以下、自作ファイル）
@@ -68,6 +69,7 @@ $autoload['libraries'] = array(
                             'Session_lib',          // セッション操作
                             'Upload_lib',           // ファイルアップロード操作
                             'File_lib',             // ファイル操作
+                            'Jscss_lib',            // JavaScriptおよびCSS処理用ライブラリー
                             'Json_lib',             // JSONサポート用
                             'MY_Form_validation',   // FORMバリデーション
                             'Status_lib',           // ステータス（2択選択項目）用

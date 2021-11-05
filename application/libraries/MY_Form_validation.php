@@ -249,26 +249,10 @@ class MY_Form_validation extends CI_Form_validation
     {
         // ライブラリー読込み
         $this->CI->load->library(Base_lib::MASTER_DIR . '/user_lib');
-        if (! $this->CI->user_lib->EmaileSameExists($email, $id, true)) {
+        if (! $this->CI->user_lib->EmailSameExists($email, $id, true)) {
             return true;
         } else {
             $this->set_message('ValidUserEmail', '既に登録されています。');
-            return false;
-        }
-    }
-    //====================================================================
-    //  関数名 : ValidSeatName
-    //  概　要 : 対象座席番号が他の登録有無を返す
-    //  引　数 : $seatName : 座席番号
-    //           $seatId : 座席ID
-    public function ValidSeatName($seatName, $seatId = '')
-    {
-        // ライブラリー読込み
-        $this->CI->load->library(Base_lib::MASTER_DIR . '/seat_lib');
-        if (! $this->CI->seat_lib->NameSameExists($seatName, $seatId, true)) {
-            return true;
-        } else {
-            $this->set_message('ValidSeatName', '既に登録されています。');
             return false;
         }
     }

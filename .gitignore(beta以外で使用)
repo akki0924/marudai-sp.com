@@ -9,7 +9,3 @@ design/
 font/
 logs/
 backup/
-application/controllers/admin/
-application/views/admin/
-application/models/admin/
-application/libraries/master/

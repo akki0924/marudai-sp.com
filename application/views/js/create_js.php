@@ -1,8 +1,19 @@
-﻿// 読込み完了時
+﻿
+/**
+ * 変数
+ */
+var ENTER_KEY = 13;
+var ESC_KEY = 27;
+var formKeyPressed = false;
+var formKeyEnterEscPressed = false;
+
+// 読込み完了時
 $(function() {
     // ローディングタグ生成
     CreateLorder();
 });
+
+
 /**
  * AJAX処理
  *
@@ -11,11 +22,14 @@ $(function() {
  */
 // AJAX処理
 function AjaxAction(url, sendObj = {}) {
+    // 返値を初期化
+    var returnVal = false;
     $(document).ajaxSend(function() {
         $("<?= $const['sel_loader'] ?>").fadeIn(<?= $const['time_loading_speed'] ?>);
     });
     $.ajax({
         url: '<?= SiteDir(); ?>' + url,
+        type: 'post',
         dataType: 'json',
         data: sendObj,
         cache: false
@@ -38,6 +52,8 @@ function AjaxAction(url, sendObj = {}) {
                     }
                 );
             }
+            // 成功結果を反映
+            returnVal = returnData['<?= $const['key_ajax_result'] ?>'];
             // ローディング解除
             setTimeout(function(){
                 $("<?= $const['sel_loader'] ?>").fadeOut(<?= $const['time_loading_speed'] ?>);
@@ -51,7 +67,10 @@ function AjaxAction(url, sendObj = {}) {
             },<?= $const['time_loading_timeout'] ?>);
         }
     );
+    return returnVal;
 }
+
+
 /**
  * ローダー生成
  */
@@ -68,12 +87,16 @@ function CreateLorder ()
     // BODY要素の最後に追加
     $('body').append(loader);
 }
+
+
 /**
  * ローディング表示処理
  */
 function LordingStart() {
     $("<?= $const['sel_loader'] ?>").fadeIn(<?= $const['time_loading_speed'] ?>);
 }
+
+
 /**
  * ローディング解除処理
  */
@@ -82,6 +105,8 @@ function LordingEnd() {
         $("<?= $const['sel_loader'] ?>").fadeOut(<?= $const['time_loading_speed'] ?>);
     },<?= $const['time_loading_timeout'] ?>);
 }
+
+
 /**
  * ダイアログ生成、表示、及び関連プログラム
  *
@@ -158,6 +183,8 @@ function ShowDialog ( mainObj = {}, buttonsObj = {}) {
         $( dialogDiv ).dialog( options );
     }
 }
+
+
 /**
  * Form要素のタイプを取得（エレメント名より）
  *
@@ -176,11 +203,8 @@ function GetFormElemType( targetName ) {
     }
     return returnVal;
 }
-/*====================================================================
-    関数名： GetFormElemVal
-    概　要： Form要素の値を取得（エレメント名より）
-    引　数： targetName： 対象エレメント名
-*/
+
+
 /**
  * Form要素の値を取得（エレメント名より）
  *
@@ -221,3 +245,99 @@ function GetFormElemVal( targetName ) {
     return returnVal;
 }
 
+
+
+/**
+ * 日本語入力時以外のENTERキー判定
+ *
+ * @param object event:対象イベント
+ */
+function EditListInput(target, event) {
+    // 返値を初期化
+    var returnFlg = false;
+
+//    console.log(target);
+//    console.log(event);
+    console.log('Enter:' + GetFormCloseEnter(event));
+    console.log('Esc:' + GetFormCloseEsc(event));
+
+    // 日本語入力時以外のENTER、ESCキー
+    if (
+        GetFormCloseEnter(event) ||
+        GetFormCloseEsc(event)
+    ) {
+        formKeyEnterEscPressed = true;
+        console.log('EnterEsc');
+    }
+    // フォーカス外れ
+    if (event.type == 'focusout') {
+        console.log('blur');
+        if (!formKeyEnterEscPressed) {
+            console.log('blur_act');
+        }
+        formKeyEnterEscPressed = false;
+    }
+
+    return returnFlg;
+}
+
+
+
+/**
+ * 日本語入力時以外のENTERキー判定
+ *
+ * @param object event:対象イベント
+ */
+function GetFormCloseEnter(event) {
+    // 返値を初期化
+    var returnFlg = false;
+    // ENTERキー入力時
+    if (event.keyCode === ENTER_KEY) {
+        if (
+            event.type == 'keypress' &&
+            event.keyCode === ENTER_KEY
+        ) {
+            formKeyPressed = true;
+        }
+        else if (event.type == 'keyup') {
+            // 入力確定時
+            if (event.keyCode === ENTER_KEY && formKeyPressed) {
+                returnFlg = true;
+            }
+            formKeyPressed = false;
+        }
+    }
+    return returnFlg;
+}
+
+
+
+/**
+ * 日本語入力時以外のESCキー判定
+ *
+ * @param object event:対象イベント
+ */
+function GetFormCloseEsc(event) {
+    // 返値を初期化
+    var returnFlg = false;
+    // ESCキー入力時
+    if (event.keyCode === ESC_KEY) {
+        if (
+            event.type == 'keydown' &&
+            event.keyCode === ESC_KEY
+        ) {
+            formKeyPressed = true;
+        }
+        else if (event.type == 'keyup') {
+            // 入力確定時
+            if (
+                event.keyCode === ESC_KEY &&
+                formKeyPressed
+            ) {
+                returnFlg = true;
+            }
+            formKeyPressed = false;
+        }
+    }
+    return returnFlg;
+}

@@ -10,6 +10,7 @@ if (! defined('BASEPATH')) {
  * @author akki.m
  * @version 1.0.0
  * @since 1.0.0     2021/02/27  新規作成
+ * @since 1.0.1     2021/07/12  定数の追加、AJAX用関数、各キーコード
  */
 class Jscss_lib extends Base_lib
 {
@@ -38,6 +39,11 @@ class Jscss_lib extends Base_lib
     // AJAX後画面への反映フラグ
     const KEY_AJAX_REACTION = 'reaction';
     const KEY_AJAX_REACTION_FLG = self::KEY_AJAX_REACTION . '_flg';
+    // AJAX結果用キー
+    const KEY_AJAX_RESULT = 'result';
+    // キーコード
+    const KEY_CODE_ENTER = 13;                  // ENTERキー
+    const KEY_CODE_ESC = 27;                    // ESCキー
     // スーパーオブジェクト割当用変数
     protected $CI;
     /**
