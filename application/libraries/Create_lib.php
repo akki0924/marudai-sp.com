@@ -8,7 +8,7 @@ if (! defined('BASEPATH')) {
  * PHPプログラム用のファイルを自動生成する為の関数群
  *
  * @author akki.m
- * @version 1.1.2
+ * @version 1.1.3
  * @since 1.0.0     2021/04/21  新規作成
  * @since 1.0.1     2021/04/26  libraryファイル自動生成完成
  * @since 1.0.2     2021/05/10  libraryファイル一括自動生成機能追加
@@ -17,6 +17,7 @@ if (! defined('BASEPATH')) {
  * @since 1.1.0     2021/06/02  管理画面一括自動生成機能追加
  * @since 1.1.1     2021/06/11  管理画面一括自動生成機能にログ保存機能、実行前のファイル退避機能追加
  * @since 1.1.2     2021/07/09  管理画面一括自動生成機能のバグ修正（利用しないテーブル正しく設定されるように）
+ * @since 1.1.3     2021/11/05  管理画面一括自動生成機能のご動作防止機能を追加
  *
  */
 class Create_lib extends Base_lib
@@ -26,7 +27,8 @@ class Create_lib extends Base_lib
      */
     // テーブル名
     const LOG_TABLE = 'd_create_log';
-    //　テーブルカラム名
+    // テーブルカラム名
+    const LOG_COLUMN_COMP_FLG = 'comp_flg';
     const LOG_COLUMN_MESSAGE = 'message';
     const LOG_COLUMN_BACKUP = 'backup_log';
     const LOG_COLUMN_CONTROLLER = 'controller_log';
@@ -36,15 +38,19 @@ class Create_lib extends Base_lib
     const LOG_MESSAGE_NOT_RUN = '自動実行が正しく処理出来ませんでした';
     const LOG_MESSAGE_ERROR = '自動実行中にエラーが発生しました';
     const LOG_MESSAGE_SUCCESS = '自動生成に成功しました';
+    // 自動実行完了フラグ
+    const LOG_COMP_FLG_ENABLE = 1;                  // 自動実行完了[これ以上実行させない]
+    const LOG_COMP_FLG_DISABLE = -1;                // 自動実行未完了[引き続き自動実行可能]
+    const LOG_COMP_FLG = self::LOG_COMP_FLG_ENABLE; // 現在の設定
     // 自動生成用テンプレートディレクトリ
     const TEMPLATE_DIR = 'create';
     // 自動生成用テンプレートファイル
-    const CREATE_MODEL_FILE = 'model';      // モデル用
-    const CREATE_LIBRARY_FILE = 'library';  // ライブラリー用
+    const CREATE_MODEL_FILE = 'model';              // モデル用
+    const CREATE_LIBRARY_FILE = 'library';          // ライブラリー用
     const CREATE_LOGIN_FILE = self::ADMIN_DIR . self::WEB_DIR_SEPARATOR . 'login';
     // PHPタグ修正
-    const CHANGE_PHP_TAG_START = '\<\?';    // 開始タグ
-    const CHANGE_PHP_TAG_END = '\?\>';      // 終了タグ
+    const CHANGE_PHP_TAG_START = '\<\?';            // 開始タグ
+    const CHANGE_PHP_TAG_END = '\?\>';              // 終了タグ
     // ID文字数
     const KEY_ID_STR_NUM = 'ID_STR_NUM';
     // マスターテーブル頭文字
@@ -90,254 +96,157 @@ class Create_lib extends Base_lib
         $this->CI->load->library('admin_lib');
         // ヘルパー関数読込み
         $this->CI->load->helper('file');
-        // ログ保存処理
-        $this->SetLogId($this->RegistLogAction());
-        // ログデータ用変数を初期化
-        $logData = array();
-        // ログデータに初期メッセージをセット
-        $logData[self::LOG_COLUMN_MESSAGE] = self::LOG_MESSAGE_NOT_RUN;
-        // 不要なデータの退避処理
-        $this->BackupAdminFile();
-        // DBテーブル情報一覧を取得
-        $tableList = $this->CI->db_lib->GetTablesData();
-        for ($i = 0, $n = count($tableList); $i < $n; $i ++) {
-            // コメント内容を更新
-            $tableList[$i]['comment'] = $this->GetCommentEdit($tableList[$i]['comment']);
-            // 対象名をセット
-            $tableList[$i]['targetName'] = substr($tableList[$i]['name'], self::MASTER_TABLE_PREFIX_NUM);
-        }
-        // 読込みJSONファイルをセット
-        $targetFile = self::JSON_DIR . self::WEB_DIR_SEPARATOR;
-        $targetFile .= 'admin.php';
-        // JSONファイルを読込み
-        $jsonData = $this->CI->load->view($targetFile, '', true);
-        // クォート処理
-        $jsonData = $this->CI->json_lib->EscapeDoubleQuote($jsonData);
-        // Base_lib::ConsoleLog($jsonData);
-        // JSONデコード
-        $jsonVal = $this->CI->json_lib->Decode($jsonData);
-        // Base_lib::ConsoleLog($jsonVal);
-        // 共通変数をセット
-        $adminDir = self::ADMIN_DIR . self::WEB_DIR_SEPARATOR;
-        // 管理プログラムに不必要なテーブルを削除
-        if (
-            isset($jsonVal['table']['disable']) &&
-            count($jsonVal['table']['disable']) > 0
-        ) {
-            foreach ($jsonVal['table']['disable'] as $key => $val) {
-                for ($i = 0, $n = count($tableList); $i < $n; $i ++) {
-                    // 利用しないテーブル一覧の各テーブル名と登録テーブル名が一致
-                    if (
-                        isset($tableList[$i]['name']) &&
-                        $tableList[$i]['name'] == $val
-                    ) {
-                        // 登録テーブル名を空に
-                        $tableList[$i]['name'] = '';
+
+        // 自動実行可能の場合
+        if ($this->GetCheckCreate()) {
+
+            // ログ保存処理
+            $this->SetLogId($this->RegistLogAction());
+            // ログデータ用変数を初期化
+            $logData = array();
+            // ログデータに初期メッセージをセット
+            $logData[self::LOG_COLUMN_MESSAGE] = self::LOG_MESSAGE_NOT_RUN;
+            // 不要なデータの退避処理
+            $this->BackupAdminFile();
+            // DBテーブル情報一覧を取得
+            $tableList = $this->CI->db_lib->GetTablesData();
+            for ($i = 0, $n = count($tableList); $i < $n; $i ++) {
+                // コメント内容を更新
+                $tableList[$i]['comment'] = $this->GetCommentEdit($tableList[$i]['comment']);
+                // 対象名をセット
+                $tableList[$i]['targetName'] = substr($tableList[$i]['name'], self::MASTER_TABLE_PREFIX_NUM);
+            }
+            // 読込みJSONファイルをセット
+            $targetFile = self::JSON_DIR . self::WEB_DIR_SEPARATOR;
+            $targetFile .= 'admin.php';
+            // JSONファイルを読込み
+            $jsonData = $this->CI->load->view($targetFile, '', true);
+            // クォート処理
+            $jsonData = $this->CI->json_lib->EscapeDoubleQuote($jsonData);
+            // Base_lib::ConsoleLog($jsonData);
+            // JSONデコード
+            $jsonVal = $this->CI->json_lib->Decode($jsonData);
+            // Base_lib::ConsoleLog($jsonVal);
+            // 共通変数をセット
+            $adminDir = self::ADMIN_DIR . self::WEB_DIR_SEPARATOR;
+            // 管理プログラムに不必要なテーブルを削除
+            if (
+                isset($jsonVal['table']['disable']) &&
+                count($jsonVal['table']['disable']) > 0
+            ) {
+                foreach ($jsonVal['table']['disable'] as $key => $val) {
+                    for ($i = 0, $n = count($tableList); $i < $n; $i ++) {
+                        // 利用しないテーブル一覧の各テーブル名と登録テーブル名が一致
+                        if (
+                            isset($tableList[$i]['name']) &&
+                            $tableList[$i]['name'] == $val
+                        ) {
+                            // 登録テーブル名を空に
+                            $tableList[$i]['name'] = '';
+                        }
                     }
                 }
+                for ($i = 0, $n = count($tableList); $i < $n; $i ++) {
+                    // 登録テーブル名が空のもの
+                    if (! $tableList[$i]['name']) {
+                        // 対象登録テーブル情報を削除
+                        unset($tableList[$i]);
+                    }
+                }
+                // 配列キーの振り直し
+                $tableList = array_values($tableList);
             }
+            Base_lib::ConsoleLog($tableList);
+            // ログイン用テーブルを一覧から削除
             for ($i = 0, $n = count($tableList); $i < $n; $i ++) {
-                // 登録テーブル名が空のもの
-                if (! $tableList[$i]['name']) {
-                    // 対象登録テーブル情報を削除
+                if ($tableList[$i]['name'] == Admin_lib::MASTER_TABLE) {
                     unset($tableList[$i]);
                 }
             }
-            // 配列キーの振り直し
             $tableList = array_values($tableList);
-        }
-        Base_lib::ConsoleLog($tableList);
-        // ログイン用テーブルを一覧から削除
-        for ($i = 0, $n = count($tableList); $i < $n; $i ++) {
-            if ($tableList[$i]['name'] == Admin_lib::MASTER_TABLE) {
-                unset($tableList[$i]);
-            }
-        }
-        $tableList = array_values($tableList);
-        Base_lib::ConsoleLog($tableList);
+            Base_lib::ConsoleLog($tableList);
 
-        // 各テーブルのカラム情報を取得
-        for ($t_i = 0, $t_n = count($tableList); $t_i < $t_n; $t_i ++) {
-            // カラムデータ一覧情報をセット
-            $table[$tableList[$t_i]['name']] = $this->CI->db_lib->GetColumnsData($tableList[$t_i]['name']);
-            for ($i = 0, $n = count($table[$tableList[$t_i]['name']]); $i < $n; $i ++) {
-                // カラム名キャメルケース用の値をセット
-                $table[$tableList[$t_i]['name']][$i]['name_camel'] = $this->GetCamelName($table[$tableList[$t_i]['name']][$i]['name']);
-                // コメントを自動生成用に修正
-                if (strpos($table[$tableList[$t_i]['name']][$i]['comment'], ' ') !== false) {
-                    $table[$tableList[$t_i]['name']][$i]['comment'] = (substr($table[$tableList[$t_i]['name']][$i]['comment'], 0, strpos($table[$tableList[$t_i]['name']][$i]['comment'], ' ')));
-                }
-            }
-        }
-        $tableSel = $table;
-        Base_lib::ConsoleLog($table);
-
-        // 管理画面用のテーブル配列一覧を生成
-        if (
-            isset($jsonVal['table']['selectDisable']) &&
-            count($jsonVal['table']['selectDisable']) > 0
-        ) {
-            foreach ($tableSel as $tableName => $columnKey) {
-                foreach ($jsonVal['table']['selectDisable'] as $selTableName => $selColumnKey) {
-                    // 特定テーブルの削除カラムを処理
-                    if (
-                        $selTableName != self::SELECT_DISABLE_ALL &&
-                        $tableName == $selTableName
-                    ) {
-                        for ($t_i = 0, $t_n = count($columnKey); $t_i < $t_n; $t_i ++) {
-                            for ($s_i = 0, $s_n = count($selColumnKey); $s_i < $s_n; $s_i ++) {
-                                if ($columnKey[$t_i]['name'] == $selColumnKey[$s_i]) {
-                                    // カラム情報を削除
-                                    unset($tableSel[$tableName][$t_i]);
-                                }
-                            }
-                        }
-                    }
-                    // 全テーブル共通の削除カラムを処理
-                    if ($selTableName == self::SELECT_DISABLE_ALL) {
-                        for ($t_i = 0, $t_n = count($columnKey); $t_i < $t_n; $t_i ++) {
-                            for ($s_i = 0, $s_n = count($selColumnKey); $s_i < $s_n; $s_i ++) {
-                                if ($columnKey[$t_i]['name'] == $selColumnKey[$s_i]) {
-                                    // カラム情報を削除
-                                    unset($tableSel[$tableName][$t_i]);
-                                }
-                            }
-                        }
+            // 各テーブルのカラム情報を取得
+            for ($t_i = 0, $t_n = count($tableList); $t_i < $t_n; $t_i ++) {
+                // カラムデータ一覧情報をセット
+                $table[$tableList[$t_i]['name']] = $this->CI->db_lib->GetColumnsData($tableList[$t_i]['name']);
+                for ($i = 0, $n = count($table[$tableList[$t_i]['name']]); $i < $n; $i ++) {
+                    // カラム名キャメルケース用の値をセット
+                    $table[$tableList[$t_i]['name']][$i]['name_camel'] = $this->GetCamelName($table[$tableList[$t_i]['name']][$i]['name']);
+                    // コメントを自動生成用に修正
+                    if (strpos($table[$tableList[$t_i]['name']][$i]['comment'], ' ') !== false) {
+                        $table[$tableList[$t_i]['name']][$i]['comment'] = (substr($table[$tableList[$t_i]['name']][$i]['comment'], 0, strpos($table[$tableList[$t_i]['name']][$i]['comment'], ' ')));
                     }
                 }
-                // 配列を整理
-                $tableSel[$tableName] = array_values($tableSel[$tableName]);
             }
-        }
-        // 管理画面用のテーブル配列一覧からログイン用テーブルを省く
-        unset($tableSel[Admin_lib::MASTER_TABLE]);
+            $tableSel = $table;
+            Base_lib::ConsoleLog($table);
 
-        // 生成リスト
-        $createList = $this->GetMvcDirNameList();
-        // viewファイル一覧
-        $viewList = array(
-            'list',
-            'input',
-            'conf',
-            'comp',
-        );
-
-        // ログイン情報を処理
-        if (isset($jsonVal['login'])) {
-            foreach ($createList as $createDir) {
-                // controllersファイル生成
-                if ($createDir == self::CONTROLLER_DIR) {
-                    // 自動生成用テンプレートファイル
-                    $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
-                    $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'Index';
-                    // 自動生成用テンプレート情報を取得
-                    $writeVal = $this->CI->load->view($targetFile, $jsonVal['login'], true);
-                    // PHPタグの置換
-                    $writeVal = $this->ReturnPhpTag($writeVal);
-                    // views出力先パス
-                    $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
-                    $uploadPath .= $adminDir . 'Index.php';
-                    // ディレクトリ生成
-                    $this->CreateDir(dirname($uploadPath));
-                    // ファイル出力
-                    write_file($uploadPath, $writeVal);
-                }
-                // viewsファイル生成
-                elseif ($createDir == self::VIEW_DIR) {
-                    // 自動生成用テンプレートファイル
-                    $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
-                    $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'login';
-                    // 自動生成用テンプレート情報を取得
-                    $writeVal = $this->CI->load->view($targetFile, $jsonVal['login'], true);
-                    // PHPタグの置換
-                    $writeVal = $this->ReturnPhpTag($writeVal);
-                    // views出力先パス
-                    $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
-                    $uploadPath .= $adminDir . 'login.php';
-                    // ディレクトリ生成
-                    $this->CreateDir(dirname($uploadPath));
-                    // ファイル出力
-                    write_file($uploadPath, $writeVal);
-                }
-                // modelsファイル生成
-                elseif ($createDir == self::MODEL_DIR) {
-                    // 自動生成用テンプレートファイル
-                    $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
-                    $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'Index_model';
-                    // 自動生成用テンプレート情報を取得
-                    $writeVal = $this->CI->load->view($targetFile, $jsonVal['login'], true);
-                    // PHPタグの置換
-                    $writeVal = $this->ReturnPhpTag($writeVal);
-                    // views出力先パス
-                    $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
-                    $uploadPath .= $adminDir . 'Index_model.php';
-                    // ディレクトリ生成
-                    $this->CreateDir(dirname($uploadPath));
-                    // ファイル出力
-                    write_file($uploadPath, $writeVal);
-                }
-                // librariesファイル生成
-                elseif ($createDir == self::LIBRARY_DIR) {
-                }
-                // 出力パスが設定
-                if ($uploadPath) {
-                    if ($createDir == self::CONTROLLER_DIR) {
-                        $logColumn = self::LOG_COLUMN_CONTROLLER;
-                    } elseif ($createDir == self::VIEW_DIR) {
-                        $logColumn = self::LOG_COLUMN_VIEW;
-                    } elseif ($createDir == self::MODEL_DIR) {
-                        $logColumn = self::LOG_COLUMN_MODEL;
-                    } elseif ($createDir == self::LIBRARY_DIR) {
-                        $logColumn = self::LOG_COLUMN_LIBRARY;
-                    }
-                    // ログ用変数に追加
-                    $logData[$logColumn][] = $uploadPath;
-                    // ログデータのメッセージを更新
-                    $logData[self::LOG_COLUMN_MESSAGE] = self::LOG_MESSAGE_ERROR;
-                    // 出力パスを初期化
-                    $uploadPath = '';
-                }
-            }
-        }
-
-        // 管理画面内情報を処理
-        foreach ($tableSel as $tableName => $columnKey) {
-            // ログインマスタテーブル以外でかつ、マスターテーブルのみ
+            // 管理画面用のテーブル配列一覧を生成
             if (
-                $tableName != $jsonVal['login']['table'] &&
-                substr($tableName, 0, self::MASTER_TABLE_PREFIX_NUM) == self::MASTER_TABLE_PREFIX
+                isset($jsonVal['table']['selectDisable']) &&
+                count($jsonVal['table']['selectDisable']) > 0
             ) {
-                Base_lib::ConsoleLog('check1');
-                // テーブル一覧情報をセット
-                $tempVal['tableList'] = $tableList;
-                // テーブル名をセット
-                $tempVal['tableName'] = $tableName;
-                // 対象名をセット
-                $targetName = substr($tableName, self::MASTER_TABLE_PREFIX_NUM);
-                $tempVal['targetName'] = $targetName;
-                // テーブルコメントを取得
-                $comment = $this->CI->db_lib->GetTableComment($tableName);
-                $tempVal['comment'] = $this->GetCommentEdit($comment);
-                // テーブルカラム情報をセット
-                $tempVal['table'] = $table[$tableName];
-                $tempVal['tableSel'] = $tableSel[$tableName];
-                // クラス定数をセット
-                $tempVal['const'] = $this->GetBaseConstList();
+                foreach ($tableSel as $tableName => $columnKey) {
+                    foreach ($jsonVal['table']['selectDisable'] as $selTableName => $selColumnKey) {
+                        // 特定テーブルの削除カラムを処理
+                        if (
+                            $selTableName != self::SELECT_DISABLE_ALL &&
+                            $tableName == $selTableName
+                        ) {
+                            for ($t_i = 0, $t_n = count($columnKey); $t_i < $t_n; $t_i ++) {
+                                for ($s_i = 0, $s_n = count($selColumnKey); $s_i < $s_n; $s_i ++) {
+                                    if ($columnKey[$t_i]['name'] == $selColumnKey[$s_i]) {
+                                        // カラム情報を削除
+                                        unset($tableSel[$tableName][$t_i]);
+                                    }
+                                }
+                            }
+                        }
+                        // 全テーブル共通の削除カラムを処理
+                        if ($selTableName == self::SELECT_DISABLE_ALL) {
+                            for ($t_i = 0, $t_n = count($columnKey); $t_i < $t_n; $t_i ++) {
+                                for ($s_i = 0, $s_n = count($selColumnKey); $s_i < $s_n; $s_i ++) {
+                                    if ($columnKey[$t_i]['name'] == $selColumnKey[$s_i]) {
+                                        // カラム情報を削除
+                                        unset($tableSel[$tableName][$t_i]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // 配列を整理
+                    $tableSel[$tableName] = array_values($tableSel[$tableName]);
+                }
+            }
+            // 管理画面用のテーブル配列一覧からログイン用テーブルを省く
+            unset($tableSel[Admin_lib::MASTER_TABLE]);
 
-                Base_lib::ConsoleLog($tempVal);
+            // 生成リスト
+            $createList = $this->GetMvcDirNameList();
+            // viewファイル一覧
+            $viewList = array(
+                'list',
+                'input',
+                'conf',
+                'comp',
+            );
+
+            // ログイン情報を処理
+            if (isset($jsonVal['login'])) {
                 foreach ($createList as $createDir) {
                     // controllersファイル生成
                     if ($createDir == self::CONTROLLER_DIR) {
                         // 自動生成用テンプレートファイル
                         $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
-                        $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'Target';
+                        $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'Index';
                         // 自動生成用テンプレート情報を取得
-                        $writeVal = $this->CI->load->view($targetFile, $tempVal, true);
+                        $writeVal = $this->CI->load->view($targetFile, $jsonVal['login'], true);
                         // PHPタグの置換
                         $writeVal = $this->ReturnPhpTag($writeVal);
                         // views出力先パス
                         $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
-                        $uploadPath .= $adminDir . ucfirst($targetName) . '.php';
+                        $uploadPath .= $adminDir . 'Index.php';
                         // ディレクトリ生成
                         $this->CreateDir(dirname($uploadPath));
                         // ファイル出力
@@ -345,36 +254,33 @@ class Create_lib extends Base_lib
                     }
                     // viewsファイル生成
                     elseif ($createDir == self::VIEW_DIR) {
-                        // 生成するviewsファイル分ループ
-                        for ($v_i = 0, $v_n = count($viewList); $v_i < $v_n; $v_i ++) {
-                            // 自動生成用テンプレートファイル
-                            $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
-                            $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'target_' . $viewList[$v_i];
-                            // 自動生成用テンプレート情報を取得
-                            $writeVal = $this->CI->load->view($targetFile, $tempVal, true);
-                            // PHPタグの置換
-                            $writeVal = $this->ReturnPhpTag($writeVal);
-                            // views出力先パス
-                            $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
-                            $uploadPath .= $adminDir . $targetName . '_' . $viewList[$v_i] . '.php';
-                            // ディレクトリ生成
-                            $this->CreateDir(dirname($uploadPath));
-                            // ファイル出力
-                            write_file($uploadPath, $writeVal);
-                        }
+                        // 自動生成用テンプレートファイル
+                        $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
+                        $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'login';
+                        // 自動生成用テンプレート情報を取得
+                        $writeVal = $this->CI->load->view($targetFile, $jsonVal['login'], true);
+                        // PHPタグの置換
+                        $writeVal = $this->ReturnPhpTag($writeVal);
+                        // views出力先パス
+                        $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
+                        $uploadPath .= $adminDir . 'login.php';
+                        // ディレクトリ生成
+                        $this->CreateDir(dirname($uploadPath));
+                        // ファイル出力
+                        write_file($uploadPath, $writeVal);
                     }
                     // modelsファイル生成
                     elseif ($createDir == self::MODEL_DIR) {
                         // 自動生成用テンプレートファイル
                         $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
-                        $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'Target_model';
+                        $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'Index_model';
                         // 自動生成用テンプレート情報を取得
-                        $writeVal = $this->CI->load->view($targetFile, $tempVal, true);
+                        $writeVal = $this->CI->load->view($targetFile, $jsonVal['login'], true);
                         // PHPタグの置換
                         $writeVal = $this->ReturnPhpTag($writeVal);
                         // views出力先パス
                         $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
-                        $uploadPath .= $adminDir . ucfirst($targetName) . '_model.php';
+                        $uploadPath .= $adminDir . 'Index_model.php';
                         // ディレクトリ生成
                         $this->CreateDir(dirname($uploadPath));
                         // ファイル出力
@@ -382,20 +288,6 @@ class Create_lib extends Base_lib
                     }
                     // librariesファイル生成
                     elseif ($createDir == self::LIBRARY_DIR) {
-                        // 自動生成用テンプレートファイル
-                        $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
-                        $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'Target_lib';
-                        // 自動生成用テンプレート情報を取得
-                        $writeVal = $this->CI->load->view($targetFile, $tempVal, true);
-                        // PHPタグの置換
-                        $writeVal = $this->ReturnPhpTag($writeVal);
-                        // views出力先パス
-                        $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
-                        $uploadPath .= 'master/' . ucfirst($targetName) . '_lib.php';
-                        // ディレクトリ生成
-                        $this->CreateDir(dirname($uploadPath));
-                        // ファイル出力
-                        write_file($uploadPath, $writeVal);
                     }
                     // 出力パスが設定
                     if ($uploadPath) {
@@ -410,49 +302,180 @@ class Create_lib extends Base_lib
                         }
                         // ログ用変数に追加
                         $logData[$logColumn][] = $uploadPath;
+                        // ログデータのメッセージを更新
+                        $logData[self::LOG_COLUMN_MESSAGE] = self::LOG_MESSAGE_ERROR;
                         // 出力パスを初期化
                         $uploadPath = '';
                     }
                 }
             }
-        }
-        // ログ用変数がセット
-        if ($logData) {
-            // 全てに更新情報が存在
-            if (
-                count($logData[self::LOG_COLUMN_CONTROLLER]) > 0 &&
-                count($logData[self::LOG_COLUMN_VIEW]) > 0 &&
-                count($logData[self::LOG_COLUMN_MODEL]) > 0 &&
-                count($logData[self::LOG_COLUMN_LIBRARY]) > 0
-            ) {
-                // ログデータのコメントを更新
-                $logData[self::LOG_COLUMN_MESSAGE] = self::LOG_MESSAGE_SUCCESS;
-                // ログデータ表示用変数をセット
-                $logDataDisp = $logData;
-            }
-            // ログ用変数をJSON化
-            $logData[self::LOG_COLUMN_CONTROLLER] = json_encode(
-                $logData[self::LOG_COLUMN_CONTROLLER],
-                JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES
-            );
-            $logData[self::LOG_COLUMN_VIEW] = json_encode(
-                $logData[self::LOG_COLUMN_VIEW],
-                JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES
-            );
-            $logData[self::LOG_COLUMN_MODEL] = json_encode(
-                $logData[self::LOG_COLUMN_MODEL],
-                JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES
-            );
-            $logData[self::LOG_COLUMN_LIBRARY] = json_encode(
-                $logData[self::LOG_COLUMN_LIBRARY],
-                JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES
-            );
 
-            // ログ保存処理
-            $this->RegistLogAction($logData, $this->GetLogId());
+            // 管理画面内情報を処理
+            foreach ($tableSel as $tableName => $columnKey) {
+                // ログインマスタテーブル以外でかつ、マスターテーブルのみ
+                if (
+                    $tableName != $jsonVal['login']['table'] &&
+                    substr($tableName, 0, self::MASTER_TABLE_PREFIX_NUM) == self::MASTER_TABLE_PREFIX
+                ) {
+                    Base_lib::ConsoleLog('check1');
+                    // テーブル一覧情報をセット
+                    $tempVal['tableList'] = $tableList;
+                    // テーブル名をセット
+                    $tempVal['tableName'] = $tableName;
+                    // 対象名をセット
+                    $targetName = substr($tableName, self::MASTER_TABLE_PREFIX_NUM);
+                    $tempVal['targetName'] = $targetName;
+                    // テーブルコメントを取得
+                    $comment = $this->CI->db_lib->GetTableComment($tableName);
+                    $tempVal['comment'] = $this->GetCommentEdit($comment);
+                    // テーブルカラム情報をセット
+                    $tempVal['table'] = $table[$tableName];
+                    $tempVal['tableSel'] = $tableSel[$tableName];
+                    // クラス定数をセット
+                    $tempVal['const'] = $this->GetBaseConstList();
+
+                    Base_lib::ConsoleLog($tempVal);
+                    foreach ($createList as $createDir) {
+                        // controllersファイル生成
+                        if ($createDir == self::CONTROLLER_DIR) {
+                            // 自動生成用テンプレートファイル
+                            $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
+                            $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'Target';
+                            // 自動生成用テンプレート情報を取得
+                            $writeVal = $this->CI->load->view($targetFile, $tempVal, true);
+                            // PHPタグの置換
+                            $writeVal = $this->ReturnPhpTag($writeVal);
+                            // views出力先パス
+                            $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
+                            $uploadPath .= $adminDir . ucfirst($targetName) . '.php';
+                            // ディレクトリ生成
+                            $this->CreateDir(dirname($uploadPath));
+                            // ファイル出力
+                            write_file($uploadPath, $writeVal);
+                        }
+                        // viewsファイル生成
+                        elseif ($createDir == self::VIEW_DIR) {
+                            // 生成するviewsファイル分ループ
+                            for ($v_i = 0, $v_n = count($viewList); $v_i < $v_n; $v_i ++) {
+                                // 自動生成用テンプレートファイル
+                                $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
+                                $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'target_' . $viewList[$v_i];
+                                // 自動生成用テンプレート情報を取得
+                                $writeVal = $this->CI->load->view($targetFile, $tempVal, true);
+                                // PHPタグの置換
+                                $writeVal = $this->ReturnPhpTag($writeVal);
+                                // views出力先パス
+                                $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
+                                $uploadPath .= $adminDir . $targetName . '_' . $viewList[$v_i] . '.php';
+                                // ディレクトリ生成
+                                $this->CreateDir(dirname($uploadPath));
+                                // ファイル出力
+                                write_file($uploadPath, $writeVal);
+                            }
+                        }
+                        // modelsファイル生成
+                        elseif ($createDir == self::MODEL_DIR) {
+                            // 自動生成用テンプレートファイル
+                            $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
+                            $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'Target_model';
+                            // 自動生成用テンプレート情報を取得
+                            $writeVal = $this->CI->load->view($targetFile, $tempVal, true);
+                            // PHPタグの置換
+                            $writeVal = $this->ReturnPhpTag($writeVal);
+                            // views出力先パス
+                            $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
+                            $uploadPath .= $adminDir . ucfirst($targetName) . '_model.php';
+                            // ディレクトリ生成
+                            $this->CreateDir(dirname($uploadPath));
+                            // ファイル出力
+                            write_file($uploadPath, $writeVal);
+                        }
+                        // librariesファイル生成
+                        elseif ($createDir == self::LIBRARY_DIR) {
+                            // 自動生成用テンプレートファイル
+                            $targetFile = self::TEMPLATE_DIR . self::WEB_DIR_SEPARATOR . $adminDir;
+                            $targetFile .= $createDir . self::WEB_DIR_SEPARATOR . 'Target_lib';
+                            // 自動生成用テンプレート情報を取得
+                            $writeVal = $this->CI->load->view($targetFile, $tempVal, true);
+                            // PHPタグの置換
+                            $writeVal = $this->ReturnPhpTag($writeVal);
+                            // views出力先パス
+                            $uploadPath = 'application/' . $createDir . self::WEB_DIR_SEPARATOR;
+                            $uploadPath .= 'master/' . ucfirst($targetName) . '_lib.php';
+                            // ディレクトリ生成
+                            $this->CreateDir(dirname($uploadPath));
+                            // ファイル出力
+                            write_file($uploadPath, $writeVal);
+                        }
+                        // 出力パスが設定
+                        if ($uploadPath) {
+                            // コントローラ
+                            if ($createDir == self::CONTROLLER_DIR) {
+                                $logColumn = self::LOG_COLUMN_CONTROLLER;
+                            }
+                            // ビュー
+                            elseif ($createDir == self::VIEW_DIR) {
+                                $logColumn = self::LOG_COLUMN_VIEW;
+                            }
+                            // モデル
+                            elseif ($createDir == self::MODEL_DIR) {
+                                $logColumn = self::LOG_COLUMN_MODEL;
+                            }
+                            // ライブラリー
+                            elseif ($createDir == self::LIBRARY_DIR) {
+                                $logColumn = self::LOG_COLUMN_LIBRARY;
+                            }
+                            // ログ用変数に追加
+                            $logData[$logColumn][] = $uploadPath;
+                            // 出力パスを初期化
+                            $uploadPath = '';
+                        }
+                    }
+                }
+            }
+            // ログ用変数がセット
+            if ($logData) {
+                // 全てに更新情報が存在
+                if (
+                    count($logData[self::LOG_COLUMN_CONTROLLER]) > 0 &&
+                    count($logData[self::LOG_COLUMN_VIEW]) > 0 &&
+                    count($logData[self::LOG_COLUMN_MODEL]) > 0 &&
+                    count($logData[self::LOG_COLUMN_LIBRARY]) > 0
+                ) {
+                    // ログデータのコメントを更新
+                    $logData[self::LOG_COLUMN_MESSAGE] = self::LOG_MESSAGE_SUCCESS;
+                    // ログデータ表示用変数をセット
+                    $logDataDisp = $logData;
+                }
+                // ログ用変数をJSON化
+                $logData[self::LOG_COLUMN_CONTROLLER] = json_encode(
+                    $logData[self::LOG_COLUMN_CONTROLLER],
+                    JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES
+                );
+                $logData[self::LOG_COLUMN_VIEW] = json_encode(
+                    $logData[self::LOG_COLUMN_VIEW],
+                    JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES
+                );
+                $logData[self::LOG_COLUMN_MODEL] = json_encode(
+                    $logData[self::LOG_COLUMN_MODEL],
+                    JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES
+                );
+                $logData[self::LOG_COLUMN_LIBRARY] = json_encode(
+                    $logData[self::LOG_COLUMN_LIBRARY],
+                    JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES
+                );
+
+                // ログ保存処理
+                $this->RegistLogAction($logData, $this->GetLogId());
+            }
         }
+
         return ($this->GetLogId() ? $this->GetLogId() : '');
     }
+
+
+
+
 
 
     /**
@@ -793,6 +816,10 @@ class Create_lib extends Base_lib
         $returnVal = '';
         // 対象IDがセット
         if ($id) {
+            // 自動実行完了フラグ
+            if (isset($dataList[self::LOG_COLUMN_COMP_FLG])) {
+                $registData[self::LOG_COLUMN_COMP_FLG] = self::LOG_COMP_FLG;
+            }
             // バッグアップ登録
             if (isset($dataList[self::LOG_COLUMN_BACKUP])) {
                 $registData[self::LOG_COLUMN_BACKUP] = $dataList[self::LOG_COLUMN_BACKUP];
@@ -849,7 +876,7 @@ class Create_lib extends Base_lib
      */
     public function GetLogId() : string
     {
-        return $this->logId;
+        return isset($this->logId) ? $this->logId : '';
     }
 
 
@@ -861,6 +888,23 @@ class Create_lib extends Base_lib
     public function CheckLogId() : bool
     {
         return ($this->logId ? true : false);
+    }
+
+
+    /**
+     * 自動実行が可能か（すでに自動実行完了フラグがないか）の情報を返す
+     *
+     * @return bool
+     */
+    public function GetCheckCreate() : bool
+    {
+        return (
+            ! $this->CI->db_lib->ValueExists(
+                self::LOG_TABLE,
+                self::LOG_COMP_FLG_ENABLE,
+                self::LOG_COLUMN_COMP_FLG
+            ) ? true : false
+        );
     }
 
 
@@ -878,6 +922,7 @@ class Create_lib extends Base_lib
         $query = $this->CI->db->query("
             SELECT
                 " . self::LOG_TABLE . " . id,
+                " . self::LOG_TABLE . " . comp_flg,
                 " . self::LOG_TABLE . " . message,
                 " . self::LOG_TABLE . " . backup_log,
                 " . self::LOG_TABLE . " . controller_log,
@@ -915,65 +960,68 @@ class Create_lib extends Base_lib
     {
         // 返値を初期化
         $returnVal = '';
-        // メッセージ
-        $returnVal .= '◆実行結果：' . $logData[self::LOG_COLUMN_MESSAGE] . '<br>';
-        $returnVal .= '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>';
-        $returnVal .= '◆実行内容：<br>';
-        // バックアップ
-        if ($logData[self::LOG_COLUMN_BACKUP]) {
-            $tempVal = json_decode($logData[self::LOG_COLUMN_BACKUP], true);
-            $returnVal .= '　○バックアップログ<br>';
-            if (count($tempVal) > 0) {
-                Base_lib::ConsoleLog($tempVal);
-                foreach ($tempVal as $key => $val) {
-                    $returnVal .= '　　' . $key . '：<br>';
-                    for ($i = 0, $n = count($tempVal[$key]); $i < $n; $i ++) {
-                        $returnVal .= '　　　' . $tempVal[$key][$i] . '<br>';
+        // ログデータが登録されている場合
+        if (count($logData) > 0) {
+            // メッセージ
+            $returnVal .= '◆実行結果：' . $logData[self::LOG_COLUMN_MESSAGE] . '<br>';
+            $returnVal .= '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>';
+            $returnVal .= '◆実行内容：<br>';
+            // バックアップ
+            if ($logData[self::LOG_COLUMN_BACKUP]) {
+                $tempVal = json_decode($logData[self::LOG_COLUMN_BACKUP], true);
+                $returnVal .= '　○バックアップログ<br>';
+                if (count($tempVal) > 0) {
+                    Base_lib::ConsoleLog($tempVal);
+                    foreach ($tempVal as $key => $val) {
+                        $returnVal .= '　　' . $key . '：<br>';
+                        for ($i = 0, $n = count($tempVal[$key]); $i < $n; $i ++) {
+                            $returnVal .= '　　　' . $tempVal[$key][$i] . '<br>';
+                        }
                     }
                 }
             }
-        }
-        // コントローラー
-        if ($logData[self::LOG_COLUMN_CONTROLLER]) {
-            $tempVal = json_decode($logData[self::LOG_COLUMN_CONTROLLER], true);
-            $returnVal .= '　○コントローラーログ<br>';
-            if (count($tempVal) > 0) {
-                for ($i = 0, $n = count($tempVal); $i < $n; $i ++) {
-                    //
-                    $returnVal .= '　　' . $tempVal[$i] . '<br>';
+            // コントローラー
+            if ($logData[self::LOG_COLUMN_CONTROLLER]) {
+                $tempVal = json_decode($logData[self::LOG_COLUMN_CONTROLLER], true);
+                $returnVal .= '　○コントローラーログ<br>';
+                if (count($tempVal) > 0) {
+                    for ($i = 0, $n = count($tempVal); $i < $n; $i ++) {
+                        //
+                        $returnVal .= '　　' . $tempVal[$i] . '<br>';
+                    }
                 }
             }
-        }
-        // ビュー
-        if ($logData[self::LOG_COLUMN_VIEW]) {
-            $tempVal = json_decode($logData[self::LOG_COLUMN_VIEW], true);
-            $returnVal .= '　○ビューログ<br>';
-            if (count($tempVal) > 0) {
-                for ($i = 0, $n = count($tempVal); $i < $n; $i ++) {
-                    //
-                    $returnVal .= '　　' . $tempVal[$i] . '<br>';
+            // ビュー
+            if ($logData[self::LOG_COLUMN_VIEW]) {
+                $tempVal = json_decode($logData[self::LOG_COLUMN_VIEW], true);
+                $returnVal .= '　○ビューログ<br>';
+                if (count($tempVal) > 0) {
+                    for ($i = 0, $n = count($tempVal); $i < $n; $i ++) {
+                        //
+                        $returnVal .= '　　' . $tempVal[$i] . '<br>';
+                    }
                 }
             }
-        }
-        // モデル
-        if ($logData[self::LOG_COLUMN_MODEL]) {
-            $tempVal = json_decode($logData[self::LOG_COLUMN_MODEL], true);
-            $returnVal .= '　○モデルログ<br>';
-            if (count($tempVal) > 0) {
-                for ($i = 0, $n = count($tempVal); $i < $n; $i ++) {
-                    //
-                    $returnVal .= '　　' . $tempVal[$i] . '<br>';
+            // モデル
+            if ($logData[self::LOG_COLUMN_MODEL]) {
+                $tempVal = json_decode($logData[self::LOG_COLUMN_MODEL], true);
+                $returnVal .= '　○モデルログ<br>';
+                if (count($tempVal) > 0) {
+                    for ($i = 0, $n = count($tempVal); $i < $n; $i ++) {
+                        //
+                        $returnVal .= '　　' . $tempVal[$i] . '<br>';
+                    }
                 }
             }
-        }
-        // ライブラリー
-        if ($logData[self::LOG_COLUMN_LIBRARY]) {
-            $tempVal = json_decode($logData[self::LOG_COLUMN_LIBRARY], true);
-            $returnVal .= '　○ライブラリーログ<br>';
-            if (count($tempVal) > 0) {
-                for ($i = 0, $n = count($tempVal); $i < $n; $i ++) {
-                    //
-                    $returnVal .= '　　' . $tempVal[$i] . '<br>';
+            // ライブラリー
+            if ($logData[self::LOG_COLUMN_LIBRARY]) {
+                $tempVal = json_decode($logData[self::LOG_COLUMN_LIBRARY], true);
+                $returnVal .= '　○ライブラリーログ<br>';
+                if (count($tempVal) > 0) {
+                    for ($i = 0, $n = count($tempVal); $i < $n; $i ++) {
+                        //
+                        $returnVal .= '　　' . $tempVal[$i] . '<br>';
+                    }
                 }
             }
         }
