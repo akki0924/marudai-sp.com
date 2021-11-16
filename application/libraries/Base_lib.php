@@ -214,7 +214,7 @@ class Base_lib
      */
     public static function GetConvValidInList(array $array = array()) : ?string
     {
-        return @implode(array_keys($array), self::STR_DELIMITER_SYSTEM);
+        return @implode(self::STR_DELIMITER_SYSTEM, array_keys($array));
     }
 
 
