@@ -173,10 +173,10 @@ class Base_lib
     /**
      * 文字列をスラッシュでクォートする
      *
-     * @param string $str：対象文字列
+     * @param string|null $str：対象文字列
      * @return string|null
      */
-    public static function AddSlashes(string $str = '') : ?string
+    public static function AddSlashes(?string $str = '') : ?string
     {
         $str = addslashes($str);
         $str = preg_replace("/\\'/", "'", $str);
@@ -602,11 +602,11 @@ class Base_lib
     /**
      * IDの登録有無
      *
-     * @param string $id
+     * @param string|null $id
      * @param boolean $public：ステータスフラグ
      * @return boolean
      */
-    public function IdExists(string $id, bool $public = false) : bool
+    public function IdExists(?string $id, bool $public = false) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $id, 'id', $public);
     }
@@ -615,11 +615,11 @@ class Base_lib
     /**
      * 名前の登録有無
      *
-     * @param string $name
+     * @param string|null $name
      * @param boolean $public：ステータスフラグ
      * @return boolean
      */
-    public function NameExists($name, $public = false) : bool
+    public function NameExists(?string $name, $public = false) : bool
     {
         return $this->CI->db_lib->ValueExists($this->GetDbTable(), $name, 'name', $public);
     }
