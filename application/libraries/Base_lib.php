@@ -8,11 +8,12 @@ if (! defined('BASEPATH')) {
  * 初期設定定数、及び継承元ライブラリ
  *
  * @author akki.m
- * @version 1.1.0
+ * @version 1.1.2
  * @since 1.0.0     2015/06/23  作成開始
  * @since 1.0.6     2020/01/24  各ディレクトリ名のメンバー定数追加
  * @since 1.1.0     2021/06/02  各マスタライブラリ継承用の関数、メンバー変数の追加
  * @since 1.1.1     2021/10/22  DB登録処理関数のバグを微修正
+ * @since 1.1.2     2021/11/24  SiteHost関数の取得方法を定数に変更
  */
 class Base_lib
 {
@@ -21,6 +22,7 @@ class Base_lib
      */
     // サイト情報
     const SITE_TITLE_NAME = "サンプルサイト";
+    const SITE_DOMAIN = "○○○.com";
     const COPYRIGHT_NAME = "beta";
 
     // メール情報
@@ -301,7 +303,7 @@ class Base_lib
      */
     public static function SiteHost() : ?string
     {
-        return $_SERVER["HTTP_HOST"];
+        return self::SITE_DOMAIN;
     }
 
 
