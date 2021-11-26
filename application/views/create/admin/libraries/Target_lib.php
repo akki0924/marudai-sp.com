@@ -108,6 +108,18 @@ class <?= ucfirst($targetName) ?>_lib extends Base_lib
 <?php } ?>
 <?php } ?>
 <?php } ?>
+    /**
+     * マスターテーブルを取得
+     *
+     * @return string
+     */
+    public function GetMasterTable() : ?string
+    {
+        return self::MASTER_TABLE;
+    }
+
+
+
 <?php for ($i = 0, $n = count($tableSel); $i < $n; $i ++) { ?>
 <?php if (!method_exists('Base_lib', 'Get' . ucfirst($tableSel[$i]['name_camel']))) { ?>
     /**
