@@ -1,29 +1,35 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Index extends MY_Controller {
-/*
-    ■機　能： ログイン画面処理
-    ■概　要：
-    ■更新日： 2017/10/12
-    ■担　当： crew.miwa
-    ■更新履歴：
-        2017/10/12: 作成開始
-*/
+class Index extends MY_Controller
+{
+    /**
+     * TOP用画面処理
+     *
+     * @author a.miwa <miwa@ccrw.co.jp>
+     * @version 0.0.1
+     * @since 0.0.1     2021/12/22：新規作成
+     */
+
     // コンストラクタ
-    public function __construct() {
+    public function __construct()
+    {
         // Controllerクラスのコンストラクタを呼び出す
         parent::__construct();
+        // モデル呼出し
+        $this->load->model('top_model');
     }
     // 共通テンプレート
-    function sharedTemplate ($templateVal = "") {
+    public function sharedTemplate($templateVal = "")
+    {
         return $templateVal;
     }
     // TOP画面
     public function index()
     {
-        $templateVal = "";
+        // テンプレート情報をセット
+        $templateVal = $this->top_model->TopTemplate();
         // テンプレート読み込み
-        $this->load->view('index', self::sharedTemplate($templateVal));
+        $this->load->view('index', $templateVal);
     }
 }

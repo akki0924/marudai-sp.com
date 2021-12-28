@@ -78,8 +78,12 @@ class <?= ucfirst($targetName) ?>_model extends MY_Model
         foreach ($this->FormDefaultList() as $key) {
             $returnVal['form'][$key] = $this->input->post_get($key, true);
         }
-        // WHERE情報をセット
-        $whereSql = array();
+        // 検索ワードが入力された場合
+        if ($returnVal['form']['input_keyword']) {
+            $whereKeywordSql[] = <?= $targetName ?>_lib::MASTER_TABLE . " . id LIKE '%"  . Base_lib::AddSlashes($returnVal['form']['input_keyword']) . "%'";
+            $whereSql[] = "(" . @implode(" OR ", $whereKeywordSql) . ")";
+        }
+
         // 一覧数の取得
         $returnVal['count'] = $this->GetListCount($whereSql);
         // ORDER情報をセット
@@ -331,6 +335,7 @@ class <?= ucfirst($targetName) ?>_model extends MY_Model
     public function FormDefaultList() : array
     {
         $returnVal = array(
+            'input_keyword',
             'select_status',
         );
 

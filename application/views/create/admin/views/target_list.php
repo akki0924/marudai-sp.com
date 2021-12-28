@@ -26,6 +26,10 @@ $(function() {
 		$('#operation_form').attr( 'action', '\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $targetName ?>/input' );
 		$('#operation_form').submit();
 	});
+	$('.search_btn').click(function() {
+		$('#operation_form').attr( 'action', '\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $targetName ?>' );
+		$('#operation_form').submit();
+	});
 	$('#list_area').sortable({
 		items: "tr",
 		cursor: 'ns-resize',
@@ -113,6 +117,10 @@ $(function() {
 		<form method="post" id="operation_form" name="operation_form" action="\<\?= SiteDir(); \?\>\<\?= $const['access_admin_dir'] \?\>/<?= $targetName ?>">
 			<h2 class="mb_40"><?= $comment ?>管理</h2>
 			<a class="btn frame shortest add_btn">新規作成</a><br>
+
+			<input type="text" name="input_keyword" value="\<\?= VarDisp($form['input_keyword']) \?\>" placeholder="検索するIDを入力して下さい">
+			<a class="btn frame shortest search_btn">検索</a><br>
+
 			<div class="scroll">
 				<table class="management">
 					<tbody id="list_area">

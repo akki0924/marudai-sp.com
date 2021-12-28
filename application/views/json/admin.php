@@ -25,6 +25,6 @@
         "id_name":"アカウント",
         "password":"password",
         "password_name":"パスワード",
-        "first_page":"sheet1"
+        "first_page":"top"
     }
 }

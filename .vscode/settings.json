@@ -7,6 +7,7 @@
       "application/language": true,
       "system/": true,
       "src/": true,
+      "design/": true,
       "font/": true
    }
 }

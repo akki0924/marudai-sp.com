@@ -66,6 +66,7 @@ $autoload['libraries'] = array(
                             'Base_lib',             // ベースとなるライブラリー（以下、自作ファイル）
                             'Db_lib',               // DB操作
                             'Str_lib',              // 文字列操作
+                            'Date_lib',             // 日付操作
                             'Session_lib',          // セッション操作
                             'Upload_lib',           // ファイルアップロード操作
                             'File_lib',             // ファイル操作
