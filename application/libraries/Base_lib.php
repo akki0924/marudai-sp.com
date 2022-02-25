@@ -8,12 +8,15 @@ if (! defined('BASEPATH')) {
  * 初期設定定数、及び継承元ライブラリ
  *
  * @author akki.m
- * @version 1.1.2
+ * @version 1.1.5
  * @since 1.0.0     2015/06/23  作成開始
  * @since 1.0.6     2020/01/24  各ディレクトリ名のメンバー定数追加
  * @since 1.1.0     2021/06/02  各マスタライブラリ継承用の関数、メンバー変数の追加
  * @since 1.1.1     2021/10/22  DB登録処理関数のバグを微修正
  * @since 1.1.2     2021/11/24  SiteHost関数の取得方法を定数に変更
+ * @since 1.1.3     2022/01/06  細かいバグの修正
+ * @since 1.1.4     2022/01/06  登録処理関数のID生成処理で文字列数が未指定の場合、初期値を利用する。および細かいバクの修正
+ * @since 1.1.5     2022/02/04  コンソールログ表示関数でメソッドがJS/CSSを場外するインスタンス関数（ConsoleLogInst）を追加
  */
 class Base_lib
 {
@@ -43,6 +46,8 @@ class Base_lib
     const VIEW_DIR = "views";                               // ビューディレクトリ
     const MODEL_DIR = "models";                             // モデルディレクトリ
     const LIBRARY_DIR = "libraries";                        // ライブラリーディレクトリ
+    const JS_DIR = "js";                                    // JSディレクトリ
+    const CSS_DIR = "css";                                  // CSSディレクトリ
     const JSON_DIR = "json";                                // JSONディレクトリ
     const WEB_DIR_SEPARATOR = '/';                          // ディレクトリー区切り文字列（WEB）
 
@@ -85,12 +90,15 @@ class Base_lib
     const STR_DELIMITER_DISPLAY = '、';                     // 表示用
     const STR_DELIMITER_SYSTEM = ',';                       // システム用
 
+    // 文字列生成用文字数
+    const DEFAULT_CREATE_ID_NUM = 10;
 
     /**
      * var
      */
     private $dbTable;
-
+    // スーパーオブジェクト割当用変数
+    protected $CI;
 
     /**
      * コンストラクタ
@@ -98,16 +106,18 @@ class Base_lib
     public function __construct()
     {
         setlocale(LC_MONETARY, "ja_JP.UTF8"); // ロケール
-/*
-        $is_win = strpos(PHP_OS, "WIN") === 0;
-        // Windowsの場合は Shift_JIS、Unix系は UTF-8で処理
-        if ( $is_win ) {
-            setlocale(LC_ALL, "Japanese_Japan.932");
-        }
-        else {
-            setlocale(LC_ALL, "ja_JP.UTF-8");
-        }
-*/
+        // CodeIgniter のスーパーオブジェクトを割り当て
+        $this->CI =& get_instance();
+        /*
+                $is_win = strpos(PHP_OS, "WIN") === 0;
+                // Windowsの場合は Shift_JIS、Unix系は UTF-8で処理
+                if ( $is_win ) {
+                    setlocale(LC_ALL, "Japanese_Japan.932");
+                }
+                else {
+                    setlocale(LC_ALL, "ja_JP.UTF-8");
+                }
+        */
     }
 
 
@@ -353,6 +363,25 @@ class Base_lib
 
 
     /**
+     * 対象データをコンソールログに表示 インスタンス版
+     *
+     * @param string|array $targetData：対象データ
+     * @return void
+     */
+    public function ConsoleLogInst($targetData) : void
+    {
+        // JS/CSSメソッドの場合は処理を除外
+        if (
+            $this->CI->router->fetch_method() != Base_lib::JS_DIR &&
+            $this->CI->router->fetch_method() != Base_lib::CSS_DIR
+        ) {
+            // 対象データをコンソールログに表示
+            self::ConsoleLog($targetData);
+        }
+    }
+
+
+    /**
      * 対象データをコンソールログに表示
      *
      * @param string|array $targetData：対象データ
@@ -543,7 +572,7 @@ class Base_lib
      * @param boolean $public：ステータスフラグ
      * @return string|null
      */
-    public function GetIdFromName(string $contents, bool $public = false) : ?string
+    public function GetIdFromName(string $name, bool $public = false) : ?string
     {
         return $this->CI->db_lib->GetValue($this->GetDbTable(), 'id', $name, 'contents', $public);
     }
@@ -687,7 +716,7 @@ class Base_lib
      * @param boolean $public：ステータスフラグ
      * @return boolean
      */
-    public function NameSameExists($contents, $id = '', $public = false) : bool
+    public function NameSameExists($name, $id = '', $public = false) : bool
     {
         return $this->CI->db_lib->SameExists($this->GetDbTable(), $name, 'name', $id, 'id', $public);
     }
@@ -739,10 +768,10 @@ class Base_lib
      * DB登録処理
      *
      * @param array|null $registData：登録内容（連想配列[key : 対象カラム, value : 値]）
-     * @param string $id：登録対象ID
+     * @param string|null $id：登録対象ID
      * @return string|null
      */
-    public function Regist(?array $registData = array(), string $id = '') : ?string
+    public function Regist(?array $registData = array(), ?string $id = '') : ?string
     {
         // 返り値をセット
         $returnVal = false;
@@ -760,7 +789,15 @@ class Base_lib
                 ) {
                     // 自動採番以外
                     if (! $this->CI->db_lib->CheckAutoIncrement($this->GetDbTable())) {
-                        $registData['id'] = $this->CreateId();
+                        // ID文字列数の設定が存在
+                        if (defined(self::CREATE_ID_NUM)) {
+                            $strNum = self::CREATE_ID_NUM;
+                        }
+                        // ID文字列数の設定が
+                        else {
+                            $strNum = self::DEFAULT_CREATE_ID_NUM;
+                        }
+                        $registData['id'] = $this->CreateId($strNum);
                     }
                     // 自動採番
                     else {
@@ -786,16 +823,17 @@ class Base_lib
      * DB削除処理
      *
      * @param string $id：対象ID
+     * @param bool $logicFlg：論理削除フラグ
      * @return boolean|null
      */
-    public function Delete(string $id) : ?bool
+    public function Delete(string $id, bool $logicFlg = true) : ?bool
     {
         // 返り値をセット
         $returnVal = false;
         // 対象IDが登録されているか
         if ($this->IdExists($id, true)) {
             // 削除処理
-            $returnVal = $this->CI->db_lib->Delete($this->GetDbTable(), true, $id);
+            $returnVal = $this->CI->db_lib->Delete($this->GetDbTable(), $logicFlg, $id);
         }
         return $returnVal;
     }

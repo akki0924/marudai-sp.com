@@ -9,6 +9,8 @@ var formKeyEnterEscPressed = false;
 
 // 読込み完了時
 $(function() {
+    // 半透明レイヤータグ生成
+    CreateLayerHalf ();
     // ローディングタグ生成
     CreateLorder();
 });
@@ -19,9 +21,10 @@ $(function() {
  *
  * @param mixed url:実行処理用URL
  * @param object sendObj:送信用オブジェクト
+ * @param object callbackFunc:コールバック関数
  */
 // AJAX処理
-function AjaxAction(url, sendObj = {}) {
+function AjaxAction(url, sendObj = {}, callbackFunc = null) {
     // 返値を初期化
     var returnVal = false;
     $(document).ajaxSend(function() {
@@ -48,7 +51,17 @@ function AjaxAction(url, sendObj = {}) {
                     returnData['<?= $const['key_ajax_reaction'] ?>'],
                     function( key, value ) {
                         var targetSel = key;
-                        $(targetSel).html(value);
+                        // 実行関数を設定
+                        var func = 'html';
+                        // 実行関数に指定がある場合
+                        if (
+                            returnData['<?= $const['key_ajax_reaction_func'] ?>'] &&
+                            returnData['<?= $const['key_ajax_reaction_func'] ?>'][key]
+                        ) {
+                            // 実行関数を更新
+                            func = returnData['<?= $const['key_ajax_reaction_func'] ?>'][key];
+                        }
+                        $(targetSel)[func](value);
                     }
                 );
             }
@@ -58,6 +71,11 @@ function AjaxAction(url, sendObj = {}) {
             setTimeout(function(){
                 $("<?= $const['sel_loader'] ?>").fadeOut(<?= $const['time_loading_speed'] ?>);
             },<?= $const['time_loading_timeout'] ?>);
+            // コールバック関数が設定されている場合
+            if (callbackFunc) {
+                // コールバック関数を実行
+                callbackFunc();
+            }
         },
         // エラー時
         function (XMLHttpRequest, textStatus, errorThrown) {
@@ -68,6 +86,36 @@ function AjaxAction(url, sendObj = {}) {
         }
     );
     return returnVal;
+}
+
+
+/**
+ * 半透明レイヤー生成
+ */
+function CreateLayerHalf ()
+{
+    // ローダー生成
+    var layer = $('<div />').attr( 'id', '<?= $const['sel_layer_name'] ?>' );
+    // BODY要素の最後に追加
+    $('body').append(layer);
+}
+
+
+/**
+ * 半透明レイヤー表示処理
+ */
+function LayerStart() {
+    $("<?= $const['sel_layer'] ?>").fadeIn(<?= $const['time_loading_speed'] ?>);
+}
+
+
+/**
+ * 半透明レイヤー解除処理
+ */
+function LayerEnd() {
+    setTimeout(function(){
+        $("<?= $const['sel_layer'] ?>").fadeOut(<?= $const['time_loading_speed'] ?>);
+    },<?= $const['time_loading_timeout'] ?>);
 }
 
 
@@ -255,11 +303,6 @@ function GetFormElemVal( targetName ) {
 function EditListInput(target, event) {
     // 返値を初期化
     var returnFlg = false;
-
-//    console.log(target);
-//    console.log(event);
-    console.log('Enter:' + GetFormCloseEnter(event));
-    console.log('Esc:' + GetFormCloseEsc(event));
 
     // 日本語入力時以外のENTER、ESCキー
     if (

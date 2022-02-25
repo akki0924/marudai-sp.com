@@ -46,12 +46,12 @@ class Form extends MY_Controller
     public function js()
     {
         // JSファイル書出し
-        $this->jscss_lib->CreateJs($this->load->view('js/create_js', $this->sharedTemplate(), true));
+        $this->jscss_lib->CreateJs($this->load->view(Base_lib::JS_DIR . '/base/create_js', $this->sharedTemplate(), true));
     }
     // CCSファイル書出し
     public function css()
     {
         // CCSファイル書出し
-        $this->jscss_lib->CreateCss($this->load->view('css/create_css', $this->sharedTemplate(), true));
+        $this->jscss_lib->CreateCss($this->load->view(Base_lib::CSS_DIR . '/base/create_css', $this->sharedTemplate(), true));
     }
 }

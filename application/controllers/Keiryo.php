@@ -27,17 +27,25 @@ class Keiryo extends MY_Controller
         return $returnVal;
     }
 
-    // 登録画面
-    public function index($placeId = "")
+    // ダミー画面
+    public function index()
     {
-        // 場所IDチェック
-        $this->keiryo_model->CheckPlaceId($placeId);
+        // リダイレクト処理
+        redirect('/');
+    }
+
+
+    // 登録画面
+    public function input($placeCode = "")
+    {
+        // 秤バーコードチェック
+        $this->keiryo_model->CheckPlaceCode($placeCode);
         // FORM情報の確認
         $action = $this->input->post_get('action', true);
         $id = $this->input->post_get('id', true);
         if ($action == 'add') {
             // エラーチェックルールをセット
-            $config = $this->keiryo_model->ConfigInputValues();
+            $config = $this->keiryo_model->ConfigInputValues($placeCode);
             // バリデーションのデータを再セット（調整中）
             $this->keiryo_model->SetValidData();
             // バリデーションにルールをセット
@@ -46,28 +54,32 @@ class Keiryo extends MY_Controller
             $validFlg = $this->form_validation->run();
             if ($validFlg) {
                 // 登録処理
-                $this->keiryo_model->RegistAction($validFlg);
-                // テンプレート読み込み
-                redirect('keiryo/comp' . ($id ? '/' . $id : ''));
+                $this->keiryo_model->RegistAction($placeCode);
+                // リダイレクト処理
+                redirect('keiryo/input' . ($placeCode ? '/' . $placeCode : ''));
             } else {
-                $templateVal = $this->keiryo_model->InputTemplate($validFlg);
+                $templateVal = $this->keiryo_model->InputTemplate($placeCode);
                 // 入力テンプレート読み込み
                 $this->load->view('keiryo', $templateVal);
             }
         } else {
             // テンプレート情報をセット
-            $templateVal = $this->keiryo_model->InputTemplate();
+            $templateVal = $this->keiryo_model->InputTemplate($placeCode);
             // テンプレート読み込み
             $this->load->view('keiryo', $templateVal);
         }
     }
 
 
-
-    // 完了画面
-    public function comp()
+    // 完了処理
+    public function comp($placeCode = "")
     {
-        $templateVal = $this->keiryo_model->CompTemplate();
+        // 秤バーコードチェック
+        $this->keiryo_model->CheckPlaceCode($placeCode);
+
+        // 登録処理
+        $templateVal = $this->keiryo_model->RegistAction($placeCode);
+
         // テンプレート読み込み
         $this->load->view('keiryo_comp', $templateVal);
     }
@@ -82,15 +94,28 @@ class Keiryo extends MY_Controller
     }
 
 
-    // Ajax処理
-    public function ajax()
+    // バーコード読取り処理（Ajax）
+    public function ajax_code()
     {
-        // 返値を初期化
-        $returnVal = array();
-        $returnVal[Jscss_lib::KEY_AJAX_REACTION_FLG] = true;
-        $returnVal[Jscss_lib::KEY_AJAX_REACTION]['ajax'] = 'TEST';
-
         // JSON形式で返す
-        echo json_encode($returnVal);
+        echo json_encode($this->keiryo_model->GetAjaxCodeAction());
+    }
+
+
+    // リスト更新処理（Ajax）
+    public function ajax_list()
+    {
+        // JSON形式で返す
+        echo json_encode($this->keiryo_model->GetAjaxListAction());
+    }
+
+
+    // ページ専用JSファイル
+    public function js($placeCode = "")
+    {
+        // テンプレート情報をセット
+        $templateVal = $this->keiryo_model->InputTemplate($placeCode);
+        // テンプレート読み込み
+        $this->load->view(Base_lib::JS_DIR . Base_lib::WEB_DIR_SEPARATOR . 'keiryo', $templateVal);
     }
 }

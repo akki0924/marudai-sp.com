@@ -2,17 +2,18 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>管理者ログイン｜<?= $const['site_title_name'] ?></title>
+<title>管理者ログイン｜バーコードシステム｜株式会社マルダイスプリング</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--CSS-->
-<link rel="stylesheet" href="<?= SiteDir(); ?>css/style_admin.css">
+<link rel="stylesheet" href="<?= SiteDir(); ?>css/style.css">
 <link rel="stylesheet" href="<?= SiteDir(); ?>css/reset.css">
+<link rel="stylesheet" type="text/css" href="<?= SiteDir(); ?>form/css">
 <!--JavaScript-->
 <script src="<?= SiteDir(); ?>js/<?= JqueryFile() ?>"></script>
 <script language="JavaScript">
 $(function() {
 	$('.login_btn').click(function() {
-			$('#action').val( 'login' );
+		$('#action').val('login');
 		$('#operation_form').submit();
 	});
 });
@@ -22,57 +23,33 @@ $(function() {
 <body>
 <header>
 	<div class="container">
-		<div class="row align_center">
-			<div class="col3_2 row just_start align_center">
-				<a href="index.html" class="logo"><?= $const['site_title_name'] ?></a>
-			</div>
-		</div>
-	</div><!--/.container-->
+		<div class="logo mb_60"><img src="<?= SiteDir(); ?>img/logo.gif" alt="ロゴ"></div>
+	</div>
 </header>
 
-<main class="pb_non">
-	<section id="login">
-		<h1 class="mb_40">管理者ログイン</h1>
-		<div class="bg_gray pd60">
-			<div class="container">
-				<div class="max680">
-					<form id="operation_form" name="operation_form" action="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>" method="post" class="white_boad mb_40">
-						<div class="max480">
-							<table class="mb_20">
-								<tbody>
-									<tr>
-										<th><span class="required">アカウント</span></th>
-										<td><input type="tel" name="account" value="<?= VarDisp($form['account']) ?>" class="<?= ((isset($error_account) && $error_account) ? 'formerr_color' : '') ?>"></td>
-									</tr>
-									<tr>
-									<th><span class="required">パスワード</span></th>
-									<td><input type="password" name="password"  value="<?= VarDisp($form['password']) ?>"  class="<?= ((isset($error_password) && $error_password) ? 'formerr_color' : '') ?>"></td>
-									</tr>
-								</tbody>
-							</table>
-							<?php if (form_error('account')) : ?>
-							<span class="text-danger"><?= form_error('account'); ?></span><br>
-							<?php endif; ?>
-							<?php if (form_error('password')) : ?>
-							<span class="text-danger"><?= form_error('password'); ?></span><br>
-							<?php endif; ?>
 
-							<a class="btn mb_20 login_btn">ログイン</a>
-							<input type="hidden" name="action" id="action">
-							<input type="hidden" name="login" value="1">
-						</div>
-					</form>
-				</div>
-			</div><!--./container-->
-		</div><!--./bg_gray-->
-	</section>
+<main>
+	<div class="container">
+		<p class="font_24 txt_center bold mb_60">計量記録管理システム</p>
+		<form id="operation_form" name="operation_form" action="<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>" method="post" class="max360">
+			<p class="mb_10">ユーザーID</p>
+			<input type="text" name="account" class="mb_20" value="<?= VarDisp($form['account']) ?>">
+			<p class="mb_10">パスワード</p>
+			<input type="password" name="password" class="mb_40" value="<?= VarDisp($form['password']) ?>">
+			<?php if (form_error('account')) : ?>
+			<span class="text-danger"><?= form_error('account'); ?></span><br>
+			<?php endif; ?>
+			<?php if (form_error('password')) : ?>
+			<span class="text-danger"><?= form_error('password'); ?></span><br>
+			<?php endif; ?>
+			<a class="btn login_btn size_m"><span class="icon_login">ログイン</span></a>
+			<input type="hidden" name="action" id="action">
+			<input type="hidden" name="login" value="1">
+		</form>
+	</div>
+
 </main>
 
-<footer>
-	<div class="container">
-		<p class="copy">Copyright &copy; All Rights Reserved</p>
-	</div><!--./container-->
-</footer>
 
 </body>
 </html>

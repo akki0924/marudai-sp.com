@@ -46,7 +46,7 @@ class Index extends MY_Controller
             } else {
                 $this->index_model->LoginAction();
                 // 設定ページへ遷移
-                redirect(Base_lib::ACCESS_ADMIN_DIR . '/measurement');
+                redirect(Base_lib::ACCESS_ADMIN_DIR . '/top');
             }
         } else {
             $templateVal = $this->index_model->LoginTemplate();

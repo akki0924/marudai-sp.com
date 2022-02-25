@@ -26,6 +26,11 @@ form
     cursor: pointer;
     cursor: hand;
 }
+.form_error_textbox {
+    border-width: 2px;
+    border-color: #c20c33;
+    background-color: #ffd9e1;
+}
 a.form_btn {
     position: relative;
     display: inline-block;
@@ -41,6 +46,18 @@ a.form_btn {
 }
 a.form_btn:hover {
     background-color: #fdfbfb;
+}
+/*==================================================================================
+layer
+==================================================================================*/
+<?= $const['sel_layer'] ?> {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    height:100%;
+    display: none;
+    background: rgba(0,0,0,0.6);
 }
 /*==================================================================================
 loading
@@ -72,4 +89,13 @@ loading
     100% {
         transform: rotate(360deg);
     }
+}
+/*==================================================================================
+other
+==================================================================================*/
+#inputCode {
+    overflow: hidden;
+    position: relative;
+    width: 1px; height: 1px;
+    left: -9999px;
 }

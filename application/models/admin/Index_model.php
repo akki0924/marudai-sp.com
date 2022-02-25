@@ -125,7 +125,7 @@ class Index_model extends CI_Model
         $returnVal = array(
             array(
                 'field'   => 'account',
-                'label'   => 'アカウント',
+                'label'   => 'ユーザーID',
                 'rules'   => 'required'
             ),
             array(

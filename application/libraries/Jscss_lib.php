@@ -28,6 +28,7 @@ class Jscss_lib extends Base_lib
     const SEL_BTN_LIST_EDIT = '.list_edit_btn';
     const SEL_BTN_LIST_DEL = '.list_del_btn';
     const SEL_LIST_LINES = '#list_lines';
+    const SEL_LAYER = '#layer_overlay';
     const SEL_LOADER = '#loading_overlay';
     const SEL_LOADER_CV = '.cv-spinner';
     const SEL_LOADER_SPINNER = '.spinner';
@@ -36,9 +37,10 @@ class Jscss_lib extends Base_lib
     const TIME_LOADING_TIMEOUT = 500;
     // AJAX後画面遷移用キー
     const KEY_AJAX_LOCATION = 'location';
-    // AJAX後画面への反映フラグ
+    // AJAX後画面への反映
     const KEY_AJAX_REACTION = 'reaction';
     const KEY_AJAX_REACTION_FLG = self::KEY_AJAX_REACTION . '_flg';
+    const KEY_AJAX_REACTION_FUNC = self::KEY_AJAX_REACTION . '_func';
     // AJAX結果用キー
     const KEY_AJAX_RESULT = 'result';
     // キーコード

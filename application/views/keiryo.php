@@ -2,84 +2,28 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>計量記録｜バーコードシステム｜株式会社マルダイスプリング</title>
+<title><?= ($placeData['type'] == 1 ? '計量記録' : '外注依頼記録') ?>｜バーコードシステム｜株式会社マルダイスプリング</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--CSS-->
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/reset.css">
-<link rel="stylesheet" href="css/jquery-ui-1.12.1.min.css">
+<link href="<?= SiteDir(); ?>css/<?= JqueryUiCssFile() ?>" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="<?= SiteDir(); ?>css/style.css">
+<link rel="stylesheet" href="<?= SiteDir(); ?>css/reset.css">
+<link rel="stylesheet" type="text/css" href="<?= SiteDir(); ?>form/css">
 <!--JavaScript-->
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/check_button.js"></script>
-<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.12.1.min.js"></script>
+<script src="<?= SiteDir(); ?>js/<?= JqueryFile() ?>"></script>
+<script src="<?= SiteDir(); ?>js/<?= JqueryUiJsFile() ?>"></script>
+<script type="text/javascript" src="<?= SiteDir(); ?>form/js"></script>
+<script type="text/javascript" src="<?= SiteDir(); ?>js/check_button.js"></script>
 
-<script>
-	$(function () {
-		$('#member_num,#packing_num').keyup(function () {
-			ChangeTotalNum();
-		});
-
-		$('.number_key').click(function () {
-			$('#input_number').autocomplete({
-				source: function (request, response) {
-					response(
-						$.grep(suggestData, function (value) {
-							return value.indexOf(request.term) === 0;
-						})
-					);
-				},
-				autoFocus: false,
-				delay: 100,
-				minLength: 1
-			});
-			if ($('#input_number').val().length < strLenMax) {
-				$('#input_number').val($('#input_number').val() + $(this).find('span').text());
-			}
-			//$('#search_name').autocomplete("search", $(this).find('span').text())
-			$('#input_number').autocomplete("search", $('#input_number').val())
-		});
-		$('#input_number').autocomplete({
-			source: function (request, response) {
-				response(
-					$.grep(suggestData, function (value) {
-						return value.indexOf(request.term) === 0;
-					})
-				);
-			},
-			autoFocus: false,
-			delay: 100,
-			minLength: 1
-		});
-		$('#submit_btn').click(function () {
-			var targetUrl = suggestUrl[$.inArray($('#input_number').val(), suggestData)];
-			window.location.href = targetUrl;
-		});
-	});
-	function ChangeTotalNum(){
-		var num1 = $('#member_num').val();
-		var num2 = $('#packing_num').val();
-		var totalNum = num1 * num2;
-		$('.total_number').text(totalNum.toLocaleString());
-
-	}
-	var suggestData = [];
-	var suggestUrl = [];
-	for (var i = 0, n = errorData.length; i < n; i++) {
-		suggestData[i] = errorData[i][0];
-		suggestUrl[i] = errorData[i][1];
-	}
-	// console.log(suggestData);
-	// console.log(suggestUrl);
-</script>
+<script type="text/javascript" src="<?= SiteDir(); ?>keiryo/js/<?= $placeData['code'] ?>"></script>
 </head>
 
 <body>
 <header class="second">
 	<div class="container">
 		<a href="index.html" class="btn_return"><span class="icon_return">初期画面に戻る</span></a>
-		<p class="font_24 bold txt_center">計量記録</p>
-		<label for="keiryo_trigger" class="btn size_s"><span class="icon_record">計量記録を見る</span></label>
+		<p class="font_24 bold txt_center"><?= ($placeData['type'] == 1 ? '計量記録' : '外注依頼記録') ?></p>
+		<label for="keiryo_trigger" class="btn size_s"><span class="icon_record"><?= ($placeData['type'] == 1 ? '計量記録' : '外注依頼記録') ?>を見る</span></label>
 	</div>
 </header>
 
@@ -87,36 +31,50 @@
 <main class="second">
 	<div class="container">
 		<div class="row just_center mb_10">
-			<p class="machine">養老工場・測量器1</p>
+			<p class="machine">
+				<?= ($placeData['place_name'] ? $placeData['place_name'] : '') ?>・
+				<?= ($placeData['scale'] ? $placeData['scale'] : '') ?>
+			</p>
 		</div>
 		<div class="row just_center max680 mb_20">
-			<a href="#" class="btn"><span class="icon_bercode">製品バーコードスキャン</span></a>
+			<a class="btn barcode_btn"><span class="icon_bercode">製品バーコードスキャン</span></a>
+			<input type="text" id="inputCode" name="inputCode" value="" data-role:"none">
 		</div>
 
-		<form method="post" id="operation_form" name="operation_form" class="boad mb_20" action="<?= SiteDir(); ?>keiryo">
-		<form action="" class="boad mb_20">
-			<div class="row just_start align_center mb_20">
+		<form method="post" id="operation_form" name="operation_form" class="boad mb_20<?= $placeData['type'] == 2 ? ' gaichu' : '' ?>" action="<?= SiteDir(); ?>keiryo/input/<?= $placeData['code'] ?>">
+			<div id="input_group1"  class="row just_start align_center mb_20">
 				<p class="font_18 blue bold mr_20">品番</p>
-				<input type="text" name="code" value="<?= VarDisp($form['code']) ?>" class="txt_center disa half">
+				<input type="text" id="number" name="number" value="<?= VarDisp($form['number']) ?>" class="txt_center disa half">
 			</div>
 
-			<div class="row just_start align_end mb_20">
+			<div id="input_group2" class="row just_start align_end mb_20">
 				<div class="lot mr_30">
-					<label for="keyboad_trigger" class="btn second size_m mb_10">ロット</label>
-					<span>No.</span><input type="text" name="lot" value="<?= VarDisp($form['lot']) ?>" class="txt_center disa">
+					<label for="keyboad_trigger" class="btn lot_btn second size_m mb_10">ロット</label>
+					<span>No.</span><input type="text" id="lot" name="lot" value="<?= VarDisp($form['lot']) ?>" class="txt_center disa">
 				</div>
+				<?php if ($placeData['type'] == 1) { ?>
 				<div class="piece mr_30">
-					<label for="keyboad_trigger" class="btn second size_m mb_10">員数</label>
-					<input type="text" id="member_num" name="member_num" value="<?= VarDisp($form['member_num']) ?>" class="txt_center disa">
+					<label for="keyboad_trigger" class="btn num_btn second size_m mb_10">員数</label>
+					<input type="tel" id="member_num" name="member_num" value="<?= VarDisp($form['member_num']) ?>" class="txt_center disa">
 				</div>
 				<div class="pack mr_60">
-					<label for="keyboad_trigger" class="btn second size_m mb_10">荷姿数量</label>
-					<input type="text" id="packing_num" name="packing_num" value="<?= VarDisp($form['packing_num']) ?>" class="txt_center disa">
+					<label for="keyboad_trigger" class="btn pack_btn second size_m mb_10">荷姿数量</label>
+					<input type="tel" id="packing_num" name="packing_num" value="<?= VarDisp($form['packing_num']) ?>" class="txt_center disa">
 				</div>
 				<div class="total">
 					<p class="mb_10">数量</p>
 					<div class="total_number">0</div>
 				</div>
+				<?php } else { ?>
+				<div class="piece mr_30">
+					<label for="keyboad_trigger" class="btn num_btn second size_m mb_10">現場エフ数量</label>
+					<input type="text" id="f_num" name="f_num" value="<?= VarDisp($form['f_num']) ?>" class="txt_center disa">
+				</div>
+				<div class="pack mr_60">
+					<label for="keyboad_trigger" class="btn pack_btn second size_m mb_10">実荷姿数量</label>
+					<input type="text" id="packing_num_total" name="packing_num_total" value="<?= VarDisp($form['packing_num_total']) ?>" class="txt_center disa">
+				</div>
+				<?php } ?>
 			</div>
 
 			<div class="border mb_20"></div>
@@ -125,28 +83,31 @@
 				<div class="row just_start">
 					<?php foreach ($select['confirm_flg'] as $key => $val) { ?>
 					<label class="label_check mr_20">
-						<?= form_checkbox("confirm_flg", $key, (is_array($form['confirm_flg']) && $form['confirm_flg'] == $key ? true : false)); ?>
+						<?= form_checkbox("confirm_flg", $key, (is_array($form['confirm_flg']) && $form['confirm_flg'] == $key ? true : false), 'id="confirm_flg"'); ?>
 						<span><?= $val ?></span>
 					</label>
 					<?php } ?>
 					<?php foreach ($select['cleaning_flg'] as $key => $val) { ?>
 					<label class="label_check">
-						<?= form_checkbox("cleaning_flg", $key, (is_array($form['cleaning_flg']) && $form['cleaning_flg'] == $key ? true : false)); ?>
+						<?= form_checkbox("cleaning_flg", $key, (is_array($form['cleaning_flg']) && $form['cleaning_flg'] == $key ? true : false), 'id="cleaning_flg"'); ?>
 						<span><?= $val ?></span>
 					</label>
 					<?php } ?>
 				</div>
 			</div>
 
-			<div class="max360"><label for="comp_trigger" id="btn_record" class="btn size_m">この製品を記録する</label></div>
-			<input type="hidden" name="action" value="add">
+			<div class="max360"><label id="btn_record" class="btn conf_btn size_m">この製品を記録する</label></div>
+			<input type="hidden" id="action" name="action" value="add">
+			<input type="hidden" id="start_date" name="start_date" value="<?= VarDisp($form['start_date']) ?>">
+			<input type="hidden" id="worker1" name="worker1" value="">
+			<input type="hidden" id="worker2" name="worker2" value="">
 		</form>
 	</div><!--/.container-->
 
 
 	<!-- キーボード モーダルウィンドウ -->
 	<div class="modal_window">
-		<input id="keyboad_trigger" type="checkbox">
+		<input id="keyboad_trigger" name="keyboad_trigger" type="checkbox" value="">
 		<div class="modal_overlay">
 			<label for="keyboad_trigger" class="modal_close"></label>
 			<div class="modal_cont">
@@ -165,7 +126,7 @@
 						<div class="number_key"><span>3</span></div>
 						<div class="number_key"><span>0</span></div>
 						<div class="number_key"><span>-</span></div>
-						<input type="button" id="submit_btn" name="submit_btn" value="入力" class="btn_submit">
+						<input type="button" id="enter_btn" name="enter_btn" value="入力" class="btn_submit">
 					</div>
 					<input type="reset" class="btn_reset">
 				</form>
@@ -175,40 +136,31 @@
 
 	<!-- 作業者 モーダルウィンドウ -->
 	<div class="modal_window">
-		<input id="comp_trigger" type="checkbox">
+		<input id="comp_trigger" type="checkbox" value="">
 		<div class="modal_overlay">
 			<label for="comp_trigger" class="modal_close"></label>
 			<div class="modal_cont">
 				<label for="comp_trigger" class="btn_close"></label>
 				<form action="">
 					<p class="bold mb_20">作業者</p>
-					<select name="worker1" class="mb_10">
-						<option value="選択1">選択1</option>
-						<option value="選択2">選択2</option>
-						<option value="選択3">選択3</option>
-					</select>
-					<select name="worker2" class="mb_40">
-						<option value="選択1">選択1</option>
-						<option value="選択2">選択2</option>
-						<option value="選択3">選択3</option>
-					</select>
+					<?= form_dropdown("input_worker1", $select['worker'], (isset($form['input_worker1']) ? $form['input_worker1'] : ""), 'id="input_worker1" class="mb_10"'); ?>
+					<?= form_dropdown("input_worker2", $select['worker'], (isset($form['input_worker2']) ? $form['input_worker2'] : ""), 'id="input_worker2" class="mb_10"'); ?>
 
-					<input type="button" value="記録完了" class="btn comp">
+					<input type="button" value="記録完了" class="btn comp submit_btn">
 				</form>
 			</div>
 		</div>
 	</div><!--/.modal_window-->
 
-
-	<!-- 計量記録 モーダルウィンドウ ------------------------------------------------>
+	<!-- <?= ($placeData['type'] == 1 ? '計量記録' : '外注依頼記録') ?> モーダルウィンドウ ------------------------------------------------>
 	<div class="modal_window">
 		<input id="keiryo_trigger" type="checkbox">
 		<div class="modal_overlay">
 			<label for="keiryo_trigger" class="modal_close"></label>
 			<div class="modal_cont record">
 				<label for="keiryo_trigger" class="btn_close"></label>
-				<form action="">
-					<p class="font_18 navy bold mb_20">計量記録</p>
+				<form method="post" id="list_form" name="list_form" action="">
+					<p class="font_18 navy bold mb_20"><?= ($placeData['type'] == 1 ? '計量記録' : '外注依頼記録') ?></p>
 					<div class="row just_start align_center mb_10">
 						<?= form_dropdown("start_y", $select['year'], (isset($form['start_y']) ? $form['start_y'] : ""), 'id="start_y" class="data mr_10"'); ?>
 						<?= form_dropdown("start_m", $select['month'], (isset($form['start_m']) ? $form['start_m'] : ""), 'id="start_m" class="data mr_10"'); ?>
@@ -217,10 +169,10 @@
 						<?= form_dropdown("end_y", $select['year'], (isset($form['end_y']) ? $form['end_y'] : ""), 'id="end_y" class="data mr_10"'); ?>
 						<?= form_dropdown("end_m", $select['month'], (isset($form['end_m']) ? $form['end_m'] : ""), 'id="end_m" class="data mr_10"'); ?>
 						<?= form_dropdown("end_d", $select['day'], (isset($form['end_d']) ? $form['end_d'] : ""), 'id="end_d" class="data mr_10"'); ?>
-						<input type="button" value="絞り込む" class="btn second size_s pickup">
+						<input type="button" value="絞り込む" class="btn search_btn second size_s pickup">
 					</div>
 
-					<div class="scroll">
+					<div id="search_list" class="scroll">
 						<?php if (isset($list) && count($list) > 0) { ?>
 						<table class="record">
 						  <tbody>
@@ -230,22 +182,25 @@
 						      <th>場所・秤</th>
 						      <th>品番</th>
 						      <th>ロット</th>
-						      <th>員数</th>
-						      <th>荷姿数量</th>
-						      <th>数量</th>
+						      <th><?= ($placeData['type'] == 1 ? '員数' : '現場エフ数量') ?></th>
+						      <th><?= ($placeData['type'] == 1 ? '荷姿数量' : '実荷姿数量') ?></th>
+						      <?= ($placeData['type'] == 1 ? '<th>数量</th>' : '') ?>
 						      <th>作業者</th>
 						    </tr>
 							<?php for ($i = 0, $no = 1, $n = count($list); $i < $n; $i ++, $no ++) { ?>
 						    <tr>
-						      <td>11/1</td>
-						      <td>2:00</td>
-						      <td>養老工場・測量器1</td>
-						      <td>00000-00000</td>
-						      <td>000000-0</td>
-						      <td>1000</td>
-						      <td>100</td>
-						      <td>100000</td>
-						      <td>山田・田中</td>
+						      <td><?= $list[$i]['start_date'] ?></td>
+						      <td><?= $list[$i]['start_time'] ?></td>
+						      <td><?= $list[$i]['place_name'] ?>・<?= $list[$i]['place_scale'] ?></td>
+						      <td><?= $list[$i]['number'] ?></td>
+						      <td><?= $list[$i]['lot'] ?></td>
+						      <td><?= $list[$i]['num'] ?></td>
+						      <td><?= $list[$i]['packing'] ?></td>
+						      <?= ($placeData['type'] == 1 ? '<td>' . $list[$i]['total_num'] . '</td>' : '') ?>
+						      <td>
+								<?= $list[$i]['worker1_name_l'] ?>
+								<?= ($list[$i]['worker2_name_l'] ? '・' . $list[$i]['worker2_name_l'] : '') ?>
+							  </td>
 						    </tr>
 							<?php } ?>
 						  </tbody>
@@ -259,7 +214,5 @@
 		</div><!--/.modal_overlay-->
 	</div><!--/.modal_window-->
 </main>
-
-
 </body>
 </html>

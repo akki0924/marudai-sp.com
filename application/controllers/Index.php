@@ -32,4 +32,12 @@ class Index extends MY_Controller
         // テンプレート読み込み
         $this->load->view('index', $templateVal);
     }
+
+
+    // リスト更新処理（Ajax）
+    public function ajax_list()
+    {
+        // JSON形式で返す
+        echo json_encode($this->top_model->GetAjaxListAction());
+    }
 }
