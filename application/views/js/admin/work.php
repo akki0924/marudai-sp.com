@@ -91,6 +91,12 @@ $(function () {
         $('#operation_form').attr( 'action', '<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/work/input/<?= $placeType ?>' );
         $('#operation_form').submit();
     });
+	/**
+     * 印刷ボタン
+     */
+    $(document).on('click', '.print_btn', function() {
+		window.print();
+    });
 });
 function ChangeTotalNum(){
     var num1 = $('#member_num').val();

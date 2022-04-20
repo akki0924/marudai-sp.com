@@ -133,7 +133,7 @@
 					<?php } ?>
 				</div>
 				<div class="other">
-					<p class="mb_10">継続確認</p>
+					<p class="mb_10"><!--継続確認--></p>
 					<?= form_dropdown("continue_flg", $select['continue_flg'], (isset($form['continue_flg']) ? $form['continue_flg'] : ""), 'id="continue_flg"'); ?>
 				</div>
 				<?php } ?>
