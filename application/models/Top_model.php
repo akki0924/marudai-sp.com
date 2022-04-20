@@ -84,6 +84,13 @@ class Top_model extends MY_Model
         $returnVal['form']['end_y2'] = ($returnVal['form']['end_y2'] ? $returnVal['form']['end_y2'] : date('Y'));
         $returnVal['form']['end_m2'] = ($returnVal['form']['end_m2'] ? $returnVal['form']['end_m2'] : date('m'));
         $returnVal['form']['end_d2'] = ($returnVal['form']['end_d2'] ? $returnVal['form']['end_d2'] : date('d'));
+        // 期間を再セット
+        $returnVal['form']['start_y3'] = ($returnVal['form']['start_y3'] ? $returnVal['form']['start_y3'] : date('Y', strtotime("-1 week")));
+        $returnVal['form']['start_m3'] = ($returnVal['form']['start_m3'] ? $returnVal['form']['start_m3'] : date('m', strtotime("-1 week")));
+        $returnVal['form']['start_d3'] = ($returnVal['form']['start_d3'] ? $returnVal['form']['start_d3'] : date('d', strtotime("-1 week")));
+        $returnVal['form']['end_y3'] = ($returnVal['form']['end_y3'] ? $returnVal['form']['end_y3'] : date('Y'));
+        $returnVal['form']['end_m3'] = ($returnVal['form']['end_m3'] ? $returnVal['form']['end_m3'] : date('m'));
+        $returnVal['form']['end_d3'] = ($returnVal['form']['end_d3'] ? $returnVal['form']['end_d3'] : date('d'));
         // WHERE文を初期化
         $whereSqlM = array();
         $whereSqlO = array();
@@ -111,12 +118,25 @@ class Top_model extends MY_Model
         $whereSqlO[] = Work_lib::MASTER_TABLE . " . end_date <= '" . $endDate . "'";
         $whereSqlO[] = Work_lib::MASTER_TABLE . " . place_type = " . Place_lib::ID_TYPE_OUTSOURCING;
         $whereSqlO[] = Work_lib::MASTER_TABLE . " . status = " . Work_lib::ID_STATUS_ENABLE;
+        // 防錆記録検索
+        $startDate =  $returnVal['form']['start_y3'] . "-";
+        $startDate .= $returnVal['form']['start_m3'] . "-";
+        $startDate .= $returnVal['form']['start_d3'];
+        $endDate =  $returnVal['form']['end_y3'] . "-";
+        $endDate .= $returnVal['form']['end_m3'] . "-";
+        $endDate .= $returnVal['form']['end_d3'];
+        $endDate = date("Y-m-d", strtotime($endDate . "+1 day"));
+        $whereSqlB[] = Work_lib::MASTER_TABLE . " . start_date >= '" . $startDate . "'";
+        $whereSqlB[] = Work_lib::MASTER_TABLE . " . end_date <= '" . $endDate . "'";
+        $whereSqlB[] = Work_lib::MASTER_TABLE . " . place_type = " . Place_lib::ID_TYPE_BOUSEI;
+        $whereSqlB[] = Work_lib::MASTER_TABLE . " . status = " . Work_lib::ID_STATUS_ENABLE;
         // ORDER情報をセット
         $orderSql[0]['key'] = Work_lib::MASTER_TABLE . ' . regist_date';
         $orderSql[0]['arrow'] = 'ASC';
         // 一覧情報を取得
         $returnVal['list_m'] = $this->GetList($whereSqlM, $orderSql, null);
         $returnVal['list_o'] = $this->GetList($whereSqlO, $orderSql, null);
+        $returnVal['list_b'] = $this->GetList($whereSqlB, $orderSql, null);
         // 選択情報をセット
         $returnVal['select']['year'] = $this->date_lib->GetYearList('年', '2021');
         $returnVal['select']['month'] = $this->date_lib->GetMonthList('月');
@@ -190,8 +210,17 @@ class Top_model extends MY_Model
             $data['list'] = $this->GetList($whereSql, $orderSql, null);
             // 記録対象をセット
             $data['type'] = $inputType;
+            if ($inputType == Place_lib::ID_TYPE_MEASUREMENT) {
+                $templateType = 'm';
+            } elseif ($inputType == Place_lib::ID_TYPE_OUTSOURCING) {
+                $templateType = 'o';
+            } elseif ($inputType == Place_lib::ID_TYPE_BOUSEI) {
+                $templateType = 'b';
+            } else {
+                $templateType = '';
+            }
             // テンプレート情報をセット
-            $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#search_' . ($inputType == Place_lib::ID_TYPE_MEASUREMENT ? 'm' : 'o') . '_list'] = $this->load->view('index_part_list', $data, true);
+            $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#search_' . $templateType . '_list'] = $this->load->view('index_part_list', $data, true);
         }
         return $returnVal;
     }
@@ -239,8 +268,10 @@ class Top_model extends MY_Model
                 DATE_FORMAT(" . Work_lib::MASTER_TABLE . " . start_date, '%H:%i') AS start_time,
                 " . Work_lib::MASTER_TABLE . " . worker1_name_l,
                 " . Work_lib::MASTER_TABLE . " . worker1_name_f,
+                CONCAT(" . Work_lib::MASTER_TABLE . " . worker1_name_l, " . Work_lib::MASTER_TABLE . " . worker1_name_f) AS worker1_name,
                 " . Work_lib::MASTER_TABLE . " . worker2_name_l,
                 " . Work_lib::MASTER_TABLE . " . worker2_name_f,
+                CONCAT(" . Work_lib::MASTER_TABLE . " . worker2_name_l, " . Work_lib::MASTER_TABLE . " . worker2_name_f) AS worker2_name,
                 " . Work_lib::MASTER_TABLE . " . place_code,
                 " . Work_lib::MASTER_TABLE . " . place_scale,
                 " . Work_lib::MASTER_TABLE . " . place_ledger,
@@ -257,6 +288,7 @@ class Top_model extends MY_Model
                 CASE " . Work_lib::MASTER_TABLE . " . place_type
                     WHEN " . Place_lib::ID_TYPE_MEASUREMENT . " THEN " . Work_lib::MASTER_TABLE . " . member_num
                     WHEN " . Place_lib::ID_TYPE_OUTSOURCING . " THEN " . Work_lib::MASTER_TABLE . " . f_num
+                    WHEN " . Place_lib::ID_TYPE_BOUSEI . " THEN " . Work_lib::MASTER_TABLE . " . bousei_num
                     ELSE ''
                 END num,
                 CASE " . Work_lib::MASTER_TABLE . " . place_type
@@ -268,6 +300,22 @@ class Top_model extends MY_Model
                     WHEN " . Place_lib::ID_TYPE_MEASUREMENT . " THEN (" . Work_lib::MASTER_TABLE . " . member_num * " . Work_lib::MASTER_TABLE . " . packing_num)
                     ELSE ''
                 END total_num,
+                " . Work_lib::MASTER_TABLE . " . continue_flg,
+                CASE " . Work_lib::MASTER_TABLE . " . continue_flg
+                    WHEN " . Work_lib::ID_CONTINUE_FLG_REPEAT . " THEN '" . Work_lib::NAME_CONTINUE_FLG_REPEAT . "'
+                    WHEN " . Work_lib::ID_CONTINUE_FLG_END . " THEN '" . Work_lib::NAME_CONTINUE_FLG_END . "'
+                    ELSE ''
+                END continue_flg_name,
+                " . Work_lib::MASTER_TABLE . " . bousei_cleaning_flg,
+                CASE " . Work_lib::MASTER_TABLE . " . bousei_cleaning_flg
+                    WHEN " . Work_lib::ID_BOUSEI_CLEANING_FLG . " THEN '" . Work_lib::NAME_BOUSEI_CLEANING_FLG_COMP . "'
+                    ELSE ''
+                END bousei_cleaning_flg_name,
+                " . Work_lib::MASTER_TABLE . " . trash_flg,
+                CASE " . Work_lib::MASTER_TABLE . " . trash_flg
+                    WHEN " . Work_lib::ID_TRASH_FLG . " THEN '" . Work_lib::NAME_TRASH_FLG_COMP . "'
+                    ELSE ''
+                END trash_flg_name,
                 " . Work_lib::MASTER_TABLE . " . confirm_flg,
                 " . Work_lib::MASTER_TABLE . " . cleaning_flg,
                 " . Work_lib::MASTER_TABLE . " . status,
@@ -283,6 +331,15 @@ class Top_model extends MY_Model
         // 結果が、空でない場合
         if ($query->num_rows() > 0) {
             $returnVal = $query->result_array();
+            for ($i = 0, $n = count($returnVal); $i < $n; $i ++) {
+                // PDF存在フラグデータを初期化してセット
+                $returnVal[$i]['pdf_exists'] = false;
+                // 対象データのPDFの存在確認
+                if ($this->upload_lib->FileExists('pdf' . DIRECTORY_SEPARATOR . $returnVal[$i]['number'] . '.pdf')) {
+                    // PDF存在フラグ情報を再セット
+                    $returnVal[$i]['pdf_exists'] = true;
+                }
+            }
         }
         return $returnVal;
     }
@@ -308,6 +365,12 @@ class Top_model extends MY_Model
             'end_y2',
             'end_m2',
             'end_d2',
+            'start_y3',
+            'start_m3',
+            'start_d3',
+            'end_y3',
+            'end_m3',
+            'end_d3',
         );
 
         return $returnVal;

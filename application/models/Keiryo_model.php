@@ -106,6 +106,9 @@ class Keiryo_model extends MY_Model
         // 一覧情報を取得
         $returnVal['list'] = $this->GetList($whereSql, $orderSql, null, true);
         // 選択情報をセット
+        $returnVal['select']['continue_flg'] = $this->work_lib->GetContinueFlgList();
+        $returnVal['select']['bousei_cleaning_flg'] = $this->work_lib->GetBouseiCleaningFlgList();
+        $returnVal['select']['trash_flg'] = $this->work_lib->GetTrashFlgList();
         $returnVal['select']['confirm_flg'] = $this->work_lib->GetConfirmFlgList();
         $returnVal['select']['cleaning_flg'] = $this->work_lib->GetCleaningFlgList();
         $returnVal['select']['year'] = $this->date_lib->GetYearList('年', '2021');
@@ -190,6 +193,11 @@ class Keiryo_model extends MY_Model
             $form['place_scale'] = $placeData['scale'];
             $form['status'] = Worker_lib::ID_STATUS_ENABLE;
             $form['end_date'] = date('Y-m-d H:i:s');
+            // 記録対象が軽量記録の場合
+            if ($placeData['type'] == Place_lib::ID_TYPE_MEASUREMENT) {
+                // 継続フラグの削除
+                unset($form['continue_flg']);
+            }
             // 登録処理（IDを返す）
             $returnVal = $this->work_lib->Regist($form);
         }
@@ -269,15 +277,88 @@ class Keiryo_model extends MY_Model
             $data['type'] = $inputType;
             $data['type_m'] = ($inputType == Place_lib::ID_TYPE_MEASUREMENT ? true : false);
             $data['type_o'] = ($inputType == Place_lib::ID_TYPE_OUTSOURCING ? true : false);
-            $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#input_group1'] = $this->load->view('keiryo_part_code', $data, true);
-            $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#input_group2'] = $this->load->view('keiryo_part_num', $data, true);
+            $data['type_b'] = ($inputType == Place_lib::ID_TYPE_BOUSEI ? true : false);
+            //$returnVal[Jscss_lib::KEY_AJAX_REACTION]['#input_group1'] = $this->load->view('keiryo_part_code', $data, true);
+            //$returnVal[Jscss_lib::KEY_AJAX_REACTION]['#input_group2'] = $this->load->view('keiryo_part_num', $data, true);
+            // 共通データの値をセット
+            $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#number'] = $data['product']['number'];
+            $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#lot'] = $data['product']['lot'];
+            // 共通データのリアクションをセット
+            $returnVal[Jscss_lib::KEY_AJAX_REACTION_FUNC]['#number'] = 'val';
+            $returnVal[Jscss_lib::KEY_AJAX_REACTION_FUNC]['#lot'] = 'val';
+
+            // 計量記録の場合
+            if ($data['type_m']) {
+                // 値をセット
+                $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#member_num'] = $data['product']['member_num'];
+                $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#packing_num'] = $data['product']['packing_num'];
+                $returnVal[Jscss_lib::KEY_AJAX_REACTION]['.total_number'] = $data['product']['member_num'] * $data['product']['packing_num'];
+                // リアクションをセット
+                $returnVal[Jscss_lib::KEY_AJAX_REACTION_FUNC]['#member_num'] = 'val';
+                $returnVal[Jscss_lib::KEY_AJAX_REACTION_FUNC]['#packing_num'] = 'val';
+            }
+            // 外注依頼記録の場合
+            elseif ($data['type_o']) {
+                // 値をセット
+                $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#f_num'] = $data['product']['f_num'];
+                $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#packing_num_total'] = $data['product']['packing_num_total'];
+                // リアクションをセット
+                $returnVal[Jscss_lib::KEY_AJAX_REACTION_FUNC]['#f_num'] = 'val';
+                $returnVal[Jscss_lib::KEY_AJAX_REACTION_FUNC]['#packing_num_total'] = 'val';
+            }
+            // 防錆記録の場合
+            elseif ($data['type_b']) {
+                // 値をセット
+                //$returnVal[Jscss_lib::KEY_AJAX_REACTION]['#bousei_num'] = $data['product']['bousei_num'];
+                // リアクションをセット
+                $returnVal[Jscss_lib::KEY_AJAX_REACTION_FUNC]['#bousei_num'] = 'val';
+            }
+            /*
             if ($data['type_m']) {
                 // 合計金額をセット
                 $returnVal[Jscss_lib::KEY_AJAX_REACTION]['.total_number'] = $data['product']['member_num'] * $data['product']['packing_num'];
             }
+            */
             // PDFファイルの存在
-            if ($this->upload_lib->FileExists('pdf' . DIRECTORY_SEPARATOR . 'pdf_sample.pdf')) {
-                $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#inputCode'] = $this->upload_lib->GetSrcWebPath('pdf' . DIRECTORY_SEPARATOR . 'pdf_sample.pdf');
+            $pdfFileName =  $data['product']['number'] . '.pdf';
+            if ($this->upload_lib->FileExists('pdf' . DIRECTORY_SEPARATOR . $pdfFileName)) {
+                $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#inputCode'] = $this->upload_lib->GetSrcWebPath('pdf' . DIRECTORY_SEPARATOR . $pdfFileName);
+                $returnVal[Jscss_lib::KEY_AJAX_REACTION_FUNC]['#inputCode'] = 'val';
+            }
+        }
+        return $returnVal;
+    }
+
+
+    /**
+     * 品番よりより、PDF情報（Ajax）を取得
+     *
+     * @return array
+     */
+    public function GetAjaxPdfAction() : array
+    {
+        // 返値を初期化
+        $returnVal = array();
+        $returnVal[Jscss_lib::KEY_AJAX_REACTION_FLG] = false;
+        $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#pdf_url'] = '';
+
+        // FORM情報を取得
+        $inputNumber = $this->input->post_get('number', true);
+        // バーコード情報が存在
+        if (
+            $inputNumber != '' &&
+            $this->product_lib->NumberExists($inputNumber, true)
+        ) {
+            // リアクションフラグを再セット
+            $returnVal[Jscss_lib::KEY_AJAX_REACTION_FLG] = true;
+            // 現品IDを取得
+            $id = $this->product_lib->GetIdFromNumber($inputNumber, true);
+            // 現品詳細情報を取得
+            $product = $this->product_lib->GetDetailValues($id, true);
+            // PDFファイルの存在
+            $pdfFileName =  $product['number'] . '.pdf';
+            if ($this->upload_lib->FileExists('pdf' . DIRECTORY_SEPARATOR . $pdfFileName)) {
+                $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#inputCode'] = $this->upload_lib->GetSrcWebPath('pdf' . '/' . $pdfFileName);
                 $returnVal[Jscss_lib::KEY_AJAX_REACTION_FUNC]['#inputCode'] = 'val';
             }
         }
@@ -400,8 +481,10 @@ class Keiryo_model extends MY_Model
                 DATE_FORMAT(" . Work_lib::MASTER_TABLE . " . start_date, '%H:%i') AS start_time,
                 " . Work_lib::MASTER_TABLE . " . worker1_name_l,
                 " . Work_lib::MASTER_TABLE . " . worker1_name_f,
+                CONCAT(" . Work_lib::MASTER_TABLE . " . worker1_name_l, " . Work_lib::MASTER_TABLE . " . worker1_name_f) AS worker1_name,
                 " . Work_lib::MASTER_TABLE . " . worker2_name_l,
                 " . Work_lib::MASTER_TABLE . " . worker2_name_f,
+                CONCAT(" . Work_lib::MASTER_TABLE . " . worker2_name_l, " . Work_lib::MASTER_TABLE . " . worker2_name_f) AS worker2_name,
                 " . Work_lib::MASTER_TABLE . " . place_code,
                 " . Work_lib::MASTER_TABLE . " . place_scale,
                 " . Work_lib::MASTER_TABLE . " . place_ledger,
@@ -418,6 +501,7 @@ class Keiryo_model extends MY_Model
                 CASE " . Work_lib::MASTER_TABLE . " . place_type
                     WHEN " . Place_lib::ID_TYPE_MEASUREMENT . " THEN " . Work_lib::MASTER_TABLE . " . member_num
                     WHEN " . Place_lib::ID_TYPE_OUTSOURCING . " THEN " . Work_lib::MASTER_TABLE . " . f_num
+                    WHEN " . Place_lib::ID_TYPE_BOUSEI . " THEN " . Work_lib::MASTER_TABLE . " . bousei_num
                     ELSE ''
                 END num,
                 CASE " . Work_lib::MASTER_TABLE . " . place_type
@@ -429,6 +513,22 @@ class Keiryo_model extends MY_Model
                     WHEN " . Place_lib::ID_TYPE_MEASUREMENT . " THEN (" . Work_lib::MASTER_TABLE . " . member_num * " . Work_lib::MASTER_TABLE . " . packing_num)
                     ELSE ''
                 END total_num,
+                " . Work_lib::MASTER_TABLE . " . continue_flg,
+                CASE " . Work_lib::MASTER_TABLE . " . continue_flg
+                    WHEN " . Work_lib::ID_CONTINUE_FLG_REPEAT . " THEN '" . Work_lib::NAME_CONTINUE_FLG_REPEAT . "'
+                    WHEN " . Work_lib::ID_CONTINUE_FLG_END . " THEN '" . Work_lib::NAME_CONTINUE_FLG_END . "'
+                    ELSE ''
+                END continue_flg_name,
+                " . Work_lib::MASTER_TABLE . " . bousei_cleaning_flg,
+                CASE " . Work_lib::MASTER_TABLE . " . bousei_cleaning_flg
+                    WHEN " . Work_lib::ID_BOUSEI_CLEANING_FLG . " THEN '" . Work_lib::NAME_BOUSEI_CLEANING_FLG_COMP . "'
+                    ELSE ''
+                END bousei_cleaning_flg_name,
+                " . Work_lib::MASTER_TABLE . " . trash_flg,
+                CASE " . Work_lib::MASTER_TABLE . " . trash_flg
+                    WHEN " . Work_lib::ID_TRASH_FLG . " THEN '" . Work_lib::NAME_TRASH_FLG_COMP . "'
+                    ELSE ''
+                END trash_flg_name,
                 " . Work_lib::MASTER_TABLE . " . confirm_flg,
                 " . Work_lib::MASTER_TABLE . " . cleaning_flg,
                 " . Work_lib::MASTER_TABLE . " . status,
@@ -444,6 +544,15 @@ class Keiryo_model extends MY_Model
         // 結果が、空でない場合
         if ($query->num_rows() > 0) {
             $returnVal = $query->result_array();
+            for ($i = 0, $n = count($returnVal); $i < $n; $i ++) {
+                // PDF存在フラグデータを初期化してセット
+                $returnVal[$i]['pdf_exists'] = false;
+                // 対象データのPDFの存在確認
+                if ($this->upload_lib->FileExists('pdf' . DIRECTORY_SEPARATOR . $returnVal[$i]['number'] . '.pdf')) {
+                    // PDF存在フラグ情報を再セット
+                    $returnVal[$i]['pdf_exists'] = true;
+                }
+            }
         }
         return $returnVal;
     }
@@ -462,10 +571,15 @@ class Keiryo_model extends MY_Model
             'lot',
             'member_num',
             'f_num',
+            'bousei_num',
             'packing_num',
             'packing_num_total',
+            'continue_flg',
+            'bousei_cleaning_flg',
+            'trash_flg',
             'confirm_flg',
             'cleaning_flg',
+            'comment',
             'worker1',
             'worker2',
         );
@@ -546,6 +660,15 @@ class Keiryo_model extends MY_Model
                 'rules'   => 'required|greater_than_equal_to[0]'
             );
         }
+        // 記録対象が防錆記録
+        elseif ($placeData['type'] == Place_lib::ID_TYPE_BOUSEI) {
+            // 数量
+            $returnVal[] = array(
+                'field'   => 'bousei_num',
+                'label'   => '数量',
+                'rules'   => 'required|greater_than_equal_to[0]'
+            );
+        }
         // 作業者一覧をセット
         $workerList = $this->base_lib->GetConvValidInList($this->worker_lib->GetNameList());
         // 作業者１
@@ -560,6 +683,36 @@ class Keiryo_model extends MY_Model
             'label'   => '作業者２',
             'rules'   => 'in_list[' . $workerList . ']'
         );
+        // 記録対象が計量記録
+        if ($placeData['type'] == Place_lib::ID_TYPE_OUTSOURCING) {
+            // 継続フラグ
+            $returnVal[] = array(
+                'field'   => 'continue_flg',
+                'label'   => '継続フラグ',
+                'rules'   => 'required|in_list[' . $this->base_lib->GetConvValidInList($this->work_lib->GetContinueFlgList()) . ']'
+            );
+        }
+        // 記録対象が防錆記録
+        elseif ($placeData['type'] == Place_lib::ID_TYPE_BOUSEI) {
+            // 継続フラグ
+            $returnVal[] = array(
+                'field'   => 'continue_flg',
+                'label'   => '継続フラグ',
+                'rules'   => 'required|in_list[' . $this->base_lib->GetConvValidInList($this->work_lib->GetContinueFlgList()) . ']'
+            );
+            // 防錆清掃チェック
+            $returnVal[] = array(
+                'field'   => 'bousei_cleaning_flg',
+                'label'   => '防錆清掃チェック',
+                'rules'   => 'in_list[' . $this->base_lib->GetConvValidInList($this->work_lib->GetBouseiCleaningFlgList()) . ']'
+            );
+            // カゴの異物チェック
+            $returnVal[] = array(
+                'field'   => 'trash_flg',
+                'label'   => 'カゴの異物チェック',
+                'rules'   => 'in_list[' . $this->base_lib->GetConvValidInList($this->work_lib->GetTrashFlgList()) . ']'
+            );
+        }
         // 状態確認N=3
         $returnVal[] = array(
             'field'   => 'confirm_flg',

@@ -15,6 +15,9 @@ $(function () {
     $('.search_btn').click(function () {
         var ajaxUrl = '<?= $const['access_admin_dir'] ?>/work/ajax_list';
         var ajaxObj = {
+            place : $('#place').val(),
+            number : $('#number').val(),
+            lot : $('#lot').val(),
             start_y : $('#start_y').val(),
             start_m : $('#start_m').val(),
             start_d : $('#start_d').val(),

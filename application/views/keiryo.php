@@ -2,7 +2,17 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title><?= ($placeData['type'] == 1 ? '計量記録' : '外注依頼記録') ?>｜バーコードシステム｜株式会社マルダイスプリング</title>
+<title>
+	<?php
+        if ($placeData['type'] == 1) {
+            print '計量記録';
+        } elseif ($placeData['type'] == 2) {
+            print '外注依頼記録';
+        } elseif ($placeData['type'] == 3) {
+            print '防錆記録';
+        }
+    ?>｜バーコードシステム｜株式会社マルダイスプリング
+</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--CSS-->
 <link href="<?= SiteDir(); ?>css/<?= JqueryUiCssFile() ?>" type="text/css" rel="stylesheet">
@@ -22,8 +32,30 @@
 <header class="second">
 	<div class="container">
 		<a href="index.html" class="btn_return"><span class="icon_return">初期画面に戻る</span></a>
-		<p class="font_24 bold txt_center"><?= ($placeData['type'] == 1 ? '計量記録' : '外注依頼記録') ?></p>
-		<label for="keiryo_trigger" class="btn size_s"><span class="icon_record"><?= ($placeData['type'] == 1 ? '計量記録' : '外注依頼記録') ?>を見る</span></label>
+		<p class="font_24 bold txt_center">
+			<?php
+                if ($placeData['type'] == 1) {
+                    print '計量記録';
+                } elseif ($placeData['type'] == 2) {
+                    print '外注依頼記録';
+                } elseif ($placeData['type'] == 3) {
+                    print '防錆記録';
+                }
+            ?>
+		</p>
+		<label for="keiryo_trigger" class="btn size_s">
+			<span class="icon_record">
+				<?php
+                    if ($placeData['type'] == 1) {
+                        print '計量記録';
+                    } elseif ($placeData['type'] == 2) {
+                        print '外注依頼記録';
+                    } elseif ($placeData['type'] == 3) {
+                        print '防錆記録';
+                    }
+                ?>を見る
+		</span>
+		</label>
 	</div>
 </header>
 
@@ -45,6 +77,7 @@
 			<div id="input_group1"  class="row just_start align_center mb_20">
 				<p class="font_18 blue bold mr_20">品番</p>
 				<input type="text" id="number" name="number" value="<?= VarDisp($form['number']) ?>" class="txt_center disa half">
+				<label id="btn_pdf" class="btn pdf_btn size_m max120">PDF</label>
 			</div>
 
 			<div id="input_group2" class="row just_start align_end mb_20">
@@ -65,14 +98,43 @@
 					<p class="mb_10">数量</p>
 					<div class="total_number">0</div>
 				</div>
-				<?php } else { ?>
+				<?php } elseif ($placeData['type'] == 2) { ?>
 				<div class="piece mr_30">
 					<label for="keyboad_trigger" class="btn num_btn second size_m mb_10">現場エフ数量</label>
 					<input type="text" id="f_num" name="f_num" value="<?= VarDisp($form['f_num']) ?>" class="txt_center disa">
 				</div>
-				<div class="pack mr_60">
+				<div class="pack mr_30">
 					<label for="keyboad_trigger" class="btn pack_btn second size_m mb_10">実荷姿数量</label>
 					<input type="text" id="packing_num_total" name="packing_num_total" value="<?= VarDisp($form['packing_num_total']) ?>" class="txt_center disa">
+				</div>
+				<div class="other">
+					<p class="mb_10">継続確認</p>
+					<?= form_dropdown("continue_flg", $select['continue_flg'], (isset($form['continue_flg']) ? $form['continue_flg'] : ""), 'id="continue_flg"'); ?>
+				</div>
+				<?php } elseif ($placeData['type'] == 3) { ?>
+				<div class="mr_10">
+					<label for="keyboad_trigger" class="btn num_btn second size_m mb_10">数量</label>
+					<input type="text" id="bousei_num" name="bousei_num" value="<?= VarDisp($form['bousei_num']) ?>" class="txt_center disa">
+				</div>
+				<div class="mr_10">
+					<?php foreach ($select['bousei_cleaning_flg'] as $key => $val) { ?>
+					<label class="label_check mr_20">
+						<?= form_checkbox("bousei_cleaning_flg", $key, (is_array($form['bousei_cleaning_flg']) && $form['bousei_cleaning_flg'] == $key ? true : false), 'id="bousei_cleaning_flg"'); ?>
+						<span><?= $val ?></span>
+					</label>
+					<?php } ?>
+				</div>
+				<div class="mr_30">
+					<?php foreach ($select['trash_flg'] as $key => $val) { ?>
+					<label class="label_check">
+						<?= form_checkbox("trash_flg", $key, (is_array($form['trash_flg']) && $form['trash_flg'] == $key ? true : false), 'id="trash_flg"'); ?>
+						<span><?= $val ?></span>
+					</label>
+					<?php } ?>
+				</div>
+				<div class="other">
+					<p class="mb_10">継続確認</p>
+					<?= form_dropdown("continue_flg", $select['continue_flg'], (isset($form['continue_flg']) ? $form['continue_flg'] : ""), 'id="continue_flg"'); ?>
 				</div>
 				<?php } ?>
 			</div>
@@ -95,7 +157,9 @@
 					<?php } ?>
 				</div>
 			</div>
-
+			<div class="row align_center mb_40">
+				<textarea name="comment" placeholder="コメント欄"></textarea>
+			</div>
 			<div class="max360"><label id="btn_record" class="btn conf_btn size_m">この製品を記録する</label></div>
 			<input type="hidden" id="action" name="action" value="add">
 			<input type="hidden" id="start_date" name="start_date" value="<?= VarDisp($form['start_date']) ?>">
@@ -152,7 +216,7 @@
 		</div>
 	</div><!--/.modal_window-->
 
-	<!-- <?= ($placeData['type'] == 1 ? '計量記録' : '外注依頼記録') ?> モーダルウィンドウ ------------------------------------------------>
+	<!-- <?= ($placeData['type'] == 1 ? '計量記録' : '') ?><?= ($placeData['type'] == 2 ? '外注依頼記録' : '') ?><?= ($placeData['type'] == 3 ? '防錆記録' : '') ?> モーダルウィンドウ ------------------------------------------------>
 	<div class="modal_window">
 		<input id="keiryo_trigger" type="checkbox">
 		<div class="modal_overlay">
@@ -160,7 +224,10 @@
 			<div class="modal_cont record">
 				<label for="keiryo_trigger" class="btn_close"></label>
 				<form method="post" id="list_form" name="list_form" action="">
-					<p class="font_18 navy bold mb_20"><?= ($placeData['type'] == 1 ? '計量記録' : '外注依頼記録') ?></p>
+					<p class="font_18 navy bold mb_20">
+						<?= ($placeData['type'] == 1 ? '計量記録' : '') ?><?= ($placeData['type'] == 2 ? '外注依頼記録' : '') ?><?= ($placeData['type'] == 3 ? '防錆記録' : '') ?>
+						　<input type="button" value="印刷" class="btn print_btn second size_ss pickup no_print"></p>
+					</p>
 					<div class="row just_start align_center mb_10">
 						<?= form_dropdown("start_y", $select['year'], (isset($form['start_y']) ? $form['start_y'] : ""), 'id="start_y" class="data mr_10"'); ?>
 						<?= form_dropdown("start_m", $select['month'], (isset($form['start_m']) ? $form['start_m'] : ""), 'id="start_m" class="data mr_10"'); ?>
@@ -169,11 +236,13 @@
 						<?= form_dropdown("end_y", $select['year'], (isset($form['end_y']) ? $form['end_y'] : ""), 'id="end_y" class="data mr_10"'); ?>
 						<?= form_dropdown("end_m", $select['month'], (isset($form['end_m']) ? $form['end_m'] : ""), 'id="end_m" class="data mr_10"'); ?>
 						<?= form_dropdown("end_d", $select['day'], (isset($form['end_d']) ? $form['end_d'] : ""), 'id="end_d" class="data mr_10"'); ?>
-						<input type="button" value="絞り込む" class="btn search_btn second size_s pickup">
+						<input type="button" value="絞り込む" class="btn search_btn second size_s pickup no_print">
 					</div>
 
 					<div id="search_list" class="scroll">
 						<?php if (isset($list) && count($list) > 0) { ?>
+						<?php if ($placeData['type'] == 1) { ?>
+
 						<table class="record">
 						  <tbody>
 						    <tr>
@@ -182,9 +251,9 @@
 						      <th>場所・秤</th>
 						      <th>品番</th>
 						      <th>ロット</th>
-						      <th><?= ($placeData['type'] == 1 ? '員数' : '現場エフ数量') ?></th>
-						      <th><?= ($placeData['type'] == 1 ? '荷姿数量' : '実荷姿数量') ?></th>
-						      <?= ($placeData['type'] == 1 ? '<th>数量</th>' : '') ?>
+						      <th>員数</th>
+						      <th>荷姿数量</th>
+						      <th>数量</th>
 						      <th>作業者</th>
 						    </tr>
 							<?php for ($i = 0, $no = 1, $n = count($list); $i < $n; $i ++, $no ++) { ?>
@@ -192,19 +261,104 @@
 						      <td><?= $list[$i]['start_date'] ?></td>
 						      <td><?= $list[$i]['start_time'] ?></td>
 						      <td><?= $list[$i]['place_name'] ?>・<?= $list[$i]['place_scale'] ?></td>
-						      <td><?= $list[$i]['number'] ?></td>
+							  <?php if ($list[$i]['pdf_exists']) { ?>
+								<td><a class="pdf_link"><?= $list[$i]['number'] ?></a></td>
+							  <?php } else { ?>
+						      	<td><?= $list[$i]['number'] ?></td>
+							  <?php } ?>
 						      <td><?= $list[$i]['lot'] ?></td>
 						      <td><?= $list[$i]['num'] ?></td>
 						      <td><?= $list[$i]['packing'] ?></td>
-						      <?= ($placeData['type'] == 1 ? '<td>' . $list[$i]['total_num'] . '</td>' : '') ?>
+						      <td><?= $list[$i]['total_num'] ?></td>
 						      <td>
-								<?= $list[$i]['worker1_name_l'] ?>
-								<?= ($list[$i]['worker2_name_l'] ? '・' . $list[$i]['worker2_name_l'] : '') ?>
+								<?= $list[$i]['worker1_name'] ?>
+								<?= ($list[$i]['worker2_name'] ? '・' . $list[$i]['worker2_name'] : '') ?>
 							  </td>
 						    </tr>
 							<?php } ?>
 						  </tbody>
 						</table>
+
+						<?php } elseif ($placeData['type'] == 2) { ?>
+
+						<table class="record">
+						  <tbody>
+						    <tr>
+						      <th>作業日</th>
+						      <th>時間</th>
+						      <th>場所・秤</th>
+						      <th>品番</th>
+						      <th>ロット</th>
+						      <th>現場エフ数量</th>
+						      <th>実荷姿数量</th>
+							  <th>継続フラグ</th>
+						      <th>作業者</th>
+						    </tr>
+							<?php for ($i = 0, $no = 1, $n = count($list); $i < $n; $i ++, $no ++) { ?>
+						    <tr>
+						      <td><?= $list[$i]['start_date'] ?></td>
+						      <td><?= $list[$i]['start_time'] ?></td>
+						      <td><?= $list[$i]['place_name'] ?>・<?= $list[$i]['place_scale'] ?></td>
+							  <?php if ($list[$i]['pdf_exists']) { ?>
+								<td><a class="pdf_link"><?= $list[$i]['number'] ?></a></td>
+							  <?php } else { ?>
+						      	<td><?= $list[$i]['number'] ?></td>
+							  <?php } ?>
+						      <td><?= $list[$i]['lot'] ?></td>
+						      <td><?= $list[$i]['num'] ?></td>
+						      <td><?= $list[$i]['packing'] ?></td>
+						      <td><?= $list[$i]['continue_flg_name'] ?></td>
+						      <td>
+								<?= $list[$i]['worker1_name'] ?>
+								<?= ($list[$i]['worker2_name'] ? '・' . $list[$i]['worker2_name'] : '') ?>
+							  </td>
+						    </tr>
+							<?php } ?>
+						  </tbody>
+						</table>
+
+						<?php } elseif ($placeData['type'] == 3) { ?>
+
+						<table class="record">
+						  <tbody>
+						    <tr>
+						      <th>作業日</th>
+						      <th>時間</th>
+						      <th>場所・秤</th>
+						      <th>品番</th>
+						      <th>ロット</th>
+						      <th>数量</th>
+						      <th>防錆清掃チェック</th>
+						      <th>カゴの異物チェック</th>
+						      <th>継続フラグ</th>
+						      <th>作業者</th>
+						    </tr>
+							<?php for ($i = 0, $no = 1, $n = count($list); $i < $n; $i ++, $no ++) { ?>
+						    <tr>
+						      <td><?= $list[$i]['start_date'] ?></td>
+						      <td><?= $list[$i]['start_time'] ?></td>
+						      <td><?= $list[$i]['place_name'] ?>・<?= $list[$i]['place_scale'] ?></td>
+							  <?php if ($list[$i]['pdf_exists']) { ?>
+								<td><a class="pdf_link"><?= $list[$i]['number'] ?></a></td>
+							  <?php } else { ?>
+						      	<td><?= $list[$i]['number'] ?></td>
+							  <?php } ?>
+						      <td><?= $list[$i]['lot'] ?></td>
+						      <td><?= $list[$i]['num'] ?></td>
+						      <td><?= $list[$i]['bousei_cleaning_flg_name'] ?></td>
+						      <td><?= $list[$i]['trash_flg_name'] ?></td>
+						      <td><?= $list[$i]['continue_flg_name'] ?></td>
+						      <td>
+								<?= $list[$i]['worker1_name'] ?>
+								<?= ($list[$i]['worker2_name'] ? '・' . $list[$i]['worker2_name'] : '') ?>
+							  </td>
+						    </tr>
+							<?php } ?>
+						  </tbody>
+						</table>
+
+						<?php } ?>
+
 						<?php } else { ?>
 							<div>no list</div>
 						<?php } ?>

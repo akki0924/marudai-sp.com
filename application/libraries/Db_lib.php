@@ -21,6 +21,7 @@ class Db_lib
     const CREATE_STRING_NUM = 10;
     const CREATE_NUMBER_NUM = 10;
     const DEFAULT_SORT_ID = 1;
+    const DEFAULT_ID_COLUMN = 'id';
     const DEFAULT_SORT_COLUMN = 'sort_id';
 
     // スーパーオブジェクト割当用変数
@@ -970,8 +971,62 @@ class Db_lib
         return $returnVal;
     }
     /*====================================================================
+        関数名 : GetColumnsType
+        概　要 : 対象テーブル、カラムの型を取得
+        引　数 : $tableName : テーブル名
+                 $columnName : カラム名
+    */
+    public function GetColumnsType(string $tableName, string $columnName = self::DEFAULT_ID_COLUMN) : string
+    {
+        // 返値を初期化
+        $returnVal = '';
+        // SQLを実行
+        $query = $this->CI->db->query("
+            SELECT
+                COLUMN_NAME AS name,
+                DATA_TYPE AS type_simple
+            FROM INFORMATION_SCHEMA.COLUMNS
+            WHERE (
+                TABLE_SCHEMA = '" . $this->CI->db->database . "' AND
+                TABLE_NAME = '" . Base_lib::AddSlashes($tableName) . "'
+            );
+        ");
+        // 結果が、空でない場合
+        if ($query->num_rows() > 0) {
+            $resultList = $query->result_array();
+            if ($resultList[0]['name'] == $columnName) {
+                $returnVal = $resultList[0]['type_simple'];
+            }
+        }
+        return $returnVal;
+    }
+    /*====================================================================
+        関数名 : CheckTypeInt
+        概　要 : 対象テーブル、カラムの型はINT型かどうか
+        引　数 : $tableName : テーブル名
+                 $columnName : カラム名
+    */
+    public function CheckTypeInt(string $tableName, string $columnName = self::DEFAULT_ID_COLUMN) : bool
+    {
+        // 返値を初期化
+        $returnVal = false;
+        // 対象カラムの型を取得
+        $type = $this->GetColumnsType($tableName, $columnName);
+        // 結果が、空でない場合
+        if ($type) {
+            if (
+                $type == 'int' ||
+                $type == 'smallint' ||
+                $type == 'bigint'
+            ) {
+                $returnVal = true;
+            }
+        }
+        return $returnVal;
+    }
+    /*====================================================================
         関数名 : CheckAutoIncrement
-        概　要 : 対象テーブルカラムコメントを取得
+        概　要 : 対象テーブル自動採番が設定されているテーブルかどうか
         引　数 : $tableName : テーブル名
     */
     public function CheckAutoIncrement(?string $tableName) : bool

@@ -16,6 +16,8 @@ a {
 	text-decoration: none;
 	color: #000;
 	transition: all .3s;
+	cursor: pointer;
+	cursor: hand;
 }
 
 /*==================================================================================
@@ -93,6 +95,10 @@ main.second {
 }
 .max360 {
 	max-width: 360px;
+	margin: auto;
+}
+.max120 {
+	max-width: 120px;
 	margin: auto;
 }
 .w160 {
@@ -404,7 +410,7 @@ table td {
 table td:last-child {
 	border-right: none;
 }
-table.record td:nth-child(4) {
+table.record td a.pdf_link {
 	color: #016fc9;
 	font-weight: bold;
 }
@@ -434,7 +440,7 @@ table.place th:last-child {
 /* デフォルトの装飾を削除 */
 input, textarea {
 	-webkit-appearance: none;
-	width: calc(100% - 22px);
+	width: 100%;
 	padding: 6px 10px;
 	border: 1px #cfcfcf solid;;
 	background: #fff;
@@ -443,8 +449,8 @@ input, textarea {
 	font-weight: bold;
 }
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
 input:-webkit-autofill:active  {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
@@ -471,10 +477,14 @@ input.disa {
 	background: #cfcfcf;
 }
 input.half {
-	width: calc(50% - 22px);
+	width: 50%;
 }
 input.short {
-	width: calc(160px - 22px);
+	width: 160px;
+	font-size: 16px;
+}
+select.short {
+	width: 160px;
 	font-size: 16px;
 }
 .item {
@@ -485,12 +495,12 @@ input.short {
 }
 /* 品番 */
 input[name="number"] {
-	width: calc(100% - 24px);
-	border: 2px #016fc9 solid;;
+	/*width: calc(100% - 24px);*/
+	border: 2px #016fc9 solid;
 	color: #016fc9;
 }
 input[name="number"].half {
-	width: calc(50% - 24px);
+	/*width: calc(50% - 24px);*/
 }
 /* ファイルアップ */
 input[type="file"] {
@@ -552,6 +562,20 @@ input[type="file"] {
 #btn_record.hidden {
 	opacity: 0.3;
 	pointer-events: none;
+}
+
+/* フォームエラー時 */
+.form_err,
+.form_err ~ label
+{
+    background-color: #fff0f5;
+    color: #d93025
+}
+.form_err span::before
+{
+    border: 1px #d93025 solid;
+    background-color: #fff0f5;
+    color: #d93025
 }
 
 
@@ -705,7 +729,7 @@ input.btn.pickup {
 	margin-right: 10px;
 }
 .lot input {
-	width: calc(100% - 22px - 40px);
+	width: calc(100% - 40px);
 }
 .piece {
 	width: 140px;
@@ -751,7 +775,16 @@ input.btn.pickup {
 .gaichu .pack::after {
 	display: none;
 }
+.other {
+	width: calc(100% - 730px);
+}
 
 
 
 
+/*==================================================================================
+印刷
+==================================================================================*/
+@media print{
+	.no_print{display:none}
+  }

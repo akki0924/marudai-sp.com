@@ -28,4 +28,8 @@
 	<label for="keyboad_trigger" class="btn pack_btn second size_m mb_10">実荷姿数量</label>
 	<input type="tel" id="packing_num_total" name="packing_num_total" value="<?= VarDisp($product['packing_num_total']) ?>" class="txt_center disa">
 </div>
+<div>
+	<p class="mb_10">継続確認</p>
+	<?= form_dropdown("continue_flg", $select['continue_flg'], (isset($form['continue_flg']) ? $form['continue_flg'] : ""), 'id="continue_flg" class="data mr_10"'); ?>
+</div>
 <?php } ?>

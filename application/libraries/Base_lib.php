@@ -3,6 +3,12 @@ if (! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 /**
+ * 初期設定
+ */
+// 言語を日本語に設定
+mb_language('Ja');
+
+/**
  * ベース用マスタ処理プログラム
  *
  * 初期設定定数、及び継承元ライブラリ
@@ -787,8 +793,11 @@ class Base_lib
                     ! isset($registData['id']) ||
                     $registData['id'] == ''
                 ) {
-                    // 自動採番以外
-                    if (! $this->CI->db_lib->CheckAutoIncrement($this->GetDbTable())) {
+                    // 自動採番以外、かつINT型以外
+                    if (
+                        ! $this->CI->db_lib->CheckAutoIncrement($this->GetDbTable()) &&
+                        ! $this->CI->db_lib->CheckTypeInt($this->GetDbTable())
+                    ) {
                         // ID文字列数の設定が存在
                         if (defined(self::CREATE_ID_NUM)) {
                             $strNum = self::CREATE_ID_NUM;

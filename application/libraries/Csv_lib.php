@@ -1,33 +1,37 @@
 <?php
-/*
-■機　能： CSV用ライブラリー
-■概　要：
-■更新日：
-■担　当： crew.miwa
-
-■更新履歴：
- 2019/11/19: 作成開始
-*/
-
+/**
+ * CSV用ライブラリー
+ *
+ * CSVの取得および処理する為の関数群
+ *
+ * @author a.miwa <miwa@ccrw.co.jp>
+ * @version 1.0.0
+ * @since 1.0.0     2019/11/19：新規作成
+ * @since 1.0.1     2022/02/25：ファイルパスにドキュメントルート（サーバー関数）を初期値に追加
+ */
 class Csv_lib
 {
     // メンバー変数
     protected $CI;                          // スーパーオブジェクト割当用
     private $targetFilePath;                // 対象ファイルパス
     private $targetCsvObj;                  // 対象CSVオブジェクト
-    /*====================================================================
-        コントラクト
-    */
+
+    /**
+     * コントラクト
+     */
     public function __construct($params = array())
     {
         // CodeIgniter のスーパーオブジェクトを割り当て
         $this->CI =& get_instance();
         // 対象キーが引数にセットされている場合
         if (isset($params['path']) && $params['path'] != '') {
+            // ファイルパスにドキュメントルートを追加
+            $filePath = $_SERVER['DOCUMENT_ROOT'] . $params['path'];
+            Base_lib::ConsoleLog($filePath);
             // 対象ファイルパス情報セットする
-            $this->SetFilePath($params['path']);
+            $this->SetFilePath($filePath);
             // CSVオブジェクトを宣言
-            $this->targetCsvObj = new SplFileObject($params['path']);
+            $this->targetCsvObj = new SplFileObject($filePath);
             $this->targetCsvObj->setFlags(SplFileObject::READ_CSV);
         }
     }
@@ -39,10 +43,27 @@ class Csv_lib
     public function GetList($public = false)
     {
         $returnVal = array();
-
         foreach ($this->targetCsvObj as $line) {
-            mb_convert_variables('UTF-8', array( 'SJIS-win' ), $line);
-            $returnVal[] = $line;
+            Base_lib::ConsoleLog('list s');
+            Base_lib::ConsoleLog($line);
+            Base_lib::ConsoleLog('list e');
+            if (is_array($line)) {
+                for ($i = 0, $n = count($line); $i < $n; $i ++) {
+                    if ($line[$i]) {
+                        $line[$i] = $this->CI->str_lib->GetConvertUtf8($line[$i]);
+                    }
+                }
+                $returnVal[] = $line;
+            } else {
+                if ($line) {
+                    $returnVal[] = $this->CI->str_lib->GetConvertUtf8($line);
+                } else {
+                    $returnVal[] = '';
+                }
+            }
+
+            //mb_convert_variables('UTF-8', array( 'SJIS-win' ), $line);
+            //$returnVal[] = $line;
         }
         return $returnVal;
     }

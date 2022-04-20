@@ -36,4 +36,21 @@ class Str_lib
 
         return $returnVal;
     }
+    /**
+     * 対象文字列の文字コードをUTF8に変換して返す
+     *
+     * @param string $str
+     * @return string
+     */
+    public function GetConvertUtf8(string $str = '') : string
+    {
+        // 返値を初期化
+        $returnVal = "";
+        if ($str) {
+            $bom = pack('H*','EFBBBF');
+            $str = preg_replace("/^$bom/", '', $str);
+            $returnVal = mb_convert_encoding($str, "UTF-8", "ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN,SJIS");
+        }
+        return $returnVal;
+    }
 }

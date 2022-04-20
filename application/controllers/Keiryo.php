@@ -102,6 +102,14 @@ class Keiryo extends MY_Controller
     }
 
 
+    // PDF呼び出し処理（Ajax）
+    public function ajax_pdf()
+    {
+        // JSON形式で返す
+        echo json_encode($this->keiryo_model->GetAjaxPdfAction());
+    }
+
+
     // リスト更新処理（Ajax）
     public function ajax_list()
     {
