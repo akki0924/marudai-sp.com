@@ -81,7 +81,7 @@ $(function () {
     $(document).on('keyup', '#number,#lot,#member_num,#packing_num,#f_num,#packing_num_total', function() {
         ChangeSubmitBtn();
     });
-    $('#confirm_flg,#cleaning_flg,#bousei_cleaning_flg,#trash_flg').on('change', function() {
+    $('#confirm_flg,#cleaning_flg').on('change', function() {
         ChangeSubmitBtn();
     });
     $(document).on('click', '.pdf_btn', function() {
@@ -311,8 +311,6 @@ function CheckRegist1(){
     var pack = $('#packing_num_total').val();
     <?php } elseif ($placeData['type'] == 3) { ?>
     var num = $('#bousei_num').val();
-    var chk_bousei1 = $('#bousei_cleaning_flg').prop('checked');
-    var chk_bousei2 = $('#trash_flg').prop('checked');
     <?php } ?>
     var chk1 = $('#confirm_flg').prop('checked');
     var chk2 = $('#cleaning_flg').prop('checked');
@@ -323,9 +321,6 @@ function CheckRegist1(){
         <?php if ($placeData['type'] == 1 || $placeData['type'] == 2) { ?>
         pack &&
         (pack.match(/^[0-9]+$/)) &&
-        <?php } elseif ($placeData['type'] == 3) { ?>
-        chk_bousei1 &&
-        chk_bousei2 &&
         <?php } ?>
         chk1 &&
         chk2
@@ -354,8 +349,6 @@ function DispError(){
     var pack = $('#packing_num_total').val();
     <?php } elseif ($placeData['type'] == 3) { ?>
     var num = $('#bousei_num').val();
-    var chk_bousei1 = $('#bousei_cleaning_flg').prop('checked');
-    var chk_bousei2 = $('#trash_flg').prop('checked');
     <?php } ?>
     var chk1 = $('#confirm_flg').prop('checked');
     var chk2 = $('#cleaning_flg').prop('checked');

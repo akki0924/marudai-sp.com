@@ -306,8 +306,6 @@ $(function() {
 								<th>品番</th>
 								<th>ロット</th>
 								<th>数量</th>
-								<th>防錆清掃チェック</th>
-								<th>カゴの異物チェック</th>
 								<th>継続フラグ</th>
 								<th>作業者</th>
 							</tr>
@@ -323,8 +321,6 @@ $(function() {
 								<?php } ?>
 								<td><?= $list_b[$i]['lot'] ?></td>
 								<td><?= $list_b[$i]['num'] ?></td>
-								<td><?= $list_b[$i]['bousei_cleaning_flg_name'] ?></td>
-								<td><?= $list_b[$i]['trash_flg_name'] ?></td>
 								<td><?= $list_b[$i]['continue_flg_name'] ?></td>
 								<td>
 									<?= $list_b[$i]['worker1_name'] ?>

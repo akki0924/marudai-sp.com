@@ -86,8 +86,6 @@
         <th>品番</th>
         <th>ロット</th>
         <th>数量</th>
-        <th>防錆清掃チェック</th>
-        <th>カゴの異物チェック</th>
         <th>継続フラグ</th>
         <th>作業者</th>
     </tr>
@@ -103,8 +101,6 @@
         <?php } ?>
         <td><?= $list[$i]['lot'] ?></td>
         <td><?= $list[$i]['num'] ?></td>
-        <td><?= $list[$i]['bousei_cleaning_flg_name'] ?></td>
-        <td><?= $list[$i]['trash_flg_name'] ?></td>
         <td><?= $list[$i]['continue_flg_name'] ?></td>
         <td>
         <?= $list[$i]['worker1_name'] ?>

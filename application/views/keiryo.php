@@ -116,22 +116,6 @@
 					<label for="keyboad_trigger" class="btn num_btn second size_m mb_10">数量</label>
 					<input type="text" id="bousei_num" name="bousei_num" value="<?= VarDisp($form['bousei_num']) ?>" class="txt_center disa">
 				</div>
-				<div class="mr_10">
-					<?php foreach ($select['bousei_cleaning_flg'] as $key => $val) { ?>
-					<label class="label_check mr_20">
-						<?= form_checkbox("bousei_cleaning_flg", $key, (is_array($form['bousei_cleaning_flg']) && $form['bousei_cleaning_flg'] == $key ? true : false), 'id="bousei_cleaning_flg"'); ?>
-						<span><?= $val ?></span>
-					</label>
-					<?php } ?>
-				</div>
-				<div class="mr_30">
-					<?php foreach ($select['trash_flg'] as $key => $val) { ?>
-					<label class="label_check">
-						<?= form_checkbox("trash_flg", $key, (is_array($form['trash_flg']) && $form['trash_flg'] == $key ? true : false), 'id="trash_flg"'); ?>
-						<span><?= $val ?></span>
-					</label>
-					<?php } ?>
-				</div>
 				<div class="other">
 					<p class="mb_10"><!--継続確認--></p>
 					<?= form_dropdown("continue_flg", $select['continue_flg'], (isset($form['continue_flg']) ? $form['continue_flg'] : ""), 'id="continue_flg"'); ?>
@@ -143,17 +127,32 @@
 
 			<div class="row align_center mb_40">
 				<div class="row just_start">
-					<?php foreach ($select['confirm_flg'] as $key => $val) { ?>
-					<label class="label_check mr_20">
-						<?= form_checkbox("confirm_flg", $key, (is_array($form['confirm_flg']) && $form['confirm_flg'] == $key ? true : false), 'id="confirm_flg"'); ?>
-						<span><?= $val ?></span>
-					</label>
-					<?php } ?>
-					<?php foreach ($select['cleaning_flg'] as $key => $val) { ?>
-					<label class="label_check">
-						<?= form_checkbox("cleaning_flg", $key, (is_array($form['cleaning_flg']) && $form['cleaning_flg'] == $key ? true : false), 'id="cleaning_flg"'); ?>
-						<span><?= $val ?></span>
-					</label>
+					<?php if ($placeData['type'] != 3) { ?>
+						<?php foreach ($select['confirm_flg'] as $key => $val) { ?>
+						<label class="label_check mr_20">
+							<?= form_checkbox("confirm_flg", $key, (is_array($form['confirm_flg']) && $form['confirm_flg'] == $key ? true : false), 'id="confirm_flg"'); ?>
+							<span><?= $val ?></span>
+						</label>
+						<?php } ?>
+						<?php foreach ($select['cleaning_flg'] as $key => $val) { ?>
+						<label class="label_check">
+							<?= form_checkbox("cleaning_flg", $key, (is_array($form['cleaning_flg']) && $form['cleaning_flg'] == $key ? true : false), 'id="cleaning_flg"'); ?>
+							<span><?= $val ?></span>
+						</label>
+						<?php } ?>
+					<?php } else { ?>
+						<?php foreach ($select['bousei_cleaning_flg'] as $key => $val) { ?>
+						<label class="label_check mr_20">
+							<?= form_checkbox("confirm_flg", $key, (is_array($form['confirm_flg']) && $form['confirm_flg'] == $key ? true : false), 'id="confirm_flg"'); ?>
+							<span><?= $val ?></span>
+						</label>
+						<?php } ?>
+						<?php foreach ($select['trash_flg'] as $key => $val) { ?>
+						<label class="label_check">
+							<?= form_checkbox("cleaning_flg", $key, (is_array($form['cleaning_flg']) && $form['cleaning_flg'] == $key ? true : false), 'id="cleaning_flg"'); ?>
+							<span><?= $val ?></span>
+						</label>
+						<?php } ?>
 					<?php } ?>
 				</div>
 			</div>
@@ -328,8 +327,6 @@
 						      <th>品番</th>
 						      <th>ロット</th>
 						      <th>数量</th>
-						      <th>防錆清掃チェック</th>
-						      <th>カゴの異物チェック</th>
 						      <th>継続フラグ</th>
 						      <th>作業者</th>
 						    </tr>
@@ -345,8 +342,6 @@
 							  <?php } ?>
 						      <td><?= $list[$i]['lot'] ?></td>
 						      <td><?= $list[$i]['num'] ?></td>
-						      <td><?= $list[$i]['bousei_cleaning_flg_name'] ?></td>
-						      <td><?= $list[$i]['trash_flg_name'] ?></td>
 						      <td><?= $list[$i]['continue_flg_name'] ?></td>
 						      <td>
 								<?= $list[$i]['worker1_name'] ?>

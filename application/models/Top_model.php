@@ -306,16 +306,6 @@ class Top_model extends MY_Model
                     WHEN " . Work_lib::ID_CONTINUE_FLG_END . " THEN '" . Work_lib::NAME_CONTINUE_FLG_END . "'
                     ELSE ''
                 END continue_flg_name,
-                " . Work_lib::MASTER_TABLE . " . bousei_cleaning_flg,
-                CASE " . Work_lib::MASTER_TABLE . " . bousei_cleaning_flg
-                    WHEN " . Work_lib::ID_BOUSEI_CLEANING_FLG . " THEN '" . Work_lib::NAME_BOUSEI_CLEANING_FLG_COMP . "'
-                    ELSE ''
-                END bousei_cleaning_flg_name,
-                " . Work_lib::MASTER_TABLE . " . trash_flg,
-                CASE " . Work_lib::MASTER_TABLE . " . trash_flg
-                    WHEN " . Work_lib::ID_TRASH_FLG . " THEN '" . Work_lib::NAME_TRASH_FLG_COMP . "'
-                    ELSE ''
-                END trash_flg_name,
                 " . Work_lib::MASTER_TABLE . " . confirm_flg,
                 " . Work_lib::MASTER_TABLE . " . cleaning_flg,
                 " . Work_lib::MASTER_TABLE . " . status,

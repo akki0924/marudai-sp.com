@@ -107,10 +107,10 @@ class Keiryo_model extends MY_Model
         $returnVal['list'] = $this->GetList($whereSql, $orderSql, null, true);
         // 選択情報をセット
         $returnVal['select']['continue_flg'] = $this->work_lib->GetContinueFlgList();
-        $returnVal['select']['bousei_cleaning_flg'] = $this->work_lib->GetBouseiCleaningFlgList();
-        $returnVal['select']['trash_flg'] = $this->work_lib->GetTrashFlgList();
         $returnVal['select']['confirm_flg'] = $this->work_lib->GetConfirmFlgList();
         $returnVal['select']['cleaning_flg'] = $this->work_lib->GetCleaningFlgList();
+        $returnVal['select']['bousei_cleaning_flg'] = $this->work_lib->GetBouseiCleaningFlgList();
+        $returnVal['select']['trash_flg'] = $this->work_lib->GetTrashFlgList();
         $returnVal['select']['year'] = $this->date_lib->GetYearList('年', '2021');
         $returnVal['select']['month'] = $this->date_lib->GetMonthList('月');
         $returnVal['select']['day'] = $this->date_lib->GetDayList('日');
@@ -519,16 +519,6 @@ class Keiryo_model extends MY_Model
                     WHEN " . Work_lib::ID_CONTINUE_FLG_END . " THEN '" . Work_lib::NAME_CONTINUE_FLG_END . "'
                     ELSE ''
                 END continue_flg_name,
-                " . Work_lib::MASTER_TABLE . " . bousei_cleaning_flg,
-                CASE " . Work_lib::MASTER_TABLE . " . bousei_cleaning_flg
-                    WHEN " . Work_lib::ID_BOUSEI_CLEANING_FLG . " THEN '" . Work_lib::NAME_BOUSEI_CLEANING_FLG_COMP . "'
-                    ELSE ''
-                END bousei_cleaning_flg_name,
-                " . Work_lib::MASTER_TABLE . " . trash_flg,
-                CASE " . Work_lib::MASTER_TABLE . " . trash_flg
-                    WHEN " . Work_lib::ID_TRASH_FLG . " THEN '" . Work_lib::NAME_TRASH_FLG_COMP . "'
-                    ELSE ''
-                END trash_flg_name,
                 " . Work_lib::MASTER_TABLE . " . confirm_flg,
                 " . Work_lib::MASTER_TABLE . " . cleaning_flg,
                 " . Work_lib::MASTER_TABLE . " . status,
@@ -575,8 +565,6 @@ class Keiryo_model extends MY_Model
             'packing_num',
             'packing_num_total',
             'continue_flg',
-            'bousei_cleaning_flg',
-            'trash_flg',
             'confirm_flg',
             'cleaning_flg',
             'comment',
@@ -699,18 +687,6 @@ class Keiryo_model extends MY_Model
                 'field'   => 'continue_flg',
                 'label'   => '継続フラグ',
                 'rules'   => 'required|in_list[' . $this->base_lib->GetConvValidInList($this->work_lib->GetContinueFlgList()) . ']'
-            );
-            // 防錆清掃チェック
-            $returnVal[] = array(
-                'field'   => 'bousei_cleaning_flg',
-                'label'   => '防錆清掃チェック',
-                'rules'   => 'in_list[' . $this->base_lib->GetConvValidInList($this->work_lib->GetBouseiCleaningFlgList()) . ']'
-            );
-            // カゴの異物チェック
-            $returnVal[] = array(
-                'field'   => 'trash_flg',
-                'label'   => 'カゴの異物チェック',
-                'rules'   => 'in_list[' . $this->base_lib->GetConvValidInList($this->work_lib->GetTrashFlgList()) . ']'
             );
         }
         // 状態確認N=3
