@@ -97,8 +97,23 @@ $(function() {
      * 印刷ボタン
      */
     $(document).on('click', '.print_btn', function() {
+
+		$('#search_print_title').text($(this).parent().find('span').text());
+		$('#start_y_print').val($(this).parent().next('.row').find('.date_s_y').val());
+		$('#start_m_print').val($(this).parent().next('.row').find('.date_s_m').val());
+		$('#start_d_print').val($(this).parent().next('.row').find('.date_s_d').val());
+		$('#end_y_print').val($(this).parent().next('.row').find('.date_e_y').val());
+		$('#end_m_print').val($(this).parent().next('.row').find('.date_e_m').val());
+		$('#end_d_print').val($(this).parent().next('.row').find('.date_e_d').val());
+		$('#search_print_list').html($(this).parent().parent().find('.scroll').html());
+
 		window.print();
     });
+	$(document).on('change', '.data', function() {
+		console.log('changed');
+		$(this).val($(this).val());
+	});
+
 });
 	/**
      * PDF表示処理
@@ -115,7 +130,7 @@ $(function() {
 </head>
 
 <body>
-<header>
+<header class="no_print">
 	<div class="container">
 		<div class="logo mb_100"><img src="<?= SiteDir(); ?>img/logo.gif" alt="ロゴ"></div>
 	</div>
@@ -123,15 +138,15 @@ $(function() {
 
 
 <main>
-	<div class="container">
+	<div class="container no_print">
 		<p class="txt_center bold mb_10">測量器のバーコードをスキャンして記録を始めてください</p>
 		<div class="row just_center max680 mb_60">
 			<a class="btn barcode_btn"><span class="icon_bercode">測量器バーコードスキャン</span></a>
 		</div>
 
-		<input type="text" id="inputCode" name="inputCode" value="" data-role:"none">
+		<input type="text" id="inputCode" name="inputCode" value="" class="no_print" data-role:"none">
 
-		<div class="border mb_20"></div>
+		<div class="border mb_20 no_print"></div>
 		<div class="max360">
 			<label for="keiryo_trigger" class="btn second size_m mb_20"><span class="icon_record">計量記録を見る</span></label>
 			<label for="gaichu_trigger" class="btn second size_m mb_20"><span class="icon_record">外注依頼記録を見る</span></label>
@@ -142,22 +157,22 @@ $(function() {
 
 
 	<!-- 計量記録 モーダルウィンドウ ------------------------------------------------>
-	<div class="modal_window">
+	<div class="modal_window no_print">
 		<input id="keiryo_trigger" type="checkbox">
 		<div class="modal_overlay">
 			<label for="keiryo_trigger" class="modal_close"></label>
 			<div class="modal_cont record">
 				<label for="keiryo_trigger" class="btn_close"></label>
 				<form action="">
-					<p class="font_18 navy bold mb_20">計量記録　<input type="button" value="印刷" class="btn print_btn second size_ss pickup no_print"></p>
+					<p class="font_18 navy bold mb_20"><span>計量記録</span>　<input type="button" value="印刷" class="btn print_btn second size_ss pickup no_print"></p>
 					<div class="row just_start align_center mb_10">
-						<?= form_dropdown("start_y1", $select['year'], (isset($form['start_y1']) ? $form['start_y1'] : ""), 'id="start_y1" class="data mr_10"'); ?>
-						<?= form_dropdown("start_m1", $select['month'], (isset($form['start_m1']) ? $form['start_m1'] : ""), 'id="start_m1" class="data mr_10"'); ?>
-						<?= form_dropdown("start_d1", $select['day'], (isset($form['start_d1']) ? $form['start_d1'] : ""), 'id="start_d1" class="data mr_10"'); ?>
+						<?= form_dropdown("start_y1", $select['year'], (isset($form['start_y1']) ? $form['start_y1'] : ""), 'id="start_y1" class="data date_s_y mr_10"'); ?>
+						<?= form_dropdown("start_m1", $select['month'], (isset($form['start_m1']) ? $form['start_m1'] : ""), 'id="start_m1" class="data date_s_m mr_10"'); ?>
+						<?= form_dropdown("start_d1", $select['day'], (isset($form['start_d1']) ? $form['start_d1'] : ""), 'id="start_d1" class="data date_s_d mr_10"'); ?>
 						<span class="mr_10">～</span>
-						<?= form_dropdown("end_y1", $select['year'], (isset($form['end_y1']) ? $form['end_y1'] : ""), 'id="end_y1" class="data mr_10"'); ?>
-						<?= form_dropdown("end_m1", $select['month'], (isset($form['end_m1']) ? $form['end_m1'] : ""), 'id="end_m1" class="data mr_10"'); ?>
-						<?= form_dropdown("end_d1", $select['day'], (isset($form['end_d1']) ? $form['end_d1'] : ""), 'id="end_d1" class="data mr_10"'); ?>
+						<?= form_dropdown("end_y1", $select['year'], (isset($form['end_y1']) ? $form['end_y1'] : ""), 'id="end_y1" class="data date_e_y mr_10"'); ?>
+						<?= form_dropdown("end_m1", $select['month'], (isset($form['end_m1']) ? $form['end_m1'] : ""), 'id="end_m1" class="data date_e_m mr_10"'); ?>
+						<?= form_dropdown("end_d1", $select['day'], (isset($form['end_d1']) ? $form['end_d1'] : ""), 'id="end_d1" class="data date_e_d mr_10"'); ?>
 						<input type="button" value="絞り込む" class="btn search1_btn second size_ss pickup no_print">
 					</div>
 
@@ -209,22 +224,22 @@ $(function() {
 
 
 	<!-- 外注依頼記録 モーダルウィンドウ ------------------------------------------------>
-	<div class="modal_window">
+	<div class="modal_window no_print">
 		<input id="gaichu_trigger" type="checkbox">
 		<div class="modal_overlay">
 			<label for="gaichu_trigger" class="modal_close"></label>
 			<div class="modal_cont record">
 				<label for="gaichu_trigger" class="btn_close"></label>
 				<form action="">
-					<p class="font_18 navy bold mb_20">外注依頼記録　<input type="button" value="印刷" class="btn print_btn second size_ss pickup no_print"></p>
+					<p class="font_18 navy bold mb_20"><span>外注依頼記録</span>　<input type="button" value="印刷" class="btn print_btn second size_ss pickup no_print"></p>
 					<div class="row just_start align_center mb_10">
-						<?= form_dropdown("start_y2", $select['year'], (isset($form['start_y2']) ? $form['start_y2'] : ""), 'id="start_y2" class="data mr_10"'); ?>
-						<?= form_dropdown("start_m2", $select['month'], (isset($form['start_m2']) ? $form['start_m2'] : ""), 'id="start_m2" class="data mr_10"'); ?>
-						<?= form_dropdown("start_d2", $select['day'], (isset($form['start_d2']) ? $form['start_d2'] : ""), 'id="start_d2" class="data mr_10"'); ?>
+						<?= form_dropdown("start_y2", $select['year'], (isset($form['start_y2']) ? $form['start_y2'] : ""), 'id="start_y2" class="data date_s_y mr_10"'); ?>
+						<?= form_dropdown("start_m2", $select['month'], (isset($form['start_m2']) ? $form['start_m2'] : ""), 'id="start_m2" class="data date_s_m mr_10"'); ?>
+						<?= form_dropdown("start_d2", $select['day'], (isset($form['start_d2']) ? $form['start_d2'] : ""), 'id="start_d2" class="data date_s_d mr_10"'); ?>
 						<span class="mr_10">～</span>
-						<?= form_dropdown("end_y2", $select['year'], (isset($form['end_y2']) ? $form['end_y2'] : ""), 'id="end_y2" class="data mr_10"'); ?>
-						<?= form_dropdown("end_m2", $select['month'], (isset($form['end_m2']) ? $form['end_m2'] : ""), 'id="end_m2" class="data mr_10"'); ?>
-						<?= form_dropdown("end_d2", $select['day'], (isset($form['end_d2']) ? $form['end_d2'] : ""), 'id="end_d2" class="data mr_10"'); ?>
+						<?= form_dropdown("end_y2", $select['year'], (isset($form['end_y2']) ? $form['end_y2'] : ""), 'id="end_y2" class="data date_e_y mr_10"'); ?>
+						<?= form_dropdown("end_m2", $select['month'], (isset($form['end_m2']) ? $form['end_m2'] : ""), 'id="end_m2" class="data date_e_m mr_10"'); ?>
+						<?= form_dropdown("end_d2", $select['day'], (isset($form['end_d2']) ? $form['end_d2'] : ""), 'id="end_d2" class="data date_e_d mr_10"'); ?>
 						<input type="button" value="絞り込む" class="btn search2_btn second size_ss pickup no_print">
 					</div>
 
@@ -276,22 +291,22 @@ $(function() {
 
 
 	<!-- 防錆記録 モーダルウィンドウ ------------------------------------------------>
-	<div class="modal_window">
+	<div class="modal_window no_print">
 		<input id="bousei_trigger" type="checkbox">
 		<div class="modal_overlay">
 			<label for="bousei_trigger" class="modal_close"></label>
 			<div class="modal_cont record">
 				<label for="bousei_trigger" class="btn_close"></label>
 				<form action="">
-					<p class="font_18 navy bold mb_20">防錆記録　<input type="button" value="印刷" class="btn print_btn second size_ss pickup no_print"></p>
+					<p class="font_18 navy bold mb_20"><span>防錆記録</span>　<input type="button" value="印刷" class="btn print_btn second size_ss pickup no_print"></p>
 					<div class="row just_start align_center mb_10">
-						<?= form_dropdown("start_y3", $select['year'], (isset($form['start_y3']) ? $form['start_y3'] : ""), 'id="start_y3" class="data mr_10"'); ?>
-						<?= form_dropdown("start_m3", $select['month'], (isset($form['start_m3']) ? $form['start_m3'] : ""), 'id="start_m3" class="data mr_10"'); ?>
-						<?= form_dropdown("start_d3", $select['day'], (isset($form['start_d3']) ? $form['start_d3'] : ""), 'id="start_d3" class="data mr_10"'); ?>
+						<?= form_dropdown("start_y3", $select['year'], (isset($form['start_y3']) ? $form['start_y3'] : ""), 'id="start_y3" class="data date_s_y mr_10"'); ?>
+						<?= form_dropdown("start_m3", $select['month'], (isset($form['start_m3']) ? $form['start_m3'] : ""), 'id="start_m3" class="data date_s_m mr_10"'); ?>
+						<?= form_dropdown("start_d3", $select['day'], (isset($form['start_d3']) ? $form['start_d3'] : ""), 'id="start_d3" class="data date_s_d mr_10"'); ?>
 						<span class="mr_10">～</span>
-						<?= form_dropdown("end_y3", $select['year'], (isset($form['end_y3']) ? $form['end_y3'] : ""), 'id="end_y3" class="data mr_10"'); ?>
-						<?= form_dropdown("end_m3", $select['month'], (isset($form['end_m3']) ? $form['end_m3'] : ""), 'id="end_m3" class="data mr_10"'); ?>
-						<?= form_dropdown("end_d3", $select['day'], (isset($form['end_d3']) ? $form['end_d3'] : ""), 'id="end_d3" class="data mr_10"'); ?>
+						<?= form_dropdown("end_y3", $select['year'], (isset($form['end_y3']) ? $form['end_y3'] : ""), 'id="end_y3" class="data date_e_y mr_10"'); ?>
+						<?= form_dropdown("end_m3", $select['month'], (isset($form['end_m3']) ? $form['end_m3'] : ""), 'id="end_m3" class="data date_e_m mr_10"'); ?>
+						<?= form_dropdown("end_d3", $select['day'], (isset($form['end_d3']) ? $form['end_d3'] : ""), 'id="end_d3" class="data date_e_d mr_10"'); ?>
 						<input type="button" value="絞り込む" class="btn search3_btn second size_ss pickup no_print">
 					</div>
 
@@ -338,6 +353,19 @@ $(function() {
 			</div><!--/.modal_cont-->
 		</div><!--/.modal_overlay-->
 	</div><!--/.modal_window-->
+
+
+	<p id="search_print_title" class="font_18 navy bold mb_20"></p>
+	<div id="search_print_date" class="row just_start align_center mb_10">
+		<?= form_dropdown("start_y_print", $select['year'], "", 'id="start_y_print" class="data mr_10"'); ?>
+		<?= form_dropdown("start_m_print", $select['month'], "", 'id="start_m_print" class="data mr_10"'); ?>
+		<?= form_dropdown("start_d_print", $select['day'], "", 'id="start_d_print" class="data mr_10"'); ?>
+		<span class="mr_10">～</span>
+		<?= form_dropdown("end_y_print", $select['year'], "", 'id="end_y_print" class="data mr_10"'); ?>
+		<?= form_dropdown("end_m_print", $select['month'], "", 'id="end_m_print" class="data mr_10"'); ?>
+		<?= form_dropdown("end_d_print", $select['day'], "", 'id="end_d_print" class="data mr_10"'); ?>
+	</div>
+	<div id="search_print_list" class="scroll"></div>
 </main>
 
 

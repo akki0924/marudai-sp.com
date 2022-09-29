@@ -75,7 +75,7 @@ $query_builder = true;
 
 $db['default'] = array(
     'dsn'	=> '',
-    'hostname' => 'localhost',
+    'hostname' => 'mariadb1083',
     'username' => 'public_user',
     'password' => 'Y$eaTnbPwAbtFDlmy',
     'database' => 'marudai_sp_db',

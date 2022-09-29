@@ -1,6 +1,7 @@
 $(function () {
     ChangeSubmitBtn();
     ChangeTotalNum();
+    InitComma();
     $(document).on('keyup', '#member_num', function() {
         ChangeTotalNum();
         ValidNum();
@@ -84,6 +85,17 @@ $(function () {
     $('#confirm_flg,#cleaning_flg').on('change', function() {
         ChangeSubmitBtn();
     });
+
+    $(document).on('blur', '#member_num,#packing_num,#f_num,#packing_num_total,#bousei_num', function() {
+        $(this).val(addFigure($(this).val()));
+    });
+
+
+    $(document).on('focus', '#member_num,#packing_num,#f_num,#packing_num_total,#bousei_num', function() {
+        $(this).val(delFigure($(this).val()));
+    });
+
+
     $(document).on('click', '.pdf_btn', function() {
         var ajaxUrl = 'keiryo/ajax_pdf';
         var ajaxObj = {
@@ -176,6 +188,15 @@ $(function () {
      * 印刷ボタン
      */
     $(document).on('click', '.print_btn', function() {
+		$('#search_print_title').text($(this).parent().find('span').text());
+		$('#start_y_print').val($(this).parent().parent().find('.row').find('.date_s_y').val());
+		$('#start_m_print').val($(this).parent().parent().find('.row').find('.date_s_m').val());
+		$('#start_d_print').val($(this).parent().parent().find('.row').find('.date_s_d').val());
+		$('#end_y_print').val($(this).parent().parent().find('.row').find('.date_e_y').val());
+		$('#end_m_print').val($(this).parent().parent().find('.row').find('.date_e_m').val());
+		$('#end_d_print').val($(this).parent().parent().find('.row').find('.date_e_d').val());
+		$('#search_print_list').html($(this).parent().parent().find('.scroll').html());
+
 		window.print();
     });
 });
@@ -203,7 +224,7 @@ function ValidNum () {
     <?php } ?>
     if (
         $(targetSel).val() != '' &&
-        $(targetSel).val().match(/^[0-9]+$/)
+        $(targetSel).val().match(/^[0-9,]+$/)
     ) {
         $(targetSel).removeClass('form_error_textbox');
     }
@@ -220,7 +241,7 @@ function ValidPack () {
     <?php } ?>
     if (
         $(targetSel).val() != '' &&
-        $(targetSel).val().match(/^[0-9]+$/)
+        $(targetSel).val().match(/^[0-9,]+$/)
     ) {
         $(targetSel).removeClass('form_error_textbox');
     }
@@ -256,8 +277,8 @@ function ValidWorker () {
 
 
 function ChangeTotalNum(){
-    var num1 = $('#member_num').val();
-    var num2 = $('#packing_num').val();
+    var num1 = delFigure($('#member_num').val());
+    var num2 = delFigure($('#packing_num').val());
     if (
         $.isNumeric(num1) &&
         $.isNumeric(num2)
@@ -317,10 +338,10 @@ function CheckRegist1(){
     if (
         number &&
         num &&
-        (num.match(/^[0-9]+$/)) &&
+        (num.match(/^[0-9,]+$/)) &&
         <?php if ($placeData['type'] == 1 || $placeData['type'] == 2) { ?>
         pack &&
-        (pack.match(/^[0-9]+$/)) &&
+        (pack.match(/^[0-9,]+$/)) &&
         <?php } ?>
         chk1 &&
         chk2
@@ -356,3 +377,75 @@ function DispError(){
 
 var suggestData = [];
 var suggestUrl = [];
+
+
+
+/**
+ * 数値の3桁カンマ区切り
+ * 入力値をカンマ区切りにして返却
+ * [引数]   numVal: 入力数値
+ * [返却値] String(): カンマ区切りされた文字列
+ */
+function addFigure(numVal) {
+    // 空の場合そのまま返却
+    if (numVal == ''){
+        return '';
+    }
+    if (numVal) {
+        // 全角から半角へ変換し、既にカンマが入力されていたら事前に削除
+        numVal = toHalfWidth(numVal).replace(/,/g, "").trim();
+    }
+    // 数値でなければそのまま返却
+    if ( !/^[+|-]?(\d*)(\.\d+)?$/.test(numVal) ){
+        return numVal;
+　　}
+    // 整数部分と小数部分に分割
+    var numData = numVal.toString().split('.');
+    // 整数部分を3桁カンマ区切りへ
+    numData[0] = Number(numData[0]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    // 小数部分と結合して返却
+    return numData.join('.');
+}
+
+/**
+ * カンマ外し
+ * 入力値のカンマを取り除いて返却
+ * [引数]   strVal: 半角でカンマ区切りされた数値
+ * [返却値] String(): カンマを削除した数値
+ */
+function delFigure(strVal){
+    if (strVal) {
+        return strVal.replace( /,/g , "" );
+    }
+    else {
+        return ;
+    }
+}
+
+/**
+ * 全角から半角への変革関数
+ * 入力値の英数記号を半角変換して返却
+ * [引数]   strVal: 入力値
+ * [返却値] String(): 半角変換された文字列
+ */
+function toHalfWidth(strVal){
+    if (strVal) {
+        // 半角変換
+        var halfVal = strVal.replace(/[！-～]/g,
+            function( tmpStr ) {
+                // 文字コードをシフト
+                return String.fromCharCode( tmpStr.charCodeAt(0) - 0xFEE0 );
+            }
+        );
+    }
+    return halfVal;
+}
+
+
+function InitComma () {
+    $('#member_num').val(addFigure($('#member_num').val()));
+    $('#packing_num').val(addFigure($('#packing_num').val()));
+    $('#f_num').val(addFigure($('#f_num').val()));
+    $('#packing_num_total').val(addFigure($('#packing_num_total').val()));
+    $('#bousei_num').val(addFigure($('#bousei_num').val()));
+}

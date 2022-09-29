@@ -178,6 +178,16 @@ class Keiryo_model extends MY_Model
                 else {
                     // 登録情報にセット
                     $form[$key] = $this->input->post_get($key, true);
+                    // カンマ情報を削除
+                    if (
+                        $key == 'member_num' ||
+                        $key == 'packing_num' ||
+                        $key == 'f_num' ||
+                        $key == 'packing_num_total' ||
+                        $key == 'bousei_num'
+                    ) {
+                        $form[$key] = str_replace(',', '', $form[$key]);
+                    }
                 }
             }
             // 秤バーコードから秤IDを取得
@@ -320,7 +330,7 @@ class Keiryo_model extends MY_Model
             }
             */
             // PDFファイルの存在
-            $pdfFileName =  $data['product']['number'] . '.pdf';
+            $pdfFileName =  $data['product']['id'] . '.pdf';
             if ($this->upload_lib->FileExists('pdf' . DIRECTORY_SEPARATOR . $pdfFileName)) {
                 $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#inputCode'] = $this->upload_lib->GetSrcWebPath('pdf' . DIRECTORY_SEPARATOR . $pdfFileName);
                 $returnVal[Jscss_lib::KEY_AJAX_REACTION_FUNC]['#inputCode'] = 'val';
@@ -356,7 +366,7 @@ class Keiryo_model extends MY_Model
             // 現品詳細情報を取得
             $product = $this->product_lib->GetDetailValues($id, true);
             // PDFファイルの存在
-            $pdfFileName =  $product['number'] . '.pdf';
+            $pdfFileName =  $product['id'] . '.pdf';
             if ($this->upload_lib->FileExists('pdf' . DIRECTORY_SEPARATOR . $pdfFileName)) {
                 $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#inputCode'] = $this->upload_lib->GetSrcWebPath('pdf' . '/' . $pdfFileName);
                 $returnVal[Jscss_lib::KEY_AJAX_REACTION_FUNC]['#inputCode'] = 'val';
@@ -407,7 +417,7 @@ class Keiryo_model extends MY_Model
                 $endM != '' &&
                 $endD != ''
             ) {
-                $endDate =  $endY . "-" . $endM . "-" . ($endD + 1);
+                $endDate =  date('Y-m-d', mktime(0, 0, 0, $endM, $endD + 1, $endY));
                 $whereSql[] = Work_lib::MASTER_TABLE . " . end_date < '" . $endDate . "'";
             }
             // ORDER情報をセット
@@ -538,7 +548,7 @@ class Keiryo_model extends MY_Model
                 // PDF存在フラグデータを初期化してセット
                 $returnVal[$i]['pdf_exists'] = false;
                 // 対象データのPDFの存在確認
-                if ($this->upload_lib->FileExists('pdf' . DIRECTORY_SEPARATOR . $returnVal[$i]['number'] . '.pdf')) {
+                if ($this->upload_lib->FileExists('pdf' . DIRECTORY_SEPARATOR . $returnVal[$i]['id'] . '.pdf')) {
                     // PDF存在フラグ情報を再セット
                     $returnVal[$i]['pdf_exists'] = true;
                 }
@@ -621,40 +631,65 @@ class Keiryo_model extends MY_Model
         // 記録対象が計量記録
         if ($placeData['type'] == Place_lib::ID_TYPE_MEASUREMENT) {
             // 員数
+            //$returnVal[] = array(
+            //    'field'   => 'member_num',
+            //    'label'   => '員数',
+            //    'rules'   => 'required|greater_than_equal_to[0]'
+            //);
             $returnVal[] = array(
                 'field'   => 'member_num',
                 'label'   => '員数',
-                'rules'   => 'required|greater_than_equal_to[0]'
+                'rules'   => 'required'
             );
             // 荷姿数量
+            //$returnVal[] = array(
+            //    'field'   => 'packing_num',
+            //    'label'   => '荷姿数量',
+            //    'rules'   => 'required|greater_than_equal_to[0]'
+            //);
             $returnVal[] = array(
                 'field'   => 'packing_num',
                 'label'   => '荷姿数量',
-                'rules'   => 'required|greater_than_equal_to[0]'
+                'rules'   => 'required'
             );
         }
         // 記録対象が外注依頼記録
         elseif ($placeData['type'] == Place_lib::ID_TYPE_OUTSOURCING) {
             // 現場エフ数量
+            //$returnVal[] = array(
+            //    'field'   => 'f_num',
+            //    'label'   => '現場エフ数量',
+            //    'rules'   => 'required|greater_than_equal_to[0]'
+            //);
             $returnVal[] = array(
                 'field'   => 'f_num',
                 'label'   => '現場エフ数量',
-                'rules'   => 'required|greater_than_equal_to[0]'
+                'rules'   => 'required'
             );
             // 実荷姿数量
+            //$returnVal[] = array(
+            //    'field'   => 'packing_num_total',
+            //    'label'   => '実荷姿数量',
+            //    'rules'   => 'required|greater_than_equal_to[0]'
+            //);
             $returnVal[] = array(
                 'field'   => 'packing_num_total',
                 'label'   => '実荷姿数量',
-                'rules'   => 'required|greater_than_equal_to[0]'
+                'rules'   => 'required'
             );
         }
         // 記録対象が防錆記録
         elseif ($placeData['type'] == Place_lib::ID_TYPE_BOUSEI) {
             // 数量
+            //$returnVal[] = array(
+            //    'field'   => 'bousei_num',
+            //    'label'   => '数量',
+            //    'rules'   => 'required|greater_than_equal_to[0]'
+            //);
             $returnVal[] = array(
                 'field'   => 'bousei_num',
                 'label'   => '数量',
-                'rules'   => 'required|greater_than_equal_to[0]'
+                'rules'   => 'required'
             );
         }
         // 作業者一覧をセット

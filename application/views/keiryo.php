@@ -29,8 +29,8 @@
 </head>
 
 <body>
-<header class="second">
-	<div class="container">
+<header class="second no_print">
+	<div class="container no_print">
 		<a href="index.html" class="btn_return"><span class="icon_return">初期画面に戻る</span></a>
 		<p class="font_24 bold txt_center">
 			<?php
@@ -60,7 +60,7 @@
 </header>
 
 
-<main class="second">
+<main class="second no_print">
 	<div class="container">
 		<div class="row just_center mb_10">
 			<p class="machine">
@@ -73,7 +73,7 @@
 			<input type="text" id="inputCode" name="inputCode" value="" data-role:"none">
 		</div>
 
-		<form method="post" id="operation_form" name="operation_form" class="boad mb_20<?= $placeData['type'] == 2 ? ' gaichu' : '' ?>" action="<?= SiteDir(); ?>keiryo/input/<?= $placeData['code'] ?>">
+		<form method="post" id="operation_form" name="operation_form" class="boad mb_20 no_print<?= $placeData['type'] == 2 ? ' gaichu' : '' ?>" action="<?= SiteDir(); ?>keiryo/input/<?= $placeData['code'] ?>">
 			<div id="input_group1"  class="row just_start align_center mb_20">
 				<p class="font_18 blue bold mr_20">品番</p>
 				<input type="text" id="number" name="number" value="<?= VarDisp($form['number']) ?>" class="txt_center disa half">
@@ -169,7 +169,7 @@
 
 
 	<!-- キーボード モーダルウィンドウ -->
-	<div class="modal_window">
+	<div class="modal_window no_print">
 		<input id="keyboad_trigger" name="keyboad_trigger" type="checkbox" value="">
 		<div class="modal_overlay">
 			<label for="keyboad_trigger" class="modal_close"></label>
@@ -198,7 +198,7 @@
 	</div><!--/.modal_window-->
 
 	<!-- 作業者 モーダルウィンドウ -->
-	<div class="modal_window">
+	<div class="modal_window no_print">
 		<input id="comp_trigger" type="checkbox" value="">
 		<div class="modal_overlay">
 			<label for="comp_trigger" class="modal_close"></label>
@@ -216,7 +216,7 @@
 	</div><!--/.modal_window-->
 
 	<!-- <?= ($placeData['type'] == 1 ? '計量記録' : '') ?><?= ($placeData['type'] == 2 ? '外注依頼記録' : '') ?><?= ($placeData['type'] == 3 ? '防錆記録' : '') ?> モーダルウィンドウ ------------------------------------------------>
-	<div class="modal_window">
+	<div class="modal_window no_print">
 		<input id="keiryo_trigger" type="checkbox">
 		<div class="modal_overlay">
 			<label for="keiryo_trigger" class="modal_close"></label>
@@ -224,17 +224,17 @@
 				<label for="keiryo_trigger" class="btn_close"></label>
 				<form method="post" id="list_form" name="list_form" action="">
 					<p class="font_18 navy bold mb_20">
-						<?= ($placeData['type'] == 1 ? '計量記録' : '') ?><?= ($placeData['type'] == 2 ? '外注依頼記録' : '') ?><?= ($placeData['type'] == 3 ? '防錆記録' : '') ?>
+						<span><?= ($placeData['type'] == 1 ? '計量記録' : '') ?><?= ($placeData['type'] == 2 ? '外注依頼記録' : '') ?><?= ($placeData['type'] == 3 ? '防錆記録' : '') ?></span>
 						　<input type="button" value="印刷" class="btn print_btn second size_ss pickup no_print"></p>
 					</p>
 					<div class="row just_start align_center mb_10">
-						<?= form_dropdown("start_y", $select['year'], (isset($form['start_y']) ? $form['start_y'] : ""), 'id="start_y" class="data mr_10"'); ?>
-						<?= form_dropdown("start_m", $select['month'], (isset($form['start_m']) ? $form['start_m'] : ""), 'id="start_m" class="data mr_10"'); ?>
-						<?= form_dropdown("start_d", $select['day'], (isset($form['start_d']) ? $form['start_d'] : ""), 'id="start_d" class="data mr_10"'); ?>
+						<?= form_dropdown("start_y", $select['year'], (isset($form['start_y']) ? $form['start_y'] : ""), 'id="start_y" class="data date_s_y mr_10"'); ?>
+						<?= form_dropdown("start_m", $select['month'], (isset($form['start_m']) ? $form['start_m'] : ""), 'id="start_m" class="data date_s_m mr_10"'); ?>
+						<?= form_dropdown("start_d", $select['day'], (isset($form['start_d']) ? $form['start_d'] : ""), 'id="start_d" class="data date_s_d mr_10"'); ?>
 						<span class="mr_10">～</span>
-						<?= form_dropdown("end_y", $select['year'], (isset($form['end_y']) ? $form['end_y'] : ""), 'id="end_y" class="data mr_10"'); ?>
-						<?= form_dropdown("end_m", $select['month'], (isset($form['end_m']) ? $form['end_m'] : ""), 'id="end_m" class="data mr_10"'); ?>
-						<?= form_dropdown("end_d", $select['day'], (isset($form['end_d']) ? $form['end_d'] : ""), 'id="end_d" class="data mr_10"'); ?>
+						<?= form_dropdown("end_y", $select['year'], (isset($form['end_y']) ? $form['end_y'] : ""), 'id="end_y" class="data date_e_y mr_10"'); ?>
+						<?= form_dropdown("end_m", $select['month'], (isset($form['end_m']) ? $form['end_m'] : ""), 'id="end_m" class="data date_e_m mr_10"'); ?>
+						<?= form_dropdown("end_d", $select['day'], (isset($form['end_d']) ? $form['end_d'] : ""), 'id="end_d" class="data date_e_d mr_10"'); ?>
 						<input type="button" value="絞り込む" class="btn search_btn second size_s pickup no_print">
 					</div>
 
@@ -363,5 +363,19 @@
 		</div><!--/.modal_overlay-->
 	</div><!--/.modal_window-->
 </main>
+<div>
+	<p id="search_print_title" class="font_18 navy bold mb_20"></p>
+	<div id="search_print_date" class="row just_start align_center mb_10">
+		<?= form_dropdown("start_y_print", $select['year'], "", 'id="start_y_print" class="data mr_10"'); ?>
+		<?= form_dropdown("start_m_print", $select['month'], "", 'id="start_m_print" class="data mr_10"'); ?>
+		<?= form_dropdown("start_d_print", $select['day'], "", 'id="start_d_print" class="data mr_10"'); ?>
+		<span class="mr_10">～</span>
+		<?= form_dropdown("end_y_print", $select['year'], "", 'id="end_y_print" class="data mr_10"'); ?>
+		<?= form_dropdown("end_m_print", $select['month'], "", 'id="end_m_print" class="data mr_10"'); ?>
+		<?= form_dropdown("end_d_print", $select['day'], "", 'id="end_d_print" class="data mr_10"'); ?>
+	</div>
+	<div id="search_print_list" class="scroll"></div>
+
+</div>
 </body>
 </html>

@@ -257,6 +257,38 @@ class MY_Form_validation extends CI_Form_validation
         }
     }
     //====================================================================
+    //  関数名 : ValidProductCode
+    //  概　要 : 対象商品のバーコードの他の登録有無を返す
+    //  引　数 : $code : バーコード
+    //           $id : ユーザーID
+    public function ValidProductCode($code, $id = '')
+    {
+        // ライブラリー読込み
+        $this->CI->load->library(Base_lib::MASTER_DIR . '/product_lib');
+        if (! $this->CI->product_lib->CodeSameExists($code, $id, true)) {
+            return true;
+        } else {
+            $this->set_message('ValidProductCode', '既に登録されています。');
+            return false;
+        }
+    }
+    //====================================================================
+    //  関数名 : ValidProductNumber
+    //  概　要 : 対象商品の品番の他の登録有無を返す
+    //  引　数 : $number : 品番
+    //           $id : ユーザーID
+    public function ValidProductNumber($number, $id = '')
+    {
+        // ライブラリー読込み
+        $this->CI->load->library(Base_lib::MASTER_DIR . '/product_lib');
+        if (! $this->CI->product_lib->CodeSameExists($number, $id, true)) {
+            return true;
+        } else {
+            $this->set_message('ValidProductNumber', '既に登録されています。');
+            return false;
+        }
+    }
+    //====================================================================
     //  関数名 : ValidZip
     //  概　要 : 郵便番号の形式確認を返す
     //  引　数 : $zip1 : 郵便番号前半（または単独）

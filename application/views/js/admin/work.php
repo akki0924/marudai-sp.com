@@ -34,6 +34,8 @@ $(function () {
         $('#operation_form').submit();
     });
     $(document).on('click', '.del_btn', function() {
+        // IDをセット
+        $('#id').val($(this).data('id'));
         var mainObj = {
             title:'情報を削除します',
             body:'情報を削除します。<br>よろしいですか？'
@@ -41,14 +43,13 @@ $(function () {
 		// ボタン情報をセット
 		var buttonsObj = [
 			{
-				text : '上書き',
+				text : '削除',
 				click: function() {
-					// 上書き処理
-					$('[name="name"]').val(name);
-					$('[name="name_simple"]').val(name_simple);
-					$('[name="detail"]').val(detail);
+					// 削除処理
+                    $('#operation_form').attr( 'action', '<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/work/del/<?= $placeType ?>' );
+                    $('#operation_form').submit();
 					$(this).dialog("close");
-					}
+                }
 			},
 			{
 				text : 'キャンセル',
@@ -70,6 +71,7 @@ $(function () {
     });
     $('.csv_btn').click(function() {
         $('#operation_form').attr( 'action', '<?= SiteDir(); ?><?= $const['access_admin_dir'] ?>/work/up_dl/<?= $placeType ?>' );
+        $('#id').val($(this).data('id'));
         $('#operation_form').submit();
     });
     $('.conf_btn').click(function() {

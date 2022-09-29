@@ -221,6 +221,7 @@ class Top_model extends MY_Model
             }
             // テンプレート情報をセット
             $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#search_' . $templateType . '_list'] = $this->load->view('index_part_list', $data, true);
+            $returnVal[Jscss_lib::KEY_AJAX_REACTION]['#search_' . $templateType . '_print'] = $this->load->view('index_part_list', $data, true);
         }
         return $returnVal;
     }
@@ -325,7 +326,7 @@ class Top_model extends MY_Model
                 // PDF存在フラグデータを初期化してセット
                 $returnVal[$i]['pdf_exists'] = false;
                 // 対象データのPDFの存在確認
-                if ($this->upload_lib->FileExists('pdf' . DIRECTORY_SEPARATOR . $returnVal[$i]['number'] . '.pdf')) {
+                if ($this->upload_lib->FileExists('pdf' . DIRECTORY_SEPARATOR . $returnVal[$i]['id'] . '.pdf')) {
                     // PDF存在フラグ情報を再セット
                     $returnVal[$i]['pdf_exists'] = true;
                 }
