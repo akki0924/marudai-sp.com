@@ -204,7 +204,7 @@ $(function() {
 								<td><?= $list_m[$i]['lot'] ?></td>
 								<td><?= $list_m[$i]['num'] ?></td>
 								<td><?= $list_m[$i]['packing'] ?></td>
-								<td><?= $list_m[$i]['total_num'] ?></td>
+								<td><?= VarNum($list_m[$i]['total_num']) ?></td>
 								<td>
 									<?= $list_m[$i]['worker1_name'] ?>
 									<?= ($list_m[$i]['worker2_name'] ? '・' . $list_m[$i]['worker2_name'] : '') ?>

@@ -268,7 +268,7 @@
 						      <td><?= $list[$i]['lot'] ?></td>
 						      <td><?= $list[$i]['num'] ?></td>
 						      <td><?= $list[$i]['packing'] ?></td>
-						      <td><?= $list[$i]['total_num'] ?></td>
+						      <td><?= VarNum($list[$i]['total_num']) ?></td>
 						      <td>
 								<?= $list[$i]['worker1_name'] ?>
 								<?= ($list[$i]['worker2_name'] ? '・' . $list[$i]['worker2_name'] : '') ?>
