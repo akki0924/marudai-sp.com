@@ -202,8 +202,8 @@ $(function() {
 									<td><?= $list_m[$i]['number'] ?></td>
 								<?php } ?>
 								<td><?= $list_m[$i]['lot'] ?></td>
-								<td><?= $list_m[$i]['num'] ?></td>
-								<td><?= $list_m[$i]['packing'] ?></td>
+								<td><?= VarNum($list_m[$i]['num']) ?></td>
+								<td><?= VarNum($list_m[$i]['packing']) ?></td>
 								<td><?= VarNum($list_m[$i]['total_num']) ?></td>
 								<td>
 									<?= $list_m[$i]['worker1_name'] ?>
@@ -269,8 +269,8 @@ $(function() {
 									<td><?= $list_o[$i]['number'] ?></td>
 								<?php } ?>
 								<td><?= $list_o[$i]['lot'] ?></td>
-								<td><?= $list_o[$i]['num'] ?></td>
-								<td><?= $list_o[$i]['packing'] ?></td>
+								<td><?= VarNum($list_o[$i]['num']) ?></td>
+								<td><?= VarNum($list_o[$i]['packing']) ?></td>
 								<td><?= $list_o[$i]['continue_flg_name'] ?></td>
 								<td>
 									<?= $list_o[$i]['worker1_name'] ?>
@@ -335,7 +335,7 @@ $(function() {
 									<td><?= $list_b[$i]['number'] ?></td>
 								<?php } ?>
 								<td><?= $list_b[$i]['lot'] ?></td>
-								<td><?= $list_b[$i]['num'] ?></td>
+								<td><?= VarNum($list_b[$i]['num']) ?></td>
 								<td><?= $list_b[$i]['continue_flg_name'] ?></td>
 								<td>
 									<?= $list_b[$i]['worker1_name'] ?>

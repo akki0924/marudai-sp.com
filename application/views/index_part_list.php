@@ -25,8 +25,8 @@
             <td><?= $list[$i]['number'] ?></td>
         <?php } ?>
         <td><?= $list[$i]['lot'] ?></td>
-        <td><?= $list[$i]['num'] ?></td>
-        <td><?= $list[$i]['packing'] ?></td>
+        <td><?= VarNum($list[$i]['num']) ?></td>
+        <td><?= VarNum($list[$i]['packing']) ?></td>
         <td><?= VarNum($list[$i]['total_num']) ?></td>
         <td>
         <?= $list[$i]['worker1_name'] ?>
@@ -63,8 +63,8 @@
             <td><?= $list[$i]['number'] ?></td>
         <?php } ?>
         <td><?= $list[$i]['lot'] ?></td>
-        <td><?= $list[$i]['num'] ?></td>
-        <td><?= $list[$i]['packing'] ?></td>
+        <td><?= VarNum($list[$i]['num']) ?></td>
+        <td><?= VarNum($list[$i]['packing']) ?></td>
         <td><?= $list[$i]['continue_flg_name'] ?></td>
         <td>
         <?= $list[$i]['worker1_name'] ?>
@@ -100,7 +100,7 @@
             <td><?= $list[$i]['number'] ?></td>
         <?php } ?>
         <td><?= $list[$i]['lot'] ?></td>
-        <td><?= $list[$i]['num'] ?></td>
+        <td><?= VarNum($list[$i]['num']) ?></td>
         <td><?= $list[$i]['continue_flg_name'] ?></td>
         <td>
         <?= $list[$i]['worker1_name'] ?>
