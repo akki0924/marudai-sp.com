@@ -284,6 +284,7 @@ class Top_model extends MY_Model
                 END place_name,
                 " . Work_lib::MASTER_TABLE . " . place_type,
                 " . Work_lib::MASTER_TABLE . " . place_scale,
+                " . Product_lib::MASTER_TABLE . " . id AS product_id,
                 " . Work_lib::MASTER_TABLE . " . number,
                 " . Work_lib::MASTER_TABLE . " . lot,
                 CASE " . Work_lib::MASTER_TABLE . " . place_type
@@ -315,6 +316,7 @@ class Top_model extends MY_Model
                 " . Work_lib::MASTER_TABLE . " . edit_date,
                 DATE_FORMAT(" . Work_lib::MASTER_TABLE . ".edit_date, '%Y.%c.%e') AS edit_date_disp
             FROM " . Work_lib::MASTER_TABLE . "
+            LEFT OUTER JOIN " . Product_lib::MASTER_TABLE . " ON " . Work_lib::MASTER_TABLE . " . number = " . Product_lib::MASTER_TABLE . " . number
             " . (isset($whereSql) && count($whereSql) > 0 ? (" WHERE ( " . @implode(" AND ", $whereSql)) . " ) " : "") . "
             " . $orderSqlVal . "
             " . (isset($limitSqlVal) ? $limitSqlVal : '') . ";
@@ -326,7 +328,7 @@ class Top_model extends MY_Model
                 // PDF存在フラグデータを初期化してセット
                 $returnVal[$i]['pdf_exists'] = false;
                 // 対象データのPDFの存在確認
-                if ($this->upload_lib->FileExists('pdf' . DIRECTORY_SEPARATOR . $returnVal[$i]['id'] . '.pdf')) {
+                if ($this->upload_lib->FileExists('pdf' . DIRECTORY_SEPARATOR . $returnVal[$i]['product_id'] . '.pdf')) {
                     // PDF存在フラグ情報を再セット
                     $returnVal[$i]['pdf_exists'] = true;
                 }
